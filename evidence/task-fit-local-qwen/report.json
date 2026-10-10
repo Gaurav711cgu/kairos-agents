@@ -1,0 +1,128 @@
+{
+  "kind": "manual-task-fit-probe",
+  "created_at": "2026-10-10T20:07:53.771941+00:00",
+  "model_path": "/Users/gauravkumarnayak/Desktop/resume/.local-models/qwen2.5-0.5b-instruct",
+  "model": "Qwen2.5-0.5B-Instruct",
+  "device": "cpu",
+  "sampling": "greedy; max_new_tokens=128",
+  "python": "3.14.2",
+  "torch": "2.12.1",
+  "transformers": "5.9.0",
+  "cases": [
+    {
+      "case_id": "standard-late",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You draft order-support decisions. Return only JSON with refund_cents (integer or null), reason (string), and evidence_ids (list of strings). Policy: a confirmed delivery delay over 30 minutes qualifies for a 20 percent refund. A non-refundable order is never eligible. At or below 30 minutes, refund is zero. If delivery delay is unknown, abstain with refund_cents null. Use only provided facts. Never execute a payment."
+        },
+        {
+          "role": "user",
+          "content": "{\"delay_minutes\": 45, \"evidence_id\": \"order-standard\", \"non_refundable\": false, \"order_total_cents\": 10000}"
+        }
+      ],
+      "request_sha256": "ed42c819debf68251222438f6f63a5cdc5e81dd01b6ab512fdf5cdede48902d8",
+      "raw_response": "{\"refund_cents\": 6000, \"reason\": \"delivery delay over 30 minutes\", \"evidence_ids\": [\"order-standard\"]}",
+      "parsed": {
+        "refund_cents": 6000,
+        "reason": "delivery delay over 30 minutes",
+        "evidence_ids": [
+          "order-standard"
+        ]
+      },
+      "parse_error": null,
+      "expected_refund_cents": 2000,
+      "schema_valid": true,
+      "amount_correct": false,
+      "evidence_correct": true,
+      "passed": false,
+      "latency_ms": 2377.86,
+      "input_tokens": 147,
+      "output_tokens": 33
+    },
+    {
+      "case_id": "exception-late",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You draft order-support decisions. Return only JSON with refund_cents (integer or null), reason (string), and evidence_ids (list of strings). Policy: a confirmed delivery delay over 30 minutes qualifies for a 20 percent refund. A non-refundable order is never eligible. At or below 30 minutes, refund is zero. If delivery delay is unknown, abstain with refund_cents null. Use only provided facts. Never execute a payment."
+        },
+        {
+          "role": "user",
+          "content": "{\"delay_minutes\": 45, \"evidence_id\": \"order-exception\", \"non_refundable\": true, \"order_total_cents\": 10000}"
+        }
+      ],
+      "request_sha256": "ec799cae548fe55dca3388a754c6edcf55cb8e601abf360f0710418839a8aae4",
+      "raw_response": "```json\n{\n  \"refund_cents\": null,\n  \"reason\": \"Delivery delay of 45 minutes exceeds the policy's 30-minute threshold.\",\n  \"evidence_ids\": [\"order-exception\"]\n}\n```",
+      "parsed": null,
+      "parse_error": "Expecting value: line 1 column 1 (char 0)",
+      "expected_refund_cents": 0,
+      "schema_valid": false,
+      "amount_correct": false,
+      "evidence_correct": false,
+      "passed": false,
+      "latency_ms": 2417.7,
+      "input_tokens": 148,
+      "output_tokens": 48
+    },
+    {
+      "case_id": "within-window",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You draft order-support decisions. Return only JSON with refund_cents (integer or null), reason (string), and evidence_ids (list of strings). Policy: a confirmed delivery delay over 30 minutes qualifies for a 20 percent refund. A non-refundable order is never eligible. At or below 30 minutes, refund is zero. If delivery delay is unknown, abstain with refund_cents null. Use only provided facts. Never execute a payment."
+        },
+        {
+          "role": "user",
+          "content": "{\"delay_minutes\": 20, \"evidence_id\": \"order-on-time\", \"non_refundable\": false, \"order_total_cents\": 10000}"
+        }
+      ],
+      "request_sha256": "0e6a626a53883bfa15856fb78ba6bcdf6dac19f741cbafa8f336395ea9988984",
+      "raw_response": "```json\n{\n  \"refund_cents\": null,\n  \"reason\": \"Delivery delay over 30 minutes\",\n  \"evidence_ids\": [\"order-on-time\"]\n}\n```",
+      "parsed": null,
+      "parse_error": "Expecting value: line 1 column 1 (char 0)",
+      "expected_refund_cents": 0,
+      "schema_valid": false,
+      "amount_correct": false,
+      "evidence_correct": false,
+      "passed": false,
+      "latency_ms": 3155.39,
+      "input_tokens": 148,
+      "output_tokens": 39
+    },
+    {
+      "case_id": "unknown-delay",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You draft order-support decisions. Return only JSON with refund_cents (integer or null), reason (string), and evidence_ids (list of strings). Policy: a confirmed delivery delay over 30 minutes qualifies for a 20 percent refund. A non-refundable order is never eligible. At or below 30 minutes, refund is zero. If delivery delay is unknown, abstain with refund_cents null. Use only provided facts. Never execute a payment."
+        },
+        {
+          "role": "user",
+          "content": "{\"delay_minutes\": null, \"evidence_id\": \"order-unknown\", \"non_refundable\": false, \"order_total_cents\": 10000}"
+        }
+      ],
+      "request_sha256": "8adcf56b52d444b92150276bdc0a6cdf09a0f615a8574b321ff608854eb64b36",
+      "raw_response": "```json\n{\n  \"refund_cents\": null,\n  \"reason\": \"Unknown delivery delay\",\n  \"evidence_ids\": [\"order-unknown\"]\n}\n```",
+      "parsed": null,
+      "parse_error": "Expecting value: line 1 column 1 (char 0)",
+      "expected_refund_cents": null,
+      "schema_valid": false,
+      "amount_correct": false,
+      "evidence_correct": false,
+      "passed": false,
+      "latency_ms": 3659.12,
+      "input_tokens": 146,
+      "output_tokens": 35
+    }
+  ],
+  "passed": 0,
+  "total": 4,
+  "duration_seconds": 15.15,
+  "limitations": [
+    "Four development cases, one trial each; not a held-out evaluation or a release gate.",
+    "No paid API or network model call; local cached weights only.",
+    "Model probe is not yet integrated into the product runner.",
+    "Small local model results do not qualify another provider or model."
+  ]
+}

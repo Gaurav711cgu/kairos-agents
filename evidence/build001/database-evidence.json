@@ -1,0 +1,29 @@
+{
+  "provenance": "Measured from committed, published synthetic runs in the connected PostgreSQL database.",
+  "runner": "deterministic-reference-policy",
+  "model": null,
+  "run_count": 7,
+  "event_count": 49,
+  "passing_runs": 6,
+  "failing_runs": 1,
+  "abstained_runs": 1,
+  "integrity_verified_runs": 7,
+  "fork_count": 4,
+  "checks": [
+    {
+      "name": "local_hash_consistency",
+      "passed": true,
+      "detail": "Local event hash consistency only; database administrators can rewrite history."
+    },
+    {
+      "name": "model_qualification",
+      "passed": null,
+      "detail": "Not evaluated: no language model is used by this reference runner."
+    }
+  ],
+  "limitations": [
+    "Synthetic tasks do not establish real customer adoption or model quality.",
+    "Forks rerun the complete controlled scenario; arbitrary checkpoint resume is not implemented.",
+    "No external writes, payments, throughput benchmarks, bootstrap confidence intervals or hosted CI claims."
+  ]
+}

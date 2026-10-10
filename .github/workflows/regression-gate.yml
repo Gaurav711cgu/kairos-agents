@@ -1,45 +1,52 @@
-name: Kairos Regression Gate
+name: Kairos slice integration
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
-  statistical-ci-gate:
+  api-postgres:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18@sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336
+        env:
+          POSTGRES_DB: kairos_test
+          POSTGRES_USER: kairos
+          POSTGRES_PASSWORD: ci-test-only-password
+        ports: [5432:5432]
+        options: >-
+          --health-cmd "pg_isready -U kairos -d kairos_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql://kairos:ci-test-only-password@127.0.0.1:5432/kairos_test
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Go 1.22
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22'
-          cache-dependency-path: ingest/go.sum
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: 'pip'
+          cache: pip
+          cache-dependency-path: requirements-api.lock
+      - run: pip install -r requirements-api.lock
+      - run: python -m pytest tests/test_api_runner.py tests/test_api_postgres.py -q
 
-      - name: Install Python Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest httpx
-
-      - name: Execute Go Ingest Unit & Concurrency Tests
-        run: |
-          cd ingest
-          go test -v -race ./...
-
-      - name: Execute Python Harness & Divergence Detector Tests
-        run: |
-          pytest -v tests/
-
-      - name: Execute Paired Bootstrap Statistical Regression Gate (N=10,000)
-        run: |
-          python scripts/run_benchmarks.py
+  website:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+      - run: npm ci
+        working-directory: dashboard
+      - run: npm run lint && npx tsc --noEmit && npm run build
+        working-directory: dashboard

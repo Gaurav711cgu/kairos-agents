@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Terminal, Shield, Check, X, Copy, Eye, GitCompare } from "lucide-react";
+import { Shield, Check, X, Copy, Eye, GitCompare } from "lucide-react";
 import { AgentStep } from "@/lib/types";
 
 interface ContextDiffViewProps {

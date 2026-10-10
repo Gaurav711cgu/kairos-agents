@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { GitFork, X, Check, ArrowRight } from "lucide-react";
+import { GitFork, X, ArrowRight } from "lucide-react";
 import { AgentStep } from "@/lib/types";
 
 interface TimeTravelForkModalProps {

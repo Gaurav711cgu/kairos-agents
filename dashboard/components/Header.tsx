@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Activity, Database, GitFork, ShieldCheck } from "lucide-react";
+import { Activity, Database, ShieldCheck } from "lucide-react";
 import { INGEST_TELEMETRY } from "@/lib/sample-data";
 
 export default function Header({

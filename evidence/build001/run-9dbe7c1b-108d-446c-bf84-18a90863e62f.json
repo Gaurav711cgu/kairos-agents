@@ -1,0 +1,274 @@
+{
+  "id": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+  "slug": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+  "task": "Review a delayed synthetic order and draft an adjustment. Respect prior compensation and abstain when evidence is missing.",
+  "grade": {
+    "checks": [
+      {
+        "name": "decision_schema",
+        "detail": "Draft amount must be nonnegative integer cents or explicit abstention.",
+        "passed": true
+      },
+      {
+        "name": "independent_policy_match",
+        "detail": "Synthetic source-of-truth expects 0; observed 0.",
+        "passed": true
+      },
+      {
+        "name": "evidence_reference",
+        "detail": "Decision must cite available policy/order identifiers, including applicable exceptions or abstention policy.",
+        "passed": true
+      }
+    ],
+    "grader": "independent-synthetic-policy-v1",
+    "passed": true,
+    "actual_refund_cents": 0,
+    "expected_refund_cents": 0
+  },
+  "title": "The exception that disappeared",
+  "policy": "preserve",
+  "status": "passed",
+  "lineage": {
+    "mode": "fresh-isolated-scenario-rerun",
+    "fork_seq": null,
+    "parent_run_id": "72f8ef9d-ab43-4e03-be74-2ec1aa6456b9"
+  },
+  "summary": "Compaction drops a policy exception from a late-order review.",
+  "decision": {
+    "reason": "Prior compensation exception prohibits an additional draft refund.",
+    "evidence_ids": [
+      "policy.base",
+      "policy.exception",
+      "order.receipt"
+    ],
+    "refund_cents": 0
+  },
+  "scenario": {
+    "title": "The exception that disappeared",
+    "summary": "Compaction drops a policy exception from a late-order review.",
+    "order_id": "SYN-1042",
+    "delay_minutes": 47,
+    "policy_exception": true,
+    "order_total_cents": 2400,
+    "order_evidence_available": true
+  },
+  "created_at": "2026-10-10T20:14:19.403625+00:00",
+  "provenance": "Synthetic scenario; executed deterministic reference policy; no LLM or external effects.",
+  "duration_ms": 1.015,
+  "event_count": 7,
+  "scenario_id": "late-order-exception",
+  "grade_passed": true,
+  "configuration": {
+    "model": null,
+    "runner": "deterministic-reference-policy",
+    "model_calls": 0,
+    "policy_version": "synthetic-policy-v1",
+    "external_effects": false
+  },
+  "parent_run_id": "72f8ef9d-ab43-4e03-be74-2ec1aa6456b9",
+  "context_blocks": [
+    {
+      "id": "policy.base",
+      "label": "Late-order policy",
+      "source": "synthetic-policy-v1",
+      "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+      "included": true
+    },
+    {
+      "id": "policy.evidence",
+      "label": "Evidence requirement",
+      "source": "synthetic-policy-v1",
+      "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+      "included": true
+    },
+    {
+      "id": "order.receipt",
+      "label": "Order receipt",
+      "source": "synthetic-order-service-v1",
+      "content": "Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True",
+      "included": true
+    },
+    {
+      "id": "policy.exception",
+      "label": "Prior compensation exception",
+      "source": "synthetic-policy-v1",
+      "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+      "included": true
+    }
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "title": "Controlled run started",
+      "run_id": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+      "payload": {
+        "policy": "preserve",
+        "runner": "deterministic-reference-policy",
+        "scenario_id": "late-order-exception",
+        "parent_run_id": "72f8ef9d-ab43-4e03-be74-2ec1aa6456b9"
+      },
+      "summary": "Execute a synthetic order-support task with no external side effects.",
+      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "created_at": "2026-10-10T20:14:19.403870+00:00",
+      "event_hash": "d63be4ebd27a11f56f208f0d465604d1f0180e4deeba3bf0d2b48a7c86c8b522",
+      "event_type": "run.started"
+    },
+    {
+      "seq": 2,
+      "title": "Synthetic order evidence loaded",
+      "run_id": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+      "payload": {
+        "tool": "synthetic.order.lookup",
+        "result": {
+          "title": "The exception that disappeared",
+          "summary": "Compaction drops a policy exception from a late-order review.",
+          "order_id": "SYN-1042",
+          "delay_minutes": 47,
+          "policy_exception": true,
+          "order_total_cents": 2400,
+          "order_evidence_available": true
+        }
+      },
+      "summary": "Read the versioned local fixture; no live merchant account accessed.",
+      "prev_hash": "d63be4ebd27a11f56f208f0d465604d1f0180e4deeba3bf0d2b48a7c86c8b522",
+      "created_at": "2026-10-10T20:14:19.403895+00:00",
+      "event_hash": "4879f0172b81ad95a3806b84d7d949313aa7e3bfbbafc9fd6886817731239f18",
+      "event_type": "tool.result"
+    },
+    {
+      "seq": 3,
+      "title": "Context assembled",
+      "run_id": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+      "payload": {
+        "blocks": [
+          {
+            "id": "policy.base",
+            "label": "Late-order policy",
+            "source": "synthetic-policy-v1",
+            "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+            "included": true
+          },
+          {
+            "id": "policy.evidence",
+            "label": "Evidence requirement",
+            "source": "synthetic-policy-v1",
+            "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+            "included": true
+          },
+          {
+            "id": "order.receipt",
+            "label": "Order receipt",
+            "source": "synthetic-order-service-v1",
+            "content": "Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True",
+            "included": true
+          },
+          {
+            "id": "policy.exception",
+            "label": "Prior compensation exception",
+            "source": "synthetic-policy-v1",
+            "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+            "included": true
+          }
+        ]
+      },
+      "summary": "Capture every policy and order block before compaction.",
+      "prev_hash": "4879f0172b81ad95a3806b84d7d949313aa7e3bfbbafc9fd6886817731239f18",
+      "created_at": "2026-10-10T20:14:19.403979+00:00",
+      "event_hash": "85a690548566e2b152f18293713d05f0352b4f79814e213f33c73b4b13de43cb",
+      "event_type": "context.assembled"
+    },
+    {
+      "seq": 4,
+      "title": "Context policy applied",
+      "run_id": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+      "payload": {
+        "policy": "preserve",
+        "reason": "All available evidence retained.",
+        "omitted_ids": [],
+        "included_ids": [
+          "policy.base",
+          "policy.evidence",
+          "order.receipt",
+          "policy.exception"
+        ]
+      },
+      "summary": "preserve policy omitted 0 block(s).",
+      "prev_hash": "85a690548566e2b152f18293713d05f0352b4f79814e213f33c73b4b13de43cb",
+      "created_at": "2026-10-10T20:14:19.404002+00:00",
+      "event_hash": "327775d108224af9a0f2fe70f3bef0c53e66dd3a26ab044f755142b53c835a53",
+      "event_type": "context.selected"
+    },
+    {
+      "seq": 5,
+      "title": "Draft adjustment produced",
+      "run_id": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+      "payload": {
+        "reason": "Prior compensation exception prohibits an additional draft refund.",
+        "evidence_ids": [
+          "policy.base",
+          "policy.exception",
+          "order.receipt"
+        ],
+        "refund_cents": 0
+      },
+      "summary": "Prior compensation exception prohibits an additional draft refund.",
+      "prev_hash": "327775d108224af9a0f2fe70f3bef0c53e66dd3a26ab044f755142b53c835a53",
+      "created_at": "2026-10-10T20:14:19.404328+00:00",
+      "event_hash": "66109cb501b87aceaf351ff22653e6d1383eb3bc8d660f1c9f0a8385e176989b",
+      "event_type": "decision.drafted"
+    },
+    {
+      "seq": 6,
+      "title": "Independent grader completed",
+      "run_id": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+      "payload": {
+        "checks": [
+          {
+            "name": "decision_schema",
+            "detail": "Draft amount must be nonnegative integer cents or explicit abstention.",
+            "passed": true
+          },
+          {
+            "name": "independent_policy_match",
+            "detail": "Synthetic source-of-truth expects 0; observed 0.",
+            "passed": true
+          },
+          {
+            "name": "evidence_reference",
+            "detail": "Decision must cite available policy/order identifiers, including applicable exceptions or abstention policy.",
+            "passed": true
+          }
+        ],
+        "grader": "independent-synthetic-policy-v1",
+        "passed": true,
+        "actual_refund_cents": 0,
+        "expected_refund_cents": 0
+      },
+      "summary": "Complete synthetic truth is compared with the draft.",
+      "prev_hash": "66109cb501b87aceaf351ff22653e6d1383eb3bc8d660f1c9f0a8385e176989b",
+      "created_at": "2026-10-10T20:14:19.404347+00:00",
+      "event_hash": "5dd4dc544a6c487d29243360cf4d891a23f0259be956471a9428b0d63f1f6878",
+      "event_type": "grade.completed"
+    },
+    {
+      "seq": 7,
+      "title": "Loop stopped",
+      "run_id": "9dbe7c1b-108d-446c-bf84-18a90863e62f",
+      "payload": {
+        "steps": 1,
+        "reason": "draft_complete",
+        "model_calls": 0,
+        "external_effects": 0
+      },
+      "summary": "One bounded read-only policy pass; no payment tools or model calls.",
+      "prev_hash": "5dd4dc544a6c487d29243360cf4d891a23f0259be956471a9428b0d63f1f6878",
+      "created_at": "2026-10-10T20:14:19.404432+00:00",
+      "event_hash": "8a2b3d03a8e487465657b4cc19e0e9069d9c9f6a68e38d7474554b6050e4e2e7",
+      "event_type": "run.stopped"
+    }
+  ],
+  "integrity": {
+    "verified": true,
+    "scope": "Local event hash consistency only; database administrators can rewrite history."
+  }
+}

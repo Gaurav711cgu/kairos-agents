@@ -1,48 +1,35 @@
-# Architecture & System Design Decisions
+# Kairos build 001: implemented boundaries
 
-## 1. Bounded Contexts & Domain Boundaries
+Status: local vertical slice. The larger plan is in PLAN.md. Historical prototype claims are archived in docs/legacy-prototype-architecture.md and are not current guarantees.
 
-### Context A: Agent Harness Domain (Python)
-- **Responsibility**: Manages the agent reasoning cycle, context window assembly, token budgeting, tool execution, and deterministic invariant checks.
-- **Invariants**:
-  1. Invariant verifiers must execute deterministically without external LLM judges.
-  2. Tools must generate deterministic SHA-256 idempotency keys from their arguments.
-  3. Context window mutations (truncation, summarization) must emit an explicit audit record.
+```mermaid
+flowchart LR
+  Visitor --> Site[Next.js public incident site]
+  Developer --> Proxy[Local-only fork route]
+  Site --> Reads[FastAPI public sanitized reads]
+  Proxy --> Commands[FastAPI credential-bound commands]
+  Commands --> Runner[Bounded deterministic reference runner]
+  Runner --> Grader[Independent fixture-based grader]
+  Commands --> PG[(PostgreSQL transaction)]
+  Reads --> PG
+```
 
-### Context B: High-Throughput Ingest Infrastructure (Go)
-- **Responsibility**: Hot-path event intake, backpressure management, batch writes, and transactional outbox persistence.
-- **Invariants**:
-  1. Non-blocking ingest via memory ring buffer.
-  2. ACID write boundary: Step persistence, sequence uniqueness `(run_id, seq_id)`, and outbox creation in a single transaction.
+## Why these choices
 
-### Context C: Replay, Fork & Statistical Evaluation (Python)
-- **Responsibility**: Historical event inspection, strict deterministic replay, forking execution from step $k$, and paired bootstrap hypothesis testing.
-- **Invariants**:
-  1. A run is only declared a regression if the upper bound of the 95% paired bootstrap confidence interval is strictly less than zero.
-  2. Family-Wise Error Rate (FWER) across multi-task evaluations is controlled via Holm-Bonferroni step-down correction.
+- **One Python authority:** the runner, command receipt, run document and seven events are committed in one short PostgreSQL transaction. HTTP success occurs after commit. The old Go memory-buffer ingest is outside this execution path. Another language would add a failure boundary before a measured bottleneck exists.
+- **Database-backed command identity:** `(tenant_id, idempotency_key)` is unique. A canonical payload digest binds the key to its command, including parent lineage. Concurrent duplicates serialize on that receipt; changed payloads return 409. Failed transactions roll back both receipt and run.
+- **Pure reference policy before a model:** a deliberate context omission produces an incorrect 480-cent proposal; an independent grader sees the complete scenario and rejects it. Preserving the exception produces zero. This proves the inspection workflow, not model quality. The separate local model probe passed 0/4 development cases and is developmental evidence only.
+- **Separate presentation and execution:** public GETs expose only published synthetic records; private commands derive tenant identity from configured bearer credentials. The browser never receives that credential. The local fork proxy is disabled in production and only allows same-origin local requests.
+- **Small bounded scenarios:** reference work is bounded and synchronous. Holding a transaction during a remote model call is not acceptable; model integration will require durable jobs, leases, intent/result capture and explicit unknown outcomes before it joins this path.
+- **Local integrity checks:** run-document digests and ordered event hashes detect tested accidental changes. An administrator who rewrites the database can also rewrite these hashes. No immutable-history claim is made.
+- **Fresh reruns:** a fork starts the full controlled scenario with a changed inclusion policy. Parent records remain untouched. Arbitrary checkpoint resume, external effects and replay against live tools are not implemented.
 
----
+## State and data
 
-## 2. Architecture Decision Records (ADRs)
+`kairos_commands` owns command deduplication; `kairos_runs` owns tenant/publication metadata and the document digest; `kairos_events` owns `(run_id, seq)` uniqueness. Published fixtures contain no customer data. Reads verify document/event consistency. Tests use isolated temporary PostgreSQL schemas, not product rows.
 
-### ADR-001: Go Hot-Path Ingest vs. Direct Python Ingest
-- **Status**: Accepted
-- **Context**: Agent execution loops can generate high-frequency burst events. Direct Python writes to PostgreSQL block the agent event loop during I/O spikes.
-- **Decision**: Deploy a lightweight Go service on the ingestion boundary with a lock-free memory ring buffer.
-- **Consequences**:
-  - Positive: Sub-millisecond ingest response times; zero GIL contention; non-blocking channel backpressure.
-  - Negative: Introduces a binary compilation requirement in the build pipeline.
+The runner records: start, synthetic read, context assembly, context selection, draft decision, independent grade, stop. These are executed reference events, not hidden model reasoning. The UI stores selected event in the URL and shows included and omitted context.
 
-### ADR-002: Content-Addressed Blob Storage for Context Deduplication
-- **Status**: Accepted
-- **Context**: In multi-step agent conversations, storing the full raw context at each step leads to $O(N^2)$ storage explosion.
-- **Decision**: Store context message chunks in content-addressed storage (SHA-256). The PostgreSQL `steps` table references chunk hashes rather than raw text.
-- **Consequences**:
-  - Measured storage reduction of over 60% on multi-step traces.
+## Remaining production work
 
-### ADR-003: Paired Bootstrap vs. Arbitrary Pass Rate Thresholds
-- **Status**: Accepted
-- **Context**: Standard CI rules like "fail if pass rate drops >5%" generate high false-alarm rates on non-deterministic agents when sample sizes are small ($N < 30$).
-- **Decision**: Implement paired bootstrap resampling ($B=10,000$) computing the empirical confidence interval of the difference in performance.
-- **Consequences**:
-  - Eliminates false alarms caused by sampling variance; provides rigorous mathematical defensibility during engineering deep dives.
+Managed identity, authorization revocation, versioned migrations, async execution/quotas, model request capture, independent held-out evaluation, object storage, effects/approvals/reconciliation, backup/restore, load testing and outside-user feedback remain planned. No evidence supports throughput, uptime, statistical safety or customer-adoption claims yet.

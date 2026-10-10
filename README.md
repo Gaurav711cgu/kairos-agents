@@ -1,119 +1,65 @@
-# Kairos for Agents
+# Kairos
 
-A production-grade, verifiable Agent Harness and Time-Travel Debugging Platform that records every internal agent decision, context mutation, and tool interaction into an immutable event log. Replay runs strictly, fork from step k with modified prompts or tools, and statistically test regressions using paired bootstrap confidence intervals.
+Inspect an agent failure. See which evidence disappeared. Run a controlled comparison and check the result.
 
----
+**Build 001 is a working local full-stack slice:** Next.js incident website, Python/FastAPI API, PostgreSQL persistence, exact context inspection and credential-bound controlled reruns. Its four seeded records are actually executed synthetic scenarios, not invented dashboard activity.
 
-## The One-Liner
+The current product runner is a **deterministic reference policy**, with no LLM calls or external effects. A separate four-case offline Qwen probe failed all four strict checks; raw outputs are preserved in `evidence/task-fit-local-qwen/report.json`. Neither run counts nor those four development cases qualify a model for release.
 
-**"Prompt change broke your agent? See the exact step it diverged and whether it is a real regression or sampling noise."**
+## Try the incident
 
----
+Open the local website on **http://127.0.0.1:3100** after starting both services. The lead incident drops an already-compensated-order exception, proposes an incorrect 480-cent adjustment, and is rejected by an independent grader. Inspect the omitted context, then preserve it in a fresh full-scenario rerun. No payment is executed.
 
-## Core Guarantees & Non-Guarantees
+## Fresh local setup
 
-| Feature | Guarantees | Non-Guarantees |
-| :--- | :--- | :--- |
-| **Strict Replay** | Bit-for-bit identical tool outputs served from cache; exact prompt reconstruction; pinpointing of first divergence step. | Does not guarantee external LLM token identicality if temperature > 0 and seed is unset. |
-| **Fork at Step k** | Re-executes from step k forward with patched code/prompt; prior steps 0..k-1 remain immutable. | Write tools in forked runs are strictly stubbed or dry-run unless user provides write authorization. |
-| **Durable Loop** | `kill -9` recovery from the last checkpointed step without duplicate side effects via idempotency tokens. | In-flight tool calls without external idempotency support cannot guarantee once-only external effect. |
-| **Statistical Gate** | Paired bootstrap 95% Confidence Interval with Holm-Bonferroni multi-testing correction. | Does not eliminate the need for domain-specific benchmark test sets. |
+Requires Python 3.12+, Node.js 24 (see `.nvmrc`), npm and Docker Compose. The checked local versions and exact validation are recorded in `docs/BUILD_001.md`.
 
----
-
-## Architecture Overview
-
-```
-Agent Harness (Python 3.12)
-  - Loop Controller (Budgets, Step Limits, Checkpointer)
-  - Context Manager (Hierarchical Assembly, Compaction Audit)
-  - Tool Execution Layer (Typed Pydantic Schemas, Idempotency Keys)
-  - Deterministic Invariant Verifier (Exact SQL / Schema checks)
-           |
-           v (Structured JSON Events)
-Go Ingest API (Hot Path, Go 1.22+)
-  - Bounded Lock-Free Ring Buffer (Drop monitoring, backpressure)
-  - Atomic Transaction: Step Row + Idempotency Dedupe + Transactional Outbox
-           |
-           +---> PostgreSQL / SQLite (Runs, Steps, Outbox)
-           +---> S3 / MinIO (Content-Addressed Context Blobs)
-           |
-Replay, Fork & Statistical Evaluation Engine (Python 3.12)
-  - Strict Replay by Request Fingerprint
-  - Divergence Detector (Pinpoints exact step of departure)
-  - Forking Engine (Resume from step k with live patched prompt)
-  - Paired Bootstrap Hypothesis Testing (N=10,000) & Holm-Bonferroni Correction
-           |
-Next.js 15 App Router Dashboard (TypeScript & Tailwind CSS)
-  - Interactive Timeline Scrubber with Event Cryptographic Chain
-  - Context-Decision Inspector & Ground-Truth Diff Viewer
-  - Step-k Time-Travel Fork Modal with Parameter Patch Injection
-  - Empirical Paired Bootstrap Resampling Distribution Chart
-```
-
----
-
-## Quickstart
-
-### 1. Requirements
-- Python 3.11+
-- Go 1.22+
-- Node.js 20+
-
-### 2. Setup Python Harness & Dependencies
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-### 3. Run Verification Tests
-```bash
-# Run Python harness, replay, and statistical tests
-pytest tests/ -v
-
-# Run Go ingest tests with race detector
-cd ingest && go test -v -race ./...
-```
-
-### 4. Run Benchmark & Ablation Study
-```bash
-python scripts/run_benchmarks.py
-```
-
-### 5. Launch Next.js Dashboard
-```bash
+.venv/bin/python -m pip install -r requirements-api.lock
+python3 scripts/configure_local.py
+docker compose --env-file .env.kairos.local up -d --wait
+python3 scripts/run_local.py seed
 cd dashboard
-npm install
-npm run dev
+npm ci
+cd ..
 ```
-Open [http://localhost:3000](http://localhost:3000) to inspect execution traces and statistical regression distributions.
 
----
+Start two terminals from the repository root:
 
-## Verified Test Suite & Benchmark Results
-
+```bash
+python3 scripts/run_local.py api
 ```
-tests/test_harness.py::test_agent_harness_text_to_sql_execution PASSED
-tests/test_harness.py::test_context_compaction_audit PASSED
-tests/test_harness.py::test_kill_and_resume_checkpointing PASSED
-tests/test_replay_divergence.py::test_strict_replay_exact_match PASSED
-tests/test_replay_divergence.py::test_divergence_detection_when_model_changes PASSED
-tests/test_replay_divergence.py::test_fork_at_step PASSED
-tests/test_statistical_gate.py::test_paired_bootstrap_detects_genuine_regression PASSED
-tests/test_statistical_gate.py::test_paired_bootstrap_detects_no_significant_difference PASSED
-tests/test_statistical_gate.py::test_holm_bonferroni_correction PASSED
-tests/test_statistical_gate.py::test_harness_ablation_study PASSED
-tests/test_ingest_contracts.py::test_end_to_end_ingest_contract PASSED
 
-ingest/ringbuffer.go: TestRingBufferCapacityAndDrop PASS
-ingest/storage.go: TestBatchIngestAndIdempotency PASS
-
-Benchmark Results (N=15 evaluations per arm, 10,000 bootstrap resamples):
-- Baseline Success Rate: 100.0%
-- No-Verifier Arm Success Rate: 60.0%
-- Empirical Delta Mean: -0.4000
-- 95% Bootstrap CI: [-0.6667, -0.1333]
-- Empirical p-value: 0.0012
-- CI Regression Gate: Confirmed Regression (CI Upper < 0)
+```bash
+python3 scripts/run_local.py web
 ```
+
+Local credentials are generated once into ignored files. Re-running configuration preserves them. Seeding is idempotent. Port 55432 is reserved for this project's local PostgreSQL; do not start Compose over another container already using it. This build session's manually started container is named `kairos-postgres-build001` and already owns that port.
+
+## Verify
+
+```bash
+python3 scripts/run_local.py test
+cd dashboard
+npm run lint
+npx tsc --noEmit
+npm run build
+```
+
+PostgreSQL tests use temporary schemas and cover commit visibility, duplicate/conflicting commands, concurrent retries, tenant isolation, rollback and tampering. Database connection settings are required; tests skip integration cases if `TEST_DATABASE_URL` is absent. The workflow in `.github/workflows/regression-gate.yml` supplies PostgreSQL and checks the new slice; no hosted execution is claimed until it runs.
+
+## Where to look
+
+- `kairos_api/`: domain scenarios, independent grader, transaction repository, API and seed command.
+- `dashboard/`: public site, incident inspector, context views and local-only fork proxy.
+- `ARCHITECTURE.md`: choices and their boundaries.
+- `PLAN.md`: current implementation contract.
+- `docs/BUILD_001.md`: executed checks, source digest and known gaps.
+- `scripts/task_fit_local.py`: offline model task-fit probe; optional torch/transformers environment and pre-downloaded weights required. Those heavyweight packages are intentionally outside the product API lock.
+
+## Honest limits
+
+The old `harness/`, `engine/`, `ingest/`, `storage/` and legacy test files are prototype code outside this slice. Their previous README and architecture claims are preserved as historical documents in `docs/legacy-prototype-*`; they are not evidence for the current product.
+
+No arbitrary step resume, immutable ledger, statistical safe-release gate, live commercial integration, production auth, load qualification or real customer adoption is claimed. Hashes provide local consistency checks. Planned milestones remain in the planning brain, not marked complete by this build.

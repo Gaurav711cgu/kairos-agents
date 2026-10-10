@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useId } from "react";
-import { AlertCircle, CheckCircle, HelpCircle, Layers } from "lucide-react";
+import { AlertCircle, CheckCircle, Layers } from "lucide-react";
 import { BOOTSTRAP_REPORT, HOLM_BONFERRONI_TASKS } from "@/lib/sample-data";
 
 export default function StatisticalDistributionVisualizer() {
