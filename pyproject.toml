@@ -1,0 +1,17 @@
+[project]
+name = "new-karos"
+version = "0.1.0"
+description = "Kairos for Agents: Time-Travel Agent Harness and Statistical Regression Gate"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7.0",
+    "numpy>=1.26.0",
+    "scipy>=1.13.0",
+    "httpx>=0.27.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "strict"

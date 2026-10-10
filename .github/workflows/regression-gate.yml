@@ -1,0 +1,45 @@
+name: Kairos Regression Gate
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  statistical-ci-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go 1.22
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache-dependency-path: ingest/go.sum
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest httpx
+
+      - name: Execute Go Ingest Unit & Concurrency Tests
+        run: |
+          cd ingest
+          go test -v -race ./...
+
+      - name: Execute Python Harness & Divergence Detector Tests
+        run: |
+          pytest -v tests/
+
+      - name: Execute Paired Bootstrap Statistical Regression Gate (N=10,000)
+        run: |
+          python scripts/run_benchmarks.py
