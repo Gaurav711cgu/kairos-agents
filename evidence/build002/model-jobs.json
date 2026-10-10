@@ -1,0 +1,1536 @@
+{
+  "created_at": "2026-10-10T20:50:46.631945+00:00",
+  "task_set_version": "synthetic-orders-v1",
+  "method": "Three synthetic development scenarios crossed with two context policies, one generation each. Not independent holdout samples or a release qualification.",
+  "model_contract": "classification-v1 with deterministic amount tool and strict unmodified JSON parsing",
+  "observations": [
+    {
+      "id": "040f79dc-d2bc-4bcb-89cd-564ab7f228f9",
+      "scenario_id": "late-order-exception",
+      "policy": "compact",
+      "runner": "model",
+      "publish": true,
+      "parent_job_id": null,
+      "status": "failed",
+      "created_at": "2026-10-10T20:50:12.852219+00:00",
+      "updated_at": "2026-10-10T20:50:33.693825+00:00",
+      "deadline_at": "2026-10-10T20:53:12.852219+00:00",
+      "attempt": 1,
+      "max_attempts": 3,
+      "model_calls": 1,
+      "cancel_requested": false,
+      "lease_expires_at": null,
+      "checkpoint_version": 1,
+      "stage": "completed",
+      "context_blocks": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True",
+          "included": true
+        },
+        {
+          "id": "policy.exception",
+          "label": "Prior compensation exception",
+          "source": "synthetic-policy-v1",
+          "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+          "included": false
+        }
+      ],
+      "input_digest": "e9bb531c6a9b7526beccfa320e916780bb1a65b734325dd105b1447d14379e2f",
+      "request": {
+        "blob": {
+          "bytes": 988,
+          "sha256": "c21c056bb123fdfd678af79f9c4d6482b30ccb0897c04ac4c58f2251e6a6bf23",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+            },
+            {
+              "role": "user",
+              "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True"
+            }
+          ],
+          "max_tokens": 128,
+          "temperature": 0,
+          "contract_version": "classification-v1"
+        }
+      },
+      "response": {
+        "blob": {
+          "bytes": 1762,
+          "sha256": "d4ed8d8ca803a3fd728a1d3fda12b584456b16d623ee6a46c4419590928c1a7a",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runtime": {
+            "dtype": "float32",
+            "torch": "2.12.1",
+            "device": "cpu",
+            "threads": 4,
+            "temperature": 0,
+            "transformers": "5.9.0"
+          },
+          "duration_ms": 20156.01,
+          "input_tokens": 199,
+          "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+          "output_tokens": 37,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+          "model_file_digests": {
+            "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+            "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+            "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+          }
+        }
+      },
+      "result": {
+        "grade": {
+          "checks": [
+            {
+              "name": "decision_schema",
+              "detail": "Draft amount must be nonnegative integer cents or explicit abstention.",
+              "passed": true
+            },
+            {
+              "name": "independent_policy_match",
+              "detail": "Synthetic source-of-truth expects 0; observed 0.",
+              "passed": true
+            },
+            {
+              "name": "evidence_reference",
+              "detail": "Decision must cite available policy/order identifiers, including applicable exceptions or abstention policy.",
+              "passed": false
+            }
+          ],
+          "grader": "independent-synthetic-policy-v1",
+          "passed": false,
+          "actual_refund_cents": 0,
+          "expected_refund_cents": 0
+        },
+        "decision": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "evidence_ids": [
+            "policy.evidence"
+          ],
+          "refund_cents": 0
+        },
+        "parse_error": null,
+        "configuration": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runner": "model",
+          "arithmetic": "deterministic-verified-order-cents-divided-by-five",
+          "model_calls": 1,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "policy_version": "synthetic-policy-v1",
+          "contract_version": "classification-v1"
+        },
+        "classification": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "disposition": "zero",
+          "evidence_ids": [
+            "policy.evidence"
+          ]
+        }
+      },
+      "error": null,
+      "events": [
+        {
+          "job_id": "040f79dc-d2bc-4bcb-89cd-564ab7f228f9",
+          "seq": 1,
+          "event_type": "job.queued",
+          "payload": {
+            "mode": "initial-controlled-run",
+            "policy": "compact",
+            "runner": "model",
+            "scenario_id": "late-order-exception",
+            "parent_job_id": null,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:12.856948+00:00",
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "event_hash": "e98c0ef49c11cb944beff84eece8e09ad8398672741770b5e1de37b8bdd70f6c"
+        },
+        {
+          "job_id": "040f79dc-d2bc-4bcb-89cd-564ab7f228f9",
+          "seq": 2,
+          "event_type": "context.selected",
+          "payload": {
+            "blocks": [
+              {
+                "id": "policy.base",
+                "label": "Late-order policy",
+                "source": "synthetic-policy-v1",
+                "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+                "included": true
+              },
+              {
+                "id": "policy.evidence",
+                "label": "Evidence requirement",
+                "source": "synthetic-policy-v1",
+                "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+                "included": true
+              },
+              {
+                "id": "order.receipt",
+                "label": "Order receipt",
+                "source": "synthetic-order-service-v1",
+                "content": "Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True",
+                "included": true
+              },
+              {
+                "id": "policy.exception",
+                "label": "Prior compensation exception",
+                "source": "synthetic-policy-v1",
+                "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+                "included": false
+              }
+            ],
+            "omitted_ids": [
+              "policy.exception"
+            ]
+          },
+          "created_at": "2026-10-10T20:50:12.858403+00:00",
+          "prev_hash": "e98c0ef49c11cb944beff84eece8e09ad8398672741770b5e1de37b8bdd70f6c",
+          "event_hash": "af3977e927d2a10e3744186784e2ed14c6e3ae3522b8fb8b77adde95afb96116"
+        },
+        {
+          "job_id": "040f79dc-d2bc-4bcb-89cd-564ab7f228f9",
+          "seq": 3,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 1,
+            "lease_token": 1,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:12.891779+00:00",
+          "prev_hash": "af3977e927d2a10e3744186784e2ed14c6e3ae3522b8fb8b77adde95afb96116",
+          "event_hash": "c251875b06e4c48b20c0209e5cdc9b3a9b74e2c01191a97588efdad8ccd0b50a"
+        },
+        {
+          "job_id": "040f79dc-d2bc-4bcb-89cd-564ab7f228f9",
+          "seq": 4,
+          "event_type": "model.dispatch_intent",
+          "payload": {
+            "outcome": "not_yet_known",
+            "max_calls": 1,
+            "request_digest": "c21c056bb123fdfd678af79f9c4d6482b30ccb0897c04ac4c58f2251e6a6bf23"
+          },
+          "created_at": "2026-10-10T20:50:12.901497+00:00",
+          "prev_hash": "c251875b06e4c48b20c0209e5cdc9b3a9b74e2c01191a97588efdad8ccd0b50a",
+          "event_hash": "78824a0274b6e89200921ee7982908379faefeb2726ce7855064874fa671bf76"
+        },
+        {
+          "job_id": "040f79dc-d2bc-4bcb-89cd-564ab7f228f9",
+          "seq": 5,
+          "event_type": "model.response_captured",
+          "payload": {
+            "response_digest": "d4ed8d8ca803a3fd728a1d3fda12b584456b16d623ee6a46c4419590928c1a7a",
+            "raw_response_preserved": true
+          },
+          "created_at": "2026-10-10T20:50:33.676049+00:00",
+          "prev_hash": "78824a0274b6e89200921ee7982908379faefeb2726ce7855064874fa671bf76",
+          "event_hash": "829becde8190be0ed938cf3940cb33cd714d3f76e8c8d10e0a1eac148c35351d"
+        },
+        {
+          "job_id": "040f79dc-d2bc-4bcb-89cd-564ab7f228f9",
+          "seq": 6,
+          "event_type": "job.completed",
+          "payload": {
+            "error": null,
+            "status": "failed",
+            "result_digest": "94855e9ca23681e8a7c9729788286095066769a4981c4be8a17c2ec438b55457",
+            "external_effects": 0
+          },
+          "created_at": "2026-10-10T20:50:33.698652+00:00",
+          "prev_hash": "829becde8190be0ed938cf3940cb33cd714d3f76e8c8d10e0a1eac148c35351d",
+          "event_hash": "69d6c299d196dd8e5177a3029c540a8de2673036f624d805a0ca282c869071f4"
+        }
+      ],
+      "integrity": {
+        "verified": true,
+        "scope": "Local captured objects, event continuity and versioned inputs; not immutable history."
+      },
+      "provenance": "Synthetic scenario; actual local model inference."
+    },
+    {
+      "id": "506bbaf2-bfc9-46c1-b8c9-91acf7fa113c",
+      "scenario_id": "late-order-exception",
+      "policy": "preserve",
+      "runner": "model",
+      "publish": true,
+      "parent_job_id": null,
+      "status": "failed",
+      "created_at": "2026-10-10T20:50:33.724581+00:00",
+      "updated_at": "2026-10-10T20:50:35.786477+00:00",
+      "deadline_at": "2026-10-10T20:53:33.724581+00:00",
+      "attempt": 1,
+      "max_attempts": 3,
+      "model_calls": 1,
+      "cancel_requested": false,
+      "lease_expires_at": null,
+      "checkpoint_version": 1,
+      "stage": "completed",
+      "context_blocks": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True",
+          "included": true
+        },
+        {
+          "id": "policy.exception",
+          "label": "Prior compensation exception",
+          "source": "synthetic-policy-v1",
+          "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+          "included": true
+        }
+      ],
+      "input_digest": "85ca8540b2e565ed9faa6bf6d011758c0bb389e45f4e246b3b69cc33921532b1",
+      "request": {
+        "blob": {
+          "bytes": 1107,
+          "sha256": "9e8180f4d99458940da38e9dd9c6550753bd879691a398dfe0697d73eefb06f6",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+            },
+            {
+              "role": "user",
+              "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True\n\n[policy.exception] This order already received compensation. Draft refund must be 0 cents; do not compensate twice."
+            }
+          ],
+          "max_tokens": 128,
+          "temperature": 0,
+          "contract_version": "classification-v1"
+        }
+      },
+      "response": {
+        "blob": {
+          "bytes": 1872,
+          "sha256": "d9a5f39e8ca062ee4f410a0debd0d63e0077e7ad8ab551a1c2759e6a85424096",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runtime": {
+            "dtype": "float32",
+            "torch": "2.12.1",
+            "device": "cpu",
+            "threads": 4,
+            "temperature": 0,
+            "transformers": "5.9.0"
+          },
+          "duration_ms": 1918.993,
+          "input_tokens": 223,
+          "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay <30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+          "output_tokens": 35,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True\n\n[policy.exception] This order already received compensation. Draft refund must be 0 cents; do not compensate twice.<|im_end|>\n<|im_start|>assistant\n",
+          "model_file_digests": {
+            "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+            "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+            "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+          }
+        }
+      },
+      "result": {
+        "grade": {
+          "checks": {
+            "strict_model_schema": false
+          },
+          "passed": false
+        },
+        "decision": null,
+        "parse_error": "Exception decision must cite policy.exception",
+        "configuration": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runner": "model",
+          "arithmetic": "deterministic-verified-order-cents-divided-by-five",
+          "model_calls": 1,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "policy_version": "synthetic-policy-v1",
+          "contract_version": "classification-v1"
+        },
+        "classification": null
+      },
+      "error": null,
+      "events": [
+        {
+          "job_id": "506bbaf2-bfc9-46c1-b8c9-91acf7fa113c",
+          "seq": 1,
+          "event_type": "job.queued",
+          "payload": {
+            "mode": "initial-controlled-run",
+            "policy": "preserve",
+            "runner": "model",
+            "scenario_id": "late-order-exception",
+            "parent_job_id": null,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:33.729117+00:00",
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "event_hash": "035be6eb34aadd5b8908effc2190bdf4c2fd8b4d3c84c5ac76bc7f09e80f6a8b"
+        },
+        {
+          "job_id": "506bbaf2-bfc9-46c1-b8c9-91acf7fa113c",
+          "seq": 2,
+          "event_type": "context.selected",
+          "payload": {
+            "blocks": [
+              {
+                "id": "policy.base",
+                "label": "Late-order policy",
+                "source": "synthetic-policy-v1",
+                "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+                "included": true
+              },
+              {
+                "id": "policy.evidence",
+                "label": "Evidence requirement",
+                "source": "synthetic-policy-v1",
+                "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+                "included": true
+              },
+              {
+                "id": "order.receipt",
+                "label": "Order receipt",
+                "source": "synthetic-order-service-v1",
+                "content": "Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True",
+                "included": true
+              },
+              {
+                "id": "policy.exception",
+                "label": "Prior compensation exception",
+                "source": "synthetic-policy-v1",
+                "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+                "included": true
+              }
+            ],
+            "omitted_ids": []
+          },
+          "created_at": "2026-10-10T20:50:33.730156+00:00",
+          "prev_hash": "035be6eb34aadd5b8908effc2190bdf4c2fd8b4d3c84c5ac76bc7f09e80f6a8b",
+          "event_hash": "348aadd0107a91fc817e738fed7f246fba3002698639214ad33f10826d1add3b"
+        },
+        {
+          "job_id": "506bbaf2-bfc9-46c1-b8c9-91acf7fa113c",
+          "seq": 3,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 1,
+            "lease_token": 1,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:33.797169+00:00",
+          "prev_hash": "348aadd0107a91fc817e738fed7f246fba3002698639214ad33f10826d1add3b",
+          "event_hash": "27e9220b788f24c6f3748d078e25a4cad0f1c16d74270739c5293f56b477c618"
+        },
+        {
+          "job_id": "506bbaf2-bfc9-46c1-b8c9-91acf7fa113c",
+          "seq": 4,
+          "event_type": "model.dispatch_intent",
+          "payload": {
+            "outcome": "not_yet_known",
+            "max_calls": 1,
+            "request_digest": "9e8180f4d99458940da38e9dd9c6550753bd879691a398dfe0697d73eefb06f6"
+          },
+          "created_at": "2026-10-10T20:50:33.807703+00:00",
+          "prev_hash": "27e9220b788f24c6f3748d078e25a4cad0f1c16d74270739c5293f56b477c618",
+          "event_hash": "21757140d68fc5388b26a8a7a7a5b079c5b4f1fb242b629f4710fd0eeabbad61"
+        },
+        {
+          "job_id": "506bbaf2-bfc9-46c1-b8c9-91acf7fa113c",
+          "seq": 5,
+          "event_type": "model.response_captured",
+          "payload": {
+            "response_digest": "d9a5f39e8ca062ee4f410a0debd0d63e0077e7ad8ab551a1c2759e6a85424096",
+            "raw_response_preserved": true
+          },
+          "created_at": "2026-10-10T20:50:35.774361+00:00",
+          "prev_hash": "21757140d68fc5388b26a8a7a7a5b079c5b4f1fb242b629f4710fd0eeabbad61",
+          "event_hash": "354268135a12917ada78c483611aed960a55428045ea68146c8b95643b47a943"
+        },
+        {
+          "job_id": "506bbaf2-bfc9-46c1-b8c9-91acf7fa113c",
+          "seq": 6,
+          "event_type": "job.completed",
+          "payload": {
+            "error": null,
+            "status": "failed",
+            "result_digest": "f5391d9fd09c244ec132ced5965d2d78be4f7d50fc5fa3aa7b8937879cb4a02a",
+            "external_effects": 0
+          },
+          "created_at": "2026-10-10T20:50:35.790852+00:00",
+          "prev_hash": "354268135a12917ada78c483611aed960a55428045ea68146c8b95643b47a943",
+          "event_hash": "512b88d27163cd08189f06c7a7d291c2b146123857e9d3ba96c3ddf1a1601793"
+        }
+      ],
+      "integrity": {
+        "verified": true,
+        "scope": "Local captured objects, event continuity and versioned inputs; not immutable history."
+      },
+      "provenance": "Synthetic scenario; actual local model inference."
+    },
+    {
+      "id": "a5c71fca-db83-45d1-a44e-c6c47b5e194e",
+      "scenario_id": "late-order-standard",
+      "policy": "compact",
+      "runner": "model",
+      "publish": true,
+      "parent_job_id": null,
+      "status": "failed",
+      "created_at": "2026-10-10T20:50:35.832777+00:00",
+      "updated_at": "2026-10-10T20:50:38.422789+00:00",
+      "deadline_at": "2026-10-10T20:53:35.832778+00:00",
+      "attempt": 1,
+      "max_attempts": 3,
+      "model_calls": 1,
+      "cancel_requested": false,
+      "lease_expires_at": null,
+      "checkpoint_version": 1,
+      "stage": "completed",
+      "context_blocks": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-1043: total_cents=1800; delay_minutes=42; evidence_available=True",
+          "included": true
+        }
+      ],
+      "input_digest": "d55cc3fc337f8d37730ee77c61e96182a21771fc2e92c5f2bc4dff9728218e2d",
+      "request": {
+        "blob": {
+          "bytes": 988,
+          "sha256": "5323a220ee0e7f29dcf2d69264c7add2a85c5825232b9e6f3ed02e99168fb18b",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+            },
+            {
+              "role": "user",
+              "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1043: total_cents=1800; delay_minutes=42; evidence_available=True"
+            }
+          ],
+          "max_tokens": 128,
+          "temperature": 0,
+          "contract_version": "classification-v1"
+        }
+      },
+      "response": {
+        "blob": {
+          "bytes": 1762,
+          "sha256": "ebd680d27b051ede93d6393478f7b8866e700afd60b02080e6944c9ba5e2ddc6",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runtime": {
+            "dtype": "float32",
+            "torch": "2.12.1",
+            "device": "cpu",
+            "threads": 4,
+            "temperature": 0,
+            "transformers": "5.9.0"
+          },
+          "duration_ms": 2470.787,
+          "input_tokens": 199,
+          "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+          "output_tokens": 37,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1043: total_cents=1800; delay_minutes=42; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+          "model_file_digests": {
+            "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+            "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+            "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+          }
+        }
+      },
+      "result": {
+        "grade": {
+          "checks": [
+            {
+              "name": "decision_schema",
+              "detail": "Draft amount must be nonnegative integer cents or explicit abstention.",
+              "passed": true
+            },
+            {
+              "name": "independent_policy_match",
+              "detail": "Synthetic source-of-truth expects 360; observed 0.",
+              "passed": false
+            },
+            {
+              "name": "evidence_reference",
+              "detail": "Decision must cite available policy/order identifiers, including applicable exceptions or abstention policy.",
+              "passed": true
+            }
+          ],
+          "grader": "independent-synthetic-policy-v1",
+          "passed": false,
+          "actual_refund_cents": 0,
+          "expected_refund_cents": 360
+        },
+        "decision": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "evidence_ids": [
+            "policy.evidence"
+          ],
+          "refund_cents": 0
+        },
+        "parse_error": null,
+        "configuration": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runner": "model",
+          "arithmetic": "deterministic-verified-order-cents-divided-by-five",
+          "model_calls": 1,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "policy_version": "synthetic-policy-v1",
+          "contract_version": "classification-v1"
+        },
+        "classification": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "disposition": "zero",
+          "evidence_ids": [
+            "policy.evidence"
+          ]
+        }
+      },
+      "error": null,
+      "events": [
+        {
+          "job_id": "a5c71fca-db83-45d1-a44e-c6c47b5e194e",
+          "seq": 1,
+          "event_type": "job.queued",
+          "payload": {
+            "mode": "initial-controlled-run",
+            "policy": "compact",
+            "runner": "model",
+            "scenario_id": "late-order-standard",
+            "parent_job_id": null,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:35.838239+00:00",
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "event_hash": "e4c1f3e4fe575b8e8be6033d1185283adb7fdb4be4429061b3a76464282b2df4"
+        },
+        {
+          "job_id": "a5c71fca-db83-45d1-a44e-c6c47b5e194e",
+          "seq": 2,
+          "event_type": "context.selected",
+          "payload": {
+            "blocks": [
+              {
+                "id": "policy.base",
+                "label": "Late-order policy",
+                "source": "synthetic-policy-v1",
+                "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+                "included": true
+              },
+              {
+                "id": "policy.evidence",
+                "label": "Evidence requirement",
+                "source": "synthetic-policy-v1",
+                "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+                "included": true
+              },
+              {
+                "id": "order.receipt",
+                "label": "Order receipt",
+                "source": "synthetic-order-service-v1",
+                "content": "Order SYN-1043: total_cents=1800; delay_minutes=42; evidence_available=True",
+                "included": true
+              }
+            ],
+            "omitted_ids": []
+          },
+          "created_at": "2026-10-10T20:50:35.841712+00:00",
+          "prev_hash": "e4c1f3e4fe575b8e8be6033d1185283adb7fdb4be4429061b3a76464282b2df4",
+          "event_hash": "d635aa42178e631d9ed7c5341ef40584c0e8db24140d5580995a30e6a2e5feb2"
+        },
+        {
+          "job_id": "a5c71fca-db83-45d1-a44e-c6c47b5e194e",
+          "seq": 3,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 1,
+            "lease_token": 1,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:35.863943+00:00",
+          "prev_hash": "d635aa42178e631d9ed7c5341ef40584c0e8db24140d5580995a30e6a2e5feb2",
+          "event_hash": "e0d01212944510eeaae3586e0357f59dec5293da6df7d7128ae242efb9e5ce14"
+        },
+        {
+          "job_id": "a5c71fca-db83-45d1-a44e-c6c47b5e194e",
+          "seq": 4,
+          "event_type": "model.dispatch_intent",
+          "payload": {
+            "outcome": "not_yet_known",
+            "max_calls": 1,
+            "request_digest": "5323a220ee0e7f29dcf2d69264c7add2a85c5825232b9e6f3ed02e99168fb18b"
+          },
+          "created_at": "2026-10-10T20:50:35.874775+00:00",
+          "prev_hash": "e0d01212944510eeaae3586e0357f59dec5293da6df7d7128ae242efb9e5ce14",
+          "event_hash": "1c66ba4f721cfca2d84e1bfb7fceac4eeedb2e396610ffa9b842e0bb1a4a0fe7"
+        },
+        {
+          "job_id": "a5c71fca-db83-45d1-a44e-c6c47b5e194e",
+          "seq": 5,
+          "event_type": "model.response_captured",
+          "payload": {
+            "response_digest": "ebd680d27b051ede93d6393478f7b8866e700afd60b02080e6944c9ba5e2ddc6",
+            "raw_response_preserved": true
+          },
+          "created_at": "2026-10-10T20:50:38.410328+00:00",
+          "prev_hash": "1c66ba4f721cfca2d84e1bfb7fceac4eeedb2e396610ffa9b842e0bb1a4a0fe7",
+          "event_hash": "112031043324065496eb3a8c87b9ffafdb86754ba1196020705ddfb72edd0939"
+        },
+        {
+          "job_id": "a5c71fca-db83-45d1-a44e-c6c47b5e194e",
+          "seq": 6,
+          "event_type": "job.completed",
+          "payload": {
+            "error": null,
+            "status": "failed",
+            "result_digest": "2ccf4c3960001ccfd6cd6f49ccd7215ebb13eab62b800593a06261ca9ff41221",
+            "external_effects": 0
+          },
+          "created_at": "2026-10-10T20:50:38.428045+00:00",
+          "prev_hash": "112031043324065496eb3a8c87b9ffafdb86754ba1196020705ddfb72edd0939",
+          "event_hash": "9913c807fdc1f6c5ce4a0bc6ac5f39b4599d8482339c030f34224c80e383b175"
+        }
+      ],
+      "integrity": {
+        "verified": true,
+        "scope": "Local captured objects, event continuity and versioned inputs; not immutable history."
+      },
+      "provenance": "Synthetic scenario; actual local model inference."
+    },
+    {
+      "id": "8119473f-457a-47da-9c9e-00d19c53e331",
+      "scenario_id": "late-order-standard",
+      "policy": "preserve",
+      "runner": "model",
+      "publish": true,
+      "parent_job_id": null,
+      "status": "failed",
+      "created_at": "2026-10-10T20:50:38.453427+00:00",
+      "updated_at": "2026-10-10T20:50:40.790629+00:00",
+      "deadline_at": "2026-10-10T20:53:38.453427+00:00",
+      "attempt": 1,
+      "max_attempts": 3,
+      "model_calls": 1,
+      "cancel_requested": false,
+      "lease_expires_at": null,
+      "checkpoint_version": 1,
+      "stage": "completed",
+      "context_blocks": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-1043: total_cents=1800; delay_minutes=42; evidence_available=True",
+          "included": true
+        }
+      ],
+      "input_digest": "4a5fe32df6a14543e7afc40e5fef3c43fa43a8beb8c3a011dc774e4121238c47",
+      "request": {
+        "blob": {
+          "bytes": 988,
+          "sha256": "5323a220ee0e7f29dcf2d69264c7add2a85c5825232b9e6f3ed02e99168fb18b",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+            },
+            {
+              "role": "user",
+              "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1043: total_cents=1800; delay_minutes=42; evidence_available=True"
+            }
+          ],
+          "max_tokens": 128,
+          "temperature": 0,
+          "contract_version": "classification-v1"
+        }
+      },
+      "response": {
+        "blob": {
+          "bytes": 1762,
+          "sha256": "b14499626bd13b7cc5e670ce5ba60e7e41cac75885903e461a38def81efaffa1",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runtime": {
+            "dtype": "float32",
+            "torch": "2.12.1",
+            "device": "cpu",
+            "threads": 4,
+            "temperature": 0,
+            "transformers": "5.9.0"
+          },
+          "duration_ms": 2255.786,
+          "input_tokens": 199,
+          "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+          "output_tokens": 37,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1043: total_cents=1800; delay_minutes=42; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+          "model_file_digests": {
+            "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+            "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+            "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+          }
+        }
+      },
+      "result": {
+        "grade": {
+          "checks": [
+            {
+              "name": "decision_schema",
+              "detail": "Draft amount must be nonnegative integer cents or explicit abstention.",
+              "passed": true
+            },
+            {
+              "name": "independent_policy_match",
+              "detail": "Synthetic source-of-truth expects 360; observed 0.",
+              "passed": false
+            },
+            {
+              "name": "evidence_reference",
+              "detail": "Decision must cite available policy/order identifiers, including applicable exceptions or abstention policy.",
+              "passed": true
+            }
+          ],
+          "grader": "independent-synthetic-policy-v1",
+          "passed": false,
+          "actual_refund_cents": 0,
+          "expected_refund_cents": 360
+        },
+        "decision": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "evidence_ids": [
+            "policy.evidence"
+          ],
+          "refund_cents": 0
+        },
+        "parse_error": null,
+        "configuration": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runner": "model",
+          "arithmetic": "deterministic-verified-order-cents-divided-by-five",
+          "model_calls": 1,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "policy_version": "synthetic-policy-v1",
+          "contract_version": "classification-v1"
+        },
+        "classification": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "disposition": "zero",
+          "evidence_ids": [
+            "policy.evidence"
+          ]
+        }
+      },
+      "error": null,
+      "events": [
+        {
+          "job_id": "8119473f-457a-47da-9c9e-00d19c53e331",
+          "seq": 1,
+          "event_type": "job.queued",
+          "payload": {
+            "mode": "initial-controlled-run",
+            "policy": "preserve",
+            "runner": "model",
+            "scenario_id": "late-order-standard",
+            "parent_job_id": null,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:38.457853+00:00",
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "event_hash": "6cd7f43b99865260bae67e2be2b7d0b0e5e39693d3f491255e84144ddeda66f0"
+        },
+        {
+          "job_id": "8119473f-457a-47da-9c9e-00d19c53e331",
+          "seq": 2,
+          "event_type": "context.selected",
+          "payload": {
+            "blocks": [
+              {
+                "id": "policy.base",
+                "label": "Late-order policy",
+                "source": "synthetic-policy-v1",
+                "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+                "included": true
+              },
+              {
+                "id": "policy.evidence",
+                "label": "Evidence requirement",
+                "source": "synthetic-policy-v1",
+                "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+                "included": true
+              },
+              {
+                "id": "order.receipt",
+                "label": "Order receipt",
+                "source": "synthetic-order-service-v1",
+                "content": "Order SYN-1043: total_cents=1800; delay_minutes=42; evidence_available=True",
+                "included": true
+              }
+            ],
+            "omitted_ids": []
+          },
+          "created_at": "2026-10-10T20:50:38.458685+00:00",
+          "prev_hash": "6cd7f43b99865260bae67e2be2b7d0b0e5e39693d3f491255e84144ddeda66f0",
+          "event_hash": "2d1e9620377cd1fb44be71ac10acf48127904a01a96d4fb61cdeb01847e93d3d"
+        },
+        {
+          "job_id": "8119473f-457a-47da-9c9e-00d19c53e331",
+          "seq": 3,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 1,
+            "lease_token": 1,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:38.485063+00:00",
+          "prev_hash": "2d1e9620377cd1fb44be71ac10acf48127904a01a96d4fb61cdeb01847e93d3d",
+          "event_hash": "c47f3612cc5a969d8b3a542cfc35919931de3655c6353f211e63944e90061afb"
+        },
+        {
+          "job_id": "8119473f-457a-47da-9c9e-00d19c53e331",
+          "seq": 4,
+          "event_type": "model.dispatch_intent",
+          "payload": {
+            "outcome": "not_yet_known",
+            "max_calls": 1,
+            "request_digest": "5323a220ee0e7f29dcf2d69264c7add2a85c5825232b9e6f3ed02e99168fb18b"
+          },
+          "created_at": "2026-10-10T20:50:38.492633+00:00",
+          "prev_hash": "c47f3612cc5a969d8b3a542cfc35919931de3655c6353f211e63944e90061afb",
+          "event_hash": "b66371cf7a12923b2de97cdbdd7c04dc555f0a92a01c8f1143c2c668f80ccdf2"
+        },
+        {
+          "job_id": "8119473f-457a-47da-9c9e-00d19c53e331",
+          "seq": 5,
+          "event_type": "model.response_captured",
+          "payload": {
+            "response_digest": "b14499626bd13b7cc5e670ce5ba60e7e41cac75885903e461a38def81efaffa1",
+            "raw_response_preserved": true
+          },
+          "created_at": "2026-10-10T20:50:40.782797+00:00",
+          "prev_hash": "b66371cf7a12923b2de97cdbdd7c04dc555f0a92a01c8f1143c2c668f80ccdf2",
+          "event_hash": "f5b4db343d5f3667cf500da2012761edcb2ce60d69924955a110d751557a2029"
+        },
+        {
+          "job_id": "8119473f-457a-47da-9c9e-00d19c53e331",
+          "seq": 6,
+          "event_type": "job.completed",
+          "payload": {
+            "error": null,
+            "status": "failed",
+            "result_digest": "2ccf4c3960001ccfd6cd6f49ccd7215ebb13eab62b800593a06261ca9ff41221",
+            "external_effects": 0
+          },
+          "created_at": "2026-10-10T20:50:40.795334+00:00",
+          "prev_hash": "f5b4db343d5f3667cf500da2012761edcb2ce60d69924955a110d751557a2029",
+          "event_hash": "4dc5def2dfdaa132b928eee3498fd5cd270ec0d104c45a329364b6548be0b3fc"
+        }
+      ],
+      "integrity": {
+        "verified": true,
+        "scope": "Local captured objects, event continuity and versioned inputs; not immutable history."
+      },
+      "provenance": "Synthetic scenario; actual local model inference."
+    },
+    {
+      "id": "ad665173-2332-4381-9fd6-ff91c5bfd753",
+      "scenario_id": "insufficient-evidence",
+      "policy": "compact",
+      "runner": "model",
+      "publish": true,
+      "parent_job_id": null,
+      "status": "failed",
+      "created_at": "2026-10-10T20:50:40.823176+00:00",
+      "updated_at": "2026-10-10T20:50:43.856687+00:00",
+      "deadline_at": "2026-10-10T20:53:40.823176+00:00",
+      "attempt": 1,
+      "max_attempts": 3,
+      "model_calls": 1,
+      "cancel_requested": false,
+      "lease_expires_at": null,
+      "checkpoint_version": 1,
+      "stage": "completed",
+      "context_blocks": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-1044: total_cents=None; delay_minutes=None; evidence_available=False",
+          "included": true
+        }
+      ],
+      "input_digest": "270b616200619af57b9cdf4f512d0ea68821ae43b4b6e1c1152fe41bf6df9265",
+      "request": {
+        "blob": {
+          "bytes": 991,
+          "sha256": "61a945b972457d9a5b8fe35020f6173aa7b1a047e28ed5706f43de08ccbcb2a9",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+            },
+            {
+              "role": "user",
+              "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1044: total_cents=None; delay_minutes=None; evidence_available=False"
+            }
+          ],
+          "max_tokens": 128,
+          "temperature": 0,
+          "contract_version": "classification-v1"
+        }
+      },
+      "response": {
+        "blob": {
+          "bytes": 1765,
+          "sha256": "58a56094945ab8cc30b027fdd45b651911da79645b17f799200e22006bfe9238",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runtime": {
+            "dtype": "float32",
+            "torch": "2.12.1",
+            "device": "cpu",
+            "threads": 4,
+            "temperature": 0,
+            "transformers": "5.9.0"
+          },
+          "duration_ms": 2880.391,
+          "input_tokens": 193,
+          "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+          "output_tokens": 37,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1044: total_cents=None; delay_minutes=None; evidence_available=False<|im_end|>\n<|im_start|>assistant\n",
+          "model_file_digests": {
+            "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+            "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+            "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+          }
+        }
+      },
+      "result": {
+        "grade": {
+          "checks": [
+            {
+              "name": "decision_schema",
+              "detail": "Draft amount must be nonnegative integer cents or explicit abstention.",
+              "passed": true
+            },
+            {
+              "name": "independent_policy_match",
+              "detail": "Synthetic source-of-truth expects None; observed 0.",
+              "passed": false
+            },
+            {
+              "name": "evidence_reference",
+              "detail": "Decision must cite available policy/order identifiers, including applicable exceptions or abstention policy.",
+              "passed": true
+            }
+          ],
+          "grader": "independent-synthetic-policy-v1",
+          "passed": false,
+          "actual_refund_cents": 0,
+          "expected_refund_cents": null
+        },
+        "decision": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "evidence_ids": [
+            "policy.evidence"
+          ],
+          "refund_cents": 0
+        },
+        "parse_error": null,
+        "configuration": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runner": "model",
+          "arithmetic": "deterministic-verified-order-cents-divided-by-five",
+          "model_calls": 1,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "policy_version": "synthetic-policy-v1",
+          "contract_version": "classification-v1"
+        },
+        "classification": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "disposition": "zero",
+          "evidence_ids": [
+            "policy.evidence"
+          ]
+        }
+      },
+      "error": null,
+      "events": [
+        {
+          "job_id": "ad665173-2332-4381-9fd6-ff91c5bfd753",
+          "seq": 1,
+          "event_type": "job.queued",
+          "payload": {
+            "mode": "initial-controlled-run",
+            "policy": "compact",
+            "runner": "model",
+            "scenario_id": "insufficient-evidence",
+            "parent_job_id": null,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:40.827830+00:00",
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "event_hash": "20aab700efa2dc2233900a68da0be6a64e29c0497fb7993a2fc109e4bd78db5a"
+        },
+        {
+          "job_id": "ad665173-2332-4381-9fd6-ff91c5bfd753",
+          "seq": 2,
+          "event_type": "context.selected",
+          "payload": {
+            "blocks": [
+              {
+                "id": "policy.base",
+                "label": "Late-order policy",
+                "source": "synthetic-policy-v1",
+                "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+                "included": true
+              },
+              {
+                "id": "policy.evidence",
+                "label": "Evidence requirement",
+                "source": "synthetic-policy-v1",
+                "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+                "included": true
+              },
+              {
+                "id": "order.receipt",
+                "label": "Order receipt",
+                "source": "synthetic-order-service-v1",
+                "content": "Order SYN-1044: total_cents=None; delay_minutes=None; evidence_available=False",
+                "included": true
+              }
+            ],
+            "omitted_ids": []
+          },
+          "created_at": "2026-10-10T20:50:40.828717+00:00",
+          "prev_hash": "20aab700efa2dc2233900a68da0be6a64e29c0497fb7993a2fc109e4bd78db5a",
+          "event_hash": "0b01281abd128a5ceabab52eac7ccce3b2145bd04d35510346d5e2f4c74a79ff"
+        },
+        {
+          "job_id": "ad665173-2332-4381-9fd6-ff91c5bfd753",
+          "seq": 3,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 1,
+            "lease_token": 1,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:40.862934+00:00",
+          "prev_hash": "0b01281abd128a5ceabab52eac7ccce3b2145bd04d35510346d5e2f4c74a79ff",
+          "event_hash": "8ac52a0ef3a2eb9b40fc178e1a9fd77c567b4a5fdc61718ec3a91a593b365871"
+        },
+        {
+          "job_id": "ad665173-2332-4381-9fd6-ff91c5bfd753",
+          "seq": 4,
+          "event_type": "model.dispatch_intent",
+          "payload": {
+            "outcome": "not_yet_known",
+            "max_calls": 1,
+            "request_digest": "61a945b972457d9a5b8fe35020f6173aa7b1a047e28ed5706f43de08ccbcb2a9"
+          },
+          "created_at": "2026-10-10T20:50:40.877417+00:00",
+          "prev_hash": "8ac52a0ef3a2eb9b40fc178e1a9fd77c567b4a5fdc61718ec3a91a593b365871",
+          "event_hash": "cce140ce87dfcbdcddbcd8506252a9f925a14c846cf9709525bbe1d5f98e3cdb"
+        },
+        {
+          "job_id": "ad665173-2332-4381-9fd6-ff91c5bfd753",
+          "seq": 5,
+          "event_type": "model.response_captured",
+          "payload": {
+            "response_digest": "58a56094945ab8cc30b027fdd45b651911da79645b17f799200e22006bfe9238",
+            "raw_response_preserved": true
+          },
+          "created_at": "2026-10-10T20:50:43.827518+00:00",
+          "prev_hash": "cce140ce87dfcbdcddbcd8506252a9f925a14c846cf9709525bbe1d5f98e3cdb",
+          "event_hash": "a55af9872d2d0b129a095ba2c627bacdfbfed8c795acb0541a84e160aded8e5a"
+        },
+        {
+          "job_id": "ad665173-2332-4381-9fd6-ff91c5bfd753",
+          "seq": 6,
+          "event_type": "job.completed",
+          "payload": {
+            "error": null,
+            "status": "failed",
+            "result_digest": "50d150a26afb92388576c9581e8e50aaec175989b1d609d83ac19e2e7f64eed7",
+            "external_effects": 0
+          },
+          "created_at": "2026-10-10T20:50:43.864080+00:00",
+          "prev_hash": "a55af9872d2d0b129a095ba2c627bacdfbfed8c795acb0541a84e160aded8e5a",
+          "event_hash": "10d2fac578488de95b487181c727c0c26823615a4da2267a8312be91a640e2e4"
+        }
+      ],
+      "integrity": {
+        "verified": true,
+        "scope": "Local captured objects, event continuity and versioned inputs; not immutable history."
+      },
+      "provenance": "Synthetic scenario; actual local model inference."
+    },
+    {
+      "id": "59651bc5-953b-4e63-ad05-687656a11379",
+      "scenario_id": "insufficient-evidence",
+      "policy": "preserve",
+      "runner": "model",
+      "publish": true,
+      "parent_job_id": null,
+      "status": "failed",
+      "created_at": "2026-10-10T20:50:43.934136+00:00",
+      "updated_at": "2026-10-10T20:50:46.553111+00:00",
+      "deadline_at": "2026-10-10T20:53:43.934136+00:00",
+      "attempt": 1,
+      "max_attempts": 3,
+      "model_calls": 1,
+      "cancel_requested": false,
+      "lease_expires_at": null,
+      "checkpoint_version": 1,
+      "stage": "completed",
+      "context_blocks": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-1044: total_cents=None; delay_minutes=None; evidence_available=False",
+          "included": true
+        }
+      ],
+      "input_digest": "bcbb3fc77b39e5c7d8900b18e60a90130589fc64056a9c205e4ae623a7047d11",
+      "request": {
+        "blob": {
+          "bytes": 991,
+          "sha256": "61a945b972457d9a5b8fe35020f6173aa7b1a047e28ed5706f43de08ccbcb2a9",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+            },
+            {
+              "role": "user",
+              "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1044: total_cents=None; delay_minutes=None; evidence_available=False"
+            }
+          ],
+          "max_tokens": 128,
+          "temperature": 0,
+          "contract_version": "classification-v1"
+        }
+      },
+      "response": {
+        "blob": {
+          "bytes": 1764,
+          "sha256": "f639e0a308bb85770497a49be40d54b84928cd898def052f98dafa199a1390a3",
+          "storage": "local-content-addressed-fsync"
+        },
+        "body": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runtime": {
+            "dtype": "float32",
+            "torch": "2.12.1",
+            "device": "cpu",
+            "threads": 4,
+            "temperature": 0,
+            "transformers": "5.9.0"
+          },
+          "duration_ms": 2465.13,
+          "input_tokens": 193,
+          "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+          "output_tokens": 37,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-1044: total_cents=None; delay_minutes=None; evidence_available=False<|im_end|>\n<|im_start|>assistant\n",
+          "model_file_digests": {
+            "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+            "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+            "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+          }
+        }
+      },
+      "result": {
+        "grade": {
+          "checks": [
+            {
+              "name": "decision_schema",
+              "detail": "Draft amount must be nonnegative integer cents or explicit abstention.",
+              "passed": true
+            },
+            {
+              "name": "independent_policy_match",
+              "detail": "Synthetic source-of-truth expects None; observed 0.",
+              "passed": false
+            },
+            {
+              "name": "evidence_reference",
+              "detail": "Decision must cite available policy/order identifiers, including applicable exceptions or abstention policy.",
+              "passed": true
+            }
+          ],
+          "grader": "independent-synthetic-policy-v1",
+          "passed": false,
+          "actual_refund_cents": 0,
+          "expected_refund_cents": null
+        },
+        "decision": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "evidence_ids": [
+            "policy.evidence"
+          ],
+          "refund_cents": 0
+        },
+        "parse_error": null,
+        "configuration": {
+          "model": "Qwen2.5-0.5B-Instruct",
+          "runner": "model",
+          "arithmetic": "deterministic-verified-order-cents-divided-by-five",
+          "model_calls": 1,
+          "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+          "policy_version": "synthetic-policy-v1",
+          "contract_version": "classification-v1"
+        },
+        "classification": {
+          "reason": "prior compensation or delay < 30 minutes",
+          "disposition": "zero",
+          "evidence_ids": [
+            "policy.evidence"
+          ]
+        }
+      },
+      "error": null,
+      "events": [
+        {
+          "job_id": "59651bc5-953b-4e63-ad05-687656a11379",
+          "seq": 1,
+          "event_type": "job.queued",
+          "payload": {
+            "mode": "initial-controlled-run",
+            "policy": "preserve",
+            "runner": "model",
+            "scenario_id": "insufficient-evidence",
+            "parent_job_id": null,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:43.939578+00:00",
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "event_hash": "65c0958a1ea93405c9345c811a5d2a78d9d142e9eb9fcb373793e1cc0f5b6a62"
+        },
+        {
+          "job_id": "59651bc5-953b-4e63-ad05-687656a11379",
+          "seq": 2,
+          "event_type": "context.selected",
+          "payload": {
+            "blocks": [
+              {
+                "id": "policy.base",
+                "label": "Late-order policy",
+                "source": "synthetic-policy-v1",
+                "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+                "included": true
+              },
+              {
+                "id": "policy.evidence",
+                "label": "Evidence requirement",
+                "source": "synthetic-policy-v1",
+                "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+                "included": true
+              },
+              {
+                "id": "order.receipt",
+                "label": "Order receipt",
+                "source": "synthetic-order-service-v1",
+                "content": "Order SYN-1044: total_cents=None; delay_minutes=None; evidence_available=False",
+                "included": true
+              }
+            ],
+            "omitted_ids": []
+          },
+          "created_at": "2026-10-10T20:50:43.940998+00:00",
+          "prev_hash": "65c0958a1ea93405c9345c811a5d2a78d9d142e9eb9fcb373793e1cc0f5b6a62",
+          "event_hash": "567c400f331f4b4b57691cba9f775163dc73cd11a746ddc80c6f82e41e0f0e9b"
+        },
+        {
+          "job_id": "59651bc5-953b-4e63-ad05-687656a11379",
+          "seq": 3,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 1,
+            "lease_token": 1,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:50:43.988176+00:00",
+          "prev_hash": "567c400f331f4b4b57691cba9f775163dc73cd11a746ddc80c6f82e41e0f0e9b",
+          "event_hash": "93409616700cb05b14a819933cc25fc86f6a18821429819ee50bae0bc70e4ba5"
+        },
+        {
+          "job_id": "59651bc5-953b-4e63-ad05-687656a11379",
+          "seq": 4,
+          "event_type": "model.dispatch_intent",
+          "payload": {
+            "outcome": "not_yet_known",
+            "max_calls": 1,
+            "request_digest": "61a945b972457d9a5b8fe35020f6173aa7b1a047e28ed5706f43de08ccbcb2a9"
+          },
+          "created_at": "2026-10-10T20:50:44.005041+00:00",
+          "prev_hash": "93409616700cb05b14a819933cc25fc86f6a18821429819ee50bae0bc70e4ba5",
+          "event_hash": "ef45cc7c485599d558719ea6cfa136f0dd78e56ebeb0915465e8fb1c739c1464"
+        },
+        {
+          "job_id": "59651bc5-953b-4e63-ad05-687656a11379",
+          "seq": 5,
+          "event_type": "model.response_captured",
+          "payload": {
+            "response_digest": "f639e0a308bb85770497a49be40d54b84928cd898def052f98dafa199a1390a3",
+            "raw_response_preserved": true
+          },
+          "created_at": "2026-10-10T20:50:46.539292+00:00",
+          "prev_hash": "ef45cc7c485599d558719ea6cfa136f0dd78e56ebeb0915465e8fb1c739c1464",
+          "event_hash": "38726e5d0b0756955f4d216688f6c64f78bdd24fba0cc67400e8689d09a93178"
+        },
+        {
+          "job_id": "59651bc5-953b-4e63-ad05-687656a11379",
+          "seq": 6,
+          "event_type": "job.completed",
+          "payload": {
+            "error": null,
+            "status": "failed",
+            "result_digest": "50d150a26afb92388576c9581e8e50aaec175989b1d609d83ac19e2e7f64eed7",
+            "external_effects": 0
+          },
+          "created_at": "2026-10-10T20:50:46.558559+00:00",
+          "prev_hash": "38726e5d0b0756955f4d216688f6c64f78bdd24fba0cc67400e8689d09a93178",
+          "event_hash": "46b51943bb2ec6ee3be875a22505881115161fd43834bd5a444dad76d293a568"
+        }
+      ],
+      "integrity": {
+        "verified": true,
+        "scope": "Local captured objects, event continuity and versioned inputs; not immutable history."
+      },
+      "provenance": "Synthetic scenario; actual local model inference."
+    }
+  ],
+  "count": 6,
+  "grade_passed": 0,
+  "actual_model_calls": 6
+}

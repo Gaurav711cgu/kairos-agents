@@ -1,4 +1,4 @@
-"""HTTP boundary. Local developer credentials are an interim auth mechanism."""
+"""HTTP boundary with managed identity and explicit local development mode."""
 from contextlib import asynccontextmanager
 import hmac
 import re
@@ -21,6 +21,21 @@ def create_app(settings: Settings | None = None, repository: RunRepository | Non
         application.state.settings = configured
         application.state.repository = repository or RunRepository(configured.database_url)
         application.state.repository.initialize()
+        from kairos_api.jobs_repository import JobsRepository
+        from kairos_api.evaluation import EvaluationRepository
+        from kairos_api.effects import EffectRepository
+        jobs = JobsRepository(configured.database_url)
+        jobs.initialize()
+        application.state.jobs_repository = jobs
+        effects = EffectRepository(configured.database_url)
+        effects.initialize()
+        application.state.effects_repository = effects
+        evaluation = EvaluationRepository(configured.database_url)
+        evaluation.initialize()
+        application.state.evaluation_repository = evaluation
+        if configured.identity_mode == "oidc":
+            from kairos_api.identity import initialize_identity
+            application.state.identity = initialize_identity(configured.database_url)
         yield
 
     application = FastAPI(title="Kairos controlled incident API", version=__version__, lifespan=lifespan)
@@ -32,7 +47,24 @@ def create_app(settings: Settings | None = None, repository: RunRepository | Non
     def repo(request: Request) -> RunRepository:
         return request.app.state.repository
 
+    def jobs_repo(request: Request):
+        return request.app.state.jobs_repository
+
+    def effects_repo(request: Request):
+        return request.app.state.effects_repository
+
+    def evaluation_repo(request: Request):
+        return request.app.state.evaluation_repository
+
     def tenant(request: Request, authorization: str | None = Header(default=None)) -> str:
+        if request.app.state.settings.identity_mode == "oidc":
+            from kairos_api.identity import require_identity_role
+            principal = request.app.state.principal(request)
+            if request.method in {"POST", "PUT", "PATCH", "DELETE"}:
+                require_identity_role(principal, "operator")
+            request.state.identity_subject = principal["subject"]
+            request.state.identity_principal = principal
+            return principal["tenant_id"]
         if not authorization or not authorization.startswith("Bearer "):
             raise HTTPException(status_code=401, detail="Developer bearer credential required.")
         token = authorization[7:]
@@ -41,10 +73,22 @@ def create_app(settings: Settings | None = None, repository: RunRepository | Non
                 return tenant_id
         raise HTTPException(status_code=401, detail="Invalid developer credential.")
 
+    def approver(request: Request, tenant_id: str = Depends(tenant)) -> str:
+        if request.app.state.settings.identity_mode == "oidc":
+            from kairos_api.identity import require_identity_role
+            require_identity_role(request.state.identity_principal, "admin")
+        return tenant_id
+
     def command_key(idempotency_key: str | None = Header(default=None)) -> str:
         if not idempotency_key or not re.fullmatch(r"[A-Za-z0-9._:-]{1,128}", idempotency_key):
             raise HTTPException(status_code=400, detail="Idempotency-Key required (1–128 letters, numbers, dots, colons, underscores or hyphens).")
         return idempotency_key
+
+    from kairos_api.effects import EffectConflict
+
+    @application.exception_handler(EffectConflict)
+    async def effect_conflict_handler(_request, error):
+        return JSONResponse(status_code=409, content={"detail": str(error)})
 
     @application.exception_handler(MissingRun)
     async def missing_handler(_request, _error):
@@ -93,6 +137,14 @@ def create_app(settings: Settings | None = None, repository: RunRepository | Non
              repository: RunRepository = Depends(repo)):
         return repository.create(tenant_id, key, command.model_dump(), parent_run_id=run_id)
 
+    from kairos_api.jobs import create_jobs_router
+    from kairos_api.evaluation import create_evaluation_router
+    from kairos_api.effects import create_effects_router
+    from kairos_api.identity import install_identity
+    application.state.principal = install_identity(application)
+    application.include_router(create_jobs_router(tenant, command_key, jobs_repo))
+    application.include_router(create_evaluation_router(tenant, repository_dependency=evaluation_repo))
+    application.include_router(create_effects_router(tenant, command_key, approval_dependency=approver, repository_dependency=effects_repo))
     return application
 
 

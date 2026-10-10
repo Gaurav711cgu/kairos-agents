@@ -30,12 +30,15 @@ export default function RootLayout({
             <span className="brand-symbol" aria-hidden="true">
               κ
             </span>
-            kairos<span className="edition">FIELD NOTES / 001</span>
+            kairos<span className="edition">FIELD NOTES / 002</span>
           </Link>
           <nav aria-label="Main navigation">
             <Link href="/incidents">Incidents</Link>
             <Link href="/engineering">Engineering</Link>
             <Link href="/evidence">Evidence</Link>
+            <Link href="/reports">Reports</Link>
+            <Link href="/executions">Model runs</Link>
+            <Link href="/workbench">Workbench</Link>
             <Link href="/docs">
               Docs <span aria-hidden="true">↗</span>
             </Link>

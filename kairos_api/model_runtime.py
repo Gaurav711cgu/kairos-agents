@@ -81,22 +81,39 @@ def call_model(request):
     return value
 
 
+def strict_json(raw):
+    def unique_pairs(pairs):
+        result = {}
+        for key,value in pairs:
+            if key in result:
+                raise ValueError("Duplicate JSON object key")
+            result[key] = value
+        return result
+    def reject_constant(_):
+        raise ValueError("Non-finite JSON constant")
+    return json.loads(raw,object_pairs_hook=unique_pairs,parse_constant=reject_constant)
+
+
 def classify_and_grade(scenario_id, blocks, response):
     raw = response["raw_response"]
     try:
         # No fence stripping, repairs or permissive extraction. Every failure is preserved.
-        parsed = json.loads(raw)
+        parsed = strict_json(raw)
         if not isinstance(parsed, dict) or set(parsed) != {"disposition", "reason", "evidence_ids"}:
             raise ValueError("Exactly disposition, reason and evidence_ids are required")
         if parsed["disposition"] not in {"refund", "zero", "abstain"}:
             raise ValueError("Unknown disposition")
-        if not isinstance(parsed["reason"], str) or not parsed["reason"].strip():
-            raise ValueError("Nonempty reason required")
+        if not isinstance(parsed["reason"], str) or not parsed["reason"].strip() or len(parsed["reason"]) > 2000:
+            raise ValueError("Nonempty reason of at most 2000 characters required")
         ids = parsed["evidence_ids"]
         allowed = {b["id"] for b in blocks if b["included"]}
         if not isinstance(ids, list) or not ids or any(not isinstance(i, str) or i not in allowed for i in ids) or len(ids) != len(set(ids)):
             raise ValueError("Evidence must cite unique included context IDs")
         scenario = get_scenario(scenario_id)
+        if parsed["disposition"] == "abstain" and "policy.evidence" not in ids:
+            raise ValueError("Abstention must cite policy.evidence")
+        if parsed["disposition"] == "zero" and "policy.exception" in allowed and "policy.exception" not in ids:
+            raise ValueError("Exception decision must cite policy.exception")
         if parsed["disposition"] == "abstain":
             cents = None
         elif parsed["disposition"] == "zero":

@@ -19,3 +19,5 @@ CREATE TABLE IF NOT EXISTS kairos_job_events (
  event_type text NOT NULL, payload jsonb NOT NULL, created_at timestamptz NOT NULL,
  prev_hash text NOT NULL, event_hash text NOT NULL, PRIMARY KEY(job_id,seq)
 );
+
+ALTER TABLE kairos_jobs ADD COLUMN IF NOT EXISTS input_snapshot jsonb;

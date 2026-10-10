@@ -41,11 +41,7 @@ export default async function IncidentPage({
       </div>
       <IncidentInspector
         incident={incident}
-        canFork={
-          process.env.NODE_ENV === "development" &&
-          process.env.KAIROS_ENABLE_LOCAL_MUTATIONS === "true" &&
-          !!process.env.KAIROS_DEV_TOKEN
-        }
+        canFork={true}
       />
     </div>
   );

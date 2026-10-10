@@ -22,6 +22,12 @@ export const IncidentInspector = ({
       .toLowerCase()
       .includes(query.toLowerCase()),
   );
+  const selectedIndex = Math.max(
+    0,
+    filtered.findIndex((item) => item.seq === selected),
+  );
+  const windowStart = Math.max(0, selectedIndex - 40);
+  const visibleEvents = filtered.slice(windowStart, windowStart + 80);
   const event = incident.events.find((item) => item.seq === selected);
   useEffect(() => {
     const onPop = () => {
@@ -106,30 +112,32 @@ export const IncidentInspector = ({
               type="search"
             />
           </label>
-          <div
-            className="timeline-list"
-            onKeyDown={(e) => {
-              if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
-              const index = filtered.findIndex((item) => item.seq === selected);
-              const next =
-                filtered[
-                  Math.max(
-                    0,
-                    Math.min(
-                      filtered.length - 1,
-                      index + (e.key === "ArrowDown" ? 1 : -1),
-                    ),
-                  )
-                ];
-              if (next) {
-                e.preventDefault();
-                select(next.seq);
-                document.getElementById("event-" + next.seq)?.focus();
-              }
-            }}
-          >
-            {filtered.map((item) => (
+          <div className="timeline-list">
+            {visibleEvents.map((item) => (
               <button
+                onKeyDown={(e) => {
+                  if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+                  const index = filtered.findIndex(
+                    (item) => item.seq === selected,
+                  );
+                  const next =
+                    filtered[
+                      Math.max(
+                        0,
+                        Math.min(
+                          filtered.length - 1,
+                          index + (e.key === "ArrowDown" ? 1 : -1),
+                        ),
+                      )
+                    ];
+                  if (next) {
+                    e.preventDefault();
+                    select(next.seq);
+                    window.requestAnimationFrame(() =>
+                      document.getElementById("event-" + next.seq)?.focus(),
+                    );
+                  }
+                }}
                 id={"event-" + item.seq}
                 key={item.seq}
                 onClick={() => select(item.seq)}
@@ -146,11 +154,44 @@ export const IncidentInspector = ({
               </button>
             ))}
           </div>
+          {filtered.length > 80 && (
+            <div className="pair-pagination">
+              <button
+                className="text-button"
+                disabled={selectedIndex === 0}
+                onClick={() =>
+                  select(filtered[Math.max(0, selectedIndex - 80)].seq)
+                }
+              >
+                ← Earlier
+              </button>
+              <button
+                className="text-button"
+                disabled={selectedIndex >= filtered.length - 1}
+                onClick={() =>
+                  select(
+                    filtered[Math.min(filtered.length - 1, selectedIndex + 80)]
+                      .seq,
+                  )
+                }
+              >
+                Later →
+              </button>
+            </div>
+          )}
           {!filtered.length && (
             <p className="empty-state">No events match this filter.</p>
           )}
           <p className="keyboard-hint">
             ↑ ↓ move between events · selection saved in URL
+            {filtered.length > 80 && (
+              <>
+                {" "}
+                · {windowStart + 1}–
+                {Math.min(windowStart + 80, filtered.length)} of{" "}
+                {filtered.length} rendered
+              </>
+            )}
           </p>
         </section>
         <section className="event-detail" aria-label="Selected event">
@@ -223,7 +264,9 @@ export const IncidentInspector = ({
           <ul className="grade-checks">
             {incident.grade.checks.map((check) => (
               <li key={check.name}>
-                <span aria-hidden="true">{check.passed ? "[OK]" : "[FAIL]"}</span>
+                <span aria-hidden="true">
+                  {check.passed ? "[OK]" : "[FAIL]"}
+                </span>
                 <div>
                   <strong>{check.name.replaceAll("_", " ")}</strong>
                   <p>{check.detail}</p>

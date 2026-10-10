@@ -10,7 +10,7 @@ import hmac
 import os
 from pathlib import Path
 import secrets
-from urllib.parse import urlparse, urlencode
+from urllib.parse import urlparse
 
 from authlib.integrations.httpx_client import OAuth2Client
 from fastapi import HTTPException, Request
@@ -83,9 +83,12 @@ class IdentityRepository:
                                 datetime.now(timezone.utc) + timedelta(minutes=10)))
 
     def consume_state(self, state, binding):
+        if not binding:
+            raise HTTPException(400, "Invalid or expired login state.")
         with self.connect() as connection:
-            row = connection.execute("DELETE FROM kairos_login_states WHERE state_hash=%s AND expires_at>now() RETURNING *", (digest(state),)).fetchone()
-        if not row or not binding or not hmac.compare_digest(row["binding_hash"], digest(binding)):
+            row = connection.execute("DELETE FROM kairos_login_states WHERE state_hash=%s AND binding_hash=%s AND expires_at>now() RETURNING *",
+                                     (digest(state), digest(binding))).fetchone()
+        if not row:
             raise HTTPException(400, "Invalid or expired login state.")
         return row
 
@@ -134,11 +137,11 @@ class IdentityService:
 
     def validate_token(self, token, *, nonce=None, access=False):
         try:
-            metadata = self.metadata()
-            # Refresh public keys for unknown kid; verified algorithm fixed independently.
+            # Reject malformed or unsupported tokens before provider network access.
             header = jwt.get_unverified_header(token)
             if header.get("alg") != "RS256":
                 raise ValueError("algorithm")
+            metadata = self.metadata()
             if self._jwks is None or not any(key.get("kid") == header.get("kid") for key in self._jwks["keys"]):
                 with httpx.Client(timeout=10) as client:
                     response = client.get(metadata["jwks_uri"])
@@ -188,20 +191,41 @@ def require_identity_role(principal, minimum="operator"):
     return principal
 
 
-def install_identity(application, database_url, config=None):
-    """Install routes and return authenticated-principal FastAPI dependency."""
+def initialize_identity(database_url, config=None):
+    """Lifespan factory: validate configuration and initialize tables once."""
     configured = config or IdentityConfig.from_environment()
     repository = IdentityRepository(database_url)
     repository.initialize()
-    service = IdentityService(configured, repository)
-    application.state.identity = service
+    return IdentityService(configured, repository)
+
+
+def install_identity(application, database_url=None, config=None):
+    """Register routes once, with lazy app.state.identity service lookup.
+
+    Production app factory calls this without database_url, then installs the
+    initialized service during lifespan. Supplying database_url is a convenience
+    for isolated tests/tools and initializes immediately before app startup.
+    """
+    if database_url is not None:
+        application.state.identity = initialize_identity(database_url, config)
+
+    def get_service(request):
+        service = getattr(request.app.state, "identity", None)
+        if service is None:
+            raise HTTPException(503, "Identity service not initialized.")
+        return service
+
+    def principal(request: Request):
+        return get_service(request).principal(request)
 
     @application.get("/api/auth/me")
     def me(request: Request):
-        return service.principal(request)
+        return JSONResponse(principal(request), headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
 
     @application.get("/api/auth/login")
     def login(request: Request, return_to: str = "/workbench"):
+        service = get_service(request)
+        configured, repository = service.config, service.repository
         if return_to.startswith("/") and not return_to.startswith("//"):
             destination = configured.web_origin + return_to
         else:
@@ -216,13 +240,15 @@ def install_identity(application, database_url, config=None):
             url, _ = client.create_authorization_url(service.metadata()["authorization_endpoint"],
                                                       state=state, nonce=nonce, code_verifier=verifier)
         repository.save_state(state, verifier, nonce, binding, destination)
-        response = RedirectResponse(url, status_code=302)
+        response = RedirectResponse(url, status_code=302, headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
         response.set_cookie(BINDING_COOKIE, binding, httponly=True, secure=configured.secure,
                             samesite="lax", max_age=600, path="/api/auth")
         return response
 
     @application.get("/api/auth/callback")
     def callback(request: Request, state: str = "", code: str = "", error: str = ""):
+        service = get_service(request)
+        configured, repository = service.config, service.repository
         pending = repository.consume_state(state, request.cookies.get(BINDING_COOKIE))
         if error or not code:
             raise HTTPException(400, "Provider did not authorize login.")
@@ -237,8 +263,10 @@ def install_identity(application, database_url, config=None):
         except Exception:
             raise HTTPException(401, "Identity authorization exchange failed.") from None
         repository.membership(claims["sub"])
+        if request.cookies.get(COOKIE):
+            repository.revoke_session(request.cookies[COOKIE])
         session_token = repository.create_session(claims["sub"], configured.session_seconds)
-        response = RedirectResponse(pending["return_to"], status_code=302)
+        response = RedirectResponse(pending["return_to"], status_code=302, headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
         response.delete_cookie(BINDING_COOKIE, path="/api/auth")
         response.set_cookie(COOKIE, session_token, httponly=True, secure=configured.secure,
                             samesite="lax", max_age=configured.session_seconds, path="/")
@@ -246,10 +274,11 @@ def install_identity(application, database_url, config=None):
 
     @application.post("/api/auth/logout")
     def logout(request: Request):
+        service = get_service(request)
         service.principal(request)
-        repository.revoke_session(request.cookies.get(COOKIE, ""))
-        response = JSONResponse({"status": "signed_out"})
-        response.delete_cookie(COOKIE, path="/", secure=configured.secure, httponly=True, samesite="lax")
+        service.repository.revoke_session(request.cookies.get(COOKIE, ""))
+        response = JSONResponse({"status": "signed_out"}, headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
+        response.delete_cookie(COOKIE, path="/", secure=service.config.secure, httponly=True, samesite="lax")
         return response
 
-    return service.principal
+    return principal

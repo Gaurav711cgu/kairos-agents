@@ -1,0 +1,2532 @@
+{
+  "id": "5edd6742-ef6f-4914-b5f3-7541b0d51fdc",
+  "created_at": "2026-10-10T20:55:40.483356+00:00",
+  "mode": "model",
+  "split": "development",
+  "suite_version": "synthetic-refund-iid-v2",
+  "task_set_digest": "0f1fa9947eacb6c31e38812fac8e251ba050f4a7f9747f901791ea167b3ef85b",
+  "code_digest": "f01382de061115e5abef0cdae1adbe18a0beff2b9a33ace431b90a7653eaa2c1",
+  "grader_digest": "3017ab49cb3edf3214a25f5e5c2c0591d28fcde25f8e191f53c88bb4056d1a33",
+  "config_digest": "809f55da5f79cf3fa5fdb9e32e3d3d89f7783da2a9a0eca4c0dfb4fc592415fb",
+  "baseline_passes": 32,
+  "candidate_passes": 3,
+  "provider_failures": 20,
+  "hard_checks": [
+    {
+      "name": "no_external_effects",
+      "passed": true,
+      "detail": "Evaluation has no effect dispatcher."
+    },
+    {
+      "name": "all_planned_tasks_retained",
+      "passed": true,
+      "detail": "Provider errors retained as failed outcomes."
+    },
+    {
+      "name": "candidate_strict_schema",
+      "passed": false,
+      "detail": "Every candidate must validate without repair or markdown stripping."
+    }
+  ],
+  "gate": {
+    "verdict": "fail",
+    "reason": "hard invariant blocked",
+    "n": 32,
+    "paired_success_delta": -0.90625,
+    "lower": -1,
+    "upper": -0.42608860434003965,
+    "radius": 0.48016139565996035,
+    "plan": {
+      "method": "paired Hoeffding bound, range [-1,1], two-sided alpha 0.05",
+      "alpha": 0.05,
+      "noninferiority_margin": 0.1,
+      "minimum_independent_tasks": 1024,
+      "sampling": "Precommitted independent seeded procedural draws; inference applies only to this synthetic generator, never real-world safety.",
+      "optional_stopping": false,
+      "source": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1963.10500830"
+    }
+  },
+  "rows": [
+    {
+      "task_id": "development-0000",
+      "input": {
+        "task_id": "development-0000",
+        "order_id": "SYN-development-0000",
+        "order_total_cents": 7848,
+        "delay_minutes": 73,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0000: total_cents=7848; delay_minutes=73; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0000: total_cents=7848; delay_minutes=73; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0000: total_cents=7848; delay_minutes=73; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 200,
+        "output_tokens": 37,
+        "duration_ms": 22924.706,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0001",
+      "input": {
+        "task_id": "development-0001",
+        "order_id": "SYN-development-0001",
+        "order_total_cents": 24529,
+        "delay_minutes": 85,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0001: total_cents=24529; delay_minutes=85; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0001: total_cents=24529; delay_minutes=85; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0001: total_cents=24529; delay_minutes=85; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 201,
+        "output_tokens": 36,
+        "duration_ms": 10868.488,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0002",
+      "input": {
+        "task_id": "development-0002",
+        "order_id": "SYN-development-0002",
+        "order_total_cents": null,
+        "delay_minutes": null,
+        "policy_exception": false,
+        "order_evidence_available": false
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0002: total_cents=None; delay_minutes=None; evidence_available=False",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"abstain\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.evidence\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0002: total_cents=None; delay_minutes=None; evidence_available=False"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0002: total_cents=None; delay_minutes=None; evidence_available=False<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 194,
+        "output_tokens": 37,
+        "duration_ms": 27596.235,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0003",
+      "input": {
+        "task_id": "development-0003",
+        "order_id": "SYN-development-0003",
+        "order_total_cents": null,
+        "delay_minutes": null,
+        "policy_exception": true,
+        "order_evidence_available": false
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0003: total_cents=None; delay_minutes=None; evidence_available=False",
+          "included": true
+        },
+        {
+          "id": "policy.exception",
+          "label": "Prior compensation exception",
+          "source": "synthetic-policy-v1",
+          "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"abstain\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.evidence\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"abstain\",\n  \"reason\": \"prior compensation exception\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": true,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0003: total_cents=None; delay_minutes=None; evidence_available=False\n\n[policy.exception] This order already received compensation. Draft refund must be 0 cents; do not compensate twice."
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"abstain\",\n  \"reason\": \"prior compensation exception\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0003: total_cents=None; delay_minutes=None; evidence_available=False\n\n[policy.exception] This order already received compensation. Draft refund must be 0 cents; do not compensate twice.<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 218,
+        "output_tokens": 33,
+        "duration_ms": 4208.142,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0004",
+      "input": {
+        "task_id": "development-0004",
+        "order_id": "SYN-development-0004",
+        "order_total_cents": 27739,
+        "delay_minutes": 100,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0004: total_cents=27739; delay_minutes=100; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0004: total_cents=27739; delay_minutes=100; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0004: total_cents=27739; delay_minutes=100; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 202,
+        "output_tokens": 36,
+        "duration_ms": 5441.71,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0005",
+      "input": {
+        "task_id": "development-0005",
+        "order_id": "SYN-development-0005",
+        "order_total_cents": 21448,
+        "delay_minutes": 37,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0005: total_cents=21448; delay_minutes=37; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0005: total_cents=21448; delay_minutes=37; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0005: total_cents=21448; delay_minutes=37; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 201,
+        "output_tokens": 36,
+        "duration_ms": 14764.131,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0006",
+      "input": {
+        "task_id": "development-0006",
+        "order_id": "SYN-development-0006",
+        "order_total_cents": 19080,
+        "delay_minutes": 23,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0006: total_cents=19080; delay_minutes=23; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": true,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0006: total_cents=19080; delay_minutes=23; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0006: total_cents=19080; delay_minutes=23; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 201,
+        "output_tokens": 36,
+        "duration_ms": 8713.476,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0007",
+      "input": {
+        "task_id": "development-0007",
+        "order_id": "SYN-development-0007",
+        "order_total_cents": 13063,
+        "delay_minutes": 79,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0007: total_cents=13063; delay_minutes=79; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0007: total_cents=13063; delay_minutes=79; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0007: total_cents=13063; delay_minutes=79; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 201,
+        "output_tokens": 36,
+        "duration_ms": 2331.725,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0008",
+      "input": {
+        "task_id": "development-0008",
+        "order_id": "SYN-development-0008",
+        "order_total_cents": null,
+        "delay_minutes": null,
+        "policy_exception": false,
+        "order_evidence_available": false
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0008: total_cents=None; delay_minutes=None; evidence_available=False",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"abstain\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.evidence\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0008: total_cents=None; delay_minutes=None; evidence_available=False"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0008: total_cents=None; delay_minutes=None; evidence_available=False<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 194,
+        "output_tokens": 37,
+        "duration_ms": 4580.838,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0009",
+      "input": {
+        "task_id": "development-0009",
+        "order_id": "SYN-development-0009",
+        "order_total_cents": 8087,
+        "delay_minutes": 11,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0009: total_cents=8087; delay_minutes=11; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": true,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0009: total_cents=8087; delay_minutes=11; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0009: total_cents=8087; delay_minutes=11; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 200,
+        "output_tokens": 36,
+        "duration_ms": 8809.74,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0010",
+      "input": {
+        "task_id": "development-0010",
+        "order_id": "SYN-development-0010",
+        "order_total_cents": 24099,
+        "delay_minutes": 96,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0010: total_cents=24099; delay_minutes=96; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0010: total_cents=24099; delay_minutes=96; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0010: total_cents=24099; delay_minutes=96; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 201,
+        "output_tokens": 36,
+        "duration_ms": 2075.737,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0011",
+      "input": {
+        "task_id": "development-0011",
+        "order_id": "SYN-development-0011",
+        "order_total_cents": 350,
+        "delay_minutes": 32,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0011: total_cents=350; delay_minutes=32; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": true,
+        "policy_match": false,
+        "evidence_valid": true,
+        "error": "policy_or_evidence"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0011: total_cents=350; delay_minutes=32; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": {
+        "raw_response": "{\n  \"disposition\": \"zero\",\n  \"reason\": \"prior compensation or delay < 30 minutes\",\n  \"evidence_ids\": [\"policy.evidence\"]\n}",
+        "rendered_request": "<|im_start|>system\nYou classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents.<|im_end|>\n<|im_start|>user\n[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0011: total_cents=350; delay_minutes=32; evidence_available=True<|im_end|>\n<|im_start|>assistant\n",
+        "model": "Qwen2.5-0.5B-Instruct",
+        "model_revision": "51b21c2424a7796c5666cac51e0cd466c39d22f6dd07edcc26ab7862fe630f89",
+        "model_file_digests": {
+          "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+          "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+          "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+          "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        },
+        "input_tokens": 199,
+        "output_tokens": 37,
+        "duration_ms": 11326.577,
+        "runtime": {
+          "device": "cpu",
+          "dtype": "float32",
+          "threads": 4,
+          "temperature": 0,
+          "torch": "2.12.1",
+          "transformers": "5.9.0"
+        }
+      },
+      "provider_error": null
+    },
+    {
+      "task_id": "development-0012",
+      "input": {
+        "task_id": "development-0012",
+        "order_id": "SYN-development-0012",
+        "order_total_cents": 19075,
+        "delay_minutes": 49,
+        "policy_exception": true,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0012: total_cents=19075; delay_minutes=49; evidence_available=True",
+          "included": true
+        },
+        {
+          "id": "policy.exception",
+          "label": "Prior compensation exception",
+          "source": "synthetic-policy-v1",
+          "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\", \"policy.exception\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0012: total_cents=19075; delay_minutes=49; evidence_available=True\n\n[policy.exception] This order already received compensation. Draft refund must be 0 cents; do not compensate twice."
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "ReadTimeout"
+    },
+    {
+      "task_id": "development-0013",
+      "input": {
+        "task_id": "development-0013",
+        "order_id": "SYN-development-0013",
+        "order_total_cents": 781,
+        "delay_minutes": 27,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0013: total_cents=781; delay_minutes=27; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0013: total_cents=781; delay_minutes=27; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0014",
+      "input": {
+        "task_id": "development-0014",
+        "order_id": "SYN-development-0014",
+        "order_total_cents": 29576,
+        "delay_minutes": 91,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0014: total_cents=29576; delay_minutes=91; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0014: total_cents=29576; delay_minutes=91; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0015",
+      "input": {
+        "task_id": "development-0015",
+        "order_id": "SYN-development-0015",
+        "order_total_cents": 13653,
+        "delay_minutes": 41,
+        "policy_exception": true,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0015: total_cents=13653; delay_minutes=41; evidence_available=True",
+          "included": true
+        },
+        {
+          "id": "policy.exception",
+          "label": "Prior compensation exception",
+          "source": "synthetic-policy-v1",
+          "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\", \"policy.exception\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0015: total_cents=13653; delay_minutes=41; evidence_available=True\n\n[policy.exception] This order already received compensation. Draft refund must be 0 cents; do not compensate twice."
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0016",
+      "input": {
+        "task_id": "development-0016",
+        "order_id": "SYN-development-0016",
+        "order_total_cents": 16777,
+        "delay_minutes": 10,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0016: total_cents=16777; delay_minutes=10; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0016: total_cents=16777; delay_minutes=10; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0017",
+      "input": {
+        "task_id": "development-0017",
+        "order_id": "SYN-development-0017",
+        "order_total_cents": null,
+        "delay_minutes": null,
+        "policy_exception": false,
+        "order_evidence_available": false
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0017: total_cents=None; delay_minutes=None; evidence_available=False",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"abstain\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.evidence\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0017: total_cents=None; delay_minutes=None; evidence_available=False"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0018",
+      "input": {
+        "task_id": "development-0018",
+        "order_id": "SYN-development-0018",
+        "order_total_cents": 9046,
+        "delay_minutes": 47,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0018: total_cents=9046; delay_minutes=47; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0018: total_cents=9046; delay_minutes=47; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0019",
+      "input": {
+        "task_id": "development-0019",
+        "order_id": "SYN-development-0019",
+        "order_total_cents": 18065,
+        "delay_minutes": 32,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0019: total_cents=18065; delay_minutes=32; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0019: total_cents=18065; delay_minutes=32; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0020",
+      "input": {
+        "task_id": "development-0020",
+        "order_id": "SYN-development-0020",
+        "order_total_cents": 6963,
+        "delay_minutes": 97,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0020: total_cents=6963; delay_minutes=97; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0020: total_cents=6963; delay_minutes=97; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0021",
+      "input": {
+        "task_id": "development-0021",
+        "order_id": "SYN-development-0021",
+        "order_total_cents": 13450,
+        "delay_minutes": 65,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0021: total_cents=13450; delay_minutes=65; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0021: total_cents=13450; delay_minutes=65; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0022",
+      "input": {
+        "task_id": "development-0022",
+        "order_id": "SYN-development-0022",
+        "order_total_cents": 19181,
+        "delay_minutes": 44,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0022: total_cents=19181; delay_minutes=44; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0022: total_cents=19181; delay_minutes=44; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0023",
+      "input": {
+        "task_id": "development-0023",
+        "order_id": "SYN-development-0023",
+        "order_total_cents": 25383,
+        "delay_minutes": 8,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0023: total_cents=25383; delay_minutes=8; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0023: total_cents=25383; delay_minutes=8; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0024",
+      "input": {
+        "task_id": "development-0024",
+        "order_id": "SYN-development-0024",
+        "order_total_cents": 27865,
+        "delay_minutes": 79,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0024: total_cents=27865; delay_minutes=79; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0024: total_cents=27865; delay_minutes=79; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0025",
+      "input": {
+        "task_id": "development-0025",
+        "order_id": "SYN-development-0025",
+        "order_total_cents": 18815,
+        "delay_minutes": 94,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0025: total_cents=18815; delay_minutes=94; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0025: total_cents=18815; delay_minutes=94; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0026",
+      "input": {
+        "task_id": "development-0026",
+        "order_id": "SYN-development-0026",
+        "order_total_cents": 12668,
+        "delay_minutes": 33,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0026: total_cents=12668; delay_minutes=33; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0026: total_cents=12668; delay_minutes=33; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0027",
+      "input": {
+        "task_id": "development-0027",
+        "order_id": "SYN-development-0027",
+        "order_total_cents": 7221,
+        "delay_minutes": 18,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0027: total_cents=7221; delay_minutes=18; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0027: total_cents=7221; delay_minutes=18; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0028",
+      "input": {
+        "task_id": "development-0028",
+        "order_id": "SYN-development-0028",
+        "order_total_cents": 16234,
+        "delay_minutes": 70,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0028: total_cents=16234; delay_minutes=70; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0028: total_cents=16234; delay_minutes=70; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0029",
+      "input": {
+        "task_id": "development-0029",
+        "order_id": "SYN-development-0029",
+        "order_total_cents": 16587,
+        "delay_minutes": 15,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0029: total_cents=16587; delay_minutes=15; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"zero\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0029: total_cents=16587; delay_minutes=15; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0030",
+      "input": {
+        "task_id": "development-0030",
+        "order_id": "SYN-development-0030",
+        "order_total_cents": 17591,
+        "delay_minutes": 58,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0030: total_cents=17591; delay_minutes=58; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0030: total_cents=17591; delay_minutes=58; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    },
+    {
+      "task_id": "development-0031",
+      "input": {
+        "task_id": "development-0031",
+        "order_id": "SYN-development-0031",
+        "order_total_cents": 25965,
+        "delay_minutes": 40,
+        "policy_exception": false,
+        "order_evidence_available": true
+      },
+      "context": [
+        {
+          "id": "policy.base",
+          "label": "Late-order policy",
+          "source": "synthetic-policy-v1",
+          "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+          "included": true
+        },
+        {
+          "id": "policy.evidence",
+          "label": "Evidence requirement",
+          "source": "synthetic-policy-v1",
+          "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+          "included": true
+        },
+        {
+          "id": "order.receipt",
+          "label": "Order receipt",
+          "source": "synthetic-order-service-v1",
+          "content": "Order SYN-development-0031: total_cents=25965; delay_minutes=40; evidence_available=True",
+          "included": true
+        }
+      ],
+      "baseline_raw": "{\"disposition\": \"refund\", \"reason\": \"Deterministic policy execution.\", \"evidence_ids\": [\"policy.base\", \"order.receipt\"]}",
+      "candidate_raw": "",
+      "baseline_passed": true,
+      "candidate_passed": false,
+      "baseline_grade": {
+        "passed": true,
+        "schema_valid": true,
+        "policy_match": true,
+        "evidence_valid": true,
+        "error": null
+      },
+      "candidate_grade": {
+        "passed": false,
+        "schema_valid": false,
+        "policy_match": false,
+        "error": "strict_json"
+      },
+      "request": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You classify a synthetic order-support review. Never execute payment. Reply with exactly one JSON object and no markdown. Keys: disposition (refund, zero, or abstain), reason (nonempty string), evidence_ids (nonempty array of bracketed context IDs without brackets). Choose refund only if verified delay >=30 minutes and no prior compensation exception. Choose zero for prior compensation or delay <30. Choose abstain if amount or delay evidence missing. Do not calculate any money; a deterministic tool calculates cents."
+          },
+          {
+            "role": "user",
+            "content": "[policy.base] If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.\n\n[policy.evidence] If order amount or delay evidence is unavailable, abstain and request manual review.\n\n[order.receipt] Order SYN-development-0031: total_cents=25965; delay_minutes=40; evidence_available=True"
+          }
+        ],
+        "max_tokens": 128,
+        "temperature": 0,
+        "contract_version": "classification-v1"
+      },
+      "response": null,
+      "provider_error": "HTTPStatusError"
+    }
+  ],
+  "limits": [
+    "Synthetic procedural task distribution only; no production/adoption claim.",
+    "Calibration executions are deterministic and are not model quality evidence.",
+    "Each row one predeclared paired task; no repeated-seed pseudo-replication.",
+    "Original separate build001 model probe 0/4 remains unchanged.",
+    "Model mode is direct evaluation, separate from durable job execution."
+  ],
+  "report_digest": "1b68c9cefe9bdb4a86af90498299e152567dd9704e45be266013d2ad1734d7cb"
+}

@@ -59,19 +59,27 @@ export default function TimeTravelForkModal({
           <div className="p-3 rounded border border-[#27272a] bg-[#18181b] space-y-1">
             <div className="text-zinc-400">
               Fork Point Parent Hash:{" "}
-              <span className="text-zinc-200">{step.parentHash.slice(0, 32)}...</span>
+              <span className="text-zinc-200">
+                {step.parentHash.slice(0, 32)}...
+              </span>
             </div>
             <div className="text-zinc-400">
               Action Name:{" "}
-              <span className="text-indigo-400 font-semibold">{step.decision.actionName}</span>
+              <span className="text-indigo-400 font-semibold">
+                {step.decision.actionName}
+              </span>
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-zinc-300 font-medium">
+            <label
+              htmlFor="legacy-patch-query"
+              className="block text-zinc-300 font-medium"
+            >
               Patch Action Parameters (SQL Query Mutation):
             </label>
             <textarea
+              id="legacy-patch-query"
               rows={4}
               value={patchQuery}
               onChange={(e) => setPatchQuery(e.target.value)}
@@ -79,7 +87,9 @@ export default function TimeTravelForkModal({
               placeholder="Enter patched SQL query..."
             />
             <p className="text-[11px] text-zinc-500">
-              Injecting this patch will truncate subsequent execution history from step {step.seq} onwards, compute new cryptographic parent-child event hashes, and run live invariant verification.
+              Injecting this patch will truncate subsequent execution history
+              from step {step.seq} onwards, compute new cryptographic
+              parent-child event hashes, and run live invariant verification.
             </p>
           </div>
         </div>

@@ -1,0 +1,57 @@
+# External HTTPS OIDC provider and edge proxy are deployment prerequisites.
+# Only the edge proxy should expose API/web ports on a public network.
+services:
+  postgres:
+    image: postgres:18@sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336
+    environment:
+      POSTGRES_USER: kairos
+      POSTGRES_DB: kairos
+      POSTGRES_PASSWORD: ${KAIROS_POSTGRES_PASSWORD:?required}
+    volumes: ["database:/var/lib/postgresql"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kairos -d kairos"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  api:
+    build: {context: ., dockerfile: Dockerfile.api}
+    environment:
+      DATABASE_URL: ${KAIROS_DEPLOY_DATABASE_URL:?Postgres URL targeting postgres service}
+      KAIROS_ENV: production
+      KAIROS_IDENTITY_MODE: oidc
+      KAIROS_OIDC_ISSUER: ${KAIROS_OIDC_ISSUER:?HTTPS provider issuer required}
+      KAIROS_OIDC_CLIENT_ID: ${KAIROS_OIDC_CLIENT_ID:-kairos-web}
+      KAIROS_OIDC_CLIENT_SECRET: ${KAIROS_OIDC_CLIENT_SECRET:?required}
+      KAIROS_OIDC_CALLBACK: ${KAIROS_OIDC_CALLBACK:?HTTPS API callback required}
+      KAIROS_WEB_ORIGIN: ${KAIROS_WEB_ORIGIN:?HTTPS web origin required}
+      KAIROS_CORS_ORIGINS: ${KAIROS_WEB_ORIGIN:?required}
+    ports: ["127.0.0.1:8100:8100"]
+    volumes: ["blobs:/app/.runtime/blobs"]
+    depends_on: {postgres: {condition: service_healthy}}
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+  worker:
+    build: {context: ., dockerfile: Dockerfile.api}
+    command: ["python", "-m", "kairos_api.worker"]
+    environment:
+      DATABASE_URL: ${KAIROS_DEPLOY_DATABASE_URL:?required}
+      KAIROS_MODEL_ENDPOINT: ${KAIROS_MODEL_ENDPOINT:?configured provider adapter endpoint required}
+    volumes: ["blobs:/app/.runtime/blobs"]
+    depends_on: {postgres: {condition: service_healthy}}
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+  web:
+    build: {context: ., dockerfile: Dockerfile.web}
+    environment:
+      KAIROS_API_URL: http://api:8100
+      KAIROS_WEB_ORIGIN: ${KAIROS_WEB_ORIGIN:?required}
+      KAIROS_AUTH_LOGIN_URL: ${KAIROS_AUTH_LOGIN_URL:?HTTPS API login URL required}
+      KAIROS_ENABLE_LOCAL_MUTATIONS: 'false'
+    ports: ["127.0.0.1:3100:3100"]
+    depends_on: [api]
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+volumes:
+  database:
+  blobs:

@@ -78,13 +78,17 @@ def main():
             found = response.json()
             if not found:
                 response = client.post(realm + "/users", json={"username": account["username"], "enabled": True,
-                    "emailVerified": True, "firstName": "Synthetic", "lastName": "Builder",
+                    "emailVerified": True, "email": account["username"] + "@example.invalid", "firstName": "Synthetic", "lastName": "Builder",
                     "credentials": [{"type": "password", "value": account["password"], "temporary": False}]})
                 response.raise_for_status()
                 response = client.get(realm + "/users", params={"username": account["username"], "exact": "true"})
                 response.raise_for_status()
                 found = response.json()
             account["subject"] = found[0]["id"]
+            response = client.put(realm + "/users/" + account["subject"], json={"username": account["username"],
+                "enabled": True, "emailVerified": True, "email": account["username"] + "@example.invalid",
+                "firstName": "Synthetic", "lastName": "Builder", "requiredActions": []})
+            response.raise_for_status()
     env = local_env(ROOT / ".env.kairos.local")
     database_url = os.environ.get("DATABASE_URL", env["DATABASE_URL"])
     from kairos_api.identity import IdentityRepository

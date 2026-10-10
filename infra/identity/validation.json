@@ -1,0 +1,20 @@
+{
+  "captured_at": "2026-10-10T20:54:47.474549+00:00",
+  "command": "KAIROS_TEST_IDENTITY_PROVIDER=1 python -m pytest tests/test_identity.py tests/test_identity_provider.py tests/test_identity_app.py -q --tb=short",
+  "return_code": 0,
+  "output": "........................                                                 [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  /Users/gauravkumarnayak/Desktop/new-karos/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5\n  /Users/gauravkumarnayak/Desktop/new-karos/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.\n    from ._compat import httpx2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n24 passed, 2 warnings in 12.22s\n",
+  "provider": "Keycloak26.8.0 official local Docker",
+  "provider_image_digest": "sha256:27b3230fbabb8c9ff3c66c864cf09dcd8a41aca82e5100679d109ef0eeb05741",
+  "hosted_deployment": false,
+  "actual_provider_flows": 4,
+  "actual_product_app_checks": 6,
+  "credentials_included": false,
+  "source_sha256": {
+    "kairos_api/identity.py": "f57f319b47d673addecf18a536eb29268b2aeb6b46a89d33473f17d475ac670f",
+    "kairos_api/schema_identity.sql": "072405696922a3cfe32eb6107bcdf93337eae81328567c83ef3b6b5072a0af7b",
+    "scripts/setup_identity.py": "5cafdf1e235cc009d6011be899bd0ba1aeb8f2b9ded822253b2c45ca3d807745",
+    "tests/test_identity.py": "d91ccd4f1aa24f3145fbf99d3a79d635392ff7a5685ec2ece6d77f6a90edfaf8",
+    "tests/test_identity_provider.py": "324100a1c732f848d3c62e73c5d4a2eb801ee2de259a9be649c53bba52ce057e",
+    "tests/test_identity_app.py": "6e3eca3328c1b23d393af11b627437bcfbd4b4452dcad940b5d572f558642edb"
+  }
+}

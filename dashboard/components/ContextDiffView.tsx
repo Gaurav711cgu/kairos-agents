@@ -87,7 +87,7 @@ export default function ContextDiffView({ step, baselineStep }: ContextDiffViewP
             {/* Token Budget Meter */}
             <div className="w-full bg-[#1e1e24] h-1.5 rounded-full overflow-hidden">
               <div
-                className={`h-full transition-all duration-300 ${
+                className={`h-full transition-[width] duration-300 ease-out ${
                   tokenPercentage > 85
                     ? "bg-red-500"
                     : tokenPercentage > 60

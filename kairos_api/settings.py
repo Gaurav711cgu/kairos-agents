@@ -14,12 +14,18 @@ class Settings:
     database_url: str
     credentials: dict[str, str]
     origins: list[str]
+    identity_mode: str = "development"
 
     @classmethod
     def from_environment(cls):
         database_url = os.environ.get("DATABASE_URL", "")
         if not database_url:
             raise ValueError("DATABASE_URL must point to a PostgreSQL database.")
+        mode = os.environ.get("KAIROS_IDENTITY_MODE", "development")
+        if mode not in {"development", "oidc"}:
+            raise ValueError("Unknown KAIROS_IDENTITY_MODE.")
+        if os.environ.get("KAIROS_ENV") == "production" and mode != "oidc":
+            raise ValueError("Production requires managed OIDC identity.")
         credentials = json.loads(os.environ.get("KAIROS_DEVELOPER_CREDENTIALS", "{}"))
         if not isinstance(credentials, dict):
             raise ValueError("KAIROS_DEVELOPER_CREDENTIALS must be a JSON object.")
@@ -29,4 +35,4 @@ class Settings:
         if not isinstance(credentials, dict) or any(not isinstance(k, str) or len(k) < 24 or not isinstance(v, str) or not v for k, v in credentials.items()):
             raise ValueError("Developer credentials require tokens of at least 24 characters and nonempty tenant IDs.")
         origins = cors_origins()
-        return cls(database_url=database_url, credentials=credentials, origins=origins)
+        return cls(database_url=database_url, credentials=credentials if mode == "development" else {}, origins=origins, identity_mode=mode)

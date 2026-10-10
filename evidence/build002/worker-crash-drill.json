@@ -1,0 +1,285 @@
+{
+  "method": "Actual subprocess SIGKILL at durable checkpoints; lease expiry advanced explicitly after process death.",
+  "provider": "Controlled fixture; not model-quality evidence",
+  "isolated_schema": "kairos_crash_drill_76bd2f3f2971495cab7e6ef3587623ee",
+  "drills": [
+    {
+      "phase": "dispatch",
+      "job_id": "cfd44b2e-b94f-4770-b634-296cd795b857",
+      "process_returncode": -9,
+      "committed_stage_before_kill": "dispatched",
+      "status_after_reclaim": "unknown",
+      "final_status": "unknown",
+      "provider_dispatches": 1,
+      "redispatches": 0,
+      "captured_response": false,
+      "integrity": {
+        "verified": true,
+        "scope": "Local captured objects, event continuity and versioned inputs; not immutable history."
+      },
+      "events": [
+        {
+          "job_id": "cfd44b2e-b94f-4770-b634-296cd795b857",
+          "seq": 1,
+          "event_type": "job.queued",
+          "payload": {
+            "mode": "initial-controlled-run",
+            "policy": "preserve",
+            "runner": "model",
+            "scenario_id": "late-order-exception",
+            "parent_job_id": null,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:53:38.573093+00:00",
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "event_hash": "537364128d4c8a1188c417953386ee999e6166fe1b8b743d2c1407d6773ac2cd"
+        },
+        {
+          "job_id": "cfd44b2e-b94f-4770-b634-296cd795b857",
+          "seq": 2,
+          "event_type": "context.selected",
+          "payload": {
+            "blocks": [
+              {
+                "id": "policy.base",
+                "label": "Late-order policy",
+                "source": "synthetic-policy-v1",
+                "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+                "included": true
+              },
+              {
+                "id": "policy.evidence",
+                "label": "Evidence requirement",
+                "source": "synthetic-policy-v1",
+                "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+                "included": true
+              },
+              {
+                "id": "order.receipt",
+                "label": "Order receipt",
+                "source": "synthetic-order-service-v1",
+                "content": "Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True",
+                "included": true
+              },
+              {
+                "id": "policy.exception",
+                "label": "Prior compensation exception",
+                "source": "synthetic-policy-v1",
+                "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+                "included": true
+              }
+            ],
+            "omitted_ids": []
+          },
+          "created_at": "2026-10-10T20:53:38.576230+00:00",
+          "prev_hash": "537364128d4c8a1188c417953386ee999e6166fe1b8b743d2c1407d6773ac2cd",
+          "event_hash": "f8cf47eb45ff0a5c8f3caec6e8d9c1628dcd73b3f50fdf8610c68313bf91971d"
+        },
+        {
+          "job_id": "cfd44b2e-b94f-4770-b634-296cd795b857",
+          "seq": 3,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 1,
+            "lease_token": 1,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:53:39.395940+00:00",
+          "prev_hash": "f8cf47eb45ff0a5c8f3caec6e8d9c1628dcd73b3f50fdf8610c68313bf91971d",
+          "event_hash": "d36efc4f49645dc1e89fb39e36c2121e60bafb5cf3fed02072001bf6347e7cac"
+        },
+        {
+          "job_id": "cfd44b2e-b94f-4770-b634-296cd795b857",
+          "seq": 4,
+          "event_type": "model.dispatch_intent",
+          "payload": {
+            "outcome": "not_yet_known",
+            "max_calls": 1,
+            "request_digest": "9e8180f4d99458940da38e9dd9c6550753bd879691a398dfe0697d73eefb06f6"
+          },
+          "created_at": "2026-10-10T20:53:39.449342+00:00",
+          "prev_hash": "d36efc4f49645dc1e89fb39e36c2121e60bafb5cf3fed02072001bf6347e7cac",
+          "event_hash": "a6a009349c40f79d1f3ab12283f671a6fb38e8c1cab5320c47f6c9c5ad9bd304"
+        },
+        {
+          "job_id": "cfd44b2e-b94f-4770-b634-296cd795b857",
+          "seq": 5,
+          "event_type": "job.lease_expired",
+          "payload": {
+            "reason": "lease_expired_dispatch_outcome_unknown",
+            "status": "unknown",
+            "redispatch": false
+          },
+          "created_at": "2026-10-10T20:53:39.608680+00:00",
+          "prev_hash": "a6a009349c40f79d1f3ab12283f671a6fb38e8c1cab5320c47f6c9c5ad9bd304",
+          "event_hash": "39db69d7d927e887d9a2e0c9c8839e4510b26c315e3452fa2ebe5626ae6f1034"
+        }
+      ]
+    },
+    {
+      "phase": "known-response",
+      "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+      "process_returncode": -9,
+      "committed_stage_before_kill": "response_captured",
+      "status_after_reclaim": "unknown",
+      "final_status": "succeeded",
+      "provider_dispatches": 1,
+      "redispatches": 0,
+      "captured_response": true,
+      "integrity": {
+        "verified": true,
+        "scope": "Local captured objects, event continuity and versioned inputs; not immutable history."
+      },
+      "events": [
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 1,
+          "event_type": "job.queued",
+          "payload": {
+            "mode": "initial-controlled-run",
+            "policy": "preserve",
+            "runner": "model",
+            "scenario_id": "late-order-exception",
+            "parent_job_id": null,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:53:39.873686+00:00",
+          "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "event_hash": "74a98e63c72bf7a7ff5f71002e17c00d2423a4fd299882ede45c0bca82a9f3c4"
+        },
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 2,
+          "event_type": "context.selected",
+          "payload": {
+            "blocks": [
+              {
+                "id": "policy.base",
+                "label": "Late-order policy",
+                "source": "synthetic-policy-v1",
+                "content": "If verified delay is at least 30 minutes, draft a 20% refund rounded down to cents. Never execute payment.",
+                "included": true
+              },
+              {
+                "id": "policy.evidence",
+                "label": "Evidence requirement",
+                "source": "synthetic-policy-v1",
+                "content": "If order amount or delay evidence is unavailable, abstain and request manual review.",
+                "included": true
+              },
+              {
+                "id": "order.receipt",
+                "label": "Order receipt",
+                "source": "synthetic-order-service-v1",
+                "content": "Order SYN-1042: total_cents=2400; delay_minutes=47; evidence_available=True",
+                "included": true
+              },
+              {
+                "id": "policy.exception",
+                "label": "Prior compensation exception",
+                "source": "synthetic-policy-v1",
+                "content": "This order already received compensation. Draft refund must be 0 cents; do not compensate twice.",
+                "included": true
+              }
+            ],
+            "omitted_ids": []
+          },
+          "created_at": "2026-10-10T20:53:39.876890+00:00",
+          "prev_hash": "74a98e63c72bf7a7ff5f71002e17c00d2423a4fd299882ede45c0bca82a9f3c4",
+          "event_hash": "035ed1af17a07b6c7ea84cd3773fd6c00fe07299dbe673acbb4471092e195451"
+        },
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 3,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 1,
+            "lease_token": 1,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:53:40.635654+00:00",
+          "prev_hash": "035ed1af17a07b6c7ea84cd3773fd6c00fe07299dbe673acbb4471092e195451",
+          "event_hash": "b821a5d4c9e4c7c3940844eaa96c389e0f73050b4fdeb53fa45996324b0fc290"
+        },
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 4,
+          "event_type": "model.dispatch_intent",
+          "payload": {
+            "outcome": "not_yet_known",
+            "max_calls": 1,
+            "request_digest": "9e8180f4d99458940da38e9dd9c6550753bd879691a398dfe0697d73eefb06f6"
+          },
+          "created_at": "2026-10-10T20:53:40.702586+00:00",
+          "prev_hash": "b821a5d4c9e4c7c3940844eaa96c389e0f73050b4fdeb53fa45996324b0fc290",
+          "event_hash": "eee0852798a724dcb2a6c31494de223f3a50f2981984c3f2b7977021a342c896"
+        },
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 5,
+          "event_type": "model.response_captured",
+          "payload": {
+            "response_digest": "12cfcf44f7fb95d7b62526fd1e06dea20c36df7052691d0d0999e282cf3ce3e3",
+            "raw_response_preserved": true
+          },
+          "created_at": "2026-10-10T20:53:40.729549+00:00",
+          "prev_hash": "eee0852798a724dcb2a6c31494de223f3a50f2981984c3f2b7977021a342c896",
+          "event_hash": "5fbdf984618477d880108ad63ca4d875b95b5caecfaf3e743a5834d1f457c32c"
+        },
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 6,
+          "event_type": "job.lease_expired",
+          "payload": {
+            "reason": "lease_expired_known_result",
+            "status": "unknown",
+            "redispatch": false
+          },
+          "created_at": "2026-10-10T20:53:40.870705+00:00",
+          "prev_hash": "5fbdf984618477d880108ad63ca4d875b95b5caecfaf3e743a5834d1f457c32c",
+          "event_hash": "0cb9de288887e42cd8bb083d4cd8f753a465a4620067f68e7cc82a90f39a26b7"
+        },
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 7,
+          "event_type": "job.known_result_continuation_requested",
+          "payload": {
+            "redispatch": false,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:53:40.978723+00:00",
+          "prev_hash": "0cb9de288887e42cd8bb083d4cd8f753a465a4620067f68e7cc82a90f39a26b7",
+          "event_hash": "93ae7e985d31b694473d1394a4d5c2868424102ecc16ca0ac71149c0ce1e25df"
+        },
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 8,
+          "event_type": "job.claimed",
+          "payload": {
+            "attempt": 2,
+            "lease_token": 4,
+            "checkpoint_version": 1
+          },
+          "created_at": "2026-10-10T20:53:41.049164+00:00",
+          "prev_hash": "93ae7e985d31b694473d1394a4d5c2868424102ecc16ca0ac71149c0ce1e25df",
+          "event_hash": "1c226ae1e5ef114ea1f36ad550686647a8239c73fa7dda5c2105571b968dceae"
+        },
+        {
+          "job_id": "72952b6e-6d7e-46de-920b-6ef8bb40d43b",
+          "seq": 9,
+          "event_type": "job.completed",
+          "payload": {
+            "error": null,
+            "status": "succeeded",
+            "result_digest": "1c34fd6c3bfa4052a54596fe4419583d032b1045ff61154398dbd1aa0b128364",
+            "external_effects": 0
+          },
+          "created_at": "2026-10-10T20:53:41.113971+00:00",
+          "prev_hash": "1c226ae1e5ef114ea1f36ad550686647a8239c73fa7dda5c2105571b968dceae",
+          "event_hash": "1b83df185969136f837d8744712d81d713bb6169abfebd20f162466dede57017"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

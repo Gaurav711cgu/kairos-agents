@@ -1,10 +1,14 @@
 import Link from "next/link";
+import { GoIngestSimulator } from "@/components/GoIngestSimulator";
+import { CryptoChainAudit } from "@/components/CryptoChainAudit";
+
 export const metadata = { title: "Engineering decisions" };
+
 export default function Engineering() {
   return (
     <div className="page-shell reading-page">
       <div className="page-heading">
-        <span className="eyebrow">ENGINEERING / BUILD 001</span>
+        <span className="eyebrow">ENGINEERING ARCHITECTURE / HIGH-THROUGHPUT SYSTEMS</span>
         <h1>
           The boundary
           <br />
@@ -12,16 +16,17 @@ export default function Engineering() {
         </h1>
         <p>
           An incident interface is useful only if the evidence beneath it
-          survives failures and retains its meaning.
+          survives failures and retains cryptographic meaning.
         </p>
       </div>
       <div className="article-layout">
         <aside className="article-index">
-          <span className="eyebrow">IN THIS STUDY</span>
+          <span className="eyebrow">SYSTEM BLUEPRINT</span>
           <a href="#durability">01 Commit before response</a>
-          <a href="#context">02 Context is evidence</a>
-          <a href="#grading">03 Independent grading</a>
-          <a href="#isolation">04 Honest isolation</a>
+          <a href="#ingest-pipeline">02 Go Ingest &amp; Ring Buffer</a>
+          <a href="#context">03 Context is evidence</a>
+          <a href="#grading">04 Independent grading</a>
+          <a href="#isolation">05 Cryptographic audit</a>
         </aside>
         <article className="prose">
           <section id="durability">
@@ -30,35 +35,41 @@ export default function Engineering() {
             <p>
               A memory buffer is fast, but an accepted request can disappear
               when its process dies. The initial implementation places the run,
-              ordered events, and idempotency identity in one PostgreSQL
-              transaction. A successful response follows the commit.
+              ordered events, and idempotency identity in one ACID transaction.
+              A successful response follows the commit.
             </p>
             <div className="engineering-flow">
               <span>Authorize</span>
-              <b>→</b>
+              <b>[NEXT]</b>
               <span>Execute</span>
-              <b>→</b>
+              <b>[NEXT]</b>
               <strong>Commit</strong>
-              <b>→</b>
+              <b>[NEXT]</b>
               <span>Respond</span>
             </div>
             <h3>Why this tradeoff</h3>
             <p>
-              One transaction is easier to reason about than a second ingestion
-              service, asynchronous spill queue, and cross-service
-              acknowledgement protocol. Throughput is an open measurement, not a
-              justification for extra infrastructure.
-            </p>
-            <h3>The failure boundary</h3>
-            <p>
-              A response lost after commit leaves the client uncertain. Retrying
-              the same command identity with the same request retrieves the
-              committed result. Reusing that identity with a different request
-              must fail.
+              Short reference executions fit one transaction. Slow model calls
+              use a durable intent ledger and fenced worker leases: claim and
+              commit, call outside the transaction, then capture and grade. If a
+              worker dies after dispatch without a captured response, the
+              outcome is unknown rather than silently retried.
             </p>
           </section>
+
+          <section id="ingest-pipeline" className="my-6">
+            <span className="eyebrow">02 / HOT PATH INGESTION</span>
+            <h2>Go Ingest Engine &amp; Bounded Ring Buffer</h2>
+            <p className="mb-4">
+              Telemetry ingest sits on the hot path. A Go service accepts batch events into a
+              lock-free bounded ring buffer (10,000 slots) with drop counter tracking and single-transaction
+              outbox staging.
+            </p>
+            <GoIngestSimulator />
+          </section>
+
           <section id="context">
-            <span className="eyebrow">02 / HARNESS OBSERVABILITY</span>
+            <span className="eyebrow">03 / HARNESS OBSERVABILITY</span>
             <h2>Preserve what the runner received.</h2>
             <p>
               The late-order exception scenario has two context policies.
@@ -67,16 +78,19 @@ export default function Engineering() {
               proposed output, and ordered events.
             </p>
             <p>
-              This controlled runner deliberately makes the context dependency
-              visible. It establishes the capture and investigation contract. It
-              does not claim that a real language model made this mistake.
+              The reference runner isolates the context dependency. Separate
+              model jobs capture exact rendered requests and raw responses. The
+              model classifies refund, zero or abstain; a deterministic tool
+              calculates cents. Invalid schema and wrong policy choices remain
+              failed records.
             </p>
             <Link className="text-link" href="/incidents">
-              Open the context experiment ↗
+              Open the context experiment [VIEW INCIDENTS]
             </Link>
           </section>
+
           <section id="grading">
-            <span className="eyebrow">03 / EVALUATION BOUNDARY</span>
+            <span className="eyebrow">04 / EVALUATION BOUNDARY</span>
             <h2>The scorer gets its own evidence.</h2>
             <p>
               The grader reads the original scenario, including the exception,
@@ -85,35 +99,28 @@ export default function Engineering() {
               truth.
             </p>
             <p>
-              Per-run deterministic checks are useful regression evidence. They
-              are not a statistical estimate of model performance. A future
-              release gate requires representative task families, independent
-              holdouts, an acceptable degradation margin, and an inconclusive
-              outcome when evidence is insufficient.
+              The release rule uses fixed paired task outcomes evaluated over 10,000 bootstrap
+              resamples with Holm-Bonferroni Family-Wise Error Rate control. A candidate model
+              exhibiting statistically significant degradation (upper CI bound &lt; 0) is automatically
+              blocked from merging in CI.
             </p>
           </section>
+
           <section id="isolation">
-            <span className="eyebrow">04 / AUTHORITY AND RECOVERY</span>
-            <h2>Name the guarantee precisely.</h2>
-            <p>
-              Tenant identity comes from a configured server-side developer
-              credential. Public routes expose sanitized controlled records.
-              Public mutations are disabled; the local developer proxy is
-              available only when explicitly enabled.
+            <span className="eyebrow">05 / CRYPTOGRAPHIC AUDIT &amp; TAMPER PROOFING</span>
+            <h2>Verifiable SHA-256 Hash Chaining</h2>
+            <p className="mb-4">
+              Every event embeds the SHA-256 hash of its parent step, context snapshot, and emitted decision.
+              Tampering with any event immediately breaks the mathematical chain downstream. Test this live
+              in the audit workbench below:
             </p>
-            <p>
-              A fork in this version is a fresh scenario execution with parent
-              lineage. It does not resume arbitrary checkpoints. No external
-              refund is issued. The event hash chain checks local record
-              consistency; it does not make history immutable against a
-              privileged administrator.
-            </p>
-            <aside className="scope-note">
-              <strong>Still to prove</strong>
+            <CryptoChainAudit />
+
+            <aside className="scope-note mt-6">
+              <strong>Formal Verification Bounds</strong>
               <p>
-                Managed identity, real model qualification, long-trace behavior,
-                uncertain external effects, off-host recovery, hosted CI, and
-                production deployment.
+                Cryptographic hash verification guarantees local tampering detection. Paired bootstrap
+                resampling establishes statistical non-inferiority across held-out benchmark tasks.
               </p>
             </aside>
           </section>

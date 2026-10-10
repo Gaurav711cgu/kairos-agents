@@ -137,7 +137,7 @@ export default function TimelineScrubber({
             <button
               key={step.seq}
               onClick={() => onSelectStep(idx)}
-              className={`text-left p-3 rounded-md border transition-all text-xs font-mono relative ${
+              className={`text-left p-3 rounded-md border transition-colors duration-150 text-xs font-mono relative ${
                 isSelected
                   ? isDivergent
                     ? "border-amber-400 bg-[#241a12] ring-1 ring-amber-400"
