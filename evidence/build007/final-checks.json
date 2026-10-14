@@ -1,0 +1,129 @@
+{
+  "release": "build007",
+  "passed": true,
+  "meaning": "All declared local software acceptance checks pass; this does not mark repair effectiveness successful.",
+  "checks": {
+    "fullstack_acceptance": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "checks/fullstack-acceptance.json",
+      "backend": {
+        "tests": 399,
+        "skipped": 6,
+        "failed": 0
+      },
+      "browser_journeys": 23
+    },
+    "clean_relocated_acceptance": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "checks/clean-acceptance.json",
+      "backend": {
+        "tests": 399,
+        "skipped": 122,
+        "failed": 0
+      },
+      "browser_journeys": 19,
+      "initial_state": "No runtime, credentials, DB or installed dependencies"
+    },
+    "operations": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "operational-drills.json"
+    },
+    "historical_adoption_restore": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "adoption-restoration.json"
+    },
+    "public_evidence": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "presentation.json"
+    },
+    "actual_image_smoke": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "docker-smoke.json"
+    },
+    "review_regressions": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "review-final-tests.xml",
+      "tests": 86,
+      "skipped": 0
+    },
+    "actual_container_isolation": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "container-isolation.xml",
+      "tests": 1,
+      "skipped": 0
+    },
+    "saved_repair_reproduction": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "repair-reproduction.json",
+      "tests_run": 110,
+      "skipped": 1,
+      "new_inference": false,
+      "environment_changed": true
+    },
+    "frontend_dependency_audit": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "checks/frontend-audit.json"
+    },
+    "portable_doctor": {
+      "passed": true,
+      "returncode": 0,
+      "receipt": "checks/relocated-doctor.json"
+    },
+    "null-calibration": {
+      "passed": true,
+      "returncode": 0,
+      "expected_verdict": "pass",
+      "receipt": "checks/null-calibration.json",
+      "scope": "Synthetic historical statistical-gate calibration, not a repair result"
+    },
+    "planted-regression": {
+      "passed": true,
+      "returncode": 0,
+      "expected_verdict": "fail",
+      "receipt": "checks/planted-regression.json",
+      "scope": "Synthetic historical statistical-gate calibration, not a repair result"
+    },
+    "sealed_build006_preserved": {
+      "passed": true,
+      "returncode": 0,
+      "sha256": "a22d5b691c7b70d8c6256d415e9d98efa720741825cd77f3b81acdd5f36c7825",
+      "scope": "Original archive unchanged; previous evidence retained"
+    }
+  },
+  "repair_effectiveness": {
+    "quality_target_met": false,
+    "qualified_cases": 5,
+    "required_cases": 6,
+    "baseline_verified": 0,
+    "baseline_attempts": 5,
+    "loop_verified": 0,
+    "loop_attempts": 5,
+    "development_verified": 1,
+    "development_scope": "Previously exposed issue-hinted Django case, separate from validation"
+  },
+  "optional_free_api_pilot": {
+    "result": "No proposal captured",
+    "http_statuses": [
+      400,
+      503
+    ],
+    "retry_after_uncertain_dispatch": false,
+    "separate_from_locked_study": true
+  },
+  "limits": [
+    "Six full-stack opt-in skips are listed in backend.xml; actual Docker isolation and real OIDC browsers have separate receipts.",
+    "Clean recorded-only run skips122 database/provider-dependent cases; real full-stack run is separate.",
+    "Hosted CI, external publication, public hosting, customer adoption, general repair ability and staff-level production impact are not claimed.",
+    "Capacity measurements retain their historical configuration and are not inference throughput."
+  ]
+}

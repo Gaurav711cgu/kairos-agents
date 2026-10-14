@@ -1,0 +1,49 @@
+{
+  "id": "psf__requests-6028",
+  "qualified": true,
+  "reason": null,
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "FF....................                                                   [100%]\n=================================== FAILURES ===================================\n_ test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query] _\n\nvalue = 'http://user:pass@example.com/path?query'\nexpected = 'http://user:pass@example.com/path?query'\n\n    @pytest.mark.parametrize(\n        'value, expected', (\n            ('example.com/path', 'http://example.com/path'),\n            ('//example.com/path', 'http://example.com/path'),\n            ('example.com:80', 'http://example.com:80'),\n            (\n                'http://user:pass@example.com/path?query',\n                'http://user:pass@example.com/path?query'\n            ),\n            (\n                'http://user@example.com/path?query',\n                'http://user@example.com/path?query'\n            )\n        ))\n    def test_prepend_scheme_if_needed(value, expected):\n>       assert prepend_scheme_if_needed(value, 'http') == expected\nE       AssertionError: assert 'http://examp...om/path?query' == 'http://user:...om/path?query'\nE         - http://user:pass@example.com/path?query\nE         ?        ----------\nE         + http://example.com/path?query\n\ntests/test_utils.py:615: AssertionError\n_ test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query] _\n\nvalue = 'http://user@example.com/path?query'\nexpected = 'http://user@example.com/path?query'\n\n    @pytest.mark.parametrize(\n        'value, expected', (\n            ('example.com/path', 'http://example.com/path'),\n            ('//example.com/path', 'http://example.com/path'),\n            ('example.com:80', 'http://example.com:80'),\n            (\n                'http://user:pass@example.com/path?query',\n                'http://user:pass@example.com/path?query'\n            ),\n            (\n                'http://user@example.com/path?query',\n                'http://user@example.com/path?query'\n            )\n        ))\n    def test_prepend_scheme_if_needed(value, expected):\n>       assert prepend_scheme_if_needed(value, 'http') == expected\nE       AssertionError: assert 'http://examp...om/path?query' == 'http://user@...om/path?query'\nE         - http://user@example.com/path?query\nE         ?        -----\nE         + http://example.com/path?query\n\ntests/test_utils.py:615: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_utils.py::test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query]\nFAILED tests/test_utils.py::test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query]\n2 failed, 20 passed in 0.11s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 22, \"complete\": false, \"passed\": [\"tests/test_utils.py::TestSuperLen::test_file[r-1]\", \"tests/test_utils.py::TestSuperLen::test_file[rb-0]\", \"tests/test_utils.py::TestSuperLen::test_io_streams[BytesIO-Test]\", \"tests/test_utils.py::TestSuperLen::test_io_streams[StringIO-Test]\", \"tests/test_utils.py::TestSuperLen::test_string\", \"tests/test_utils.py::TestSuperLen::test_super_len_correctly_calculates_len_of_partially_read_file\", \"tests/test_utils.py::TestSuperLen::test_super_len_handles_files_raising_weird_errors_in_tell[OSError0]\", \"tests/test_utils.py::TestSuperLen::test_super_len_handles_files_raising_weird_errors_in_tell[OSError1]\", \"tests/test_utils.py::TestSuperLen::test_super_len_tell_ioerror[OSError0]\", \"tests/test_utils.py::TestSuperLen::test_super_len_tell_ioerror[OSError1]\", \"tests/test_utils.py::TestSuperLen::test_super_len_with__len__\", \"tests/test_utils.py::TestSuperLen::test_super_len_with_fileno\", \"tests/test_utils.py::TestSuperLen::test_super_len_with_no__len__\", \"tests/test_utils.py::TestSuperLen::test_super_len_with_no_matches\", \"tests/test_utils.py::TestSuperLen::test_super_len_with_tell\", \"tests/test_utils.py::TestSuperLen::test_tarfile_member\", \"tests/test_utils.py::TestToKeyValList::test_valid[None-None]\", \"tests/test_utils.py::TestToKeyValList::test_valid[value0-expected0]\", \"tests/test_utils.py::TestToKeyValList::test_valid[value1-expected1]\", \"tests/test_utils.py::TestToKeyValList::test_valid[value2-expected2]\"], \"failed\": [\"tests/test_utils.py::test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query]\", \"tests/test_utils.py::test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query]\"]}\n",
+    "stderr": "",
+    "seconds": 0.945,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": true,
+    "environment_error": false,
+    "returncode": 0,
+    "stdout": "......................                                                   [100%]\n22 passed in 0.09s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 22, \"complete\": true, \"passed\": [\"tests/test_utils.py::TestSuperLen::test_file[r-1]\", \"tests/test_utils.py::TestSuperLen::test_file[rb-0]\", \"tests/test_utils.py::TestSuperLen::test_io_streams[BytesIO-Test]\", \"tests/test_utils.py::TestSuperLen::test_io_streams[StringIO-Test]\", \"tests/test_utils.py::TestSuperLen::test_string\", \"tests/test_utils.py::TestSuperLen::test_super_len_correctly_calculates_len_of_partially_read_file\", \"tests/test_utils.py::TestSuperLen::test_super_len_handles_files_raising_weird_errors_in_tell[OSError0]\", \"tests/test_utils.py::TestSuperLen::test_super_len_handles_files_raising_weird_errors_in_tell[OSError1]\", \"tests/test_utils.py::TestSuperLen::test_super_len_tell_ioerror[OSError0]\", \"tests/test_utils.py::TestSuperLen::test_super_len_tell_ioerror[OSError1]\", \"tests/test_utils.py::TestSuperLen::test_super_len_with__len__\", \"tests/test_utils.py::TestSuperLen::test_super_len_with_fileno\", \"tests/test_utils.py::TestSuperLen::test_super_len_with_no__len__\", \"tests/test_utils.py::TestSuperLen::test_super_len_with_no_matches\", \"tests/test_utils.py::TestSuperLen::test_super_len_with_tell\", \"tests/test_utils.py::TestSuperLen::test_tarfile_member\", \"tests/test_utils.py::TestToKeyValList::test_valid[None-None]\", \"tests/test_utils.py::TestToKeyValList::test_valid[value0-expected0]\", \"tests/test_utils.py::TestToKeyValList::test_valid[value1-expected1]\", \"tests/test_utils.py::TestToKeyValList::test_valid[value2-expected2]\", \"tests/test_utils.py::test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query]\", \"tests/test_utils.py::test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query]\"], \"failed\": []}\n",
+    "stderr": "",
+    "seconds": 0.859,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "psf__requests-6028",
+    "title": "Proxy authentication bug",
+    "issue": "Proxy authentication bug\n<!-- Summary. -->\r\n\r\nWhen using proxies in python 3.8.12, I get an error 407. Using any other version of python works fine. I am assuming it could be to do with this https://docs.python.org/3/whatsnew/3.8.html#notable-changes-in-python-3-8-12.\r\n\r\n<!-- What you expected. -->\r\n\r\nI should get a status of 200.\r\n\r\n<!-- What happened instead. -->\r\n\r\nI get a status code of 407.\r\n\r\n```python\r\nimport requests\r\n\r\n\r\nr = requests.get('https://example.org/', proxies=proxies) # You will need a proxy to test with, I am using a paid service.\r\nprint(r.status_code)\r\n\r\n```\r\n\r\n## System Information\r\n\r\n```json\r\n{\r\n  \"chardet\": {\r\n    \"version\": null\r\n  },\r\n  \"charset_normalizer\": {\r\n    \"version\": \"2.0.9\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"3.3\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.8.12\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"5.13.0-7620-generic\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"\",\r\n    \"version\": null\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.27.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"101010cf\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.26.7\"\r\n  },\r\n  \"using_charset_normalizer\": true,\r\n  \"using_pyopenssl\": false\r\n}\r\n```\n",
+    "repository": "psf/requests",
+    "revision": "0192aac24123735b3eaf9b08df46429bb770c283",
+    "source_url": "https://github.com/psf/requests/tree/0192aac24123735b3eaf9b08df46429bb770c283",
+    "issue_url": "https://github.com/psf/requests/pull/6028",
+    "entry_files": [
+      "requests/utils.py"
+    ],
+    "approved_prefix": "requests/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:5db01d3fa0f7880ccc2a69ee40b15e7635c6aa72bc2bfa2fda967efd18fd3c96",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "92c04950c60cfd33d675c67536dfd0d1d0daff0f461fd8e790aca295c44b49ba",
+    "reference_digest": "9cd3e2a2c10cc8b9555156f0e9cda00c67aa4e08f40ebd125f417bbeb41b2fb3",
+    "verification_digest": "7cc78e179e7a7dc33d2b80643eed95c605e615d6c324a1ce517326f96c44492a"
+  }
+}

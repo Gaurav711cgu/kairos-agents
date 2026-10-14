@@ -1,3 +1,4 @@
+import { displayLabel } from "@/lib/display";
 import Link from "next/link";
 import { getIncident, date } from "@/lib/kairos-api";
 import { ServiceError } from "@/components/IncidentRows";
@@ -27,22 +28,19 @@ export default async function IncidentPage({
       </Link>
       <div className="page-heading">
         <span className="eyebrow">
-          RECORDED EXECUTION / {date(incident.created_at)} /{" "}
-          {incident.configuration.runner}
+          Recorded execution / {date(incident.created_at)} /{" "}
+          {displayLabel(incident.configuration.runner)}
         </span>
         <h1>{incident.title}</h1>
         <p>{incident.summary}</p>
         <div className="detail-metadata">
-          <span>{incident.policy} context</span>
+          <span>{displayLabel(incident.policy)}</span>
           <span>{incident.event_count} captured events</span>
           <span>{incident.duration_ms.toFixed(1)} ms · local execution</span>
           <span>Synthetic order data</span>
         </div>
       </div>
-      <IncidentInspector
-        incident={incident}
-        canFork={true}
-      />
+      <IncidentInspector incident={incident} canFork={true} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-name: Kairos slice integration
+name: Kairos integrated correctness gate
 
 on:
   push:
@@ -29,18 +29,74 @@ jobs:
       TEST_DATABASE_URL: postgresql://kairos:ci-test-only-password@127.0.0.1:5432/kairos_test
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ingest/go.mod
+          cache-dependency-path: ingest/go.sum
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: requirements-api.lock
-      - run: pip install -r requirements-api.lock
-      - run: python -m pytest tests/test_api_runner.py tests/test_api_postgres.py -q
+          cache-dependency-path: |
+            requirements-api.lock
+            requirements-reviewer.lock
+      - run: python -m venv .venv
+      - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
+      - name: Verify current source and preserved delivery
+        run: .venv/bin/python -m scripts.verify_ci009
+      - name: Prepare isolated test database configuration
+        run: |
+          .venv/bin/python - <<'PYTHON'
+          import os
+          from pathlib import Path
+          database = os.environ['TEST_DATABASE_URL']
+          path = Path('.env.kairos.local')
+          path.write_text('DATABASE_URL=' + database + '\nTEST_DATABASE_URL=' + database + '\n')
+          path.chmod(0o600)
+          PYTHON
+      - name: Prepare local identity credentials
+        run: KAIROS_IDENTITY_PREPARE_ONLY=1 .venv/bin/python scripts/setup_identity.py
+      - name: Start official test identity provider
+        run: >-
+          docker run -d --name kairos-keycloak-ci
+          --env-file .runtime/keycloak-bootstrap.env
+          -p 127.0.0.1:8088:8080
+          quay.io/keycloak/keycloak:26.8.0@sha256:27b3230fbabb8c9ff3c66c864cf09dcd8a41aca82e5100679d109ef0eeb05741
+          start-dev --http-port=8080 --hostname=http://127.0.0.1:8088
+      - name: Provision synthetic realm and explicit memberships
+        run: PYTHONPATH=. .venv/bin/python scripts/setup_identity.py
+        env:
+          DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+      - name: Backend, real PostgreSQL, and actual OIDC flows
+        run: .venv/bin/python -m scripts.acceptance007 backend
+        env:
+          KAIROS_TEST_IDENTITY_PROVIDER: '1'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+        working-directory: dashboard
+      - run: npx playwright install --with-deps chromium
+        working-directory: dashboard
+      - name: Current real OIDC reviewer journeys
+        run: .venv/bin/python -m scripts.reviewer check --fullstack --runtime .runtime/ci007
+      - name: Fixed synthetic calibration outcomes
+        run: |
+          .venv/bin/python scripts/run_evaluation.py --mode null-calibration --output /tmp/null.json
+          .venv/bin/python scripts/run_evaluation.py --mode planted-regression --output /tmp/planted.json
+          .venv/bin/python -c "import json; assert json.load(open('/tmp/null.json'))['gate']['verdict']=='pass'; assert json.load(open('/tmp/planted.json'))['gate']['verdict']=='fail'"
+      - name: Redacted reviewer failure details
+        if: failure()
+        run: .venv/bin/python -m scripts.ci_diagnostics009 --runtime .runtime/ci007
 
   website:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ingest/go.mod
+          cache-dependency-path: ingest/go.sum
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -48,5 +104,29 @@ jobs:
           cache-dependency-path: dashboard/package-lock.json
       - run: npm ci
         working-directory: dashboard
-      - run: npm run lint && npx tsc --noEmit && npm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m venv .venv
+      - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
+      - name: Verify current source and preserved delivery
+        run: .venv/bin/python -m scripts.verify_ci009
+      - run: npx playwright install --with-deps chromium
         working-directory: dashboard
+      - run: npm run test:browser
+        working-directory: dashboard
+      - name: Current recorded reviewer journeys
+        run: .venv/bin/python -m scripts.reviewer check --recorded-only --runtime .runtime/recorded-ci007
+      - run: npm audit --audit-level=low
+        working-directory: dashboard
+      - run: |
+          npm run test:boundary
+          npm run test:client
+          npm run test:recorded
+          npm run lint
+          npm run typecheck
+          npm run build
+        working-directory: dashboard
+      - name: Redacted reviewer failure details
+        if: failure()
+        run: .venv/bin/python -m scripts.ci_diagnostics009 --runtime .runtime/recorded-ci007

@@ -10,6 +10,7 @@ import psycopg
 
 from kairos_api import __version__
 from kairos_api.models import ForkCommand, RunCommand
+from kairos_api.http_boundary import BoundedBodyMiddleware
 from kairos_api.repository import CorruptRun, IdempotencyConflict, MissingRun, RunRepository
 from kairos_api.settings import Settings, cors_origins
 
@@ -33,22 +34,33 @@ def create_app(settings: Settings | None = None, repository: RunRepository | Non
         evaluation = EvaluationRepository(configured.database_url)
         evaluation.initialize()
         application.state.evaluation_repository = evaluation
+        from kairos_api.investigations.repository import InvestigationRepository
+        investigations = InvestigationRepository(configured.database_url,pooled=True)
+        investigations.initialize()
+        application.state.investigation_repository = investigations
         if configured.identity_mode == "oidc":
             from kairos_api.identity import initialize_identity
             application.state.identity = initialize_identity(configured.database_url)
-        yield
+        try:
+            yield
+        finally:
+            investigations.close()
 
     application = FastAPI(title="Kairos controlled incident API", version=__version__, lifespan=lifespan)
     # CORS remains narrow; authorization is required independently of browser origin.
     origins = settings.origins if settings else cors_origins()
     application.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST"],
                                allow_headers=["Authorization", "Content-Type", "Idempotency-Key"])
+    application.add_middleware(BoundedBodyMiddleware)
 
     def repo(request: Request) -> RunRepository:
         return request.app.state.repository
 
     def jobs_repo(request: Request):
         return request.app.state.jobs_repository
+
+    def investigations_repo(request: Request):
+        return request.app.state.investigation_repository
 
     def effects_repo(request: Request):
         return request.app.state.effects_repository
@@ -145,6 +157,8 @@ def create_app(settings: Settings | None = None, repository: RunRepository | Non
     application.include_router(create_jobs_router(tenant, command_key, jobs_repo))
     application.include_router(create_evaluation_router(tenant, repository_dependency=evaluation_repo))
     application.include_router(create_effects_router(tenant, command_key, approval_dependency=approver, repository_dependency=effects_repo))
+    from kairos_api.investigations.routes import create_investigation_router
+    application.include_router(create_investigation_router(tenant, command_key, approver, investigations_repo))
     return application
 
 

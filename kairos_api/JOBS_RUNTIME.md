@@ -33,3 +33,10 @@ Captured input snapshots retain fixture truth, selected blocks and source digest
 ## Evidence
 
 Runtime tests use temporary PostgreSQL schemas and test blob directories. They cover committed idempotency, concurrent claim, tenant isolation, independent grading, transaction-free inference, strict failures, unknown outcome, queued/running cancellation, lease fencing, checkpoint/version/deadline/attempt budgets, explicit known-result continuation, network-free playback, scope-limited objects and corruption/substitution detection. Fixture provider tests are distinct from real offline-model observations saved under evidence/build002/model-jobs.json.
+
+
+## Clock and local generation limits
+
+PostgreSQL `clock_timestamp()` is authoritative for leases and deadlines, including checks after row-lock acquisition. Worker host clocks never decide whether a lease remains valid. Public timestamps are canonical UTC, so changing PostgreSQL session time zones does not invalidate previously captured event hashes. Historical captured input and response objects remain replayable across source changes; known-result execution continuation still requires current checkpoint and source fingerprints.
+
+The offline model service has both a 128-token output ceiling and `model.generate(max_time=60)`. The latter is a cooperative token-boundary stop, not a hard process-kill guarantee: an individual model forward pass can overrun the time budget. Responses preserve incomplete text and record generation duration, budget, configuration and the observed finish reason (`eos`, `max_tokens`, `time_budget`, or `stopped`). `/health` reports the inference slot's busy state. No quality improvement is inferred from this resource limit. Provider timeout remains 100 seconds, and ambiguous outcomes are never silently retried.

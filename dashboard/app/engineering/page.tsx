@@ -1,131 +1,20 @@
 import Link from "next/link";
-import { GoIngestSimulator } from "@/components/GoIngestSimulator";
-import { CryptoChainAudit } from "@/components/CryptoChainAudit";
 
 export const metadata = { title: "Engineering decisions" };
 
 export default function Engineering() {
-  return (
-    <div className="page-shell reading-page">
-      <div className="page-heading">
-        <span className="eyebrow">ENGINEERING ARCHITECTURE / HIGH-THROUGHPUT SYSTEMS</span>
-        <h1>
-          The boundary
-          <br />
-          <em>is the design.</em>
-        </h1>
-        <p>
-          An incident interface is useful only if the evidence beneath it
-          survives failures and retains cryptographic meaning.
-        </p>
-      </div>
-      <div className="article-layout">
-        <aside className="article-index">
-          <span className="eyebrow">SYSTEM BLUEPRINT</span>
-          <a href="#durability">01 Commit before response</a>
-          <a href="#ingest-pipeline">02 Go Ingest &amp; Ring Buffer</a>
-          <a href="#context">03 Context is evidence</a>
-          <a href="#grading">04 Independent grading</a>
-          <a href="#isolation">05 Cryptographic audit</a>
-        </aside>
-        <article className="prose">
-          <section id="durability">
-            <span className="eyebrow">01 / STORAGE CORRECTNESS</span>
-            <h2>Commit before acknowledgement.</h2>
-            <p>
-              A memory buffer is fast, but an accepted request can disappear
-              when its process dies. The initial implementation places the run,
-              ordered events, and idempotency identity in one ACID transaction.
-              A successful response follows the commit.
-            </p>
-            <div className="engineering-flow">
-              <span>Authorize</span>
-              <b>[NEXT]</b>
-              <span>Execute</span>
-              <b>[NEXT]</b>
-              <strong>Commit</strong>
-              <b>[NEXT]</b>
-              <span>Respond</span>
-            </div>
-            <h3>Why this tradeoff</h3>
-            <p>
-              Short reference executions fit one transaction. Slow model calls
-              use a durable intent ledger and fenced worker leases: claim and
-              commit, call outside the transaction, then capture and grade. If a
-              worker dies after dispatch without a captured response, the
-              outcome is unknown rather than silently retried.
-            </p>
-          </section>
-
-          <section id="ingest-pipeline" className="my-6">
-            <span className="eyebrow">02 / HOT PATH INGESTION</span>
-            <h2>Go Ingest Engine &amp; Bounded Ring Buffer</h2>
-            <p className="mb-4">
-              Telemetry ingest sits on the hot path. A Go service accepts batch events into a
-              lock-free bounded ring buffer (10,000 slots) with drop counter tracking and single-transaction
-              outbox staging.
-            </p>
-            <GoIngestSimulator />
-          </section>
-
-          <section id="context">
-            <span className="eyebrow">03 / HARNESS OBSERVABILITY</span>
-            <h2>Preserve what the runner received.</h2>
-            <p>
-              The late-order exception scenario has two context policies.
-              Compact drops the exception block; preserve retains it. The
-              resulting record includes source blocks, inclusion decisions,
-              proposed output, and ordered events.
-            </p>
-            <p>
-              The reference runner isolates the context dependency. Separate
-              model jobs capture exact rendered requests and raw responses. The
-              model classifies refund, zero or abstain; a deterministic tool
-              calculates cents. Invalid schema and wrong policy choices remain
-              failed records.
-            </p>
-            <Link className="text-link" href="/incidents">
-              Open the context experiment [VIEW INCIDENTS]
-            </Link>
-          </section>
-
-          <section id="grading">
-            <span className="eyebrow">04 / EVALUATION BOUNDARY</span>
-            <h2>The scorer gets its own evidence.</h2>
-            <p>
-              The grader reads the original scenario, including the exception,
-              independently of the runner’s selected context. Turning context
-              preservation on or off changes the execution, not the scoring
-              truth.
-            </p>
-            <p>
-              The release rule uses fixed paired task outcomes evaluated over 10,000 bootstrap
-              resamples with Holm-Bonferroni Family-Wise Error Rate control. A candidate model
-              exhibiting statistically significant degradation (upper CI bound &lt; 0) is automatically
-              blocked from merging in CI.
-            </p>
-          </section>
-
-          <section id="isolation">
-            <span className="eyebrow">05 / CRYPTOGRAPHIC AUDIT &amp; TAMPER PROOFING</span>
-            <h2>Verifiable SHA-256 Hash Chaining</h2>
-            <p className="mb-4">
-              Every event embeds the SHA-256 hash of its parent step, context snapshot, and emitted decision.
-              Tampering with any event immediately breaks the mathematical chain downstream. Test this live
-              in the audit workbench below:
-            </p>
-            <CryptoChainAudit />
-
-            <aside className="scope-note mt-6">
-              <strong>Formal Verification Bounds</strong>
-              <p>
-                Cryptographic hash verification guarantees local tampering detection. Paired bootstrap
-                resampling establishes statistical non-inferiority across held-out benchmark tasks.
-              </p>
-            </aside>
-          </section>
-        </article>
-      </div>
+  return <div className="page-shell reading-page">
+    <header className="page-heading"><span className="eyebrow">Engineering / Build 007</span><h1>How Kairos works.<br /><em>Decisions and tradeoffs.</em></h1><p>The request path, source authority, worker recovery and verification boundary. Each claim has a declared scope.</p></header>
+    <div className="article-layout">
+      <aside className="article-index"><span className="eyebrow">Request path</span><a href="#durability">01 Durable commands</a><a href="#workers">02 Fenced workers</a><a href="#context">03 Captured context</a><a href="#grading">04 Verification</a><a href="#identity">05 Authorization</a><a href="#integrity">06 Evidence and delivery</a></aside>
+      <article className="prose">
+        <section id="durability"><span className="eyebrow">01 / Storage correctness</span><h2>Commit before acknowledgement.</h2><p>FastAPI authorizes a registered task and versioned configuration. PostgreSQL commits its tenant-scoped command identity before returning HTTP 202. Repeating the same identity returns the saved investigation; changing the payload returns a conflict.</p><p>A memory-buffer acknowledgement would not establish durability. Short synchronous transactions own the acceptance boundary; inference runs outside them. Artifact bytes are fsynced before their database references commit.</p><p>Stable cursor lists order by creation time and ID. One investigation runs globally within an installation. Queue and running limits are 24 globally and six per tenant. Excess commands receive explicit quota errors.</p></section>
+        <section id="workers"><span className="eyebrow">02 / Concurrency and recovery</span><h2>Use database time and fencing.</h2><p>The worker claims a lease using the database clock. Each claim has a fencing token; stale workers cannot append results or complete a newer claim. Cancellation advances that fence. It cannot undo inference already started.</p><p>Dispatch intent commits before the model call. A captured response can continue after a crash. A dispatch without a durable response stays unknown and is never silently sent again. A fresh fork has its own identity and lineage.</p><p>Calls, applied patch versions, checks and elapsed time bound the loop: six calls, two candidates, two checks and ten minutes. Replay reads saved evidence without model or tool execution.</p></section>
+        <section id="context"><span className="eyebrow">03 / Agent harness</span><h2>Retain source independently of tool history.</h2><p>The frozen v4 loop lost initial source after its first tool result. That removed patch proposals from 55 of 66 model dispatches. All 60 searches were empty; 36 repeated an earlier query. Native context captures made this defect diagnosable.</p><p>V5 persists original source separately. Public issue identifiers select bounded source regions; entry files are human-localized. Captured handles bind exact replacement fragments to the original source hash and excerpt. Accepted candidates are checked immediately.</p><p>The context preserves the issue, budgets and latest verification result. Complete regions and lines are omitted with recorded reasons; serialized JSON is never sliced into a broken fragment. Original source and the current candidate remain distinct.</p><p>V7 uses captured original line ranges, exact assertion excerpts and checked-candidate reuse. Its frozen fresh evaluation remains 0/10. New dispatches check the pinned model profile and server context/slot declarations. V6 reasoning remains a separate development experiment. Neither profile checks nor source handles prove that generated code is correct.</p><Link className="text-link" href="/follow-up">Read the defect and complete follow-up</Link></section>
+        <section id="grading"><span className="eyebrow">04 / Independent checks</span><h2>A patch must earn its outcome.</h2><p>Cases qualify only when a baseline regression fails and the maintainer repair passes. Agent success requires its own candidate to fix the regression and pass registered relevant existing tests. The maintainer patch is never counted as an agent result.</p><p>Candidate checks run in a disposable non-root container: no runtime network, credentials, capabilities or Docker socket; two CPUs, 1 GB memory and bounded time/output. Kairos runs registered checks after each accepted candidate. Model tools cannot issue arbitrary shell commands.</p><p>Reference fixes and verification files remain outside read/search tools. Check diagnostics reach the model as feedback. Candidate Python shares the verifier environment, so adversarial test-forgery resistance is unproven. Trusted recipes and the host remain part of the boundary.</p><p>Fresh v5 validation is 0/10; historical evaluation is 0/36. Successful development attempts cover one issue-hinted Django case. More calls did not establish superior repair effectiveness. Earlier synthetic statistical gates remain a labeled historical collection.</p><Link className="text-link" href="/study">Inspect the preserved older study</Link></section>
+        <section id="identity"><span className="eyebrow">05 / Tenant authority</span><h2>Check authorization on the server.</h2><p>Local Keycloak OIDC uses authorization code flow, PKCE, state and nonce. Opaque HttpOnly sessions stay on the server. PostgreSQL membership determines the tenant and role; requests recheck active membership. Browser writes require the configured Origin.</p><p>Operators can submit scoped commands; viewers cannot mutate. Publication requires an administrator. Private records, progress, cursor scope and downloads remain tenant-bound. Public endpoints expose only published evidence.</p><Link className="text-link" href="/workbench">Open the workbench</Link></section>
+        <section id="integrity"><span className="eyebrow">06 / Reproducible evidence</span><h2>Preserve bytes and state their authority.</h2><p>Content-addressed artifacts carry SHA-256 consistency checks. Reads verify original bytes, ordered steps, schemas and references. Hashes do not make privileged history immutable; a rollback can leave an unreferenced object.</p><p>The evidence viewer serves original published captures. The authenticated workbench submits and manages live investigations. Each mode has an explicit data source; a live service error remains visible. Reviewer setup owns separate credentials, ports, processes and volumes. Shutdown preserves stored data.</p><p>The local control-plane study measured 435,270 requests over 42 minutes with zero unexpected errors. Its original failed soak is retained. Local restoration and recovery have separate receipts; none establish production scale, offsite recovery or customer adoption.</p><div className="investigation-actions"><Link className="text-link" href="/capacity">Measured capacity</Link><Link className="text-link" href="/docs">Run and verify the release</Link><Link className="text-link" href="/history">Historical demonstrations</Link></div></section>
+      </article>
     </div>
-  );
+  </div>;
 }

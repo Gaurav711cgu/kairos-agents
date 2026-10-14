@@ -1,0 +1,106 @@
+{
+  "historical_rows_unchanged": true,
+  "investigations_verified": 82,
+  "limits": [
+    "Same-host local rehearsal; no offsite recovery or production migration claim.",
+    "Private snapshot/session rows are never exported in this receipt."
+  ],
+  "method": "Restore preserved consistent build006 dump and object archive into a fresh isolated database; adopt, verify twice and compare every original row hash",
+  "migration_receipt": {
+    "applied": [
+      {
+        "duration_ms": 62,
+        "name": "0001_build006_baseline.sql",
+        "origin": "adopted-build006",
+        "version": 1
+      },
+      {
+        "duration_ms": 2,
+        "name": "0002_configuration_v7_expand.sql",
+        "origin": "migration",
+        "version": 2
+      },
+      {
+        "duration_ms": 1,
+        "name": "0003_configuration_v7_validate.sql",
+        "origin": "migration",
+        "version": 3
+      },
+      {
+        "duration_ms": 2,
+        "name": "0004_backfill_receipts.sql",
+        "origin": "migration",
+        "version": 4
+      }
+    ],
+    "head": 4,
+    "passed": true
+  },
+  "objects_verified": 928,
+  "passed": true,
+  "release": "build007",
+  "source_archive_unchanged": true,
+  "source_dump_unchanged": true,
+  "table_fingerprints": {
+    "kairos_commands": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_effect_commands": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_effect_proposals": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_evaluations": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_events": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_investigation_artifacts": {
+      "rows": 1267,
+      "sha256": "7d23dfaa140d5ef13d2881e7d075f88569b1269559eb2183808beda2604a7f9c"
+    },
+    "kairos_investigation_steps": {
+      "rows": 781,
+      "sha256": "8bb515117024450f8da93870efd2490dfc4c4de8c19bc0986e4281d252be7124"
+    },
+    "kairos_investigations": {
+      "rows": 82,
+      "sha256": "0844dde0c6c206254da33ca8632aa141ff495d74ed55b3917305908225e05f50"
+    },
+    "kairos_job_events": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_jobs": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_login_states": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_memberships": {
+      "rows": 4,
+      "sha256": "1b0969eaff5847ad9409ecb6bfebe7bbb946c088d081c245dca5e8c9d35b6a9c"
+    },
+    "kairos_runs": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_sandbox_adjustments": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "kairos_sessions": {
+      "rows": 4,
+      "sha256": "360998cad150ba39d6ffdffd44238e354e5cd7f75baae74d944234bd5e2eb170"
+    }
+  }
+}

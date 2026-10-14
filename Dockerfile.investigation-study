@@ -1,0 +1,6 @@
+# Reviewed build-time dependencies only. Runtime has no network.
+FROM python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+RUN pip install --no-cache-dir httpbin==0.7.0 Flask==1.1.4 Werkzeug==0.16.1 Jinja2==2.11.3 MarkupSafe==2.0.1 itsdangerous==1.1.0 click==7.1.2 brotlipy==0.7.0 raven==6.10.0 decorator==4.4.2 atomicwrites==1.4.1 more-itertools==8.14.0 wcwidth==0.2.13 pygments==2.17.2 pytest==7.4.4 pluggy==1.0.0 iniconfig==2.0.0 packaging==23.2 exceptiongroup==1.2.2 tomli==2.0.1 attrs==23.1.0 hypothesis==6.79.4 py==1.11.0 mock==5.1.0 six==1.16.0 requests==2.31.0 urllib3==1.26.18 chardet==4.0.0 certifi==2024.2.2 idna==2.10 setuptools==68.2.2 setuptools-scm==7.1.0 && useradd --uid 10001 --create-home investigator
+USER 10001:10001
+WORKDIR /workspace

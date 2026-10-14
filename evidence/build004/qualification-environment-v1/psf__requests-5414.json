@@ -1,0 +1,49 @@
+{
+  "id": "psf__requests-5414",
+  "qualified": false,
+  "reason": "Baseline regression or reference repair did not reproduce under registered 1GB/120s environment",
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 8, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://.example.com]', 'tests/test_requests.py::TestRequests::test_entry_points', 'tests/test_requests.py::TestRequests::test_invalid_url[MissingSchema-hiwpefhipowhefopw]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-localhost:3128]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-localhost.localdomain:3128/]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-10.122.1.1:3128/]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://*example.com]', 'tests/test_requests.py::TestRequests::test_basic_building', 'tests/test_requests.py::TestRequests::test_path_is_not_double_encoded', 'tests/test_requests.py::TestRequests::test_params_are_added_before_fragment[http://example.com/path#fragment-http://example.com/path?a=b#fragment]', 'tests/test_requests.py::TestRequests::test_params_are_added_before_fragment[http://example.com/path?key=value#fragment-http://example.com/path?key=value&a=b#fragment]', 'tests/test_requests.py::TestRequests::test_params_original_order_is_preserved_by_default', 'tests/test_requests.py::TestRequests::test_params_bytes_are_encoded', 'tests/test_requests.py::TestRequests::test_binary_put', 'tests/test_requests.py::TestRequests::test_whitespaces_are_removed_from_url', 'tests/test_requests.py::TestRequests::test_basicauth_encodes_byte_strings', 'tests/test_requests.py::TestRequests::test_errors[http://doesnotexist.google.com-ConnectionError]', 'tests/test_requests.py::TestRequests::test_errors[http://localhost:1-ConnectionError]', 'tests/test_requests.py::TestRequests::test_errors[http://fe80::5054:ff:fe5a:fc0-InvalidURL]', 'tests/test_requests.py::TestRequests::test_proxy_error'],plugins=[p])\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 150, in main\n    config = _prepareconfig(args, plugins)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 330, in _prepareconfig\n    pluginmanager.register(plugin)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 491, in register\n    ret: Optional[str] = super().register(plugin, name)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 114, in register\n    self._verify_hook(hook, hookimpl)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 232, in _verify_hook\n    raise PluginValidationError(\npluggy._manager.PluginValidationError: Plugin '281473017068848' for hook 'pytest_runtest_logreport'\nhookimpl definition: pytest_runtest_logreport(r)\nArgument(s) {'r'} are declared in the hookimpl but can not be found in the hookspec\n",
+    "seconds": 0.79,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 8, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://.example.com]', 'tests/test_requests.py::TestRequests::test_entry_points', 'tests/test_requests.py::TestRequests::test_invalid_url[MissingSchema-hiwpefhipowhefopw]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-localhost:3128]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-localhost.localdomain:3128/]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidSchema-10.122.1.1:3128/]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://]', 'tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://*example.com]', 'tests/test_requests.py::TestRequests::test_basic_building', 'tests/test_requests.py::TestRequests::test_path_is_not_double_encoded', 'tests/test_requests.py::TestRequests::test_params_are_added_before_fragment[http://example.com/path#fragment-http://example.com/path?a=b#fragment]', 'tests/test_requests.py::TestRequests::test_params_are_added_before_fragment[http://example.com/path?key=value#fragment-http://example.com/path?key=value&a=b#fragment]', 'tests/test_requests.py::TestRequests::test_params_original_order_is_preserved_by_default', 'tests/test_requests.py::TestRequests::test_params_bytes_are_encoded', 'tests/test_requests.py::TestRequests::test_binary_put', 'tests/test_requests.py::TestRequests::test_whitespaces_are_removed_from_url', 'tests/test_requests.py::TestRequests::test_basicauth_encodes_byte_strings', 'tests/test_requests.py::TestRequests::test_errors[http://doesnotexist.google.com-ConnectionError]', 'tests/test_requests.py::TestRequests::test_errors[http://localhost:1-ConnectionError]', 'tests/test_requests.py::TestRequests::test_errors[http://fe80::5054:ff:fe5a:fc0-InvalidURL]', 'tests/test_requests.py::TestRequests::test_proxy_error'],plugins=[p])\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 150, in main\n    config = _prepareconfig(args, plugins)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 330, in _prepareconfig\n    pluginmanager.register(plugin)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 491, in register\n    ret: Optional[str] = super().register(plugin, name)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 114, in register\n    self._verify_hook(hook, hookimpl)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 232, in _verify_hook\n    raise PluginValidationError(\npluggy._manager.PluginValidationError: Plugin '281473732984112' for hook 'pytest_runtest_logreport'\nhookimpl definition: pytest_runtest_logreport(r)\nArgument(s) {'r'} are declared in the hookimpl but can not be found in the hookspec\n",
+    "seconds": 0.733,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "psf__requests-5414",
+    "title": "Getting http://.example.com raises UnicodeError",
+    "issue": "Getting http://.example.com raises UnicodeError\nAttempting to get e.g. `http://.example.com` results in a `UnicodeError`. It seems like the intention so far has been to raise `InvalidUrl` instead (see e.g. [this line](https://github.com/psf/requests/blob/ca6f9af5dba09591007b15a7368bc0f006b7cc50/requests/models.py#L401)).\r\n\r\nI see there was some hesitation in fixing a similar issue (#4168) and would like to add that even catching the error just to rethrow as a requests exception would be beneficial.\r\n\r\n## Expected Result\r\n\r\nBased on PR #774: `InvalidUrl: URL has an invalid label.`\r\n\r\n## Actual Result\r\n\r\n`UnicodeError: encoding with 'idna' codec failed (UnicodeError: label empty or too long)`\r\n\r\n## Reproduction Steps\r\n\r\n```python3\r\nimport requests\r\nrequests.get(\"http://.example.com\")\r\n```\r\n\r\n## System Information\r\n\r\n    $ python -m requests.help\r\n\r\n```\r\n{\r\n  \"chardet\": {\r\n    \"version\": \"3.0.4\"\r\n  },\r\n  \"cryptography\": {\r\n    \"version\": \"2.8\"\r\n  },\r\n  \"idna\": {\r\n    \"version\": \"2.8\"\r\n  },\r\n  \"implementation\": {\r\n    \"name\": \"CPython\",\r\n    \"version\": \"3.8.0\"\r\n  },\r\n  \"platform\": {\r\n    \"release\": \"5.3.0-40-generic\",\r\n    \"system\": \"Linux\"\r\n  },\r\n  \"pyOpenSSL\": {\r\n    \"openssl_version\": \"1010104f\",\r\n    \"version\": \"19.1.0\"\r\n  },\r\n  \"requests\": {\r\n    \"version\": \"2.23.0\"\r\n  },\r\n  \"system_ssl\": {\r\n    \"version\": \"1010103f\"\r\n  },\r\n  \"urllib3\": {\r\n    \"version\": \"1.25.8\"\r\n  },\r\n  \"using_pyopenssl\": true\r\n}\r\n```\n",
+    "repository": "psf/requests",
+    "revision": "39d0fdd9096f7dceccbc8f82e1eda7dd64717a8e",
+    "source_url": "https://github.com/psf/requests/tree/39d0fdd9096f7dceccbc8f82e1eda7dd64717a8e",
+    "issue_url": "https://github.com/psf/requests/pull/5414",
+    "entry_files": [
+      "requests/models.py"
+    ],
+    "approved_prefix": "requests/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:5d1d3e46f476c0d97f5068419b7acdff7cedcfab85ec2ebee05efe24f4af5667",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "49b38ba6eb11613517c01d44b9b8894455928d85dd261b39ad06f2e31d4e0566",
+    "reference_digest": "41e9433ac5e2cdb17a3972bec818a1118ea4a3f2b7485cd11fff7e27f6f3f680",
+    "verification_digest": "9f347bd40bff13e0eb014251c1584ec1d6393abd431bda884af69bd5b1b05052"
+  }
+}

@@ -1,7 +1,8 @@
+import { displayLabel } from "@/lib/display";
 import Link from "next/link";
 import { jobDetail, Job } from "@/lib/workbench";
 import { apiBase } from "@/lib/kairos-api";
-import { CANONICAL_JOBS } from "@/lib/empirical-store";
+import { isRecordedEvidence, recordedHistoryError } from "@/lib/evidence-mode";
 export const dynamic = "force-dynamic";
 export default async function Execution({
   params,
@@ -12,6 +13,7 @@ export default async function Execution({
   let job: Job | null = null;
   let error = "";
   try {
+    if (isRecordedEvidence()) throw new Error(recordedHistoryError);
     const r = await fetch(
       apiBase() + "/api/public/jobs/" + encodeURIComponent(id),
       { cache: "no-store", signal: AbortSignal.timeout(5000) },
@@ -21,24 +23,21 @@ export default async function Execution({
   } catch (e) {
     error = e instanceof Error ? e.message : "Execution unavailable.";
   }
-  if (!job) {
-    job = CANONICAL_JOBS.find((item) => item.id === id) || CANONICAL_JOBS[0];
-  }
   return (
     <div className="page-shell">
       <div className="page-heading">
-        <span className="eyebrow">CAPTURED MODEL EXECUTION</span>
+        <span className="eyebrow">Captured model execution</span>
         <h1>
-          {job ? job.status : "Unavailable"}.<br />
+          {job ? displayLabel(job.status) : "Unavailable"}.<br />
           <em>Read the response.</em>
         </h1>
         <p>
           {job
-            ? job.scenario_id.replaceAll("-", " ") +
+            ? displayLabel(job.scenario_id) +
               " · " +
-              job.policy +
-              " context · " +
-              job.runner
+              displayLabel(job.policy) +
+              " · " +
+              displayLabel(job.runner)
             : error}
         </p>
       </div>
@@ -46,24 +45,24 @@ export default async function Execution({
         <>
           <div className="job-context">
             <section>
-              <span className="eyebrow">EXACT CONTEXT</span>
+              <span className="eyebrow">Exact context</span>
               {job.context_blocks.map((b) => (
                 <article key={b.id} className={b.included ? "" : "omitted"}>
                   <strong>
-                    {b.id} / {b.included ? "included" : "omitted"}
+                    {b.id} / {b.included ? "Included" : "Omitted"}
                   </strong>
                   <p>{b.content}</p>
                 </article>
               ))}
             </section>
             <section>
-              <span className="eyebrow">ORDERED EVENTS</span>
+              <span className="eyebrow">Ordered events</span>
               <ol className="job-events">
                 {job.events.map((e) => (
                   <li key={e.seq}>
                     <span className="mono">{e.seq}</span>
                     <div>
-                      <strong>{e.event_type}</strong>
+                      <strong>{displayLabel(e.event_type)}</strong>
                       <details className="raw-record">
                         <summary>Captured payload</summary>
                         <textarea
@@ -115,7 +114,7 @@ export default async function Execution({
         </>
       )}
       <Link className="text-link" href="/executions">
-        All model executions ↗
+        All model executions
       </Link>
     </div>
   );

@@ -1,0 +1,25 @@
+{
+  "version": "observed-delivery-failures-v1",
+  "events": [
+    {
+      "phase": "private-venv-setup",
+      "failure": "macOS standalone Python copied interpreter could not resolve its shared-library layout during ensurepip",
+      "fix": "Use POSIX symlinks; quarantine the partial owned venv",
+      "raw_log_scope": "Private runtime"
+    },
+    {
+      "phase": "recorded-browser",
+      "observed": "7 passed, 1 failed",
+      "failure": "Historical homepage assertion still expected build006 copy",
+      "fix": "Assert current build007 scope and separately inspect historical build006 bytes"
+    },
+    {
+      "phase": "clean-backend-collection",
+      "observed": "2 collection errors",
+      "failure": "NumPy and SciPy absent from the API-only lock",
+      "fix": "Separate complete reviewer lock shared with CI",
+      "raw_log_scope": "Original command output was observed; subsequent aggregate logs are latest-run files, not a complete append-only history"
+    }
+  ],
+  "preservation": "Frozen historical/model captures are unchanged. This event summary is not a recreated raw log."
+}

@@ -169,3 +169,59 @@ def test_lazy_route_install_has_no_startup_database_access(repository, config):
         # Reinitializing service changes no router registration.
         app.state.identity = initialize_identity(repository.database_url, config)
         assert len(app.routes) == count
+
+
+@pytest.mark.parametrize("audiences,authorized_party,accepted", [
+    (["kairos-web", "other-resource"], None, False),
+    (["kairos-web", "other-resource"], "other-client", False),
+    (["kairos-web", "other-resource"], "kairos-web", True),
+    (["kairos-web"], None, True),
+    ("kairos-web", None, True),
+])
+def test_multiple_audience_authorized_party_binding(signing_service, audiences, authorized_party, accepted):
+    service, key, claims = signing_service
+    claims = {**claims, "aud": audiences}
+    if authorized_party is None:
+        claims.pop("azp")
+    else:
+        claims["azp"] = authorized_party
+    token = jwt.encode(claims, key, algorithm="RS256", headers={"kid": "test-key"})
+    if accepted:
+        assert service.validate_token(token, nonce="expected-nonce")["sub"] == "subject-a"
+    else:
+        with pytest.raises(HTTPException) as error:
+            service.validate_token(token, nonce="expected-nonce")
+        assert error.value.status_code == 401
+
+
+
+def production_identity_environment(monkeypatch):
+    monkeypatch.setenv("KAIROS_ENV", "production")
+    monkeypatch.setenv("KAIROS_OIDC_ISSUER", "https://identity.example/realms/kairos")
+    monkeypatch.setenv("KAIROS_OIDC_CLIENT_SECRET", "test-secret-longer-than24characters")
+    monkeypatch.setenv("KAIROS_WEB_ORIGIN", "https://kairos.example")
+    monkeypatch.setenv("KAIROS_OIDC_CALLBACK", "https://kairos.example/api/auth/callback")
+    monkeypatch.setenv("KAIROS_AUTH_LOGIN_URL", "https://kairos.example/api/auth/login")
+
+
+@pytest.mark.parametrize("name,value", [
+    ("KAIROS_OIDC_CALLBACK", "https://api.kairos.example/api/auth/callback"),
+    ("KAIROS_OIDC_CALLBACK", "https://kairos.example:8443/api/auth/callback"),
+    ("KAIROS_OIDC_CALLBACK", "https://kairos.example/other-callback"),
+    ("KAIROS_AUTH_LOGIN_URL", "https://api.kairos.example/api/auth/login"),
+    ("KAIROS_AUTH_LOGIN_URL", "https://kairos.example/other-login"),
+    ("KAIROS_WEB_ORIGIN", "https://kairos.example/path"),
+])
+def test_production_rejects_split_origin_and_wrong_identity_routes(monkeypatch, name, value):
+    production_identity_environment(monkeypatch)
+    monkeypatch.setenv(name, value)
+    with pytest.raises(ValueError):
+        IdentityConfig.from_environment()
+
+
+def test_production_accepts_shared_public_origin_and_default_https_port(monkeypatch):
+    production_identity_environment(monkeypatch)
+    monkeypatch.setenv("KAIROS_OIDC_CALLBACK", "https://kairos.example:443/api/auth/callback")
+    assert IdentityConfig.from_environment().secure
+    monkeypatch.delenv("KAIROS_AUTH_LOGIN_URL")
+    assert IdentityConfig.from_environment().secure

@@ -63,3 +63,91 @@ def test_reason_bound_and_required_disposition_provenance():
 ])
 def test_duplicate_and_nonfinite_json_rejected(raw):
     assert classify("late-order-standard",raw)["parse_error"]
+
+
+@pytest.mark.parametrize("tail,eos,maximum,elapsed,expected",[
+    ([1,2],2,128,61,"eos"),([1,2],3,2,61,"max_tokens"),
+    ([1],2,128,60,"time_budget"),([1],2,128,1,"stopped"),
+    ([1,2],[2,3],128,1,"eos"),
+])
+def test_offline_service_reports_observed_finish_without_repair(tail,eos,maximum,elapsed,expected):
+    from scripts.serve_local_model import generation_finish_reason
+    assert generation_finish_reason(tail,eos,maximum,elapsed) == expected
+
+
+
+def test_model_http_slot_is_bounded_and_captures_budget_without_real_inference(tmp_path,monkeypatch):
+    import contextlib
+    from concurrent.futures import ThreadPoolExecutor
+    from http.server import ThreadingHTTPServer
+    import json
+    import sys
+    import threading
+    from types import SimpleNamespace
+    from urllib.error import HTTPError
+    from urllib.request import Request,urlopen
+    import scripts.serve_local_model as service
+    started,release = threading.Event(),threading.Event()
+    observed = {}
+    class FakeModel:
+        def eval(self):
+            return self
+        def generate(self,**kwargs):
+            observed.update(kwargs)
+            started.set()
+            assert release.wait(5)
+            return [[10,11,12,5,2]]
+    class FakeTokenizer:
+        eos_token_id = 2
+        def apply_chat_template(self,*args,**kwargs):
+            return "exact rendered request"
+        def __call__(self,*args,**kwargs):
+            return {"input_ids":SimpleNamespace(shape=(1,3))}
+        def decode(self,*args,**kwargs):
+            return "exact raw response"
+    monkeypatch.setitem(sys.modules,"torch",SimpleNamespace(__version__="fixture",float32="fixture",set_num_threads=lambda _:None,inference_mode=contextlib.nullcontext))
+    monkeypatch.setitem(sys.modules,"transformers",SimpleNamespace(__version__="fixture",AutoTokenizer=SimpleNamespace(from_pretrained=lambda *a,**k:FakeTokenizer()),AutoModelForCausalLM=SimpleNamespace(from_pretrained=lambda *a,**k:FakeModel())))
+    class ServerReady(Exception):
+        pass
+    holder = {}
+    def server_factory(address,handler):
+        server = ThreadingHTTPServer(("127.0.0.1",0),handler)
+        holder["server"] = server
+        def ready():
+            raise ServerReady()
+        server.serve_forever = ready
+        return server
+    monkeypatch.setattr(service,"ThreadingHTTPServer",server_factory)
+    monkeypatch.setattr(sys,"argv",["model-service","--model",str(tmp_path)])
+    with pytest.raises(ServerReady):
+        service.main()
+    server = holder["server"]
+    thread = threading.Thread(target=lambda:ThreadingHTTPServer.serve_forever(server),daemon=True)
+    thread.start()
+    base = f"http://127.0.0.1:{server.server_port}"
+    payload = json.dumps({"messages":[{"role":"user","content":"classify"}],"max_tokens":128,"temperature":0}).encode()
+    def post():
+        with urlopen(Request(base+"/generate",data=payload,headers={"Content-Type":"application/json"}),timeout=5) as response:
+            return json.load(response)
+    try:
+        assert not json.load(urlopen(base+"/health",timeout=2))["busy"]
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            result = pool.submit(post)
+            assert started.wait(3)
+            assert json.load(urlopen(base+"/health",timeout=2))["busy"]
+            with pytest.raises(HTTPError) as rejected:
+                post()
+            assert rejected.value.code == 429
+            release.set()
+            capture = result.result(timeout=5)
+        assert observed["max_time"] == 60 and observed["max_new_tokens"] == 128
+        assert capture["raw_response"] == "exact raw response"
+        assert capture["rendered_request"] == "exact rendered request"
+        assert capture["finish_reason"] == "eos" and capture["generation_budget_seconds"] == 60
+        assert capture["runtime"]["max_time_seconds"] == 60
+        assert not json.load(urlopen(base+"/health",timeout=2))["busy"]
+    finally:
+        release.set()
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=2)

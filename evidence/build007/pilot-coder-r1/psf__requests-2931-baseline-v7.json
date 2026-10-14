@@ -1,0 +1,76 @@
+{
+  "artifacts": [],
+  "cancel_requested": false,
+  "check_count": 0,
+  "claims": 1,
+  "config_digest": "e2d3f90b5baa1935f3308365f4aa56fe6da8cd62082afbb0a73be332aceb18fc",
+  "config_snapshot": {
+    "budgets": {
+      "max_calls": 1,
+      "max_checks": 1,
+      "max_patches": 1,
+      "seconds": 600
+    },
+    "generation": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      },
+      "max_tokens": 1024,
+      "presence_penalty": 0,
+      "seed": 73,
+      "temperature": 0,
+      "top_k": 20,
+      "top_p": 1
+    },
+    "model_manifest_digest": "d2676698828b65285b69753f197f5b05dd6bc65e2f415c9ae845159866866b57",
+    "version": "baseline-v7"
+  },
+  "configuration": "baseline-v7",
+  "created_at": "2026-10-13T16:04:49.681397+00:00",
+  "deadline_at": "2026-10-13T16:14:49.697940+00:00",
+  "id": "e41ee471-1e77-4620-b481-2e81e69ffd68",
+  "integrity": {
+    "scope": "Stored snapshots and content-addressed captures; not immutable history",
+    "verified": true
+  },
+  "model_calls": 0,
+  "outcome": "environment_failure",
+  "parent_id": null,
+  "patch_count": 0,
+  "published": true,
+  "registry_version": "repository-cases-v1",
+  "started_at": "2026-10-13T16:04:49.697940+00:00",
+  "status": "failed",
+  "steps": [],
+  "summary": "ValueError: Source snapshot mismatch",
+  "task_digest": "62362bfce378c59cb59887f5856246299a3b0e5a478cf4efcc360d64c075d487",
+  "task_id": "psf__requests-2931",
+  "task_snapshot": {
+    "approved_prefix": "requests/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "requests/models.py"
+    ],
+    "entry_lines": {
+      "requests/models.py": 66
+    },
+    "id": "psf__requests-2931",
+    "image": "sha256:9f1fdb06b595456c36483ed2c7a008c33be33e311fdb257c1bb29db812b00a85",
+    "issue": "Request with binary payload fails due to calling to_native_string\nIntroduced with https://github.com/kennethreitz/requests/issues/2844\n\n```\nimport requests\nrequests.put(\"http://httpbin.org/put\", data=u\"\u00f6\u00f6\u00f6\".encode(\"utf-8\"))\n```\n\nThis works with 2.8.1, but not with 2.9.\n\n",
+    "issue_url": "https://github.com/psf/requests/pull/2931",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible. Entry files and line windows derive from historical maintainer localization; reference text is not supplied to the model.",
+    "qualified": true,
+    "reference_digest": "5b5a77408b00928b0380cd6a40ccb53f0cf77b16f040e1743e313883aad104db",
+    "repository": "psf/requests",
+    "revision": "5f7a3a74aab1625c2bb65f643197ee885e3da576",
+    "source_digest": "e5aadecdcfbc67eb2751ad2f7b3a03dc57b913b541158753dbae199deb7ab4de",
+    "source_url": "https://github.com/psf/requests/tree/5f7a3a74aab1625c2bb65f643197ee885e3da576",
+    "split": "development",
+    "title": "Request with binary payload fails due to calling to_native_string",
+    "verification_digest": "b2d36dec4036572a15b0c228a2ced53f82fc0c56db40d46f6b4fcae70361bbf9"
+  },
+  "updated_at": "2026-10-13T16:04:49.711935+00:00"
+}

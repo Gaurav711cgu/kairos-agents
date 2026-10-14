@@ -1,413 +1,52 @@
+import currentCohort from "@/lib/study007-cohort.json";
 import Link from "next/link";
-import { getIncidents, getIncident } from "@/lib/kairos-api";
-import { IncidentRows, ServiceError } from "@/components/IncidentRows";
-import { ContextMoment } from "@/components/ContextMoment";
-import { AntigravityCard } from "@/components/AntigravityCard";
-import { GoIngestSimulator } from "@/components/GoIngestSimulator";
-import { CryptoChainAudit } from "@/components/CryptoChainAudit";
-import {
-  Activity,
-  Database,
-  ShieldCheck,
-  GitFork,
-  CheckCircle2,
-  AlertOctagon,
-  ArrowRight,
-  Cpu,
-  BarChart3,
-  Layers,
-} from "lucide-react";
-
+import { activeStudyComplete, outcomeLabel, caseTitle, configurationLabel } from "@/lib/investigations";
+import { getInvestigation, getActiveComparison, getFrozenInvestigations } from "@/lib/investigation-readers";
+import { InvestigationRows } from "@/components/InvestigationRows";
+import { ServiceError } from "@/components/IncidentRows";
+import followup from "@/lib/followup006-cohort.json";
 export const dynamic = "force-dynamic";
-
 export default async function Home() {
-  const result = await getIncidents();
-  const records = result.data?.incidents ?? [];
-  const caseFiles = records.filter((item) => item.parent_run_id === null);
-  const featured =
-    records.find(
-      (item) =>
-        item.policy === "compact" &&
-        item.scenario_id === "late-order-exception",
-    ) ?? records[0];
-  const detail = featured ? await getIncident(featured.id) : null;
-
-  return (
-    <>
-      {/* Live Ingest Telemetry Status Ribbon */}
-      <div className="border-b border-[#27272a] bg-[#121214] px-6 py-2.5">
-        <div className="mx-auto max-w-[1512px] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 text-zinc-300">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <strong className="text-zinc-100 font-semibold">KAIROS INGEST PROXY:</strong>
-              <span className="text-zinc-400">:8080 ACTIVE</span>
-            </span>
-            <span className="text-zinc-600 hidden sm:inline">|</span>
-            <span className="text-zinc-400 hidden sm:inline">
-              RING BUFFER DROP: <strong className="text-emerald-400">0.00%</strong> (50K BURST CAP)
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-zinc-400">
-            <span className="hidden md:inline">
-              BLOB DEDUPE: <strong className="text-indigo-400">6.4x SAVINGS</strong>
-            </span>
-            <span>
-              TRANSACTIONAL OUTBOX: <strong className="text-emerald-400">100% ATOMIC</strong>
-            </span>
-          </div>
-        </div>
+  const result = await getActiveComparison();
+  const records = result.data?.investigations ?? [];
+  const latest = records;
+  const prior = latest.some(item=>item.outcome==="verified_repair") ? null : await getFrozenInvestigations();
+  const featured = latest.find(item=>item.outcome==="verified_repair") ?? prior?.data?.investigations.find(item=>item.outcome==="verified_repair") ?? latest.find(item=>item.configuration.startsWith("loop-")) ?? records[0];
+  const featuredId = currentCohort.featured_id ?? (followup.complete && followup.featured_id ? followup.featured_id : featured?.id);
+  const detail = featuredId ? await getInvestigation(featuredId) : null;
+  const record = detail?.data;
+  const patch = [...(record?.steps ?? [])].reverse().find(item=>item.name==="propose_patch" && item.result && !item.result.body.error);
+  const patchText = patch?.result?.body.patch ?? patch?.request.body.patch;
+  const rejection = [...(record?.steps ?? [])].reverse().find(item=>item.name==="propose_patch" && item.result?.body.error)?.result?.body.error;
+  const cases = new Set(latest.map(item=>item.task_id)).size;
+  const repaired = latest.filter(item=>item.outcome==="verified_repair").length;
+  return <>
+    <div className="site-meta"><span>Real repository investigations</span><span>{result.error ? "Records unavailable" : `${records.length} recorded attempts`}</span></div>
+    <div className="investigation-actions"><Link className="text-link" href="/how-it-works">Follow your first investigation</Link><Link className="text-link" href="/advancement">Read the build007 results</Link></div>
+    <section className="hero investigation-hero">
+      <div className="hero-copy"><span className="eyebrow opening-label">Kairos / Repository investigation</span>
+        <h1>Follow a defect.<br /><em>Inspect its repair.</em></h1>
+        <p className="hero-deck">An agent proposes a source change.<br />Independent checks decide whether it works.</p>
+        <p className="hero-description">A full-stack workbench that captures source context, model actions and independent checks. Review the proposed change, follow its execution and download the evidence.</p>
+        <div className="hero-actions"><Link className="button primary" href={featuredId ? "/investigations/"+featuredId : "/investigations"}>Inspect an investigation</Link><Link className="button dark" href="/investigations">All attempts</Link><Link className="text-link" href="/engineering">Engineering decisions</Link></div>
+        <p className="hero-footnote">Explore a completed investigation here, or <Link href="/workbench">set up the authenticated workbench</Link> to submit a new registered case.</p>
       </div>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-copy">
-          <div className="eyebrow opening-label">
-            <span className="live-dot" /> AGENT RELIABILITY / SYSTEMS WORKBENCH
-          </div>
-          <h1>
-            Find the step
-            <br />
-            that changed
-            <br />
-            <em>the outcome.</em>
-          </h1>
-          <p className="hero-deck">
-            The answer looked right.
-            <br />
-            The evidence told a different story.
-          </p>
-          <p className="hero-description">
-            Capture agent executions with zero loss, pinpoint step-k divergence,
-            and gate pull requests using paired bootstrap statistics.
-          </p>
-          <div className="hero-actions">
-            <Link
-              className="button primary"
-              href={featured ? "/incidents/" + featured.id : "/incidents"}
-            >
-              Inspect an incident ↗
-            </Link>
-            <Link
-              className="button dark"
-              href="/workbench?demo=1"
-            >
-              Launch Reviewer Sandbox ↗
-            </Link>
-            <Link className="text-link" href="/engineering">
-              How it works →
-            </Link>
-          </div>
-          <div className="hero-footnote">
-            <span className="mono">01 / EMPIRICAL GROUND TRUTH</span>
-            <p>
-              Reference &amp; local Qwen model executions.
-              <br />
-              100% verified captures with SHA-256 provenance.
-            </p>
-          </div>
-        </div>
-
-        <div className="hero-instrument">
-          <AntigravityCard depth={6}>
-            {detail?.data ? (
-              <ContextMoment incident={detail.data} />
-            ) : (
-              <ServiceError
-                message={
-                  detail?.error ??
-                  result.error ??
-                  "No published executions yet. Seed a controlled run to begin."
-                }
-              />
-            )}
-          </AntigravityCard>
-        </div>
-      </section>
-
-      {/* Architecture Highlights: 3 Antigravity Cards */}
-      <section className="section" style={{ paddingTop: "2rem", paddingBottom: "3rem" }}>
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">HIGH-THROUGHPUT RELIABILITY INFRASTRUCTURE</span>
-            <h2>
-              Engineered for
-              <br />
-              <em>production scale.</em>
-            </h2>
-          </div>
-          <p>
-            Three foundational pillars separating toy agent demos
-            <br />
-            from enterprise-grade distributed systems.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <AntigravityCard depth={10} className="p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <Cpu className="h-5 w-5 text-emerald-400" />
-              <span className="eyebrow" style={{ color: "var(--forest)" }}>PILLAR 01</span>
-            </div>
-            <h3 style={{ fontSize: "18px", fontWeight: 600, color: "var(--ink)", marginBottom: "8px" }}>
-              Go Ingest &amp; Ring Buffer
-            </h3>
-            <p style={{ fontSize: "12px", color: "var(--muted)", lineHeight: 1.6, marginBottom: "14px" }}>
-              High-throughput asynchronous ingest proxy in Go. Lock-free channel ring buffer handles
-              50,000+ events/sec burst traffic with zero HTTP 200 drops and bounded spill-to-disk.
-            </p>
-            <div className="font-mono text-[11px] text-zinc-400 pt-3 border-t border-[#27272a]">
-              <span>[PASS] p99 latency &lt; 1.2ms</span>
-            </div>
-          </AntigravityCard>
-
-          <AntigravityCard depth={10} className="p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <ShieldCheck className="h-5 w-5 text-indigo-400" />
-              <span className="eyebrow" style={{ color: "var(--indigo)" }}>PILLAR 02</span>
-            </div>
-            <h3 style={{ fontSize: "18px", fontWeight: 600, color: "var(--ink)", marginBottom: "8px" }}>
-              Cryptographic Event Log
-            </h3>
-            <p style={{ fontSize: "12px", color: "var(--muted)", lineHeight: 1.6, marginBottom: "14px" }}>
-              Tamper-evident Merkle chaining where H(k) = SHA256(H(k-1) || payload). Content-addressed
-              blob deduplication yields 6.4x storage reduction across repeated prompt contexts.
-            </p>
-            <div className="font-mono text-[11px] text-zinc-400 pt-3 border-t border-[#27272a]">
-              <span>[PASS] 6.4x Content-Addressed Dedupe</span>
-            </div>
-          </AntigravityCard>
-
-          <AntigravityCard depth={10} className="p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <BarChart3 className="h-5 w-5 text-amber-400" />
-              <span className="eyebrow" style={{ color: "var(--amber)" }}>PILLAR 03</span>
-            </div>
-            <h3 style={{ fontSize: "18px", fontWeight: 600, color: "var(--ink)", marginBottom: "8px" }}>
-              Paired Bootstrap CI Gate
-            </h3>
-            <p style={{ fontSize: "12px", color: "var(--muted)", lineHeight: 1.6, marginBottom: "14px" }}>
-              N=10,000 bootstrap resampling tests replace naive pass-rate thresholds. Evaluates
-              non-inferiority margins with Holm-Bonferroni correction to prevent false regressions.
-            </p>
-            <div className="font-mono text-[11px] text-zinc-400 pt-3 border-t border-[#27272a]">
-              <span>[PASS] Non-inferiority margin δ ≤ 0.05</span>
-            </div>
-          </AntigravityCard>
-        </div>
-      </section>
-
-      {/* Case Files Section */}
-      <section className="section index-section">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">EMPIRICAL EVIDENCE / CASE FILES</span>
-            <h2>
-              Failure is useful.
-              <br />
-              <em>If you can inspect it.</em>
-            </h2>
-          </div>
-          <p>
-            Recorded executions, captured context blocks,
-            <br />
-            and the independent deterministic invariant checks.
-          </p>
-        </div>
-        {result.error ? (
-          <ServiceError message={result.error} />
-        ) : records.length ? (
-          <IncidentRows incidents={caseFiles.slice(0, 4)} />
-        ) : (
-          <p className="empty-state">No published executions yet.</p>
-        )}
-        <div style={{ marginTop: "24px", display: "flex", gap: "20px", alignItems: "center" }}>
-          <Link className="text-link" href="/incidents">
-            All incident records (6 canonical cases) →
-          </Link>
-          <Link className="text-link" href="/executions">
-            Raw model responses ledger →
-          </Link>
-        </div>
-      </section>
-
-      {/* Interactive Simulators Section */}
-      <section className="section" style={{ background: "rgba(18, 18, 20, 0.4)" }}>
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">INTERACTIVE SYSTEMS STATIONS</span>
-            <h2>
-              Test the mechanics
-              <br />
-              <em>in real-time.</em>
-            </h2>
-          </div>
-          <p>
-            Live interactive demonstrations of the Go ring buffer backpressure
-            <br />
-            and the cryptographic event chain verification.
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          <AntigravityCard depth={4}>
-            <GoIngestSimulator />
-          </AntigravityCard>
-
-          <AntigravityCard depth={4}>
-            <CryptoChainAudit />
-          </AntigravityCard>
-        </div>
-      </section>
-
-      {/* Guarantees & Non-Guarantees Matrix */}
-      <section className="section">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">SYSTEM CONTRACT / HONEST SEMANTICS</span>
-            <h2>
-              Guarantees &amp;
-              <br />
-              <em>Non-Guarantees.</em>
-            </h2>
-          </div>
-          <p>
-            Claiming absolute determinism in stochastic LLM agents is dishonest.
-            <br />
-            Kairos establishes formal boundaries around what can and cannot be guaranteed.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-lg border border-[#27272a] bg-[#121214] p-6 font-mono text-xs">
-            <div className="flex items-center gap-2 pb-3 mb-4 border-b border-[#27272a] text-emerald-400 font-semibold text-sm">
-              <CheckCircle2 className="h-4 w-4" />
-              <span>WHAT KAIROS FORMALLY GUARANTEES</span>
-            </div>
-            <ul className="space-y-3 text-zinc-300">
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-400 font-bold">[G-01]</span>
-                <span>
-                  <strong>Durable Write Before ACK:</strong> Ingest proxy commits events to PostgreSQL before returning HTTP 200 to caller.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-400 font-bold">[G-02]</span>
-                <span>
-                  <strong>Idempotent Event Log:</strong> Composite primary key (run_id, seq) guarantees duplicate submissions never corrupt state.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-400 font-bold">[G-03]</span>
-                <span>
-                  <strong>Cryptographic Integrity:</strong> SHA-256 Merkle chain detects any tampering in prompt, tool output, or agent state.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-400 font-bold">[G-04]</span>
-                <span>
-                  <strong>Isolated Time-Travel Fork:</strong> Forking step k creates a new run branch; historical parent runs remain immutable.
-                </span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="rounded-lg border border-[#27272a] bg-[#121214] p-6 font-mono text-xs">
-            <div className="flex items-center gap-2 pb-3 mb-4 border-b border-[#27272a] text-amber-400 font-semibold text-sm">
-              <AlertOctagon className="h-4 w-4" />
-              <span>HONEST NON-GUARANTEES</span>
-            </div>
-            <ul className="space-y-3 text-zinc-300">
-              <li className="flex items-start gap-2">
-                <span className="text-amber-400 font-bold">[NG-01]</span>
-                <span>
-                  <strong>LLM Token Bit-Exactness:</strong> Temperature=0 across remote providers (OpenAI, Anthropic) does not guarantee 100% bitwise parity.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-amber-400 font-bold">[NG-02]</span>
-                <span>
-                  <strong>External Tool Side-Effects:</strong> Read-only replays are mockable; mutating external tools require transactional sandboxes.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-amber-400 font-bold">[NG-03]</span>
-                <span>
-                  <strong>Zero Network Latency:</strong> Remote model calls retain provider jitter; Kairos records precise network timestamps.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-amber-400 font-bold">[NG-04]</span>
-                <span>
-                  <strong>Single-Metric Regression Proof:</strong> Paired bootstrap bounds provide statistical confidence, not mathematical certitude.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Engineering Architecture Diagram Teaser */}
-      <section className="engineering-teaser section">
-        <div>
-          <span className="eyebrow">BEHIND THE INTERFACE</span>
-          <h2>
-            Trust begins
-            <br />
-            <em>at the boundary.</em>
-          </h2>
-          <p>
-            A successful response follows the database commit. A fork keeps its
-            parent untouched. A grader reads source evidence independently.
-          </p>
-          <Link className="text-link" href="/engineering">
-            Explore the engineering decisions &amp; ADRs ↗
-          </Link>
-        </div>
-        <div
-          className="boundary-diagram"
-          aria-label="Request passes authorization, executes policy, commits events in PostgreSQL, then responds"
-        >
-          <div>
-            <span>01</span>
-            <strong>Authorize</strong>
-            <small>Server-derived tenant</small>
-          </div>
-          <div>
-            <span>02</span>
-            <strong>Execute &amp; grade</strong>
-            <small>Captured context + source truth</small>
-          </div>
-          <div className="commit-step">
-            <span>03</span>
-            <strong>Commit</strong>
-            <small>Run + events + idempotency</small>
-          </div>
-          <div>
-            <span>04</span>
-            <strong>Acknowledge</strong>
-            <small>Only after durable commit</small>
-          </div>
-        </div>
-      </section>
-
-      {/* Closing Section */}
-      <section className="closing section">
-        <span className="eyebrow">INSPECT THE WORK</span>
-        <h2>
-          Every claim needs
-          <br />
-          <em>somewhere to land.</em>
-        </h2>
-        <div>
-          <Link href="/evidence">Execution evidence ↗</Link>
-          <Link href="/executions">Actual model responses ↗</Link>
-          <Link href="/reports">Release reports ↗</Link>
-          <Link href="/workbench?demo=1">Interactive workbench sandbox ↗</Link>
-          <Link href="/docs">Reproduce locally &amp; ADRs ↗</Link>
-        </div>
-      </section>
-    </>
-  );
+      <div className="hero-instrument case-dossier">{record ? <>
+        <div className="dossier-top"><span className="eyebrow">Published case file{record.task_snapshot.split==="development" ? " · Development demonstration" : record.configuration.endsWith("v3") ? " · Original study" : ""}</span><span>{configurationLabel(record.configuration)}</span></div>
+        <h2>{caseTitle(record.task_id, record.task_snapshot.title)}</h2><p className="dossier-source">{record.task_snapshot.repository} · {record.task_snapshot.revision.slice(0,12)}</p>
+        {record.task_id === "django__django-11066" && <p className="dossier-source">Development case with an issue-provided repair hint. Independent checks verify the submitted patch.</p>}<div className="dossier-result"><span className="eyebrow">Observed result</span><h3 className={record.outcome==="verified_repair" ? "result-pass" : ""}>{outcomeLabel(record.outcome,record.status)}</h3><p>{record.model_calls} model {record.model_calls === 1 ? "call" : "calls"} · {record.patch_count} patch {record.patch_count === 1 ? "proposal" : "proposals"} · {record.check_count} check {record.check_count === 1 ? "run" : "runs"}</p></div>
+        {typeof patchText==="string" ? <pre role="region" className="dossier-patch" tabIndex={0} aria-label="Proposed patch excerpt">{patchText.split("\n").filter(line => /^[+@-]/.test(line)).slice(0,10).join("\n")}</pre> : <div className="dossier-note"><span className="eyebrow">What the record contains</span><p>{typeof rejection==="string" ? rejection : record.summary || "Captured requests and responses, with the stop reason preserved."}</p></div>}
+        <Link className="dossier-open" href={"/investigations/"+record.id}>Open source, context and checks<span aria-hidden="true">↗</span></Link>
+      </> : <ServiceError message={detail?.error ?? result.error ?? "No real investigation has been published yet."} />}</div>
+    </section>
+    <section className="section"><div className="section-heading"><div><span className="eyebrow">How to review a result</span><h2>Start with the failure.<br /><em>Follow the evidence.</em></h2></div><p>A repair must fix the reproduced regression and pass the relevant existing tests.</p></div>
+      <div className="architecture-notes"><article><span className="note-number">01</span><h3>Inspect the source</h3><p>Each case identifies the issue, pinned revision and reproduction command. A baseline failure and passing reference repair establish the case before the agent runs.</p></article><article><span className="note-number">02</span><h3>Read the proposed change</h3><p>The model supplies exact source replacements. Kairos constructs the diff and rejects changes outside approved source paths. Every rejected proposal remains inspectable.</p></article><article><span className="note-number">03</span><h3>Check the result</h3><p>Checks run in a separate disposable environment without network access. Registered regression and existing tests determine the repair verdict.</p></article></div>
+    </section>
+    <section className="section"><div className="section-heading"><div><span className="eyebrow">Recorded comparison</span><h2>Compare the recorded outcomes.</h2></div><p>Open an attempt to compare the frozen strategies on the same source. Earlier development attempts remain in the full record.</p></div><dl className="home-investigation-metrics"><div><dt>Cases in latest study</dt><dd>{result.error ? "—" : cases}</dd></div><div><dt>Latest study repairs</dt><dd>{result.error ? "—" : repaired}<small>{result.error ? " unavailable" : " / " + latest.length + " attempts"}</small></dd></div><div><dt>API spend</dt><dd>$0<small> local inference</small></dd></div></dl>
+        <p className="hero-footnote">{currentCohort.complete ? "Five fresh Python cases across Django and pytest. Two frozen strategies; neither verified a repair. " : followup.complete ? "Five fresh follow-up cases across Django, pytest and Requests. Two frozen strategies after a source-context defect was fixed. " : activeStudyComplete ? "Twelve evaluation cases across Django, pytest and Requests. Three frozen strategies. " : "Original six-case study. "}Human-selected source entry files. Small historical sample; no general performance claim. {followup.complete && <Link href="/follow-up">Read the follow-up and preserved 0/36 study.</Link>}</p>{result.error ? <ServiceError message={result.error}/> : <InvestigationRows records={latest.filter(item=>item.configuration.startsWith("loop-"))} />}<div className="investigation-actions"><Link className="text-link" href="/investigations">View the complete attempt ledger</Link></div></section>
+    <section className="section" id="guarantees"><div className="section-heading"><div><span className="eyebrow">Engineering boundaries</span><h2>Claims you can inspect.</h2></div><p>Inspect the tested request path, worker recovery, source isolation and evaluation scope.</p></div>
+      <dl className="investigation-boundaries"><div><dt>Saved before acceptance</dt><dd>PostgreSQL commits the request identity before the API returns 202. Reusing the identity with a different command returns a conflict.</dd></div><div><dt>Uncertain calls stay uncertain</dt><dd>Dispatch intent is saved before inference. A crash without a captured response never triggers a silent retry.</dd></div><div><dt>Changes remain isolated</dt><dd>Tools operate on immutable source snapshots and disposable copies. Downloads contain proposed patches; they do not alter your working repository.</dd></div><div><dt>Evaluation has limits</dt><dd>The active comparison covers {currentCohort.complete ? "five locked Python cases" : followup.complete ? "five locked follow-up cases" : activeStudyComplete ? "twelve locked evaluation cases" : "six historical cases"} with human-selected source entry points. Public issues may have appeared in training data. The comparison is descriptive.</dd></div></dl>
+      <div className="investigation-actions"><Link className="text-link" href="/engineering">Read the architecture</Link><Link className="text-link" href="/history">Earlier system demonstrations</Link></div>
+    </section>
+  </>;
 }
-

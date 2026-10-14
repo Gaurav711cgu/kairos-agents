@@ -1,0 +1,85 @@
+{
+  "baseline": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 2.076,
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 16, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/logging/test_fixture.py'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 136, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 313, in _prepareconfig\n    config = pluginmanager.hook.pytest_cmdline_parse(\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_hooks.py\", line 265, in __call__\n    return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 80, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 55, in _multicall\n    gen.send(outcome)\n  File \"/workspace/src/_pytest/helpconfig.py\", line 99, in pytest_cmdline_parse\n    config = outcome.get_result()  # type: Config\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_result.py\", line 60, in get_result\n    raise ex[1].with_traceback(ex[2])\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 39, in _multicall\n    res = hook_impl.function(*args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 932, in pytest_cmdline_parse\n    self.parse(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1204, in parse\n    self._preparse(args, addopts=addopts)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1085, in _preparse\n    self._initini(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1005, in _initini\n    self.rootdir, self.inifile, self.inicfg = determine_setup(\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 175, in determine_setup\n    rootdir, inipath, inicfg = locate_config([ancestor])\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 105, in locate_config\n    ini_config = load_config_dict_from_file(p)\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 64, in load_config_dict_from_file\n    import toml\nModuleNotFoundError: No module named 'toml'\n",
+    "stdout": "",
+    "tests_run": null,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "baseline_summary": {},
+  "case": {
+    "approved_prefix": "src/_pytest/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "src/_pytest/logging.py"
+    ],
+    "id": "pytest-dev__pytest-7571",
+    "image": "sha256:5db01d3fa0f7880ccc2a69ee40b15e7635c6aa72bc2bfa2fda967efd18fd3c96",
+    "issue": "caplog fixture doesn't restore log level after test\nFrom the documentation at https://docs.pytest.org/en/6.0.0/logging.html#caplog-fixture, \"The log levels set are restored automatically at the end of the test\".\r\nIt used to work, but looks broken in new 6.0 release. Minimal example to reproduce:\r\n\r\n```\r\ndef test_foo(caplog):\r\n    caplog.set_level(42)\r\n\r\ndef test_bar(caplog):\r\n    print(caplog.handler.level)\r\n```\r\n\r\nIt prints \"0\" for pytest<6, \"42\" after.\n",
+    "issue_url": "https://github.com/pytest-dev/pytest/pull/7571",
+    "provenance": "Build006 fresh model-unattempted SWE-bench Verified case. Human-localized entry files only; no reference-derived line windows. Explicit preflight retries and hermetic verification omissions are recorded separately. Public training contamination possible.",
+    "qualified": true,
+    "reference_digest": "37e8f7df78a7ad5ab31b32b2785a8009b5d9ebf99c1762e999e6e1cc3384ec24",
+    "repository": "pytest-dev/pytest",
+    "revision": "422685d0bdc110547535036c1ff398b5e1c44145",
+    "source_digest": "1d30d08a08ddb87b55e7210f9a9c13f788a9fba362b95e6e5a1a9dfa420892d8",
+    "source_url": "https://github.com/pytest-dev/pytest/tree/422685d0bdc110547535036c1ff398b5e1c44145",
+    "split": "validation",
+    "title": "caplog fixture doesn't restore log level after test",
+    "verification_digest": "58f36d751da702e20d0142707b84503f35464c91f9f3dd81dc354abec67a46f2"
+  },
+  "explicit_preflight_retry": false,
+  "id": "pytest-dev__pytest-7571",
+  "patch_changed_lines": 4,
+  "qualified": false,
+  "reason": "Behavioral regression failure and complete reference repair were not both reproduced under the registered hermetic verifier",
+  "reference": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 0.697,
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 16, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/logging/test_fixture.py'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 136, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 313, in _prepareconfig\n    config = pluginmanager.hook.pytest_cmdline_parse(\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_hooks.py\", line 265, in __call__\n    return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 80, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 55, in _multicall\n    gen.send(outcome)\n  File \"/workspace/src/_pytest/helpconfig.py\", line 99, in pytest_cmdline_parse\n    config = outcome.get_result()  # type: Config\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_result.py\", line 60, in get_result\n    raise ex[1].with_traceback(ex[2])\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 39, in _multicall\n    res = hook_impl.function(*args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 932, in pytest_cmdline_parse\n    self.parse(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1204, in parse\n    self._preparse(args, addopts=addopts)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1085, in _preparse\n    self._initini(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1005, in _initini\n    self.rootdir, self.inifile, self.inicfg = determine_setup(\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 175, in determine_setup\n    rootdir, inipath, inicfg = locate_config([ancestor])\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 105, in locate_config\n    ini_config = load_config_dict_from_file(p)\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 64, in load_config_dict_from_file\n    import toml\nModuleNotFoundError: No module named 'toml'\n",
+    "stdout": "",
+    "tests_run": null,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "reference_summary": {},
+  "source": {
+    "archive_sha256": "9e8414ab765c61eebb12adc5d66c82698ba07b1cb5418d64ba0d9cdd62e0ab44",
+    "downloaded_bytes": 1072693,
+    "expanded_bytes": 3751657,
+    "source_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/422685d0bdc110547535036c1ff398b5e1c44145"
+  },
+  "test_scope": {
+    "added_hidden_tests": [
+      "testing/logging/test_fixture.py::test_change_level_undo",
+      "testing/logging/test_fixture.py::test_change_level_undos_handler_level",
+      "testing/logging/test_fixture.py::test_with_statement"
+    ],
+    "completion": "Every collected selected test must finish; all required regressions must be collected and pass after repair",
+    "declared_regressions": [
+      "testing/logging/test_fixture.py::test_change_level_undos_handler_level"
+    ],
+    "omissions": [],
+    "required_regressions": [
+      "testing/logging/test_fixture.py::test_change_level_undo",
+      "testing/logging/test_fixture.py::test_change_level_undos_handler_level",
+      "testing/logging/test_fixture.py::test_with_statement"
+    ],
+    "selected": [
+      "testing/logging/test_fixture.py"
+    ]
+  }
+}

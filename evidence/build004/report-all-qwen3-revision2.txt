@@ -1,0 +1,153 @@
+{
+  "elapsed_scope": "Captured completed durations only; interrupted attempts with incomplete timing are excluded from duration sums.",
+  "incomplete_duration_attempts": 2,
+  "complete": true,
+  "scope": "Small curated historical sample; descriptive results. Bootstrap intervals describe resampling of these cases, not general repair competence. No leaderboard claim.",
+  "strategies": {
+    "baseline-v4": {
+      "attempts": 12,
+      "verified": 0,
+      "calls": 11,
+      "tokens": 25714,
+      "elapsed_seconds": 190.740054,
+      "repositories": {
+        "django/django": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 5984,
+          "elapsed_seconds": 67.183831
+        },
+        "psf/requests": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 8651,
+          "elapsed_seconds": 54.757678999999996
+        },
+        "pytest-dev/pytest": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 11079,
+          "elapsed_seconds": 68.79854399999999
+        }
+      },
+      "outcomes": {
+        "environment_failure": 2,
+        "failed_checks": 2,
+        "invalid_patch": 8
+      }
+    },
+    "loop-v4": {
+      "attempts": 12,
+      "verified": 0,
+      "calls": 66,
+      "tokens": 70544,
+      "elapsed_seconds": 160.660763,
+      "repositories": {
+        "django/django": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 13359,
+          "elapsed_seconds": 52.232026
+        },
+        "psf/requests": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 20930,
+          "elapsed_seconds": 48.041629
+        },
+        "pytest-dev/pytest": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 36255,
+          "elapsed_seconds": 60.387108
+        }
+      },
+      "outcomes": {
+        "environment_failure": 1,
+        "no_patch": 11
+      }
+    },
+    "drafts-v4": {
+      "attempts": 12,
+      "verified": 0,
+      "calls": 64,
+      "tokens": 149067,
+      "elapsed_seconds": 542.165789,
+      "repositories": {
+        "django/django": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 35710,
+          "elapsed_seconds": 173.740723
+        },
+        "psf/requests": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 46136,
+          "elapsed_seconds": 131.972564
+        },
+        "pytest-dev/pytest": {
+          "attempts": 4,
+          "verified": 0,
+          "tokens": 67221,
+          "elapsed_seconds": 236.45250199999998
+        }
+      },
+      "outcomes": {
+        "environment_failure": 2,
+        "failed_checks": 3,
+        "invalid_patch": 5,
+        "timeout": 1,
+        "unknown_dispatch": 1
+      }
+    }
+  },
+  "paired_differences": [
+    {
+      "left": "loop-v4",
+      "right": "baseline-v4",
+      "difference": 0.0,
+      "interval_95": [
+        0.0,
+        0.0
+      ],
+      "method": "Paired bootstrap, stratified by repository; fixed sample only",
+      "n_pairs": 12,
+      "discordant_pairs": 0,
+      "uncertainty_note": "A degenerate interval when all observed pairs agree does not establish equivalence or safe future performance. The suite is curated, not a random population sample."
+    },
+    {
+      "left": "drafts-v4",
+      "right": "baseline-v4",
+      "difference": 0.0,
+      "interval_95": [
+        0.0,
+        0.0
+      ],
+      "method": "Paired bootstrap, stratified by repository; fixed sample only",
+      "n_pairs": 12,
+      "discordant_pairs": 0,
+      "uncertainty_note": "A degenerate interval when all observed pairs agree does not establish equivalence or safe future performance. The suite is curated, not a random population sample."
+    },
+    {
+      "left": "loop-v4",
+      "right": "drafts-v4",
+      "difference": 0.0,
+      "interval_95": [
+        0.0,
+        0.0
+      ],
+      "method": "Paired bootstrap, stratified by repository; fixed sample only",
+      "n_pairs": 12,
+      "discordant_pairs": 0,
+      "uncertainty_note": "A degenerate interval when all observed pairs agree does not establish equivalence or safe future performance. The suite is curated, not a random population sample."
+    }
+  ],
+  "declared_quality_target": {
+    "target_cases": 6,
+    "target_repositories": 2,
+    "actual_cases": 0,
+    "actual_repositories": 0,
+    "met": false
+  }
+}

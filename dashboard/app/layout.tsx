@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { isRecordedEvidence } from "@/lib/evidence-mode";
 import "@fontsource/dm-sans/latin-400.css";
 import "@fontsource/dm-sans/latin-500.css";
 import "@fontsource/dm-sans/latin-700.css";
 import "@fontsource/instrument-serif/latin-400.css";
 import "@fontsource/instrument-serif/latin-400-italic.css";
 import "./globals.css";
+import "./investigations.css";
+// Runtime mode also controls static informational pages; never reuse a build-time label.
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: {
-    default: "Kairos — Find the step that changed the outcome",
+    default: "Kairos — Inspect the investigation",
     template: "%s — Kairos",
   },
   description:
@@ -20,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body>
         <a className="skip" href="#main">
           Skip to content
@@ -30,31 +34,32 @@ export default function RootLayout({
             <span className="brand-symbol" aria-hidden="true">
               κ
             </span>
-            kairos<span className="edition">FIELD NOTES / 002</span>
+            Kairos<span className="edition">Build 007</span>
           </Link>
           <nav aria-label="Main navigation">
-            <Link href="/incidents">Incidents</Link>
+            <Link href="/how-it-works">Start here</Link>
+            <Link href="/investigations">Investigations</Link>
             <Link href="/engineering">Engineering</Link>
-            <Link href="/evidence">Evidence</Link>
-            <Link href="/reports">Reports</Link>
-            <Link href="/executions">Model runs</Link>
+            <Link href="/advancement">Repair results</Link>
+            <Link href="/capacity">Capacity</Link>
+            <Link href="/history">History</Link>
             <Link href="/workbench">Workbench</Link>
-            <Link href="/docs">
-              Docs <span aria-hidden="true">↗</span>
-            </Link>
+            <Link href="/docs">Docs</Link>
           </nav>
         </header>
-        <main id="main">{children}</main>
+        <main id="main">{isRecordedEvidence() && <aside className="recorded-mode-note" aria-label="Evidence mode"><span>Evidence viewer · Original investigation captures</span><Link href="/workbench">Live workbench setup</Link></aside>}{children}</main>
         <footer className="site-footer">
           <Link className="footer-mark" href="/">
-            kairos.
+            Kairos
           </Link>
           <p>
-            Built to make agent behavior inspectable.
+            Repository investigations, source changes and independent checks.
             <br />
-            <span>Controlled data. Real executions. Explicit limits.</span>
+            <span>
+              Pinned source, proposed changes and captured verification results.
+            </span>
           </p>
-          <Link href="/docs#guarantees">Read the guarantees ↗</Link>
+          <Link href="/#guarantees">Explore the engineering</Link>
         </footer>
       </body>
     </html>

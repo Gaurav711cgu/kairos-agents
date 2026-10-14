@@ -1,0 +1,179 @@
+{
+  "version": "delivery-acceptance-v1",
+  "release": "build005",
+  "passed": true,
+  "checks": {
+    "clean_source_and_locked_install": {
+      "passed": true,
+      "evidence": [
+        "clean-source-initial-index.json",
+        "node-install.txt",
+        "python-install.txt",
+        "acceptance-source-update.json"
+      ],
+      "node": "v24.19.0",
+      "python": "Python 3.14.2",
+      "scope": "Started without runtime, environment files, database or installed dependencies. Small helper fixes were tested before the final aggregate acceptance."
+    },
+    "backend": {
+      "passed": true,
+      "passed_tests": 229,
+      "skipped_tests": 6,
+      "failed_tests": 0,
+      "evidence": [
+        "acceptance.json",
+        "backend-junit.xml",
+        "backend-tests.txt"
+      ]
+    },
+    "frontend": {
+      "passed": true,
+      "node_tests": 18,
+      "lint": true,
+      "types": true,
+      "production_build_recorded": true,
+      "production_build_live": true,
+      "evidence": [
+        "frontend-boundary-tests.txt",
+        "frontend-client-tests.txt",
+        "recorded-package-tests.txt",
+        "frontend-lint.txt",
+        "frontend-types.txt",
+        "frontend-build-recorded.txt",
+        "frontend-build-live.txt"
+      ]
+    },
+    "browser": {
+      "passed": true,
+      "recorded_journeys": 4,
+      "real_oidc_journeys": 4,
+      "existing_fixture_regressions": 11,
+      "desktop_and_390px": true,
+      "evidence": [
+        "recorded-browser.json",
+        "fullstack-browser.json",
+        "legacy-browser-tests.txt",
+        "screenshots/"
+      ]
+    },
+    "containers": {
+      "passed": true,
+      "checks": 21,
+      "evidence": [
+        "docker-smoke.json",
+        "docker-web-build.txt",
+        "docker-api-build.txt"
+      ]
+    },
+    "repair_reproduction": {
+      "passed": true,
+      "tests_run": 110,
+      "skipped": 1,
+      "image_changed": true,
+      "source_revision": "e7fd69d051eaa67cb17f172a39b57253e9cb831a",
+      "evidence": [
+        "repair-reproduction.json",
+        "repair-output.txt",
+        "repair-image-build.txt"
+      ]
+    },
+    "repeatable_setup_and_scoped_stop": {
+      "passed": true,
+      "evidence": [
+        "setup-repeatability.json",
+        "private-runtime-preflight.json",
+        "scoped-shutdown.json"
+      ]
+    },
+    "historical_preservation": {
+      "passed": true,
+      "original_records": 109,
+      "original_objects": 1145,
+      "frozen_evidence_files": 458,
+      "evidence": [
+        "original-preservation.json",
+        "build004-preservation.json",
+        "historical-raw-index.json"
+      ]
+    },
+    "packaging_boundaries": {
+      "passed": true,
+      "focused_checks": 5,
+      "known_credentials_absent": true,
+      "evidence": [
+        "packaging-negative-checks.json",
+        "sanitized-export.json"
+      ],
+      "scope": "Final inventory and archive hashes are verified separately by scripts.verify_delivery005 and publication-receipt.json."
+    },
+    "tested_execution_source": {
+      "passed": true,
+      "evidence": [
+        "tested-source-parity.json"
+      ],
+      "scope": "Final code/configuration and locked dependencies match acceptance snapshot. Reviewer generated type paths have additional passing build/typecheck stability evidence."
+    },
+    "build_source_stability": {
+      "passed": true,
+      "evidence": [
+        "packaging-reseal.json",
+        "final-build-stability.txt"
+      ],
+      "scope": "Next.js generated type paths pinned; build and typecheck leave source configuration unchanged. Packaging-only correction after image smoke."
+    },
+    "final_package_launch": {
+      "passed": true,
+      "recorded_browser_journeys_repeated": 4,
+      "evidence": [
+        "final-package-browser.txt"
+      ],
+      "scope": "Same recorded journeys repeated from the final sanitized source snapshot after locked installation; Docker/model/identity absent."
+    },
+    "manifest_binding": {
+      "passed": true,
+      "evidence": [
+        "manifest-binding-check.json"
+      ]
+    }
+  },
+  "skips": [
+    {
+      "test": "tests.test_identity_provider.test_real_provider_pkce_nonce_login_membership_and_logout[0]",
+      "reason": "Enable real local provider integration with KAIROS_TEST_IDENTITY_PROVIDER=1"
+    },
+    {
+      "test": "tests.test_identity_provider.test_real_provider_pkce_nonce_login_membership_and_logout[1]",
+      "reason": "Enable real local provider integration with KAIROS_TEST_IDENTITY_PROVIDER=1"
+    },
+    {
+      "test": "tests.test_identity_provider.test_real_provider_pkce_nonce_login_membership_and_logout[2]",
+      "reason": "Enable real local provider integration with KAIROS_TEST_IDENTITY_PROVIDER=1"
+    },
+    {
+      "test": "tests.test_identity_provider.test_real_provider_valid_identity_without_membership_denied",
+      "reason": "Enable real local provider integration with KAIROS_TEST_IDENTITY_PROVIDER=1"
+    },
+    {
+      "test": "tests.test_investigations.test_real_docker_verifier_is_nonroot_readonly_and_network_disabled",
+      "reason": "Set KAIROS_TEST_INVESTIGATION_DOCKER=1 for real Docker isolation check"
+    },
+    {
+      "test": "tests.test_investigations.test_real_model_enforces_nested_schema",
+      "reason": "Set KAIROS_TEST_INVESTIGATION_PROVIDER=1 for actual local schema probe"
+    }
+  ],
+  "model_dispatches_for_delivery": 0,
+  "reused_evidence": [
+    "build004/capacity-summary-final.json",
+    "build004/study-qwen3/comparison.json",
+    "build004/crash-recovery.json",
+    "build004/restore-final.json"
+  ],
+  "limits": [
+    "Local macOS release; no hosted CI, public hosting or external publication performed.",
+    "Six opt-in skips are listed individually. Real OIDC and affected Docker images were exercised separately.",
+    "Capacity and frozen model studies were reused; delivery does not modify inference or benchmark execution.",
+    "Build004 evaluation remains 0/36 verified repairs. Reproducing one historical Django patch establishes one-case reproduction.",
+    "Final byte inventories establish consistency relative to the trusted manifest, not immutable or signed history."
+  ]
+}

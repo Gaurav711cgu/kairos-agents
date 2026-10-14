@@ -1,0 +1,38 @@
+django__django-10999 True None
+django__django-11066 True None
+django__django-11087 True None
+django__django-11095 True None
+django__django-11099 True None
+django__django-11119 True None
+pytest-dev__pytest-10051 False Baseline regression or reference repair did not reproduce under registered 1GB/120s environment
+pytest-dev__pytest-10081 False Baseline regression or reference repair did not reproduce under registered 1GB/120s environment
+pytest-dev__pytest-10356 False Baseline regression or reference repair did not reproduce under registered 1GB/120s environment
+pytest-dev__pytest-5262 False Baseline regression or reference repair did not reproduce under registered 1GB/120s environment
+pytest-dev__pytest-5631 False Baseline regression or reference repair did not reproduce under registered 1GB/120s environment
+pytest-dev__pytest-5787 False ValueError: Maintainer repair exceeds registered source-only patch scope
+pytest-dev__pytest-5809 False Baseline regression or reference repair did not reproduce under registered 1GB/120s environment
+pytest-dev__pytest-5840 False Baseline regression or reference repair did not reproduce under registered 1GB/120s environment
+pytest-dev__pytest-6197 True None
+pytest-dev__pytest-6202 True None
+Traceback (most recent call last):
+  File "/Users/gauravkumarnayak/Desktop/new-karos/scripts/qualify_study004.py", line 95, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/scripts/qualify_study004.py", line 64, in main
+    workspace=Workspace(registry,case)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/sandbox.py", line 18, in __init__
+    registry.verify(case)
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/registry.py", line 53, in verify
+    size=sum(p.stat().st_size for p in self.runtime.rglob('*') if p.is_file() and not p.is_symlink())
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/registry.py", line 53, in <genexpr>
+    size=sum(p.stat().st_size for p in self.runtime.rglob('*') if p.is_file() and not p.is_symlink())
+                                                                  ^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py", line 892, in is_file
+    return S_ISREG(self.stat().st_mode)
+                   ^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py", line 840, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

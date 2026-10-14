@@ -1,0 +1,89 @@
+{
+  "baseline": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 0.706,
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 16, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/test_nose.py', 'testing/test_unittest.py'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 145, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 324, in _prepareconfig\n    config = pluginmanager.hook.pytest_cmdline_parse(\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_hooks.py\", line 265, in __call__\n    return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 80, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 55, in _multicall\n    gen.send(outcome)\n  File \"/workspace/src/_pytest/helpconfig.py\", line 100, in pytest_cmdline_parse\n    config: Config = outcome.get_result()\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_result.py\", line 60, in get_result\n    raise ex[1].with_traceback(ex[2])\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 39, in _multicall\n    res = hook_impl.function(*args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1021, in pytest_cmdline_parse\n    self.parse(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1305, in parse\n    self._preparse(args, addopts=addopts)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1175, in _preparse\n    self._initini(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1094, in _initini\n    rootpath, inipath, inicfg = determine_setup(\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 182, in determine_setup\n    rootdir, inipath, inicfg = locate_config([ancestor])\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 104, in locate_config\n    ini_config = load_config_dict_from_file(p)\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 67, in load_config_dict_from_file\n    import toml\nModuleNotFoundError: No module named 'toml'\n",
+    "stdout": "",
+    "tests_run": null,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "baseline_summary": {},
+  "case": {
+    "approved_prefix": "src/_pytest/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "src/_pytest/python.py",
+      "src/_pytest/unittest.py"
+    ],
+    "id": "pytest-dev__pytest-8399",
+    "image": "sha256:5db01d3fa0f7880ccc2a69ee40b15e7635c6aa72bc2bfa2fda967efd18fd3c96",
+    "issue": "Starting v6.2.0, unittest setUpClass fixtures are no longer \"private\"\n<!--\r\nThanks for submitting an issue!\r\n\r\nQuick check-list while reporting bugs:\r\n-->\r\nMinimal example:\r\n```\r\nimport unittest\r\n\r\nclass Tests(unittest.TestCase):\r\n    @classmethod\r\n    def setUpClass(cls):\r\n        pass\r\n\r\n    def test_1(self):\r\n        pass\r\n```\r\n```\r\n~$  pytest --fixtures\r\n...\r\nunittest_setUpClass_fixture_Tests [class scope] -- ../Platform/.venv/lib/python3.6/site-packages/_pytest/unittest.py:145\r\n    /home/ubuntu/src/Platform/.venv/lib/python3.6/site-packages/_pytest/unittest.py:145: no docstring available\r\n```\r\nThe expected (and previously implemented behavior) is that this fixture's name would start with an underscore, and would therefore only get printed if the additional `-v` flag was used. As it stands, I don't see a way to hide such generated fixtures which will not have a docstring.\r\n\r\nThis breaks a code-quality CI script that makes sure we don't have undocumented pytest fixtures (and the code-base has many legacy tests that use unittest, and that will not get upgraded).\r\n\n",
+    "issue_url": "https://github.com/pytest-dev/pytest/pull/8399",
+    "provenance": "Build006 fresh model-unattempted SWE-bench Verified case. Human-localized entry files only; no reference-derived line windows. Explicit preflight retries and hermetic verification omissions are recorded separately. Public training contamination possible.",
+    "qualified": true,
+    "reference_digest": "fcc0962e001dbc5c6c718a885b0a3369af3b018b942d3574675c51ecdc59eff2",
+    "repository": "pytest-dev/pytest",
+    "revision": "6e7dc8bac831cd8cf7a53b08efa366bd84f0c0fe",
+    "source_digest": "51e167edd3ad107f8e2c60a4a3f04d4ddbe2bf49209ccb656de4603ecc496903",
+    "source_url": "https://github.com/pytest-dev/pytest/tree/6e7dc8bac831cd8cf7a53b08efa366bd84f0c0fe",
+    "split": "validation",
+    "title": "Starting v6.2.0, unittest setUpClass fixtures are no longer \"private\"",
+    "verification_digest": "26c184d3c8bbac8e4a76b4086c2f4d8461ad644617621382d08c315a6201e083"
+  },
+  "explicit_preflight_retry": false,
+  "id": "pytest-dev__pytest-8399",
+  "patch_changed_lines": 10,
+  "qualified": false,
+  "reason": "Behavioral regression failure and complete reference repair were not both reproduced under the registered hermetic verifier",
+  "reference": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 0.606,
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 16, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/test_nose.py', 'testing/test_unittest.py'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 145, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 324, in _prepareconfig\n    config = pluginmanager.hook.pytest_cmdline_parse(\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_hooks.py\", line 265, in __call__\n    return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 80, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 55, in _multicall\n    gen.send(outcome)\n  File \"/workspace/src/_pytest/helpconfig.py\", line 100, in pytest_cmdline_parse\n    config: Config = outcome.get_result()\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_result.py\", line 60, in get_result\n    raise ex[1].with_traceback(ex[2])\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 39, in _multicall\n    res = hook_impl.function(*args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1021, in pytest_cmdline_parse\n    self.parse(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1305, in parse\n    self._preparse(args, addopts=addopts)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1175, in _preparse\n    self._initini(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1094, in _initini\n    rootpath, inipath, inicfg = determine_setup(\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 182, in determine_setup\n    rootdir, inipath, inicfg = locate_config([ancestor])\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 104, in locate_config\n    ini_config = load_config_dict_from_file(p)\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 67, in load_config_dict_from_file\n    import toml\nModuleNotFoundError: No module named 'toml'\n",
+    "stdout": "",
+    "tests_run": null,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "reference_summary": {},
+  "source": {
+    "archive_sha256": "8db331fb61962254d902a295518b66fb23f2384927fe6e9556b2faa97cd6b1c8",
+    "downloaded_bytes": 1191834,
+    "expanded_bytes": 4342111,
+    "source_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/6e7dc8bac831cd8cf7a53b08efa366bd84f0c0fe"
+  },
+  "test_scope": {
+    "added_hidden_tests": [
+      "testing/test_nose.py::test_fixtures_nose_setup_issue8394",
+      "testing/test_nose.py::test_nose_setup_ordering",
+      "testing/test_unittest.py::test_fixtures_setup_setUpClass_issue8394",
+      "testing/test_unittest.py::test_setup_class"
+    ],
+    "completion": "Every collected selected test must finish; all required regressions must be collected and pass after repair",
+    "declared_regressions": [
+      "testing/test_unittest.py::test_fixtures_setup_setUpClass_issue8394"
+    ],
+    "omissions": [],
+    "required_regressions": [
+      "testing/test_nose.py::test_fixtures_nose_setup_issue8394",
+      "testing/test_nose.py::test_nose_setup_ordering",
+      "testing/test_unittest.py::test_fixtures_setup_setUpClass_issue8394",
+      "testing/test_unittest.py::test_setup_class"
+    ],
+    "selected": [
+      "testing/test_nose.py",
+      "testing/test_unittest.py"
+    ]
+  }
+}

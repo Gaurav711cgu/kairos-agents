@@ -6,11 +6,17 @@ import react from "eslint-plugin-react";
 export default tseslint.config(
   {
     ignores: [
-      ".next/**",
+      ".next*/**",
       ".next-build/**",
+      ".next-identity/**",
+      ".next-reviewer005/**",
+      ".playwright-results-reviewer/**",
+      ".playwright-results-real/**",
       "out/**",
       "build/**",
       "next-env.d.ts",
+      ".playwright-results/**",
+      "playwright-report/**",
     ],
   },
   js.configs.recommended,
@@ -47,6 +53,8 @@ export default tseslint.config(
     rules: {
       ...hooks.configs.recommended.rules,
       ...a11y.flatConfigs.recommended.rules,
+      // Captured source/output regions need keyboard focus for horizontal scrolling.
+      "jsx-a11y/no-noninteractive-tabindex": ["error", { tags: ["pre"] }],
       "react/jsx-key": "error",
       "react/jsx-no-target-blank": "error",
       "react/no-unknown-property": "error",

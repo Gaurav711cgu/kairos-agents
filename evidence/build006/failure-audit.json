@@ -1,0 +1,355 @@
+{
+  "version": "frozen-failure-audit-v1",
+  "source": "evidence/build004/study-qwen3/evaluation/*.json",
+  "attempts": 36,
+  "outcomes": {
+    "invalid_patch": 13,
+    "failed_checks": 5,
+    "no_patch": 11,
+    "environment_failure": 5,
+    "timeout": 1,
+    "unknown_dispatch": 1
+  },
+  "loop_model_calls": 66,
+  "loop_calls_without_patch_action": 55,
+  "patch_or_draft_actions": 82,
+  "syntax_rejections": 43,
+  "root_cause": "Initial original-source observations disappear after the first tool result. Without visible references prepare_v4 removes propose_patch from schema. Source handles known internally do not authorize model edits.",
+  "evidence": [
+    {
+      "id": "45019c68-490d-4433-ab95-5814074143df",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "45019c68-490d-4433-ab95-5814074143df",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "45019c68-490d-4433-ab95-5814074143df",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "45019c68-490d-4433-ab95-5814074143df",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "45019c68-490d-4433-ab95-5814074143df",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "45019c68-490d-4433-ab95-5814074143df",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "8b290d3e-f780-410a-aa86-f17a2ab76cae",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "8b290d3e-f780-410a-aa86-f17a2ab76cae",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "8b290d3e-f780-410a-aa86-f17a2ab76cae",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "8b290d3e-f780-410a-aa86-f17a2ab76cae",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "8b290d3e-f780-410a-aa86-f17a2ab76cae",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "8b290d3e-f780-410a-aa86-f17a2ab76cae",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "2aed2690-f1b3-48f5-9dcf-75521ea07fff",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "2aed2690-f1b3-48f5-9dcf-75521ea07fff",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "2aed2690-f1b3-48f5-9dcf-75521ea07fff",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "2aed2690-f1b3-48f5-9dcf-75521ea07fff",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "2aed2690-f1b3-48f5-9dcf-75521ea07fff",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "2aed2690-f1b3-48f5-9dcf-75521ea07fff",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "426afec1-b9dd-4ecd-b24d-db3259a2f4c6",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "426afec1-b9dd-4ecd-b24d-db3259a2f4c6",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "426afec1-b9dd-4ecd-b24d-db3259a2f4c6",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "426afec1-b9dd-4ecd-b24d-db3259a2f4c6",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "426afec1-b9dd-4ecd-b24d-db3259a2f4c6",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "426afec1-b9dd-4ecd-b24d-db3259a2f4c6",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "7523e04e-42cf-4e48-9071-af24df11d077",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "7523e04e-42cf-4e48-9071-af24df11d077",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "7523e04e-42cf-4e48-9071-af24df11d077",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "7523e04e-42cf-4e48-9071-af24df11d077",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "7523e04e-42cf-4e48-9071-af24df11d077",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "7523e04e-42cf-4e48-9071-af24df11d077",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "daac729b-376b-4f10-b78f-c2219233e74f",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "daac729b-376b-4f10-b78f-c2219233e74f",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "daac729b-376b-4f10-b78f-c2219233e74f",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "daac729b-376b-4f10-b78f-c2219233e74f",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "daac729b-376b-4f10-b78f-c2219233e74f",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "daac729b-376b-4f10-b78f-c2219233e74f",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "07b1a780-f2f0-4489-890d-7e64e88a5410",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "07b1a780-f2f0-4489-890d-7e64e88a5410",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "07b1a780-f2f0-4489-890d-7e64e88a5410",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "07b1a780-f2f0-4489-890d-7e64e88a5410",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "07b1a780-f2f0-4489-890d-7e64e88a5410",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "07b1a780-f2f0-4489-890d-7e64e88a5410",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "4d4d635f-16c4-440c-8d7d-212317333d8c",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "4d4d635f-16c4-440c-8d7d-212317333d8c",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "4d4d635f-16c4-440c-8d7d-212317333d8c",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "4d4d635f-16c4-440c-8d7d-212317333d8c",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "4d4d635f-16c4-440c-8d7d-212317333d8c",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "4d4d635f-16c4-440c-8d7d-212317333d8c",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "f94b3562-8847-46f4-aee6-b85bd093e4bb",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "f94b3562-8847-46f4-aee6-b85bd093e4bb",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "f94b3562-8847-46f4-aee6-b85bd093e4bb",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "f94b3562-8847-46f4-aee6-b85bd093e4bb",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "f94b3562-8847-46f4-aee6-b85bd093e4bb",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "f94b3562-8847-46f4-aee6-b85bd093e4bb",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "bbe2162c-b1ba-414c-b9a7-5a70e7df0a70",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "bbe2162c-b1ba-414c-b9a7-5a70e7df0a70",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "bbe2162c-b1ba-414c-b9a7-5a70e7df0a70",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "bbe2162c-b1ba-414c-b9a7-5a70e7df0a70",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "bbe2162c-b1ba-414c-b9a7-5a70e7df0a70",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "bbe2162c-b1ba-414c-b9a7-5a70e7df0a70",
+      "seq": 17,
+      "patch_allowed": false
+    },
+    {
+      "id": "65d16ee6-514d-4609-bff5-50e67431e2f1",
+      "seq": 2,
+      "patch_allowed": true
+    },
+    {
+      "id": "65d16ee6-514d-4609-bff5-50e67431e2f1",
+      "seq": 5,
+      "patch_allowed": false
+    },
+    {
+      "id": "65d16ee6-514d-4609-bff5-50e67431e2f1",
+      "seq": 8,
+      "patch_allowed": false
+    },
+    {
+      "id": "65d16ee6-514d-4609-bff5-50e67431e2f1",
+      "seq": 11,
+      "patch_allowed": false
+    },
+    {
+      "id": "65d16ee6-514d-4609-bff5-50e67431e2f1",
+      "seq": 14,
+      "patch_allowed": false
+    },
+    {
+      "id": "65d16ee6-514d-4609-bff5-50e67431e2f1",
+      "seq": 17,
+      "patch_allowed": false
+    }
+  ],
+  "scope": "Frozen outcomes preserved. This identifies an execution-harness defect; it does not infer how many repairs an unaffected model would achieve.",
+  "model_patch_proposals": 74,
+  "searches": 60,
+  "empty_searches": 60,
+  "repeated_exact_search_queries": 36
+}

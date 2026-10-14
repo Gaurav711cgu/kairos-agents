@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "drills": [
+    {
+      "phase": "intent",
+      "record_id": "dd3b1ff1-91e4-4fcc-b042-c83eed025904",
+      "signal": "SIGKILL",
+      "exit_code": -9,
+      "before_status": "running",
+      "after_status": "unknown",
+      "after_outcome": "unknown_dispatch",
+      "model_calls": 1,
+      "recovery_model_dispatches": 0,
+      "captured_real_model_response": false,
+      "integrity_verified": true,
+      "fault_injection": "Lease expiry set to database clock minus one second after process death.",
+      "scope": "Intent drill dies before HTTP send; captured drill uses an actual local model response. No external side effects."
+    },
+    {
+      "phase": "captured",
+      "record_id": "53279c0e-87fa-4fa1-99eb-8ca6be030916",
+      "signal": "SIGKILL",
+      "exit_code": -9,
+      "before_status": "running",
+      "after_status": "completed",
+      "after_outcome": "invalid_patch",
+      "model_calls": 1,
+      "recovery_model_dispatches": 0,
+      "captured_real_model_response": true,
+      "integrity_verified": true,
+      "fault_injection": "Lease expiry set to database clock minus one second after process death.",
+      "scope": "Intent drill dies before HTTP send; captured drill uses an actual local model response. No external side effects."
+    }
+  ]
+}

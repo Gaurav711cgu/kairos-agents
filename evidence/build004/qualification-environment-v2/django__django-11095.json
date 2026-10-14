@@ -1,0 +1,49 @@
+{
+  "id": "django__django-11095",
+  "qualified": true,
+  "reason": null,
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "Testing against Django installed in '/workspace/django'\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 20, \"complete\": false}\n",
+    "stderr": "Creating test database for alias 'default'...\n..................F.\n======================================================================\nFAIL: test_get_inline_instances_override_get_inlines (generic_inline_admin.tests.GenericInlineModelAdminTest)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/generic_inline_admin/tests.py\", line 453, in test_get_inline_instances_override_get_inlines\n    self.assertEqual(ma.get_inline_instances(request), [])\nAssertionError: Lists differ: [<generic_inline_admin.tests.GenericInline[259 chars]eb0>] != []\n\nFirst list contains 2 additional elements.\nFirst extra element 0:\n<generic_inline_admin.tests.GenericInlineModelAdminTest.test_get_inline_instances_override_get_inlines.<locals>.AlternateInline object at 0xffffa5becbb0>\n\n+ []\n- [<generic_inline_admin.tests.GenericInlineModelAdminTest.test_get_inline_instances_override_get_inlines.<locals>.AlternateInline object at 0xffffa5becbb0>,\n-  <generic_inline_admin.tests.GenericInlineModelAdminTest.test_get_inline_instances_override_get_inlines.<locals>.MediaInline object at 0xffffa5beceb0>]\n\n----------------------------------------------------------------------\nRan 20 tests in 0.250s\n\nFAILED (failures=1)\nDestroying test database for alias 'default'...\n\n",
+    "seconds": 1.93,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": true,
+    "environment_error": false,
+    "returncode": 0,
+    "stdout": "Testing against Django installed in '/workspace/django'\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 20, \"complete\": true}\n",
+    "stderr": "Creating test database for alias 'default'...\n....................\n----------------------------------------------------------------------\nRan 20 tests in 0.246s\n\nOK\nDestroying test database for alias 'default'...\n\n",
+    "seconds": 1.777,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "django__django-11095",
+    "title": "add ModelAdmin.get_inlines() hook to allow set inlines based on the request or model instance.",
+    "issue": "add ModelAdmin.get_inlines() hook to allow set inlines based on the request or model instance.\nDescription\n\t\nadd ModelAdmin.get_inlines() hook to allow set inlines based on the request or model instance.\nCurrently, We can override the method get_inline_instances to do such a thing, but a for loop should be copied to my code. So I wished add a hook get_inlines(request, obj=None)\n",
+    "repository": "django/django",
+    "revision": "7d49ad76562e8c0597a0eb66046ab423b12888d8",
+    "source_url": "https://github.com/django/django/tree/7d49ad76562e8c0597a0eb66046ab423b12888d8",
+    "issue_url": "https://github.com/django/django/pull/11095",
+    "entry_files": [
+      "django/contrib/admin/options.py"
+    ],
+    "approved_prefix": "django/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "80dd51312fe0f2050a7c1b981c17b8337f75c755991dc54bcf4efc7cbe629a54",
+    "reference_digest": "07f41206809adfd7ee84e077b441ac4a048e5250ad0e4c5c1667abff8e4bd048",
+    "verification_digest": "ab939d0edb0042139ee7734d85e179288cf287a0a0d35d9b653f2d9adea40174"
+  }
+}

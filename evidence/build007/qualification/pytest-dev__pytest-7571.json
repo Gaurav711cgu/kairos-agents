@@ -1,0 +1,105 @@
+{
+  "baseline": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 1.035,
+    "stderr": "",
+    "stdout": "..........F....                                                          [100%]\n=================================== FAILURES ===================================\n____________________ test_change_level_undos_handler_level _____________________\n\ntestdir = <Testdir local('/tmp/pytest-of-investigator/pytest-0/test_change_level_undos_handler_level0')>\n\n    def test_change_level_undos_handler_level(testdir: Testdir) -> None:\n        \"\"\"Ensure that 'set_level' is undone after the end of the test (handler).\n    \n        Issue #7569. Tests the handler level specifically.\n        \"\"\"\n        testdir.makepyfile(\n            \"\"\"\n            import logging\n    \n            def test1(caplog):\n                assert caplog.handler.level == 0\n                caplog.set_level(41)\n                assert caplog.handler.level == 41\n    \n            def test2(caplog):\n                assert caplog.handler.level == 0\n    \n            def test3(caplog):\n                assert caplog.handler.level == 0\n                caplog.set_level(43)\n                assert caplog.handler.level == 43\n        \"\"\"\n        )\n        result = testdir.runpytest()\n>       result.assert_outcomes(passed=3)\nE       AssertionError: assert {'errors': 0,...pped': 0, ...} == {'errors': 0,...pped': 0, ...}\nE         Omitting 4 identical items, use -vv to show\nE         Differing items:\nE         {'failed': 2} != {'failed': 0}\nE         {'passed': 1} != {'passed': 3}\nE         Full diff:\nE           {\nE            'errors': 0,...\nE         \nE         ...Full output truncated (13 lines hidden), use '-vv' to show\n\n/workspace/testing/logging/test_fixture.py:81: AssertionError\n----------------------------- Captured stdout call -----------------------------\n============================= test session starts ==============================\nplatform linux -- Python 3.8.20, pytest-6.0, py-1.11.0, pluggy-1.0.0\nrootdir: /tmp/pytest-of-investigator/pytest-0/test_change_level_undos_handler_level0\ncollected 3 items\n\ntest_change_level_undos_handler_level.py .FF                             [100%]\n\n=================================== FAILURES ===================================\n____________________________________ test2 _____________________________________\n\ncaplog = <_pytest.logging.LogCaptureFixture object at 0xffffbc1f7580>\n\n    def test2(caplog):\n>       assert caplog.handler.level == 0\nE       assert 41 == 0\nE        +  where 41 = <LogCaptureHandler (Level 41)>.level\nE        +    where <LogCaptureHandler (Level 41)> = <_pytest.logging.LogCaptureFixture object at 0xffffbc1f7580>.handler\n\ntest_change_level_undos_handler_level.py:9: AssertionError\n____________________________________ test3 _____________________________________\n\ncaplog = <_pytest.logging.LogCaptureFixture object at 0xffffbc3a4430>\n\n    def test3(caplog):\n>       assert caplog.handler.level == 0\nE       assert 41 == 0\nE        +  where 41 = <LogCaptureHandler (Level 41)>.level\nE        +    where <LogCaptureHandler (Level 41)> = <_pytest.logging.LogCaptureFixture object at 0xffffbc3a4430>.handler\n\ntest_change_level_undos_handler_level.py:12: AssertionError\n=========================== short test summary info ============================\nFAILED test_change_level_undos_handler_level.py::test2 - assert 41 == 0\nFAILED test_change_level_undos_handler_level.py::test3 - assert 41 == 0\n========================= 2 failed, 1 passed in 0.00s ==========================\n=========================== short test summary info ============================\nFAILED testing/logging/test_fixture.py::test_change_level_undos_handler_level\n1 failed, 14 passed in 0.18s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 15, \"collected\": 15, \"execution_complete\": true, \"complete\": false, \"regression_failed\": [\"testing/logging/test_fixture.py::test_change_level_undos_handler_level\"], \"regression_passed\": false, \"failed\": [\"testing/logging/test_fixture.py::test_change_level_undos_handler_level\"], \"collection_errors\": []}\n",
+    "tests_run": 15,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "baseline_summary": {
+    "collected": 15,
+    "collection_errors": [],
+    "complete": false,
+    "execution_complete": true,
+    "failed": [
+      "testing/logging/test_fixture.py::test_change_level_undos_handler_level"
+    ],
+    "regression_failed": [
+      "testing/logging/test_fixture.py::test_change_level_undos_handler_level"
+    ],
+    "regression_passed": false,
+    "tests_run": 15
+  },
+  "case": {
+    "approved_prefix": "src/_pytest/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "src/_pytest/logging.py"
+    ],
+    "id": "pytest-dev__pytest-7571",
+    "image": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+    "issue": "caplog fixture doesn't restore log level after test\nFrom the documentation at https://docs.pytest.org/en/6.0.0/logging.html#caplog-fixture, \"The log levels set are restored automatically at the end of the test\".\r\nIt used to work, but looks broken in new 6.0 release. Minimal example to reproduce:\r\n\r\n```\r\ndef test_foo(caplog):\r\n    caplog.set_level(42)\r\n\r\ndef test_bar(caplog):\r\n    print(caplog.handler.level)\r\n```\r\n\r\nIt prints \"0\" for pytest<6, \"42\" after.\n",
+    "issue_url": "https://github.com/pytest-dev/pytest/pull/7571",
+    "provenance": "Registered entry files disclose maintainer-localized paths, never patch text or line hints; Public historical cases may have appeared in training",
+    "qualified": true,
+    "reference_digest": "37e8f7df78a7ad5ab31b32b2785a8009b5d9ebf99c1762e999e6e1cc3384ec24",
+    "repository": "pytest-dev/pytest",
+    "revision": "422685d0bdc110547535036c1ff398b5e1c44145",
+    "source_digest": "1d30d08a08ddb87b55e7210f9a9c13f788a9fba362b95e6e5a1a9dfa420892d8",
+    "source_url": "https://github.com/pytest-dev/pytest/tree/422685d0bdc110547535036c1ff398b5e1c44145",
+    "split": "evaluation",
+    "title": "caplog fixture doesn't restore log level after test",
+    "verification_digest": "58f36d751da702e20d0142707b84503f35464c91f9f3dd81dc354abec67a46f2"
+  },
+  "id": "pytest-dev__pytest-7571",
+  "qualified": true,
+  "reason": null,
+  "reference": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": true,
+    "returncode": 0,
+    "seconds": 0.704,
+    "stderr": "",
+    "stdout": "...............                                                          [100%]\n15 passed in 0.13s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 15, \"collected\": 15, \"execution_complete\": true, \"complete\": true, \"regression_failed\": [], \"regression_passed\": true, \"failed\": [], \"collection_errors\": []}\n",
+    "tests_run": 15,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "reference_summary": {
+    "collected": 15,
+    "collection_errors": [],
+    "complete": true,
+    "execution_complete": true,
+    "failed": [],
+    "regression_failed": [],
+    "regression_passed": true,
+    "tests_run": 15
+  },
+  "source": {
+    "archive_sha256": "9e8414ab765c61eebb12adc5d66c82698ba07b1cb5418d64ba0d9cdd62e0ab44",
+    "downloaded_bytes": 1072693,
+    "expanded_bytes": 3751657,
+    "source_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/422685d0bdc110547535036c1ff398b5e1c44145"
+  },
+  "test_scope": {
+    "added_hidden_tests": [
+      "testing/logging/test_fixture.py::test_change_level_undo",
+      "testing/logging/test_fixture.py::test_change_level_undos_handler_level",
+      "testing/logging/test_fixture.py::test_with_statement"
+    ],
+    "completion": "Every collected selected test must finish; all required regressions must be collected and pass after repair",
+    "declared_regressions": [
+      "testing/logging/test_fixture.py::test_change_level_undos_handler_level"
+    ],
+    "omissions": [],
+    "required_regressions": [
+      "testing/logging/test_fixture.py::test_change_level_undo",
+      "testing/logging/test_fixture.py::test_change_level_undos_handler_level",
+      "testing/logging/test_fixture.py::test_with_statement"
+    ],
+    "selected": [
+      "testing/logging/test_fixture.py"
+    ]
+  }
+}

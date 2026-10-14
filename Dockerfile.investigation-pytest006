@@ -1,0 +1,7 @@
+# Follow-up environment: the frozen source runner imports toml on Python 3.8.
+# Keep the historical executable image; add this pinned dependency under a new tag.
+FROM kairos-investigation-study:build004-pytest
+USER root
+RUN pip install --no-cache-dir toml==0.10.2
+USER 10001:10001
+WORKDIR /workspace

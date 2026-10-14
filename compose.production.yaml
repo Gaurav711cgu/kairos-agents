@@ -1,5 +1,12 @@
+# Historical single-dispatch deployment scaffold. The build004 repository investigator
+# runs on the trusted local Mac host; this template does not launch Docker verification.
 # External HTTPS OIDC provider and edge proxy are deployment prerequisites.
 # Only the edge proxy should expose API/web ports on a public network.
+# Use one external HTTPS origin for web, login and callback: host-only session
+# cookies cannot authenticate a different API/web subdomain. Route /api/auth/*
+# directly to API, and /api/workbench/* plus page routes to web. Preserve public
+# Host and overwrite X-Forwarded-Proto at the trusted edge. Cap request bodies at
+# 32768 bytes at the edge; API and workbench also enforce their own body limits.
 services:
   postgres:
     image: postgres:18@sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336
@@ -14,6 +21,14 @@ services:
       timeout: 5s
       retries: 20
     restart: unless-stopped
+  migrate:
+    build: {context: ., dockerfile: Dockerfile.api}
+    command: ["python", "-m", "scripts.migrate", "apply", "--backfill"]
+    environment:
+      KAIROS_MIGRATION_DATABASE_URL: ${KAIROS_DEPLOY_MIGRATION_DATABASE_URL:?Separate schema-owner URL required}
+    depends_on: {postgres: {condition: service_healthy}}
+    restart: "no"
+    security_opt: ["no-new-privileges:true"]
   api:
     build: {context: ., dockerfile: Dockerfile.api}
     environment:
@@ -23,12 +38,13 @@ services:
       KAIROS_OIDC_ISSUER: ${KAIROS_OIDC_ISSUER:?HTTPS provider issuer required}
       KAIROS_OIDC_CLIENT_ID: ${KAIROS_OIDC_CLIENT_ID:-kairos-web}
       KAIROS_OIDC_CLIENT_SECRET: ${KAIROS_OIDC_CLIENT_SECRET:?required}
-      KAIROS_OIDC_CALLBACK: ${KAIROS_OIDC_CALLBACK:?HTTPS API callback required}
+      KAIROS_OIDC_CALLBACK: ${KAIROS_OIDC_CALLBACK:?same public HTTPS origin callback required}
+      KAIROS_AUTH_LOGIN_URL: ${KAIROS_AUTH_LOGIN_URL:?same public HTTPS origin login required}
       KAIROS_WEB_ORIGIN: ${KAIROS_WEB_ORIGIN:?HTTPS web origin required}
       KAIROS_CORS_ORIGINS: ${KAIROS_WEB_ORIGIN:?required}
     ports: ["127.0.0.1:8100:8100"]
     volumes: ["blobs:/app/.runtime/blobs"]
-    depends_on: {postgres: {condition: service_healthy}}
+    depends_on: {postgres: {condition: service_healthy}, migrate: {condition: service_completed_successfully}}
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
   worker:
@@ -38,7 +54,7 @@ services:
       DATABASE_URL: ${KAIROS_DEPLOY_DATABASE_URL:?required}
       KAIROS_MODEL_ENDPOINT: ${KAIROS_MODEL_ENDPOINT:?configured provider adapter endpoint required}
     volumes: ["blobs:/app/.runtime/blobs"]
-    depends_on: {postgres: {condition: service_healthy}}
+    depends_on: {postgres: {condition: service_healthy}, migrate: {condition: service_completed_successfully}}
     restart: unless-stopped
     security_opt: ["no-new-privileges:true"]
   web:

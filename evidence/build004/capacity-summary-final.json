@@ -1,0 +1,206 @@
+{
+  "release": "build004",
+  "complete": true,
+  "sustained_capacity_accepted": true,
+  "scope": "Fixture identity and task; actual HTTP and PostgreSQL. No inference or OIDC throughput claim.",
+  "latency_scope": "p95 includes successful requests only. Failed requests and quota rejections remain in error rates. Status 0 includes transport failures and responses the harness could not decode.",
+  "interference": "Other local development, browser and model work overlapped the soak on an 8 GB Mac. PostgreSQL and Keycloak restarted. This is an observed mixed-workload local run, not isolated hardware capacity.",
+  "outage": {
+    "postgres_shutdown_utc": "2026-10-11T18:57:15Z",
+    "postgres_restart_utc": "2026-10-11T18:58:52Z",
+    "cause": "Not established; logs prove a service restart, not its cause."
+  },
+  "quota_correction": "Original benchmark summary called all 429 responses expected. No quota rejection was planned at ten clients. Treat these as unplanned service failures; retain original raw measurements.",
+  "bounded_optimization": "One pass replaced per-request connections with a maximum-eight-connection PostgreSQL pool. All four 180-second loads passed; 30-minute soak failed. No second optimization or selective clean rerun erases it.",
+  "stages": [
+    {
+      "label": "load-1",
+      "clients": 1,
+      "seconds": 180.01,
+      "requests": 8840,
+      "unexpected_errors": 0,
+      "observed_quota_rejections": 0,
+      "quota_expected_in_workload": false,
+      "non_success_rate": 0.0,
+      "ack_p95_ms": 24.508,
+      "read_p95_ms": 7.512,
+      "status_counts": {
+        "202": 3536,
+        "200": 5304
+      },
+      "target_met": true
+    },
+    {
+      "label": "load-5",
+      "clients": 5,
+      "seconds": 180.03,
+      "requests": 42275,
+      "unexpected_errors": 0,
+      "observed_quota_rejections": 0,
+      "quota_expected_in_workload": false,
+      "non_success_rate": 0.0,
+      "ack_p95_ms": 33.049,
+      "read_p95_ms": 8.532,
+      "status_counts": {
+        "202": 16910,
+        "200": 25365
+      },
+      "target_met": true
+    },
+    {
+      "label": "load-10",
+      "clients": 10,
+      "seconds": 180.11,
+      "requests": 67380,
+      "unexpected_errors": 0,
+      "observed_quota_rejections": 0,
+      "quota_expected_in_workload": false,
+      "non_success_rate": 0.0,
+      "ack_p95_ms": 56.133,
+      "read_p95_ms": 11.607,
+      "status_counts": {
+        "202": 26952,
+        "200": 40428
+      },
+      "target_met": true
+    },
+    {
+      "label": "load-20",
+      "clients": 20,
+      "seconds": 180.15,
+      "requests": 39770,
+      "unexpected_errors": 0,
+      "observed_quota_rejections": 0,
+      "quota_expected_in_workload": false,
+      "non_success_rate": 0.0,
+      "ack_p95_ms": 281.641,
+      "read_p95_ms": 68.249,
+      "status_counts": {
+        "202": 15908,
+        "200": 23862
+      },
+      "target_met": true
+    },
+    {
+      "label": "soak-10",
+      "clients": 10,
+      "seconds": 1800.23,
+      "requests": 212803,
+      "unexpected_errors": 31858,
+      "observed_quota_rejections": 11518,
+      "quota_expected_in_workload": false,
+      "non_success_rate": 0.20383171289878432,
+      "ack_p95_ms": 275.529,
+      "read_p95_ms": 37.754,
+      "status_counts": {
+        "202": 63144,
+        "200": 106283,
+        "0": 31858,
+        "429": 11518
+      },
+      "target_met": false
+    }
+  ],
+  "original_sustained_capacity_accepted": false,
+  "quiet_repeat": {
+    "complete": true,
+    "target_met": true,
+    "scope": "Fixture identity and task; actual HTTP and PostgreSQL. No inference or OIDC throughput claim.",
+    "host_policy": "Kairos inference, website, browser checks and builds stopped. The observed separate-project build finished before measurement; other shared-host activity was not exhaustively measured.",
+    "protocol": "capacity-v2-stable-commands",
+    "host_context_receipt": "evidence/build004/capacity-quiet-2-host-context.json",
+    "receipt_directory": "evidence/build004/capacity-quiet-2",
+    "prior_interrupted_repeat": "evidence/build004/capacity-quiet-interruption.json",
+    "stages": [
+      {
+        "label": "load-1",
+        "clients": 1,
+        "seconds": 180.01,
+        "requests": 9140,
+        "unexpected_errors": 0,
+        "observed_quota_rejections": 0,
+        "quota_expected_in_workload": false,
+        "non_success_rate": 0.0,
+        "ack_p95_ms": 25.947,
+        "read_p95_ms": 8.471,
+        "status_counts": {
+          "202": 3656,
+          "200": 5484
+        },
+        "target_met": true
+      },
+      {
+        "label": "load-5",
+        "clients": 5,
+        "seconds": 180.04,
+        "requests": 42200,
+        "unexpected_errors": 0,
+        "observed_quota_rejections": 0,
+        "quota_expected_in_workload": false,
+        "non_success_rate": 0.0,
+        "ack_p95_ms": 32.99,
+        "read_p95_ms": 8.635,
+        "status_counts": {
+          "202": 16880,
+          "200": 25320
+        },
+        "target_met": true
+      },
+      {
+        "label": "load-10",
+        "clients": 10,
+        "seconds": 180.08,
+        "requests": 64825,
+        "unexpected_errors": 0,
+        "observed_quota_rejections": 0,
+        "quota_expected_in_workload": false,
+        "non_success_rate": 0.0,
+        "ack_p95_ms": 61.892,
+        "read_p95_ms": 11.843,
+        "status_counts": {
+          "202": 25930,
+          "200": 38895
+        },
+        "target_met": true
+      },
+      {
+        "label": "load-20",
+        "clients": 20,
+        "seconds": 180.22,
+        "requests": 46250,
+        "unexpected_errors": 0,
+        "observed_quota_rejections": 0,
+        "quota_expected_in_workload": false,
+        "non_success_rate": 0.0,
+        "ack_p95_ms": 250.59,
+        "read_p95_ms": 46.953,
+        "status_counts": {
+          "202": 18500,
+          "200": 27750
+        },
+        "target_met": true
+      },
+      {
+        "label": "soak-10",
+        "clients": 10,
+        "seconds": 1800.13,
+        "requests": 272855,
+        "unexpected_errors": 0,
+        "observed_quota_rejections": 0,
+        "quota_expected_in_workload": false,
+        "non_success_rate": 0.0,
+        "ack_p95_ms": 275.19,
+        "read_p95_ms": 16.79,
+        "status_counts": {
+          "202": 109142,
+          "200": 163713
+        },
+        "target_met": true
+      }
+    ],
+    "raw_requests": 435270,
+    "raw_sha256": "cf2160b99d5b152699b389ea6ba453c9b10b81783941e8e1cb2fea6d17c8d563",
+    "raw_bytes": 48987307,
+    "limits": "One quiet local repeat with fixture identity/tasks; not inference, OIDC throughput, production scale or resilience to arbitrary service shutdown."
+  }
+}

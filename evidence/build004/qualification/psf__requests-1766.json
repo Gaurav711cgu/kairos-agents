@@ -1,0 +1,49 @@
+{
+  "id": "psf__requests-1766",
+  "qualified": true,
+  "reason": null,
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "F.........................                                               [100%]\n=================================== FAILURES ===================================\n______________ RequestsTestCase.test_DIGESTAUTH_QUOTES_QOP_VALUE _______________\n\nself = <test_requests.RequestsTestCase testMethod=test_DIGESTAUTH_QUOTES_QOP_VALUE>\n\n    def test_DIGESTAUTH_QUOTES_QOP_VALUE(self):\n    \n        auth = HTTPDigestAuth('user', 'pass')\n        url = httpbin('digest-auth', 'auth', 'user', 'pass')\n    \n        r = requests.get(url, auth=auth)\n>       assert '\"auth\"' in r.request.headers['Authorization']\nE       assert '\"auth\"' in 'Digest username=\"user\", realm=\"me@kennethreitz.com\", nonce=\"e87305e18ea68b0448ab300274c4c1d8\", uri=\"/digest-auth/auth...2fa6b85\", opaque=\"5e270b0b73a567df6000a3e052d99a04\", algorithm=\"MD5\", qop=auth, nc=00000001, cnonce=\"7b70f6817a02cedc\"'\n\ntest_requests.py:329: AssertionError\n------------------------------ Captured log call -------------------------------\nINFO     werkzeug:_internal.py:122 127.0.0.1 - - [11/Oct/2026 18:40:53] \"GET /digest-auth/auth/user/pass HTTP/1.1\" 401 -\nINFO     werkzeug:_internal.py:122 127.0.0.1 - - [11/Oct/2026 18:40:53] \"GET /digest-auth/auth/user/pass HTTP/1.1\" 200 -\n=============================== warnings summary ===============================\ntest_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE\n  /workspace/requests/models.py:156: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n    if isinstance(hook, collections.Callable):\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE\n1 failed, 25 passed, 1 warning in 0.25s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 26, \"complete\": false, \"passed\": [\"test_requests.py::RequestsTestCase::test_BASICAUTH_TUPLE_HTTP_200_OK_GET\", \"test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET\", \"test_requests.py::RequestsTestCase::test_DIGEST_AUTH_RETURNS_COOKIE\", \"test_requests.py::RequestsTestCase::test_DIGEST_AUTH_SETS_SESSION_COOKIES\", \"test_requests.py::RequestsTestCase::test_DIGEST_STREAM\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_ALTERNATIVE\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT\", \"test_requests.py::RequestsTestCase::test_HTTP_302_ALLOW_REDIRECT_GET\", \"test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA\", \"test_requests.py::RequestsTestCase::test_autoset_header_values_are_native\", \"test_requests.py::RequestsTestCase::test_basic_building\", \"test_requests.py::RequestsTestCase::test_basicauth_with_netrc\", \"test_requests.py::RequestsTestCase::test_can_send_nonstring_objects_with_files\", \"test_requests.py::RequestsTestCase::test_cannot_send_unprepared_requests\", \"test_requests.py::RequestsTestCase::test_cookie_parameters\", \"test_requests.py::RequestsTestCase::test_cookie_persists_via_api\", \"test_requests.py::RequestsTestCase::test_cookie_quote_wrapped\", \"test_requests.py::RequestsTestCase::test_cookie_sent_on_redirect\", \"test_requests.py::RequestsTestCase::test_custom_content_type\", \"test_requests.py::RequestsTestCase::test_decompress_gzip\", \"test_requests.py::RequestsTestCase::test_params_are_merged_case_sensitive\", \"test_requests.py::RequestsTestCase::test_user_agent_transfers\"], \"failed\": [\"test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE\"]}\n",
+    "stderr": "",
+    "seconds": 1.148,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": true,
+    "environment_error": false,
+    "returncode": 0,
+    "stdout": "..........................                                               [100%]\n=============================== warnings summary ===============================\ntest_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE\n  /workspace/requests/models.py:156: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n    if isinstance(hook, collections.Callable):\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n26 passed, 1 warning in 0.26s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 26, \"complete\": true, \"passed\": [\"test_requests.py::RequestsTestCase::test_BASICAUTH_TUPLE_HTTP_200_OK_GET\", \"test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE\", \"test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET\", \"test_requests.py::RequestsTestCase::test_DIGEST_AUTH_RETURNS_COOKIE\", \"test_requests.py::RequestsTestCase::test_DIGEST_AUTH_SETS_SESSION_COOKIES\", \"test_requests.py::RequestsTestCase::test_DIGEST_STREAM\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_ALTERNATIVE\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT\", \"test_requests.py::RequestsTestCase::test_HTTP_302_ALLOW_REDIRECT_GET\", \"test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA\", \"test_requests.py::RequestsTestCase::test_autoset_header_values_are_native\", \"test_requests.py::RequestsTestCase::test_basic_building\", \"test_requests.py::RequestsTestCase::test_basicauth_with_netrc\", \"test_requests.py::RequestsTestCase::test_can_send_nonstring_objects_with_files\", \"test_requests.py::RequestsTestCase::test_cannot_send_unprepared_requests\", \"test_requests.py::RequestsTestCase::test_cookie_parameters\", \"test_requests.py::RequestsTestCase::test_cookie_persists_via_api\", \"test_requests.py::RequestsTestCase::test_cookie_quote_wrapped\", \"test_requests.py::RequestsTestCase::test_cookie_sent_on_redirect\", \"test_requests.py::RequestsTestCase::test_custom_content_type\", \"test_requests.py::RequestsTestCase::test_decompress_gzip\", \"test_requests.py::RequestsTestCase::test_params_are_merged_case_sensitive\", \"test_requests.py::RequestsTestCase::test_user_agent_transfers\"], \"failed\": []}\n",
+    "stderr": "",
+    "seconds": 1.101,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "psf__requests-1766",
+    "title": "quote qop options in Digest Auth",
+    "issue": "quote qop options in Digest Auth\nBased on RFC2617 (http://tools.ietf.org/html/rfc2617), the value of\n'qop-options' directive should be quoted with double quotes:\n\n```\nqop-options\n     This directive is optional, but is made so only for backward\n     compatibility with RFC 2069 [6]; it SHOULD be used by all\n     implementations compliant with this version of the Digest\n     scheme. If present, it is a quoted string of one or more\n     tokens indicating the \"quality of protection\" values supported by\n     the server.  The value \"auth\" indicates authentication; the\n     value \"auth-int\" indicates authentication with\n     integrity protection; see the\n```\n\ncurl comamnd-line tool also appends these quotes. You can see this\nby `curl -v --digest --user user:passwd http://example.com/digest-auth`.\nUnfortunately, some minor server-side implementations seem to be sensitive\non this difference.\n\n",
+    "repository": "psf/requests",
+    "revision": "847735553aeda6e6633f2b32e14ba14ba86887a4",
+    "source_url": "https://github.com/psf/requests/tree/847735553aeda6e6633f2b32e14ba14ba86887a4",
+    "issue_url": "https://github.com/psf/requests/pull/1766",
+    "entry_files": [
+      "requests/auth.py"
+    ],
+    "approved_prefix": "requests/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:9f1fdb06b595456c36483ed2c7a008c33be33e311fdb257c1bb29db812b00a85",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "7eab6861dbcb4518aa361b7af14481b37fda2173809fad8ebd37c447392546c4",
+    "reference_digest": "fdf4dc67f564bc801f1fe74b1e6000a3186f19acec083f7585caef1b58671b12",
+    "verification_digest": "accc694fe67e420c4fb807261a00957a711c29a317a81bf84ed95d2f6282e6fc"
+  }
+}

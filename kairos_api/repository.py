@@ -45,9 +45,10 @@ class RunRepository:
             raise psycopg.OperationalError("PostgreSQL fsync must be enabled.")
 
     def initialize(self) -> None:
+        """Verify the applied schema; setup owns all schema and data changes."""
+        from kairos_api.migrations import verify
         with self.connect() as connection:
-            self._enforce_durability(connection)
-            connection.execute(Path(__file__).with_name("schema.sql").read_text())
+            verify(connection)
 
     def health(self) -> bool:
         with self.connect() as connection:

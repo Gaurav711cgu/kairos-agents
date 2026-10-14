@@ -1,4 +1,5 @@
 "use client";
+import { displayLabel } from "@/lib/display";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { jobSummary, jobDetail, Job, reportSummary } from "@/lib/workbench";
@@ -39,6 +40,7 @@ export function Workbench({
 }: {
   identity: { subject: string; tenant_id: string; role: string };
 }) {
+  const [loaded, setLoaded] = useState(false);
   const [jobs, setJobs] = useState<z.infer<typeof jobSummary>[]>([]);
   const [selected, setSelected] = useState<Job | null>(null);
   const [reports, setReports] = useState<z.infer<typeof reportSummary>[]>([]);
@@ -63,6 +65,7 @@ export function Workbench({
       setReports(
         z.object({ reports: z.array(reportSummary) }).parse(r).reports,
       );
+      setLoaded(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not refresh.");
     }
@@ -162,10 +165,10 @@ export function Workbench({
     <>
       <div className="workspace-identity">
         <div>
-          <span className="eyebrow">AUTHENTICATED WORKSPACE</span>
+          <span className="eyebrow">Authenticated workspace</span>
           <strong>{identity.tenant_id}</strong>
           <small>
-            {identity.role} · {identity.subject}
+            {displayLabel(identity.role)} · {identity.subject}
           </small>
         </div>
         <button
@@ -177,7 +180,7 @@ export function Workbench({
             })
           }
         >
-          Sign out ↗
+          Sign out
         </button>
       </div>
       {error && (
@@ -187,12 +190,8 @@ export function Workbench({
       )}
       <div className="workbench-grid">
         <section className="run-composer">
-          <span className="eyebrow">01 / SUBMIT A BOUNDED JOB</span>
-          <h2>
-            Choose the
-            <br />
-            <em>conditions.</em>
-          </h2>
+          <span className="eyebrow">01 / Submit a bounded job</span>
+          <h2>Configure a job.</h2>
           <label htmlFor="scenario">Synthetic case</label>
           <select
             id="scenario"
@@ -224,7 +223,7 @@ export function Workbench({
             onChange={(e) => setRunner(e.target.value)}
           >
             <option value="reference">Deterministic reference</option>
-            <option value="model">Actual configured model</option>
+            <option value="model">Configured model</option>
           </select>
           <p>
             {runner === "model"
@@ -236,7 +235,7 @@ export function Workbench({
             disabled={busy || !canWrite}
             onClick={() => void submit()}
           >
-            {pending ? "Retry same command identity ↗" : "Queue execution ↗"}
+            {pending ? "Retry this request" : "Queue execution"}
           </button>
           {pending && (
             <small>
@@ -253,9 +252,9 @@ export function Workbench({
         </section>
         <section className="job-ledger">
           <div className="section-top">
-            <span className="eyebrow">02 / DURABLE JOB LEDGER</span>
+            <span className="eyebrow">02 / Durable job ledger</span>
             <button className="text-button" onClick={() => void refresh()}>
-              Refresh ↻
+              Refresh
             </button>
           </div>
           {jobs.length ? (
@@ -274,10 +273,10 @@ export function Workbench({
                 }
               >
                 <div>
-                  <strong>{job.scenario_id.replaceAll("-", " ")}</strong>
+                  <strong>{displayLabel(job.scenario_id)}</strong>
                   <small>
-                    {job.runner} · {job.policy} · attempt {job.attempt}/
-                    {job.max_attempts}
+                    {displayLabel(job.runner)} · {displayLabel(job.policy)} ·
+                    attempt {job.attempt}/{job.max_attempts}
                   </small>
                 </div>
                 <span
@@ -286,13 +285,17 @@ export function Workbench({
                     (job.status === "succeeded" ? "good" : "attention")
                   }
                 >
-                  {job.status}
+                  {displayLabel(job.status)}
                 </span>
               </button>
             ))
           ) : (
             <div className="empty-state">
-              No jobs in this tenant. The first execution starts here.
+              {loaded
+                ? "No jobs in this tenant. The first execution starts here."
+                : error
+                  ? "Workspace records unavailable."
+                  : "Loading durable workspace records…"}
             </div>
           )}
         </section>
@@ -301,10 +304,10 @@ export function Workbench({
         <section className="job-inspector">
           <div className="section-top">
             <div>
-              <span className="eyebrow">03 / CAPTURED EXECUTION</span>
+              <span className="eyebrow">03 / Captured execution</span>
               <h2>
-                {selected.status}
-                <em> / {selected.runner}</em>
+                {displayLabel(selected.status)}
+                <em> / {displayLabel(selected.runner)}</em>
               </h2>
               <small className="mono">{selected.id}</small>
             </div>
@@ -365,7 +368,7 @@ export function Workbench({
                       )
                     }
                   >
-                    Fresh preserve fork ↗
+                    Fork with preserved context
                   </button>
                 </>
               )}
@@ -379,7 +382,7 @@ export function Workbench({
           </p>
           <div className="job-context">
             <div>
-              <span className="eyebrow">EXACT CONTEXT SELECTION</span>
+              <span className="eyebrow">Exact context selection</span>
               {selected.context_blocks.map((block) => (
                 <article
                   key={block.id}
@@ -387,14 +390,14 @@ export function Workbench({
                 >
                   <strong>
                     {block.id}{" "}
-                    <span>{block.included ? "included" : "omitted"}</span>
+                    <span>{block.included ? "Included" : "Omitted"}</span>
                   </strong>
                   <p>{block.content}</p>
                 </article>
               ))}
             </div>
             <div>
-              <span className="eyebrow">EVENT HISTORY</span>
+              <span className="eyebrow">Event history</span>
               <ol className="job-events">
                 {selected.events.map((event) => (
                   <li key={event.seq}>
@@ -402,7 +405,7 @@ export function Workbench({
                       {String(event.seq).padStart(2, "0")}
                     </span>
                     <div>
-                      <strong>{event.event_type}</strong>
+                      <strong>{displayLabel(event.event_type)}</strong>
                       <Raw title="Event payload" value={event.payload} />
                     </div>
                   </li>
@@ -415,13 +418,13 @@ export function Workbench({
               className="text-button"
               href={"/api/workbench/jobs/" + selected.id + "/replay"}
             >
-              Recorded playback JSON ↗
+              Recorded playback JSON
             </a>
             <a
               className="text-button"
               href={"/api/workbench/jobs/" + selected.id + "/verify"}
             >
-              Independent re-verification JSON ↗
+              Independent re-verification JSON
             </a>
           </div>
           <Raw title="Recorded model request" value={selected.request} />
@@ -441,18 +444,14 @@ export function Workbench({
             href={"/api/workbench/jobs/" + selected.id}
             download={"kairos-job-" + selected.id + ".json"}
           >
-            Download execution evidence ↓
+            Download execution evidence
           </a>
         </section>
       )}
       <section className="release-workbench">
         <div>
-          <span className="eyebrow">04 / CALIBRATE THE RELEASE RULE</span>
-          <h2>
-            Pass. Fail.
-            <br />
-            <em>Inconclusive.</em>
-          </h2>
+          <span className="eyebrow">04 / Calibrate the release rule</span>
+          <h2>Test the release rule.</h2>
           <p>
             1,024 fixed synthetic task pairs. Conservative finite-sample bounds;
             hard schema violations block release. Calibration does not measure
@@ -475,7 +474,7 @@ export function Workbench({
                     })
                   }
                 >
-                  {mode.replaceAll("-", " ")} ↗
+                  {displayLabel(mode)}
                 </button>
               ))}
             </div>
@@ -489,26 +488,35 @@ export function Workbench({
                 key={r.id}
                 href={"/reports/" + r.id + "?private=1"}
               >
-                <strong>{r.mode.replaceAll("-", " ")}</strong>
+                <strong>{displayLabel(r.mode)}</strong>
                 <span
                   className={
                     "status " +
                     (r.gate.verdict === "pass" ? "good" : "attention")
                   }
                 >
-                  {r.gate.verdict}
+                  {displayLabel(r.gate.verdict)}
                 </span>
                 <small>
-                  {r.gate.n} paired tasks · {r.split} ↗
+                  {r.gate.n} paired tasks · {displayLabel(r.split)}
                 </small>
               </Link>
             ))
           ) : (
-            <p className="empty-state">No private evaluations yet.</p>
+            <p className="empty-state">
+              {loaded
+                ? "No private evaluations yet."
+                : error
+                  ? "Evaluation records unavailable."
+                  : "Loading evaluation records…"}
+            </p>
           )}
         </div>
       </section>
-      <EffectWorkbench role={identity.role} />
+      <EffectWorkbench
+        role={identity.role}
+        scope={identity.tenant_id + ":" + identity.subject}
+      />
     </>
   );
 }

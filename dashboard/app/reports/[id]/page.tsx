@@ -1,9 +1,10 @@
+import { displayLabel, sentenceText } from "@/lib/display";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { apiBase } from "@/lib/kairos-api";
+import { isRecordedEvidence, recordedHistoryError } from "@/lib/evidence-mode";
 import { reportDetail, Report } from "@/lib/workbench";
 import { ReportPairs } from "@/components/ReportPairs";
-import { CANONICAL_REPORTS } from "@/lib/empirical-store";
 export const dynamic = "force-dynamic";
 export default async function ReportPage({
   params,
@@ -17,6 +18,7 @@ export default async function ReportPage({
   let report: Report | null = null;
   let error = "";
   try {
+    if (isRecordedEvidence()) throw new Error(recordedHistoryError);
     const r = await fetch(
       apiBase() +
         (privateReport ? "/api/evaluations/" : "/api/public/evaluations/") +
@@ -34,30 +36,39 @@ export default async function ReportPage({
   } catch (e) {
     error = e instanceof Error ? e.message : "Report unavailable.";
   }
-  if (!report) {
-    report =
-      CANONICAL_REPORTS.find((item) => item.id === id) ||
-      CANONICAL_REPORTS[0];
-  }
+  if (!report)
+    return (
+      <div className="page-shell">
+        <div className="page-heading">
+          <span className="eyebrow">Report unavailable</span>
+          <h1>Report unavailable.</h1>
+          <p role="alert">{error}</p>
+          <Link className="button" href="/reports">
+            All reports
+          </Link>
+        </div>
+      </div>
+    );
   const percent = (x: number) => (100 * x).toFixed(1) + "%";
   return (
     <div className="page-shell">
       <div className="page-heading">
         <span className="eyebrow">
-          EVALUATION / {report.split} / {report.mode}
+          Evaluation / {displayLabel(report.split)} /{" "}
+          {displayLabel(report.mode)}
         </span>
         <h1>
-          {report.gate.verdict}.<br />
-          <em>Here is why.</em>
+          {displayLabel(report.gate.verdict)}.<br />
+          <em>Release comparison.</em>
         </h1>
         <p>
-          {report.gate.reason}. {report.gate.n} retained paired tasks;{" "}
-          {report.provider_failures} provider failures counted.
+          {sentenceText(report.gate.reason)} {report.gate.n} retained paired
+          tasks; {report.provider_failures} provider failures counted.
         </p>
       </div>
       <section className="report-verdict">
         <div>
-          <span className="eyebrow">PAIRED SUCCESS DIFFERENCE</span>
+          <span className="eyebrow">Paired success difference</span>
           <h2>{percent(report.gate.paired_success_delta)}</h2>
           <p>
             Candidate {report.candidate_passes}/{report.gate.n} · Baseline{" "}
@@ -98,8 +109,8 @@ export default async function ReportPage({
           </small>
         </div>
         <aside>
-          <span className="eyebrow">PREDECLARED SAMPLE PLAN</span>
-          <h3>{report.gate.plan.method}</h3>
+          <span className="eyebrow">Predeclared sample plan</span>
+          <h3>{sentenceText(report.gate.plan.method)}</h3>
           <p>{report.gate.plan.sampling}</p>
           <p>
             Minimum independent tasks:{" "}
@@ -107,17 +118,17 @@ export default async function ReportPage({
             optional stopping.
           </p>
           <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1963.10500830">
-            Hoeffding, 1963 ↗
+            Hoeffding, 1963
           </a>
         </aside>
       </section>
       <section className="hard-checks">
-        <span className="eyebrow">HARD INVARIANTS / ANY FAILURE BLOCKS</span>
+        <span className="eyebrow">Hard invariants / Any failure blocks</span>
         {report.hard_checks.map((c) => (
           <div key={c.name}>
-            <strong>{c.name.replaceAll("_", " ")}</strong>
+            <strong>{displayLabel(c.name)}</strong>
             <span className={"status " + (c.passed ? "good" : "attention")}>
-              {c.passed ? "pass" : "fail"}
+              {c.passed ? "Passed" : "Failed"}
             </span>
             <p>{c.detail}</p>
           </div>
@@ -147,10 +158,10 @@ export default async function ReportPage({
             : "/api/public-evaluations/" + id
         }
       >
-        Download all task inputs and raw outputs ↓
+        Download all task inputs and raw outputs
       </a>
       <aside className="scope-note">
-        <strong>Limits stay attached</strong>
+        <strong>Report limitations</strong>
         <ul>
           {report.limits.map((limit) => (
             <li key={limit}>{limit}</li>

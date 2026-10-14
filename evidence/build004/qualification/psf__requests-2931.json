@@ -1,0 +1,49 @@
+{
+  "id": "psf__requests-2931",
+  "qualified": true,
+  "reason": null,
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "F....................                                                    [100%]\n=================================== FAILURES ===================================\n_________________________ TestRequests.test_binary_put _________________________\n\nself = <test_requests.TestRequests object at 0xffffa9e7c520>\n\n    def test_binary_put(self):\n>       request = requests.Request('PUT', 'http://example.com',\n                                   data=u\"\u00f6\u00f6\u00f6\".encode(\"utf-8\")).prepare()\n\ntest_requests.py:161: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nrequests/models.py:239: in prepare\n    p.prepare(\nrequests/models.py:296: in prepare\n    self.prepare_body(data, files, json)\nrequests/models.py:447: in prepare_body\n    body = self._encode_params(data)\nrequests/models.py:84: in _encode_params\n    return to_native_string(data)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nstring = b'\\xc3\\xb6\\xc3\\xb6\\xc3\\xb6', encoding = 'ascii'\n\n    def to_native_string(string, encoding='ascii'):\n        \"\"\"\n        Given a string object, regardless of type, returns a representation of that\n        string in the native string type, encoding and decoding where necessary.\n        This assumes ASCII unless told otherwise.\n        \"\"\"\n        out = None\n    \n        if isinstance(string, builtin_str):\n            out = string\n        else:\n            if is_py2:\n                out = string.encode(encoding)\n            else:\n>               out = string.decode(encoding)\nE               UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 0: ordinal not in range(128)\n\nrequests/utils.py:700: UnicodeDecodeError\n=============================== warnings summary ===============================\ntest_requests.py::TestRequests::test_invalid_url\n  /workspace/requests/models.py:168: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n    if isinstance(hook, collections.Callable):\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED test_requests.py::TestRequests::test_binary_put - UnicodeDecodeError: ...\n1 failed, 20 passed, 1 warning in 0.20s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 21, \"complete\": false, \"passed\": [\"test_requests.py::TestRequests::test_LocationParseError\", \"test_requests.py::TestRequests::test_basic_building\", \"test_requests.py::TestRequests::test_connection_error_invalid_domain\", \"test_requests.py::TestRequests::test_connection_error_invalid_port\", \"test_requests.py::TestRequests::test_cookie_as_dict_items\", \"test_requests.py::TestRequests::test_cookie_as_dict_keeps_items\", \"test_requests.py::TestRequests::test_cookie_as_dict_keeps_len\", \"test_requests.py::TestRequests::test_cookie_as_dict_keys\", \"test_requests.py::TestRequests::test_cookie_as_dict_values\", \"test_requests.py::TestRequests::test_cookie_parameters\", \"test_requests.py::TestRequests::test_entry_points\", \"test_requests.py::TestRequests::test_get_auth_from_url\", \"test_requests.py::TestRequests::test_invalid_url\", \"test_requests.py::TestRequests::test_links\", \"test_requests.py::TestRequests::test_params_are_added_before_fragment\", \"test_requests.py::TestRequests::test_params_bytes_are_encoded\", \"test_requests.py::TestRequests::test_params_original_order_is_preserved_by_default\", \"test_requests.py::TestRequests::test_path_is_not_double_encoded\", \"test_requests.py::TestRequests::test_response_decode_unicode\", \"test_requests.py::TestRequests::test_response_is_iterable\"], \"failed\": [\"test_requests.py::TestRequests::test_binary_put\"]}\n",
+    "stderr": "",
+    "seconds": 1.312,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": true,
+    "environment_error": false,
+    "returncode": 0,
+    "stdout": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntest_requests.py::TestRequests::test_binary_put\n  /workspace/requests/models.py:168: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n    if isinstance(hook, collections.Callable):\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.15s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 21, \"complete\": true, \"passed\": [\"test_requests.py::TestRequests::test_LocationParseError\", \"test_requests.py::TestRequests::test_basic_building\", \"test_requests.py::TestRequests::test_binary_put\", \"test_requests.py::TestRequests::test_connection_error_invalid_domain\", \"test_requests.py::TestRequests::test_connection_error_invalid_port\", \"test_requests.py::TestRequests::test_cookie_as_dict_items\", \"test_requests.py::TestRequests::test_cookie_as_dict_keeps_items\", \"test_requests.py::TestRequests::test_cookie_as_dict_keeps_len\", \"test_requests.py::TestRequests::test_cookie_as_dict_keys\", \"test_requests.py::TestRequests::test_cookie_as_dict_values\", \"test_requests.py::TestRequests::test_cookie_parameters\", \"test_requests.py::TestRequests::test_entry_points\", \"test_requests.py::TestRequests::test_get_auth_from_url\", \"test_requests.py::TestRequests::test_invalid_url\", \"test_requests.py::TestRequests::test_links\", \"test_requests.py::TestRequests::test_params_are_added_before_fragment\", \"test_requests.py::TestRequests::test_params_bytes_are_encoded\", \"test_requests.py::TestRequests::test_params_original_order_is_preserved_by_default\", \"test_requests.py::TestRequests::test_path_is_not_double_encoded\", \"test_requests.py::TestRequests::test_response_decode_unicode\", \"test_requests.py::TestRequests::test_response_is_iterable\"], \"failed\": []}\n",
+    "stderr": "",
+    "seconds": 1.051,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "psf__requests-2931",
+    "title": "Request with binary payload fails due to calling to_native_string",
+    "issue": "Request with binary payload fails due to calling to_native_string\nIntroduced with https://github.com/kennethreitz/requests/issues/2844\n\n```\nimport requests\nrequests.put(\"http://httpbin.org/put\", data=u\"\u00f6\u00f6\u00f6\".encode(\"utf-8\"))\n```\n\nThis works with 2.8.1, but not with 2.9.\n\n",
+    "repository": "psf/requests",
+    "revision": "5f7a3a74aab1625c2bb65f643197ee885e3da576",
+    "source_url": "https://github.com/psf/requests/tree/5f7a3a74aab1625c2bb65f643197ee885e3da576",
+    "issue_url": "https://github.com/psf/requests/pull/2931",
+    "entry_files": [
+      "requests/models.py"
+    ],
+    "approved_prefix": "requests/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:9f1fdb06b595456c36483ed2c7a008c33be33e311fdb257c1bb29db812b00a85",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "e5aadecdcfbc67eb2751ad2f7b3a03dc57b913b541158753dbae199deb7ab4de",
+    "reference_digest": "5b5a77408b00928b0380cd6a40ccb53f0cf77b16f040e1743e313883aad104db",
+    "verification_digest": "b2d36dec4036572a15b0c228a2ced53f82fc0c56db40d46f6b4fcae70361bbf9"
+  }
+}

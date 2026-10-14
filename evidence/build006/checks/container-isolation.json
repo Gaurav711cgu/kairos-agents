@@ -1,0 +1,21 @@
+{
+  "name": "container-isolation",
+  "passed": true,
+  "returncode": 0,
+  "command": [
+    "env",
+    "KAIROS_TEST_INVESTIGATION_DOCKER=1",
+    "KAIROS_TEST_INVESTIGATION_IMAGE=kairos-api:build006",
+    ".runtime/reviewer005/venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_investigations.py::test_real_docker_verifier_is_nonroot_readonly_and_network_disabled",
+    "-q",
+    "--tb=short",
+    "--junitxml=evidence/build006/container-isolation.xml"
+  ],
+  "started_at": "2026-10-13T14:40:31.315796+00:00",
+  "elapsed_seconds": 2.037,
+  "log": ".runtime/reviewer005/checks/container-isolation.log",
+  "log_sha256": "3ebe237168d5d7b222a8c63d0ea862f31c27a1dfc68e63b61ac375db93cebcf3"
+}

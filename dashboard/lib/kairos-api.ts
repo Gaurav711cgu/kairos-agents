@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { CANONICAL_INCIDENTS } from "./empirical-store";
-
+import { isRecordedEvidence, recordedHistoryError } from "./evidence-mode";
 const summarySchema = z.object({
   id: z.string(),
   slug: z.string(),
@@ -15,7 +14,6 @@ const summarySchema = z.object({
   parent_run_id: z.string().nullable(),
   grade_passed: z.boolean().nullable(),
 });
-
 export const incidentSchema = summarySchema.extend({
   task: z.string(),
   scenario: z.object({
@@ -70,108 +68,64 @@ export const incidentSchema = summarySchema.extend({
   }),
   integrity: z.object({ verified: z.boolean(), scope: z.string() }),
 });
-
 export type IncidentSummary = z.infer<typeof summarySchema>;
 export type Incident = z.infer<typeof incidentSchema>;
 export type ApiResult<T> =
-  { data: T; error: null; isFallback?: boolean } | { data: null; error: string; isFallback?: boolean };
-
+  { data: T; error: null } | { data: null; error: string };
 export const apiBase = () =>
   process.env.KAIROS_API_URL || "http://127.0.0.1:8100";
-
 const get = async <T>(
   path: string,
   schema: z.ZodType<T>,
-  fallbackValue?: T,
 ): Promise<ApiResult<T>> => {
+  if (isRecordedEvidence()) return { data: null, error: recordedHistoryError };
   try {
     const response = await fetch(apiBase() + path, {
       cache: "no-store",
-      signal: AbortSignal.timeout(2500),
+      signal: AbortSignal.timeout(5000),
     });
-    if (response.ok) {
-      const parsed = schema.safeParse(await response.json());
-      if (parsed.success) {
-        return { data: parsed.data, error: null, isFallback: false };
-      }
+    if (!response.ok)
+      return {
+        data: null,
+        error: "Evidence service returned HTTP " + response.status + ".",
+      };
+    const parsed = schema.safeParse(await response.json());
+    if (!parsed.success) {
+      console.error("Kairos API contract mismatch", parsed.error.issues);
+      return {
+        data: null,
+        error:
+          "The evidence service returned an unsupported record. No unverified data is shown.",
+      };
     }
+    return { data: parsed.data, error: null };
   } catch {
-    // API is offline; proceed to verified fallback
+    return {
+      data: null,
+      error:
+        "The evidence service is unavailable. Start the API and refresh to inspect recorded executions.",
+    };
   }
-
-  if (fallbackValue !== undefined) {
-    return { data: fallbackValue, error: null, isFallback: true };
-  }
-
-  return {
-    data: null,
-    error: "Service unavailable and no local verified record matched.",
-    isFallback: false,
-  };
 };
-
-export const getIncidents = (): Promise<ApiResult<{ incidents: IncidentSummary[] }>> => {
-  const summaries: IncidentSummary[] = CANONICAL_INCIDENTS.map((inc) => ({
-    id: inc.id,
-    slug: inc.slug,
-    title: inc.title,
-    summary: inc.summary,
-    scenario_id: inc.scenario_id,
-    policy: inc.policy,
-    status: inc.status,
-    created_at: inc.created_at,
-    event_count: inc.event_count,
-    provenance: inc.provenance,
-    parent_run_id: inc.parent_run_id,
-    grade_passed: inc.grade_passed,
-  }));
-
-  return get(
-    "/api/public/incidents",
-    z.object({ incidents: z.array(summarySchema) }),
-    { incidents: summaries },
-  );
-};
-
-export const getIncident = (id: string): Promise<ApiResult<Incident>> => {
-  const match =
-    CANONICAL_INCIDENTS.find((item) => item.id === id || item.slug === id) ||
-    CANONICAL_INCIDENTS[0];
-
-  return get(
-    "/api/public/incidents/" + encodeURIComponent(id),
-    incidentSchema,
-    match,
-  );
-};
-
-export const getEvidence = (): Promise<ApiResult<Record<string, unknown>>> => {
-  const evidenceFallback = {
-    verified_runs: CANONICAL_INCIDENTS.length,
-    tamper_proof_integrity: "100% SHA-256 MATCH",
-    deduplication_ratio: 3.42,
-    fwer_controlled: true,
-  };
-
-  return get(
-    "/api/public/evidence",
-    z.record(z.string(), z.unknown()),
-    evidenceFallback,
-  );
-};
-
-export const money = (cents: number | null) => {
-  if (cents === null) return "Abstain";
-  return "$" + (cents / 100).toFixed(2);
-};
-
-export const date = (value: string) => {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
+export const getIncidents = () =>
+  get("/api/public/incidents", z.object({ incidents: z.array(summarySchema) }));
+export const getIncident = (id: string) =>
+  get("/api/public/incidents/" + encodeURIComponent(id), incidentSchema);
+export const getEvidence = () =>
+  get("/api/public/evidence", z.record(z.string(), z.unknown()));
+export const money = (cents: number | null) =>
+  cents === null
+    ? "Abstain"
+    : new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(cents / 100);
+export const date = (value: string) =>
+  new Intl.DateTimeFormat("en-GB", {
     day: "numeric",
+    month: "short",
     year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "UTC",
-  }).format(new Date(value)) + " UTC";
-};
+    timeZone: "Asia/Kolkata",
+  }).format(new Date(value));

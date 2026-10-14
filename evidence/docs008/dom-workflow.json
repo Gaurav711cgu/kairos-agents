@@ -1,0 +1,120 @@
+{
+  "version": "visitor-dom-review-docs008-v1",
+  "checked_at": "2026-10-13T19:33:17.344769+00:00",
+  "method": "Current in-app browser DOM snapshots, semantic clicks, keyboard operation and actual downloads",
+  "scope": "Recorded website; live OIDC behavior retains separate build007 receipts",
+  "passed": true,
+  "dom_checks": 10,
+  "records": [
+    {
+      "action": "Start here: keyboard opens the first step",
+      "url": "http://127.0.0.1:3310/how-it-works",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "heading \"From a defect to an inspectable result.\"",
+        "You receive a trace you can inspect. No account, model or Docker is needed."
+      ]
+    },
+    {
+      "action": "Home explains current evidence and scope",
+      "url": "http://127.0.0.1:3310/",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "heading \"Read the attempt. Judge the result.\"",
+        "10 recorded attempts",
+        "0 / 10 attempts",
+        "Published case file \u00b7 Development demonstration"
+      ]
+    },
+    {
+      "action": "Inspect the featured development investigation",
+      "url": "http://127.0.0.1:3310/investigations/e1fa91f8-7d8f-4249-b09b-ac4d5df64be8",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "heading \"Renaming a content type uses the wrong database\" [level=1]",
+        "heading \"Verified repair\" [level=2]",
+        "heading \"The proposed patch.\"",
+        "4 tests run. 1.5 seconds.",
+        "2 calls \u00b7 2722 tokens \u00b7 29s",
+        "Single call",
+        "Patch rejected"
+      ]
+    },
+    {
+      "action": "Inspect captured context",
+      "url": "http://127.0.0.1:3310/investigations/e1fa91f8-7d8f-4249-b09b-ac4d5df64be8?step=3",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "Evidence selected for the next call",
+        "Retrieved source excerpt"
+      ]
+    },
+    {
+      "action": "Expand independent check output",
+      "url": "http://127.0.0.1:3310/investigations/e1fa91f8-7d8f-4249-b09b-ac4d5df64be8?step=3",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "KAIROS_VERIFIER_RESULT",
+        "4 tests run. 1.5 seconds.",
+        "heading \"Standard output\"",
+        "heading \"Test runner output\""
+      ]
+    },
+    {
+      "action": "Review the complete fresh study",
+      "url": "http://127.0.0.1:3310/advancement",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "heading \"The repair target was missed.\"",
+        "heading \"0 / 5 verified\" (two occurrences)",
+        "7,791",
+        "25,220"
+      ]
+    },
+    {
+      "action": "Recorded mode blocks private execution and sign-in",
+      "url": "http://127.0.0.1:3310/workbench",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "heading \"Recorded evidence only.\"",
+        "Private execution and sign-in are disabled in recorded mode."
+      ]
+    },
+    {
+      "action": "Missing record gives an explicit unavailable result",
+      "url": "http://127.0.0.1:3310/investigations/00000000-0000-4000-8000-000000000000",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "heading \"Records are unavailable\"",
+        "This investigation is not included in the recorded evidence package."
+      ]
+    },
+    {
+      "action": "Invalid identifier gives an explicit error",
+      "url": "http://127.0.0.1:3310/investigations/not-an-identifier",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "Invalid investigation identifier."
+      ]
+    },
+    {
+      "action": "390px keyboard walkthrough remains readable",
+      "url": "http://127.0.0.1:3310/how-it-works",
+      "passed": true,
+      "observed_dom_excerpt": [
+        "You receive a trace you can inspect. No account, model or Docker is needed."
+      ]
+    }
+  ],
+  "mobile_layout": {
+    "width": 390,
+    "document_width": 390,
+    "overflow": false,
+    "temporary_override_reset": true
+  },
+  "downloads_receipt": "downloads.json",
+  "docker_started": false,
+  "model_dispatches": 0,
+  "runtime_source_changes": false,
+  "note": "Excerpts are selected readable observations from the browser tool, not a byte-identical export of complete DOM snapshots."
+}

@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { displayLabel } from "@/lib/display";
+import { useEffect, useState, useCallback } from "react";
 import { z } from "zod";
 import { money } from "@/lib/kairos-api";
 const proposalSchema = z
@@ -29,14 +30,20 @@ const runSchema = z
   })
   .passthrough();
 type Proposal = z.infer<typeof proposalSchema>;
-export function EffectWorkbench({ role }: { role: string }) {
+export function EffectWorkbench({
+  role,
+  scope,
+}: {
+  role: string;
+  scope: string;
+}) {
+  const [loaded, setLoaded] = useState(false);
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [runs, setRuns] = useState<z.infer<typeof runSchema>[]>([]);
   const [run, setRun] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [receipt, setReceipt] = useState<unknown>(null);
-  const keys = useRef(new Map<string, string>());
   const refresh = useCallback(async () => {
     try {
       const r = await fetch("/api/workbench/effects", { cache: "no-store" });
@@ -45,6 +52,7 @@ export function EffectWorkbench({ role }: { role: string }) {
         z.object({ proposals: z.array(proposalSchema) }).parse(await r.json())
           .proposals,
       );
+      setLoaded(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Sandbox unavailable.");
     }
@@ -77,10 +85,11 @@ export function EffectWorkbench({ role }: { role: string }) {
   async function mutate(path: string, body: unknown) {
     setBusy(true);
     setError("");
-    const identity = path + JSON.stringify(body);
-    const key = keys.current.get(identity) || crypto.randomUUID();
-    keys.current.set(identity, key);
+    const storageKey =
+      "kairos-effect:" + scope + ":" + path + ":" + JSON.stringify(body);
     try {
+      const key = sessionStorage.getItem(storageKey) || crypto.randomUUID();
+      sessionStorage.setItem(storageKey, key);
       const r = await fetch("/api/workbench/" + path, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Idempotency-Key": key },
@@ -94,7 +103,7 @@ export function EffectWorkbench({ role }: { role: string }) {
             : result.error || "Command rejected.",
         );
       setReceipt(result);
-      keys.current.delete(identity);
+      sessionStorage.removeItem(storageKey);
       await refresh();
     } catch (e) {
       setError(
@@ -109,15 +118,15 @@ export function EffectWorkbench({ role }: { role: string }) {
     <section className="effect-workbench">
       <div className="section-top">
         <div>
-          <span className="eyebrow">05 / APPROVAL AND SIDE EFFECTS</span>
+          <span className="eyebrow">05 / Approval and side effects</span>
           <h2>
-            Authority binds
+            Approve a proposal.
             <br />
-            <em>to the proposal.</em>
+            <em>Inspect its receipt.</em>
           </h2>
         </div>
         <button className="text-button" onClick={() => void refresh()}>
-          Refresh receipts ↻
+          Refresh receipts
         </button>
       </div>
       <p className="scope-note">
@@ -149,7 +158,7 @@ export function EffectWorkbench({ role }: { role: string }) {
           disabled={busy || !run || role === "viewer"}
           onClick={() => void mutate("runs/" + run + "/proposal", {})}
         >
-          Draft sandbox proposal ↗
+          Draft sandbox proposal
         </button>
         <small>
           Visible published runs may belong to another tenant; server checks
@@ -166,14 +175,16 @@ export function EffectWorkbench({ role }: { role: string }) {
               <small>
                 {p.proposal.target} · version {p.version}
               </small>
-              <span className="status attention">{p.state}</span>
+              <span className="status attention">{displayLabel(p.state)}</span>
             </div>
             <div className="job-actions">
               {role === "admin" && (
                 <>
                   <button
                     className="text-button"
-                    disabled={busy}
+                    disabled={
+                      busy || !["proposed", "approved"].includes(p.state)
+                    }
                     onClick={() =>
                       void mutate("effects/" + p.id + "/approve", {
                         version: p.version,
@@ -184,7 +195,9 @@ export function EffectWorkbench({ role }: { role: string }) {
                   </button>
                   <button
                     className="text-button"
-                    disabled={busy}
+                    disabled={
+                      busy || !["proposed", "approved"].includes(p.state)
+                    }
                     onClick={() =>
                       void mutate("effects/" + p.id + "/revoke", {
                         version: p.version,
@@ -197,14 +210,41 @@ export function EffectWorkbench({ role }: { role: string }) {
               )}
               <button
                 className="button"
-                disabled={busy || role === "viewer"}
-                onClick={() =>
-                  void mutate("effects/" + p.id + "/dispatch", {
-                    version: p.version,
-                  })
+                disabled={
+                  busy ||
+                  (p.state !== "applied" &&
+                    (role === "viewer" || p.state !== "approved"))
                 }
+                onClick={() => {
+                  if (p.state === "applied") {
+                    setBusy(true);
+                    setError("");
+                    void fetch("/api/workbench/effects/" + p.id + "/receipt", {
+                      cache: "no-store",
+                    })
+                      .then(async (response) => {
+                        const value = await response.json();
+                        if (!response.ok)
+                          throw Error(value.detail || "Receipt unavailable.");
+                        setReceipt(value);
+                      })
+                      .catch((failure) =>
+                        setError(
+                          failure instanceof Error
+                            ? failure.message
+                            : "Receipt unavailable.",
+                        ),
+                      )
+                      .finally(() => setBusy(false));
+                  } else
+                    void mutate("effects/" + p.id + "/dispatch", {
+                      version: p.version,
+                    });
+                }}
               >
-                Dispatch / reconcile ↗
+                {p.state === "applied"
+                  ? "Inspect durable receipt"
+                  : "Dispatch approved proposal"}
               </button>
             </div>
             <details className="raw-record">
@@ -218,7 +258,13 @@ export function EffectWorkbench({ role }: { role: string }) {
           </article>
         ))}
         {!proposals.length && (
-          <p className="empty-state">No sandbox proposals in this tenant.</p>
+          <p className="empty-state">
+            {loaded
+              ? "No sandbox proposals in this tenant."
+              : error
+                ? "Sandbox records unavailable."
+                : "Loading sandbox proposals…"}
+          </p>
         )}
       </div>
       {receipt !== null && (

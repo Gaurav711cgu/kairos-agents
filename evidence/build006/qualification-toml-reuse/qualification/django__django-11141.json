@@ -1,0 +1,93 @@
+{
+  "baseline": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 1.461,
+    "stderr": "Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\nCreating test database for alias 'other' ('file:memorydb_other?mode=memory&cache=shared')...\ntest_check_consistent_history (migrations.test_loader.LoaderTests) ... ok\ntest_check_consistent_history_squashed (migrations.test_loader.LoaderTests)\nMigrationLoader.check_consistent_history() should ignore unapplied ... ok\ntest_explicit_missing_module (migrations.test_loader.LoaderTests)\nIf a MIGRATION_MODULES override points to a missing module, the error ... ok\ntest_first (migrations.test_loader.LoaderTests)\nMakes sure the '__first__' migrations build correctly. ... ok\ntest_ignore_files (migrations.test_loader.LoaderTests)\nFiles prefixed with underscore, tilde, or dot aren't loaded. ... ok\ntest_load (migrations.test_loader.LoaderTests)\nMakes sure the loader can load the migrations for the test apps, ... ok\ntest_load_empty_dir (migrations.test_loader.LoaderTests) ... ok\ntest_load_import_error (migrations.test_loader.LoaderTests) ... ok\ntest_load_module_file (migrations.test_loader.LoaderTests) ... ok\ntest_load_unmigrated_dependency (migrations.test_loader.LoaderTests)\nMakes sure the loader can load migrations with a dependency on an unmigrated app. ... ok\ntest_loading_namespace_package (migrations.test_loader.LoaderTests)\nMigration directories without an __init__.py file are loaded. ... ERROR\ntest_loading_squashed (migrations.test_loader.LoaderTests)\nTests loading a squashed migration ... ok\ntest_loading_squashed_complex (migrations.test_loader.LoaderTests)\nTests loading a complex set of squashed migrations ... ok\ntest_loading_squashed_complex_multi_apps (migrations.test_loader.LoaderTests) ... ok\ntest_loading_squashed_complex_multi_apps_partially_applied (migrations.test_loader.LoaderTests) ... ok\ntest_loading_squashed_erroneous (migrations.test_loader.LoaderTests)\nTests loading a complex but erroneous set of squashed migrations ... ok\ntest_loading_squashed_ref_squashed (migrations.test_loader.LoaderTests)\nTests loading a squashed migration with a new migration referencing it ... ok\ntest_marked_as_migrated (migrations.test_loader.LoaderTests)\nUndefined MIGRATION_MODULES implies default migration module. ... ok\ntest_marked_as_unmigrated (migrations.test_loader.LoaderTests)\nMIGRATION_MODULES allows disabling of migrations for a particular app. ... ok\ntest_name_match (migrations.test_loader.LoaderTests)\nTests prefix name matching ... ok\ntest_plan_handles_repeated_migrations (migrations.test_loader.LoaderTests)\n_generate_plan() doesn't readd migrations already in the plan (#29180). ... ok\ntest_run_before (migrations.test_loader.LoaderTests)\nMakes sure the loader uses Migration.run_before. ... ok\ntest_apply (migrations.test_loader.RecorderTests)\nTests marking migrations as applied/unapplied. ... ok\ntest_invalid (migrations.test_loader.PycLoaderTests)\nMigrationLoader reraises ImportErrors caused by \"bad magic number\" pyc ... ok\ntest_valid (migrations.test_loader.PycLoaderTests)\nTo support frozen environments, MigrationLoader loads .pyc migrations. ... ok\n\n======================================================================\nERROR: test_loading_namespace_package (migrations.test_loader.LoaderTests)\nMigration directories without an __init__.py file are loaded.\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/django/test/utils.py\", line 370, in inner\n    return func(*args, **kwargs)\n  File \"/workspace/tests/migrations/test_loader.py\", line 518, in test_loading_namespace_package\n    migration_loader.graph.forwards_plan(('migrations', '0001_initial')),\n  File \"/workspace/django/db/migrations/graph.py\", line 204, in forwards_plan\n    raise NodeNotFoundError(\"Node %r not a valid node\" % (target,), target)\ndjango.db.migrations.exceptions.NodeNotFoundError: Node ('migrations', '0001_initial') not a valid node\n\n----------------------------------------------------------------------\nRan 25 tests in 0.168s\n\nFAILED (errors=1)\nDestroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\nDestroying test database for alias 'other' ('file:memorydb_other?mode=memory&cache=shared')...\n\n",
+    "stdout": "Testing against Django installed in '/workspace/django'\nImporting application migrations\nOperations to perform:\n  Synchronize unmigrated apps: auth, contenttypes, messages, migrations, sessions, staticfiles\n  Apply all migrations: admin, sites\nSynchronizing apps without migrations:\n  Creating tables...\n    Creating table django_content_type\n    Creating table auth_permission\n    Creating table auth_group\n    Creating table auth_user\n    Creating table django_session\n    Creating table migrations_modelwithcustombase\n    Creating table migrations_unmigratedmodel\n    Running deferred SQL...\nRunning migrations:\n  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying sites.0001_initial... OK\n  Applying sites.0002_alter_domain_unique... OK\nOperations to perform:\n  Synchronize unmigrated apps: auth, contenttypes, messages, migrations, sessions, staticfiles\n  Apply all migrations: admin, sites\nSynchronizing apps without migrations:\n  Creating tables...\n    Creating table django_content_type\n    Creating table auth_permission\n    Creating table auth_group\n    Creating table auth_user\n    Creating table django_session\n    Creating table migrations_modelwithcustombase\n    Creating table migrations_unmigratedmodel\n    Running deferred SQL...\nRunning migrations:\n  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying sites.0001_initial... OK\n  Applying sites.0002_alter_domain_unique... OK\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 25, \"execution_complete\": true, \"complete\": false, \"regression_failed\": [\"Migration directories without an __init__.py file are loaded.\"], \"regression_passed\": []}\n",
+    "tests_run": 25,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "baseline_summary": {
+    "complete": false,
+    "execution_complete": true,
+    "regression_failed": [
+      "Migration directories without an __init__.py file are loaded."
+    ],
+    "regression_passed": [],
+    "tests_run": 25
+  },
+  "case": {
+    "approved_prefix": "django/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "django/db/migrations/loader.py"
+    ],
+    "id": "django__django-11141",
+    "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+    "issue": "Allow migrations directories without __init__.py files\nDescription\n\t \n\t\t(last modified by Tim Graham)\n\t \nBackground: In python 3 a package with no __init__.py is implicitly a namespace package, so it has no __file__ attribute. \nThe migrate command currently checks for existence of a __file__ attribute on the migrations package. This check was introduced in #21015, because the __file__ attribute was used in migration file discovery. \nHowever, in #23406 migration file discovery was changed to use pkgutil.iter_modules (), instead of direct filesystem access. pkgutil. iter_modules() uses the package's __path__ list, which exists on implicit namespace packages.\nAs a result, the __file__ check is no longer needed, and in fact prevents migrate from working on namespace packages (implicit or otherwise). \nRelated work: #29091\n",
+    "issue_url": "https://github.com/django/django/pull/11141",
+    "provenance": "Build006 fresh model-unattempted SWE-bench Verified case. Human-localized entry files only; no reference-derived line windows. Explicit preflight retries and hermetic verification omissions are recorded separately. Public training contamination possible.",
+    "qualified": true,
+    "reference_digest": "924503df37ffda93f8c76bb1d615f2c5cd8a16f914bd76d63e9072de676514ee",
+    "repository": "django/django",
+    "revision": "5d9cf79baf07fc4aed7ad1b06990532a65378155",
+    "source_digest": "d7fc04aade326fa6f8d04269be5b3036c9f29eb2a9e5b870e8be7067c579ed28",
+    "source_url": "https://github.com/django/django/tree/5d9cf79baf07fc4aed7ad1b06990532a65378155",
+    "split": "validation",
+    "title": "Allow migrations directories without __init__.py files",
+    "verification_digest": "4cf68d5c989e6d0e40dbf1de7f32877d9e19850336cf91609ef2164c0164afa4"
+  },
+  "explicit_preflight_retry": false,
+  "id": "django__django-11141",
+  "patch_changed_lines": 10,
+  "qualified": true,
+  "reason": null,
+  "reference": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": true,
+    "returncode": 0,
+    "seconds": 1.657,
+    "stderr": "Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\nCreating test database for alias 'other' ('file:memorydb_other?mode=memory&cache=shared')...\ntest_check_consistent_history (migrations.test_loader.LoaderTests) ... ok\ntest_check_consistent_history_squashed (migrations.test_loader.LoaderTests)\nMigrationLoader.check_consistent_history() should ignore unapplied ... ok\ntest_explicit_missing_module (migrations.test_loader.LoaderTests)\nIf a MIGRATION_MODULES override points to a missing module, the error ... ok\ntest_first (migrations.test_loader.LoaderTests)\nMakes sure the '__first__' migrations build correctly. ... ok\ntest_ignore_files (migrations.test_loader.LoaderTests)\nFiles prefixed with underscore, tilde, or dot aren't loaded. ... ok\ntest_load (migrations.test_loader.LoaderTests)\nMakes sure the loader can load the migrations for the test apps, ... ok\ntest_load_empty_dir (migrations.test_loader.LoaderTests) ... ok\ntest_load_import_error (migrations.test_loader.LoaderTests) ... ok\ntest_load_module_file (migrations.test_loader.LoaderTests) ... ok\ntest_load_unmigrated_dependency (migrations.test_loader.LoaderTests)\nMakes sure the loader can load migrations with a dependency on an unmigrated app. ... ok\ntest_loading_namespace_package (migrations.test_loader.LoaderTests)\nMigration directories without an __init__.py file are loaded. ... ok\ntest_loading_squashed (migrations.test_loader.LoaderTests)\nTests loading a squashed migration ... ok\ntest_loading_squashed_complex (migrations.test_loader.LoaderTests)\nTests loading a complex set of squashed migrations ... ok\ntest_loading_squashed_complex_multi_apps (migrations.test_loader.LoaderTests) ... ok\ntest_loading_squashed_complex_multi_apps_partially_applied (migrations.test_loader.LoaderTests) ... ok\ntest_loading_squashed_erroneous (migrations.test_loader.LoaderTests)\nTests loading a complex but erroneous set of squashed migrations ... ok\ntest_loading_squashed_ref_squashed (migrations.test_loader.LoaderTests)\nTests loading a squashed migration with a new migration referencing it ... ok\ntest_marked_as_migrated (migrations.test_loader.LoaderTests)\nUndefined MIGRATION_MODULES implies default migration module. ... ok\ntest_marked_as_unmigrated (migrations.test_loader.LoaderTests)\nMIGRATION_MODULES allows disabling of migrations for a particular app. ... ok\ntest_name_match (migrations.test_loader.LoaderTests)\nTests prefix name matching ... ok\ntest_plan_handles_repeated_migrations (migrations.test_loader.LoaderTests)\n_generate_plan() doesn't readd migrations already in the plan (#29180). ... ok\ntest_run_before (migrations.test_loader.LoaderTests)\nMakes sure the loader uses Migration.run_before. ... ok\ntest_apply (migrations.test_loader.RecorderTests)\nTests marking migrations as applied/unapplied. ... ok\ntest_invalid (migrations.test_loader.PycLoaderTests)\nMigrationLoader reraises ImportErrors caused by \"bad magic number\" pyc ... ok\ntest_valid (migrations.test_loader.PycLoaderTests)\nTo support frozen environments, MigrationLoader loads .pyc migrations. ... ok\n\n----------------------------------------------------------------------\nRan 25 tests in 0.250s\n\nOK\nDestroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\nDestroying test database for alias 'other' ('file:memorydb_other?mode=memory&cache=shared')...\n\n",
+    "stdout": "Testing against Django installed in '/workspace/django'\nImporting application migrations\nOperations to perform:\n  Synchronize unmigrated apps: auth, contenttypes, messages, migrations, sessions, staticfiles\n  Apply all migrations: admin, sites\nSynchronizing apps without migrations:\n  Creating tables...\n    Creating table django_content_type\n    Creating table auth_permission\n    Creating table auth_group\n    Creating table auth_user\n    Creating table django_session\n    Creating table migrations_modelwithcustombase\n    Creating table migrations_unmigratedmodel\n    Running deferred SQL...\nRunning migrations:\n  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying sites.0001_initial... OK\n  Applying sites.0002_alter_domain_unique... OK\nOperations to perform:\n  Synchronize unmigrated apps: auth, contenttypes, messages, migrations, sessions, staticfiles\n  Apply all migrations: admin, sites\nSynchronizing apps without migrations:\n  Creating tables...\n    Creating table django_content_type\n    Creating table auth_permission\n    Creating table auth_group\n    Creating table auth_user\n    Creating table django_session\n    Creating table migrations_modelwithcustombase\n    Creating table migrations_unmigratedmodel\n    Running deferred SQL...\nRunning migrations:\n  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying sites.0001_initial... OK\n  Applying sites.0002_alter_domain_unique... OK\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 25, \"execution_complete\": true, \"complete\": true, \"regression_failed\": [], \"regression_passed\": [\"Migration directories without an __init__.py file are loaded.\"]}\n",
+    "tests_run": 25,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "reference_summary": {
+    "complete": true,
+    "execution_complete": true,
+    "regression_failed": [],
+    "regression_passed": [
+      "Migration directories without an __init__.py file are loaded."
+    ],
+    "tests_run": 25
+  },
+  "source": {
+    "archive_sha256": "5f13d6ef44c27c615d9668b4e4702aeae189eeec2dab858e077c0c310640d115",
+    "downloaded_bytes": 8992006,
+    "expanded_bytes": 36885792,
+    "reused_original_tree": true,
+    "source_url": "https://codeload.github.com/django/django/tar.gz/5d9cf79baf07fc4aed7ad1b06990532a65378155"
+  },
+  "test_scope": {
+    "completion": "All declared regression statuses and final unittest count required",
+    "declared_regressions": [
+      "Migration directories without an __init__.py file are loaded."
+    ],
+    "omissions": [],
+    "test_modules": [
+      "migrations.test_loader",
+      "migrations.test_migrations_namespace_package.0001_initial"
+    ]
+  }
+}

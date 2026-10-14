@@ -1,8 +1,10 @@
-import os
 import signal
+import shutil
+import socket
 import sqlite3
 import subprocess
 import time
+from pathlib import Path
 import httpx
 import pytest
 
@@ -12,43 +14,53 @@ from harness.workload import init_benchmark_database, BENCHMARK_TASKS
 
 
 @pytest.fixture(scope="module")
-def go_ingest_service():
-    bin_path = "/Users/gauravkumarnayak/Desktop/new-karos/ingest/kairos-ingest"
-    db_path = "/tmp/kairos_test_ingest_contract.db"
-    if os.path.exists(db_path):
-        os.remove(db_path)
-
-    proc = subprocess.Popen(
-        [bin_path, "-port", "8899", "-db", db_path, "-buffer", "1024"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+def go_ingest_service(tmp_path_factory):
+    go = shutil.which("go")
+    if go is None:
+        raise RuntimeError("Go toolchain from ingest/go.mod is required for ingest acceptance")
+    source = Path(__file__).resolve().parents[1] / "ingest"
+    runtime = tmp_path_factory.mktemp("go-ingest-contract")
+    bin_path = runtime / "kairos-ingest"
+    build = subprocess.run(
+        [go, "build", "-o", str(bin_path), "."], cwd=source,
+        capture_output=True, text=True, timeout=300,
     )
+    if build.returncode:
+        raise RuntimeError("Go ingest build failed: " + build.stderr[-4000:])
+    with socket.socket() as reservation:
+        reservation.bind(("127.0.0.1", 0))
+        port = reservation.getsockname()[1]
+    base_url = f"http://127.0.0.1:{port}"
 
     # Wait for service readiness
-    ready = False
-    for _ in range(30):
+    log_path = runtime / "service.log"
+    with log_path.open("w") as log:
+        proc = subprocess.Popen(
+            [str(bin_path), "-port", str(port), "-db", str(runtime / "events.db"), "-buffer", "1024"],
+            cwd=runtime, stdout=log, stderr=subprocess.STDOUT,
+        )
         try:
-            r = httpx.get("http://localhost:8899/healthz", timeout=1.0)
-            if r.status_code == 200:
-                ready = True
-                break
-        except Exception:
-            time.sleep(0.1)
-
-    if not ready:
-        proc.kill()
-        raise RuntimeError("Go Ingest service failed to start on port 8899")
-
-    yield "http://localhost:8899"
-
-    proc.send_signal(signal.SIGTERM)
-    try:
-        proc.wait(timeout=2.0)
-    except subprocess.TimeoutExpired:
-        proc.kill()
-
-    if os.path.exists(db_path):
-        os.remove(db_path)
+            deadline = time.monotonic() + 10
+            while time.monotonic() < deadline:
+                if proc.poll() is not None:
+                    raise RuntimeError("Go ingest exited during startup: " + log_path.read_text()[-4000:])
+                try:
+                    if httpx.get(base_url + "/healthz", timeout=1).status_code == 200:
+                        break
+                except httpx.RequestError:
+                    pass
+                time.sleep(0.1)
+            else:
+                raise RuntimeError("Go ingest startup deadline exceeded: " + log_path.read_text()[-4000:])
+            yield base_url
+        finally:
+            if proc.poll() is None:
+                proc.send_signal(signal.SIGTERM)
+            try:
+                proc.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait(timeout=2)
 
 
 def test_end_to_end_ingest_contract(go_ingest_service):

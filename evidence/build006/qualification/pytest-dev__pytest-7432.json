@@ -1,0 +1,83 @@
+{
+  "baseline": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 0.767,
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 16, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/test_skipping.py'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 136, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 313, in _prepareconfig\n    config = pluginmanager.hook.pytest_cmdline_parse(\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_hooks.py\", line 265, in __call__\n    return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 80, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 55, in _multicall\n    gen.send(outcome)\n  File \"/workspace/src/_pytest/helpconfig.py\", line 99, in pytest_cmdline_parse\n    config = outcome.get_result()  # type: Config\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_result.py\", line 60, in get_result\n    raise ex[1].with_traceback(ex[2])\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 39, in _multicall\n    res = hook_impl.function(*args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 932, in pytest_cmdline_parse\n    self.parse(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1204, in parse\n    self._preparse(args, addopts=addopts)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1085, in _preparse\n    self._initini(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1005, in _initini\n    self.rootdir, self.inifile, self.inicfg = determine_setup(\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 175, in determine_setup\n    rootdir, inipath, inicfg = locate_config([ancestor])\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 105, in locate_config\n    ini_config = load_config_dict_from_file(p)\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 64, in load_config_dict_from_file\n    import toml\nModuleNotFoundError: No module named 'toml'\n",
+    "stdout": "",
+    "tests_run": null,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "baseline_summary": {},
+  "case": {
+    "approved_prefix": "src/_pytest/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "src/_pytest/skipping.py"
+    ],
+    "id": "pytest-dev__pytest-7432",
+    "image": "sha256:5db01d3fa0f7880ccc2a69ee40b15e7635c6aa72bc2bfa2fda967efd18fd3c96",
+    "issue": "skipping: --runxfail breaks pytest.mark.skip location reporting\npytest versions: 5.4.x, current master\r\n\r\nWhen `@pytest.mark.skip`/`skipif` marks are used to skip a test, for example\r\n\r\n```py\r\nimport pytest\r\n@pytest.mark.skip\r\ndef test_skip_location() -> None:\r\n    assert 0\r\n```\r\n\r\nthe expected skip location reported should point to the item itself, and this is indeed what happens when running with `pytest -rs`:\r\n\r\n```\r\nSKIPPED [1] test_it.py:3: unconditional skip\r\n```\r\n\r\nHowever, adding `pytest -rs --runxfail` breaks this:\r\n\r\n```\r\nSKIPPED [1] src/_pytest/skipping.py:238: unconditional skip\r\n```\r\n\r\nThe `--runxfail` is only about xfail and should not affect this at all.\r\n\r\n---\r\n\r\nHint: the bug is in `src/_pytest/skipping.py`, the `pytest_runtest_makereport` hook.\n",
+    "issue_url": "https://github.com/pytest-dev/pytest/pull/7432",
+    "provenance": "Build006 fresh model-unattempted SWE-bench Verified case. Human-localized entry files only; no reference-derived line windows. Explicit preflight retries and hermetic verification omissions are recorded separately. Public training contamination possible.",
+    "qualified": true,
+    "reference_digest": "fe1bcec846085b964928724c5e75591b1e0280ef37dd9cdb7faf31a89cfcf062",
+    "repository": "pytest-dev/pytest",
+    "revision": "e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+    "source_digest": "cc09de867877f5053dc8545528f8fadb2f3baf134a7ce2fb997bb52a9ef4faa6",
+    "source_url": "https://github.com/pytest-dev/pytest/tree/e6e300e729dd33956e5448d8be9a0b1540b4e53a",
+    "split": "validation",
+    "title": "skipping: --runxfail breaks pytest.mark.skip location reporting",
+    "verification_digest": "f11a0d3bf8699d9e72d521639c161f958d99838f5159b7692c2725bf99458d06"
+  },
+  "explicit_preflight_retry": false,
+  "id": "pytest-dev__pytest-7432",
+  "patch_changed_lines": 3,
+  "qualified": false,
+  "reason": "Behavioral regression failure and complete reference repair were not both reproduced under the registered hermetic verifier",
+  "reference": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 0.555,
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 16, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/test_skipping.py'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 136, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 313, in _prepareconfig\n    config = pluginmanager.hook.pytest_cmdline_parse(\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_hooks.py\", line 265, in __call__\n    return self._hookexec(self.name, self.get_hookimpls(), kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 80, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 55, in _multicall\n    gen.send(outcome)\n  File \"/workspace/src/_pytest/helpconfig.py\", line 99, in pytest_cmdline_parse\n    config = outcome.get_result()  # type: Config\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_result.py\", line 60, in get_result\n    raise ex[1].with_traceback(ex[2])\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_callers.py\", line 39, in _multicall\n    res = hook_impl.function(*args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 932, in pytest_cmdline_parse\n    self.parse(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1204, in parse\n    self._preparse(args, addopts=addopts)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1085, in _preparse\n    self._initini(args)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 1005, in _initini\n    self.rootdir, self.inifile, self.inicfg = determine_setup(\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 175, in determine_setup\n    rootdir, inipath, inicfg = locate_config([ancestor])\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 105, in locate_config\n    ini_config = load_config_dict_from_file(p)\n  File \"/workspace/src/_pytest/config/findpaths.py\", line 64, in load_config_dict_from_file\n    import toml\nModuleNotFoundError: No module named 'toml'\n",
+    "stdout": "",
+    "tests_run": null,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "reference_summary": {},
+  "source": {
+    "archive_sha256": "5b7f9d7d90d2b68ed2cecb3007ebe851aec8d5cfa92b4e322eeed8a0152953cb",
+    "downloaded_bytes": 1068738,
+    "expanded_bytes": 3731202,
+    "source_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/e6e300e729dd33956e5448d8be9a0b1540b4e53a"
+  },
+  "test_scope": {
+    "added_hidden_tests": [
+      "testing/test_skipping.py::TestXFail::test_xfail_evalfalse_but_fails",
+      "testing/test_skipping.py::TestXFail::test_xfail_run_with_skip_mark"
+    ],
+    "completion": "Every collected selected test must finish; all required regressions must be collected and pass after repair",
+    "declared_regressions": [
+      "testing/test_skipping.py::TestXFail::test_xfail_run_with_skip_mark[test_input1-expected1]"
+    ],
+    "omissions": [],
+    "required_regressions": [
+      "testing/test_skipping.py::TestXFail::test_xfail_evalfalse_but_fails",
+      "testing/test_skipping.py::TestXFail::test_xfail_run_with_skip_mark"
+    ],
+    "selected": [
+      "testing/test_skipping.py"
+    ]
+  }
+}

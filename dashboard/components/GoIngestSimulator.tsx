@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Activity, Database, Server, RefreshCw } from "lucide-react";
+import { Database, Server } from "lucide-react";
 
 export function GoIngestSimulator() {
   const [trafficRate, setTrafficRate] = useState<number>(24000); // events per sec
@@ -37,7 +37,7 @@ export function GoIngestSimulator() {
       {/* Traffic Rate Slider */}
       <div className="py-4 border-b border-[#222226]">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-zinc-300 font-medium">
+          <label htmlFor="legacy-traffic-rate" className="text-zinc-300 font-medium">
             Simulate Incoming Ingest Load:
           </label>
           <span className="text-indigo-400 font-bold text-sm">
@@ -45,6 +45,7 @@ export function GoIngestSimulator() {
           </span>
         </div>
         <input
+          id="legacy-traffic-rate"
           type="range"
           min="5000"
           max="120000"

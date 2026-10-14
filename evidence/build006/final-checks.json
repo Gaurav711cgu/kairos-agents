@@ -1,0 +1,489 @@
+{
+  "release": "build006",
+  "completed_at": "2026-10-13T14:53:52.161923+00:00",
+  "passed": true,
+  "checks": {
+    "backend-audit": {
+      "name": "backend-audit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "uvx",
+        "--from",
+        "pip-audit",
+        "pip-audit",
+        "--no-deps",
+        "--disable-pip",
+        "-r",
+        "requirements-api.lock",
+        "-f",
+        "json",
+        "-o",
+        "evidence/build006/python-audit.json"
+      ],
+      "started_at": "2026-10-13T14:44:06.782207+00:00",
+      "elapsed_seconds": 4.971,
+      "log": ".runtime/reviewer005/checks/backend-audit.log",
+      "log_sha256": "25bb6cd060247d5dd55819c2f45ab8b7f568ba252c554becd04899cfb55cb71e"
+    },
+    "backend-full": {
+      "name": "backend-full",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        ".runtime/run_backend006.py"
+      ],
+      "started_at": "2026-10-13T14:29:25.353938+00:00",
+      "elapsed_seconds": 15.863,
+      "log": ".runtime/reviewer005/checks/backend-full.log",
+      "log_sha256": "096791dcf1ccb47d664dde0fb9dbad61a797112638476b016b115be169d0e7ee"
+    },
+    "backend-recovery": {
+      "name": "backend-recovery",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        "-m",
+        "scripts.verify_recovery006"
+      ],
+      "started_at": "2026-10-13T14:27:46.321958+00:00",
+      "elapsed_seconds": 1.248,
+      "log": ".runtime/reviewer005/checks/backend-recovery.log",
+      "log_sha256": "ad48e671be17b67a01f69b72ba6833f3b3816ea156311f1fb08d050e2566625a"
+    },
+    "container-build-api": {
+      "name": "container-build-api",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "docker",
+        "build",
+        "-f",
+        "Dockerfile.api",
+        "-t",
+        "kairos-api:build006",
+        "."
+      ],
+      "started_at": "2026-10-13T14:32:32.349301+00:00",
+      "elapsed_seconds": 1.14,
+      "log": ".runtime/reviewer005/checks/container-build-api.log",
+      "log_sha256": "346081b6a652b34b775618f2abbc796213048481c87be4b8c9035fd8c50065ba"
+    },
+    "container-build-web": {
+      "name": "container-build-web",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "docker",
+        "build",
+        "-f",
+        "Dockerfile.web",
+        "-t",
+        "kairos-web:build006",
+        "."
+      ],
+      "started_at": "2026-10-13T14:36:34.204264+00:00",
+      "elapsed_seconds": 10.347,
+      "log": ".runtime/reviewer005/checks/container-build-web.log",
+      "log_sha256": "0f42e95d6885ee71a82a4c0725dbe607f6640bc12f5991a31dc8788e50fbb777"
+    },
+    "container-isolation": {
+      "name": "container-isolation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "env",
+        "KAIROS_TEST_INVESTIGATION_DOCKER=1",
+        "KAIROS_TEST_INVESTIGATION_IMAGE=kairos-api:build006",
+        ".runtime/reviewer005/venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_investigations.py::test_real_docker_verifier_is_nonroot_readonly_and_network_disabled",
+        "-q",
+        "--tb=short",
+        "--junitxml=evidence/build006/container-isolation.xml"
+      ],
+      "started_at": "2026-10-13T14:40:31.315796+00:00",
+      "elapsed_seconds": 2.037,
+      "log": ".runtime/reviewer005/checks/container-isolation.log",
+      "log_sha256": "3ebe237168d5d7b222a8c63d0ea862f31c27a1dfc68e63b61ac375db93cebcf3"
+    },
+    "container-repair": {
+      "name": "container-repair",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        "-m",
+        "scripts.reviewer_repair",
+        "--runtime",
+        "/Users/gauravkumarnayak/Desktop/resume/kairos-improve006/.runtime/reviewer005",
+        "--evidence",
+        "/Users/gauravkumarnayak/Desktop/resume/kairos-improve006/dashboard/evidence"
+      ],
+      "started_at": "2026-10-13T14:30:17.303411+00:00",
+      "elapsed_seconds": 19.742,
+      "log": ".runtime/reviewer005/checks/container-repair.log",
+      "log_sha256": "e9b3a705f5e5d3dd4d9ae649e1a7aa492c30d38205825136775de623777f20e0"
+    },
+    "container-smoke": {
+      "name": "container-smoke",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        "-m",
+        "scripts.verify_images",
+        "--build",
+        "006"
+      ],
+      "started_at": "2026-10-13T14:37:37.784857+00:00",
+      "elapsed_seconds": 4.723,
+      "log": ".runtime/reviewer005/checks/container-smoke.log",
+      "log_sha256": "c03e47d55e3657b1827c1ca56ef602ca2ea941ac949c65c3504af7ff531497c9"
+    },
+    "database-provision": {
+      "name": "database-provision",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        "-m",
+        "scripts.reviewer_services",
+        "prepare",
+        "--runtime",
+        "/Users/gauravkumarnayak/Desktop/resume/kairos-improve006/.runtime/reviewer005",
+        "--evidence",
+        "/Users/gauravkumarnayak/Desktop/resume/kairos-improve006/dashboard/evidence"
+      ],
+      "started_at": "2026-10-13T14:08:01.156883+00:00",
+      "elapsed_seconds": 24.007,
+      "log": ".runtime/reviewer005/checks/database-provision.log",
+      "log_sha256": "a62ebd8de70dca4c894acf006f812b5e008d83e9e545d91bde89a66a31403fce"
+    },
+    "frontend-audit": {
+      "name": "frontend-audit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "started_at": "2026-10-13T14:43:06.659346+00:00",
+      "elapsed_seconds": 0.955,
+      "log": ".runtime/reviewer005/checks/frontend-audit.log",
+      "log_sha256": "581e78fdf9d0d212d245828e418d0691f60930b7cb5abd60c62483d8b6a4dfe5"
+    },
+    "frontend-boundary": {
+      "name": "frontend-boundary",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "npm",
+        "run",
+        "test:boundary"
+      ],
+      "started_at": "2026-10-13T13:58:20.921371+00:00",
+      "elapsed_seconds": 0.24,
+      "log": ".runtime/reviewer005/checks/frontend-boundary.log",
+      "log_sha256": "46ea141f6a09ffbf5c68479d3ebf7abe41a10652a4056fdfb699c17ed7ca86de"
+    },
+    "frontend-build": {
+      "name": "frontend-build",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "started_at": "2026-10-13T14:04:41.172172+00:00",
+      "elapsed_seconds": 3.769,
+      "log": ".runtime/reviewer005/checks/frontend-build.log",
+      "log_sha256": "d28a83be166eff506a414a3d3020bb2979a85245c7d02085177cdbe8daad9ee2"
+    },
+    "frontend-client": {
+      "name": "frontend-client",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "npm",
+        "run",
+        "test:client"
+      ],
+      "started_at": "2026-10-13T13:58:35.474180+00:00",
+      "elapsed_seconds": 0.24,
+      "log": ".runtime/reviewer005/checks/frontend-client.log",
+      "log_sha256": "c107e0176fca8eae8b33a64bb1c086c02dd2a4d18a6e66f5df39d288b56c37cb"
+    },
+    "frontend-lint": {
+      "name": "frontend-lint",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "started_at": "2026-10-13T13:58:46.841273+00:00",
+      "elapsed_seconds": 3.581,
+      "log": ".runtime/reviewer005/checks/frontend-lint.log",
+      "log_sha256": "7014c06d1e55985a30dcbb5cdfbbc199ae9b3137927de33a88ff4194f6324005"
+    },
+    "frontend-recorded": {
+      "name": "frontend-recorded",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "npm",
+        "run",
+        "test:recorded"
+      ],
+      "started_at": "2026-10-13T13:58:09.135071+00:00",
+      "elapsed_seconds": 3.117,
+      "log": ".runtime/reviewer005/checks/frontend-recorded.log",
+      "log_sha256": "376e811b1dab9aec24f0e12308250b46380ca1fffde575ecc40a847eef7b46cc"
+    },
+    "frontend-types": {
+      "name": "frontend-types",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "started_at": "2026-10-13T14:00:01.345043+00:00",
+      "elapsed_seconds": 2.624,
+      "log": ".runtime/reviewer005/checks/frontend-types.log",
+      "log_sha256": "3efb13f0ca97806a195464b37a3dc3265d74cfa773059c4445002b1d9230e2df"
+    },
+    "live-browser": {
+      "name": "live-browser",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "node_modules/.bin/playwright",
+        "test",
+        "--config",
+        "playwright.reviewer.config.ts"
+      ],
+      "started_at": "2026-10-13T14:23:26.404130+00:00",
+      "elapsed_seconds": 6.236,
+      "log": ".runtime/reviewer005/checks/live-browser.log",
+      "log_sha256": "9c37fbe04b4dec2e4412722e47ade18bb44370144651e4c52d59c09ef260fe1f"
+    },
+    "live-private-state": {
+      "name": "live-private-state",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        "-m",
+        "scripts.verify_reviewer005",
+        "--runtime",
+        "/Users/gauravkumarnayak/Desktop/resume/kairos-improve006/.runtime/reviewer005",
+        "--output",
+        "evidence/build006/private-state.json"
+      ],
+      "started_at": "2026-10-13T14:28:16.230454+00:00",
+      "elapsed_seconds": 0.037,
+      "log": ".runtime/reviewer005/checks/live-private-state.log",
+      "log_sha256": "a069aa4cc44ad0e430f60cff08f6e7c1353a6bedddfc83c91700e45e2455c861"
+    },
+    "live-repeatability": {
+      "name": "live-repeatability",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        ".runtime/repeat006.py"
+      ],
+      "started_at": "2026-10-13T14:31:39.619161+00:00",
+      "elapsed_seconds": 3.106,
+      "log": ".runtime/reviewer005/checks/live-repeatability.log",
+      "log_sha256": "b50455d0827b7cb330a185e3ddd6b0c18e7b2b42b2bbe706bb082b8f62a770bf"
+    },
+    "packaging-unit": {
+      "name": "packaging-unit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_package_release006.py",
+        "-q",
+        "--tb=short",
+        "--junitxml=evidence/build006/packaging-unit.xml"
+      ],
+      "started_at": "2026-10-13T15:00:53.088784+00:00",
+      "elapsed_seconds": 0.482,
+      "log": ".runtime/reviewer005/checks/packaging-unit.log",
+      "log_sha256": "f45e0e8db2e1a88c2d333e3218651c0051b8ccb928bd2760f465f389fb531492"
+    },
+    "python-install": {
+      "name": "python-install",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "-r",
+        "requirements-api.lock"
+      ],
+      "started_at": "2026-10-13T13:58:34.308276+00:00",
+      "elapsed_seconds": 4.404,
+      "log": ".runtime/reviewer005/checks/python-install.log",
+      "log_sha256": "cabf2169ac941c0f93ddfe2dd5b350356cca43f2978e7756d82bf788e7b0143c"
+    },
+    "recorded-browser": {
+      "name": "recorded-browser",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "node_modules/.bin/playwright",
+        "test",
+        "--config",
+        "playwright.recorded.config.ts"
+      ],
+      "started_at": "2026-10-13T14:03:27.346952+00:00",
+      "elapsed_seconds": 4.68,
+      "log": ".runtime/reviewer005/checks/recorded-browser.log",
+      "log_sha256": "71aff4cefab03da39e1584d3dcb1e27ec3bffb4ff45f012fe5d2dfe56cc72010"
+    },
+    "restore-database": {
+      "name": "restore-database",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        ".runtime/reviewer005/venv/bin/python",
+        ".runtime/restore006.py"
+      ],
+      "started_at": "2026-10-13T14:28:03.362655+00:00",
+      "elapsed_seconds": 2.65,
+      "log": ".runtime/reviewer005/checks/restore-database.log",
+      "log_sha256": "d20c607cdca947b23dbc9db885c8ba7f2ceaf237d590ed686d5137b03f3ab426"
+    },
+    "clean_checkout": {
+      "passed": true,
+      "receipt": "clean-checkout-summary.json",
+      "sha256": "7b2ef3bdc4e12d3e751346883fa4c568aa8c7f1490bfe207d279d7c2659d48b2"
+    },
+    "published_package": {
+      "passed": true,
+      "receipt": "package-validation.json",
+      "sha256": "e36e12286baac8ab75adf43481a4bf3be87c938f88b5d716138f5c111a0ba3b5"
+    },
+    "source_isolation": {
+      "passed": true,
+      "receipt": "source-isolation.json",
+      "sha256": "8da57c229e8f4634a631be20d11614e8cebe190e88e727201ad86b31d7cc74d3"
+    },
+    "historical_preservation": {
+      "passed": true,
+      "receipt": "historical-preservation.json",
+      "sha256": "9898d91cdfc85f387761fab3c15b3c38d7a9364c96f10ab6bb05b560a55f547e"
+    },
+    "credential_alignment": {
+      "passed": true,
+      "receipt": "credential-alignment.json",
+      "sha256": "f9a8862db69038e68c0a4f60efe194d9561a8ed707fa6aa9816b069c27bf64e1"
+    },
+    "repeat_setup": {
+      "passed": true,
+      "receipt": "setup-repeatability.json",
+      "sha256": "29392f97f54d08b31fa1f919a8fcc23c18b322ccf5eeec783c94358bd17cb22f"
+    },
+    "crash_recovery": {
+      "passed": true,
+      "receipt": "crash-recovery.json",
+      "sha256": "22547ac1868946aea8daa2642aca236e64fb6a22302d2f2ba7b5a9c4e3e4e510"
+    },
+    "restoration": {
+      "passed": true,
+      "receipt": "restore-with-blobs.json",
+      "sha256": "e5014636a337f1b345f382b4022ec528bfa0432cf95b65fc3db88ae1a9f26100"
+    },
+    "saved_repair": {
+      "passed": true,
+      "receipt": "repair-reproduction.json"
+    },
+    "clean_recorded_browser": {
+      "passed": true,
+      "tests": 6,
+      "receipt": "clean-recorded-browser.json"
+    },
+    "final_shutdown": {
+      "passed": true,
+      "receipt": "shutdown-final.json"
+    },
+    "dependency_advisories": {
+      "passed": true,
+      "npm_known": 0,
+      "python_known": 0,
+      "receipts": [
+        "npm-audit.json",
+        "python-audit.json"
+      ]
+    },
+    "preserved_original_files": {
+      "passed": true,
+      "receipt": "original-only-files.json"
+    }
+  },
+  "backend": {
+    "passed": 291,
+    "skipped": 6,
+    "scope": "Last full PostgreSQL suite:291 passed/six opt-in skips. A later packaging-only correction passed21 focused tests; the two new regressions are also in clean recorded acceptance. Invocations are separate."
+  },
+  "frontend": {
+    "unit_tests": 18,
+    "recorded_browser_tests": 6,
+    "real_oidc_browser_tests": 4,
+    "lint": "passed",
+    "types": "passed",
+    "production_build": "passed"
+  },
+  "containers": {
+    "image_smoke_checks": 21,
+    "real_isolation_test": "passed"
+  },
+  "repair_reproduction": {
+    "tests_run": 110,
+    "skipped": 1,
+    "outcome_reproduced": true,
+    "environment_changed": true
+  },
+  "clean_source": {
+    "backend_passed": 192,
+    "backend_skipped": 107,
+    "reason": "Database/OIDC/model opt-ins intentionally absent in recorded-only run. Actual database/OIDC acceptance is separately recorded."
+  },
+  "new_inference_during_acceptance": 0,
+  "model_outcomes": {
+    "historical_validation": {
+      "verified": 0,
+      "attempts": 36
+    },
+    "fresh_v5_validation": {
+      "verified": 0,
+      "attempts": 10
+    },
+    "new_development": {
+      "verified": 6,
+      "attempts": 18,
+      "distinct_verified_cases": 1
+    }
+  },
+  "scope": "Local software release acceptance; model quality is not a passing release metric. No hosted CI, external publication, production scale or outside adoption claim.",
+  "packaging_regressions": {
+    "passed": 21,
+    "separate_invocation": true
+  }
+}

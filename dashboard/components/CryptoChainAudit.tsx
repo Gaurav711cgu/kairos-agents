@@ -138,7 +138,7 @@ export function CryptoChainAudit() {
 
       {/* Nodes visualizer */}
       <div className="mt-4 space-y-3">
-        {nodes.map((node, i) => {
+        {nodes.map((node) => {
           const currentHash = computedHashes[node.seq];
           const isValid = currentHash === node.expectedHash;
 
