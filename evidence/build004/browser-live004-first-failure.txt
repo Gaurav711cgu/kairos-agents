@@ -1,0 +1,142 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+ExpectError: expect(locator).toBeVisible() failed
+
+Locator: getByText('36 recorded attempts', { exact: true })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" getByText('36 recorded attempts', { exact: true }) with timeout 5000ms
+  - waiting for getByText('36 recorded attempts', { exact: true })
+
+    at captureRawStack (/Users/gauravkumarnayak/Desktop/new-karos/dashboard/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/gauravkumarnayak/Desktop/new-karos/dashboard/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBeVisible (/Users/gauravkumarnayak/Desktop/new-karos/dashboard/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at /Users/gauravkumarnayak/Desktop/new-karos/dashboard/[eval1]:11:68 {
+  matcherResult: {
+    message: 'expect(locator).toBeVisible() failed\n' +
+      '\n' +
+      "Locator: getByText('36 recorded attempts', { exact: true })\n" +
+      'Expected: visible\n' +
+      'Timeout: 5000ms\n' +
+      'Error: element(s) not found\n' +
+      '\n' +
+      'Call log:\n' +
+      `  - Expect "toBeVisible" getByText('36 recorded attempts', { exact: true }) with timeout 5000ms\n` +
+      "  - waiting for getByText('36 recorded attempts', { exact: true })\n",
+    pass: false,
+    actual: undefined,
+    name: 'toBeVisible',
+    expected: 'visible',
+    log: [
+      `  - Expect "toBeVisible" getByText('36 recorded attempts', { exact: true }) with timeout 5000ms`,
+      "  - waiting for getByText('36 recorded attempts', { exact: true })"
+    ],
+    timeout: 5000,
+    ariaSnapshot: '- link "Skip to content":\n' +
+      '  - /url: "#main"\n' +
+      '- banner:\n' +
+      '  - link "Kairos home":\n' +
+      '    - /url: /\n' +
+      '    - text: Kairos Build 004\n' +
+      '  - navigation "Main navigation":\n' +
+      '    - link "Investigations":\n' +
+      '      - /url: /investigations\n' +
+      '    - link "Engineering":\n' +
+      '      - /url: /engineering\n' +
+      '    - link "Repair study":\n' +
+      '      - /url: /study\n' +
+      '    - link "Capacity":\n' +
+      '      - /url: /capacity\n' +
+      '    - link "History":\n' +
+      '      - /url: /history\n' +
+      '    - link "Workbench":\n' +
+      '      - /url: /workbench\n' +
+      '    - link "Docs":\n' +
+      '      - /url: /docs\n' +
+      '- main:\n' +
+      '  - text: Real repository investigations Records unavailable Kairos / Repository investigation\n' +
+      '  - heading "Read the attempt. Judge the result." [level=1]:\n' +
+      '    - text: Read the attempt.\n' +
+      '    - emphasis: Judge the result.\n' +
+      '  - paragraph: An agent proposes a source change. Independent checks decide whether it works.\n' +
+      '  - paragraph: Historical bugs with pinned source and reproducible tests. Follow the evidence selected, inspect the actual model response, and compare the inference cost and observed outcome.\n' +
+      '  - link "Inspect an investigation":\n' +
+      '    - /url: /investigations/675c07ae-e13d-4ba2-9d43-dd7ec9cc1385\n' +
+      '  - link "All attempts":\n' +
+      '    - /url: /investigations\n' +
+      '  - link "Engineering decisions":\n' +
+      '    - /url: /engineering\n' +
+      '  - term: Real cases evaluated\n' +
+      '  - definition: —\n' +
+      '  - term: Verified repairs\n' +
+      '  - definition: — unavailable\n' +
+      '  - term: API spend\n' +
+      '  - definition: $0 local inference\n' +
+      '  - paragraph: Twelve evaluation cases across Django, pytest and Requests. Three frozen strategies. Human-selected source regions. Small historical sample; no general performance claim.\n' +
+      '  - text: Published case file · Original study Single call\n' +
+      '  - heading "Uploaded files receive inconsistent permissions" [level=2]\n' +
+      '  - paragraph: django/django · e7fd69d051ea\n' +
+      '  - text: Observed result\n' +
+      '  - heading "Verified repair" [level=3]\n' +
+      '  - paragraph: 1 model call · 1 patch proposal · 1 check run\n' +
+      '  - region "Proposed patch excerpt": "--- a/django/conf/global_settings.py +++ b/django/conf/global_settings.py @@ -304,7 +304,7 @@ -FILE_UPLOAD_PERMISSIONS = None +FILE_UPLOAD_PERMISSIONS = 0o644"\n' +
+      '  - link "Open source, context and checks":\n' +
+      '    - /url: /investigations/675c07ae-e13d-4ba2-9d43-dd7ec9cc1385\n' +
+      '  - text: How to review a result\n' +
+      '  - heading "Start with the failure. Follow the evidence." [level=2]:\n' +
+      '    - text: Start with the failure.\n' +
+      '    - emphasis: Follow the evidence.\n' +
+      '  - paragraph: A repair must fix the reproduced regression and pass the relevant existing tests.\n' +
+      '  - article:\n' +
+      '    - text: "01"\n' +
+      '    - heading "Inspect the source" [level=3]\n' +
+      '    - paragraph: Each case identifies the issue, pinned revision and reproduction command. A baseline failure and passing reference repair establish the case before the agent runs.\n' +
+      '  - article:\n' +
+      '    - text: "02"\n' +
+      '    - heading "Read the proposed change" [level=3]\n' +
+      '    - paragraph: The model supplies exact source replacements. Kairos constructs the diff and rejects changes outside approved source paths. Every rejected proposal remains inspectable.\n' +
+      '  - article:\n' +
+      '    - text: "03"\n' +
+      '    - heading "Check the result" [level=3]\n' +
+      '    - paragraph: Checks run in a separate disposable environment without network access. A model saying it succeeded cannot approve its own repair.\n' +
+      '  - text: Recorded comparison\n' +
+      '  - heading "What actually happened." [level=2]\n' +
+      '  - paragraph: Open an attempt to compare the frozen strategies on the same source. Earlier development attempts remain in the full record.\n' +
+      '  - status:\n' +
+      '    - text: Evidence unavailable\n' +
+      '    - heading "Records are unavailable" [level=3]\n' +
+      '    - paragraph: The frozen study is unavailable. No partial comparison shown.\n' +
+      '    - button "Retry evidence request ↗"\n' +
+      '  - link "View the complete attempt ledger":\n' +
+      '    - /url: /investigations\n' +
+      '  - text: Engineering boundaries\n' +
+      '  - heading "Claims you can inspect." [level=2]\n' +
+      '  - paragraph: Local correctness checks do not establish production readiness or customer adoption.\n' +
+      '  - term: Saved before acceptance\n' +
+      '  - definition: PostgreSQL commits the request identity before the API returns 202. Reusing the identity with a different command returns a conflict.\n' +
+      '  - term: Uncertain calls stay uncertain\n' +
+      '  - definition: Dispatch intent is saved before inference. A crash without a captured response never triggers a silent retry.\n' +
+      '  - term: Changes remain isolated\n' +
+      '  - definition: Tools operate on immutable source snapshots and disposable copies. Downloads contain proposed patches; they do not alter your working repository.\n' +
+      '  - term: Evaluation has limits\n' +
+      '  - definition: The active comparison covers twelve locked evaluation cases with human-selected source entry points. Public issues may have appeared in training data. The comparison is descriptive.\n' +
+      '  - link "Read the architecture":\n' +
+      '    - /url: /engineering\n' +
+      '  - link "Historical synthetic demonstrations":\n' +
+      '    - /url: /history\n' +
+      '- contentinfo:\n' +
+      '  - link "Kairos":\n' +
+      '    - /url: /\n' +
+      '  - paragraph: Repository investigations, source changes and independent checks. Real historical cases. Earlier synthetic demonstrations remain labeled.\n' +
+      '  - link "Read the guarantees":\n' +
+      '    - /url: /#guarantees\n' +
+      '- alert'
+  }
+}
+
+Node.js v24.15.0

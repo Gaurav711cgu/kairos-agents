@@ -284,3 +284,100 @@ def test_blob_reference_substitution_detected_even_when_object_digest_is_valid(r
     with repository.connect() as connection:
         connection.execute("UPDATE kairos_jobs SET response=%s WHERE id=%s",(Jsonb({"body":replacement,"blob":blob}),queued["id"]))
     assert not repository.read(queued["id"],"tenant-a")["integrity"]["verified"]
+
+
+@pytest.mark.parametrize("skew_days",[-365,365])
+def test_worker_clock_skew_cannot_extend_or_prematurely_expire_lease(repository,monkeypatch,skew_days):
+    import datetime as dates
+    import kairos_api.jobs_repository as module
+    real_datetime = dates.datetime
+    class ClockType(type):
+        def __instancecheck__(cls,value):
+            return isinstance(value,real_datetime)
+    class SkewedDatetime(real_datetime,metaclass=ClockType):
+        @classmethod
+        def now(cls,tz=None):
+            return real_datetime.now(tz)+dates.timedelta(days=skew_days)
+    monkeypatch.setattr(module,"datetime",SkewedDatetime)
+    queued = enqueue(repository)
+    claimed = repository.claim("skewed-host")
+    # A future host clock cannot reject a lease that the database still owns.
+    assert repository.dispatch_intent(claimed,model_request(claimed["context_blocks"]))
+    repository.capture_response(claimed,VALID)
+    assert repository.finish(claimed,result={"grade":{"passed":True},"decision":{}})["status"] == "succeeded"
+    stale_job = enqueue(repository,"expired")
+    stale = repository.claim("late-host")
+    expire(repository,stale_job["id"])
+    # A past host clock cannot authorize a response after database lease expiry.
+    with pytest.raises(RuntimeError,match="Stale"):
+        repository.dispatch_intent(stale,model_request(stale["context_blocks"]))
+    assert repository.reclaim_expired() == 1
+    assert repository.read(queued["id"],"tenant-a")["integrity"]["verified"]
+
+
+@pytest.mark.parametrize("skew_days",[-365,365])
+def test_expired_database_deadline_blocks_dispatch_finish_and_requeue(repository,monkeypatch,skew_days):
+    import datetime as dates
+    import kairos_api.jobs_repository as module
+    real_datetime = dates.datetime
+    class ClockType(type):
+        def __instancecheck__(cls,value):
+            return isinstance(value,real_datetime)
+    class SkewedDatetime(real_datetime,metaclass=ClockType):
+        @classmethod
+        def now(cls,tz=None):
+            return real_datetime.now(tz)+dates.timedelta(days=skew_days)
+    monkeypatch.setattr(module,"datetime",SkewedDatetime)
+    queued = enqueue(repository)
+    claimed = repository.claim("deadline-host")
+    with repository.connect() as connection:
+        connection.execute("UPDATE kairos_jobs SET deadline_at=clock_timestamp()-interval '1 second' WHERE id=%s",(queued["id"],))
+    assert repository.dispatch_intent(claimed,model_request(claimed["context_blocks"])) is False
+    finished = repository.finish(claimed,result={"grade":{"passed":True},"decision":{}})
+    assert finished["status"] == "failed" and finished["error"]["code"] == "deadline_exhausted"
+    second = enqueue(repository,"reclaim-deadline")
+    repository.claim("expired-owner")
+    with repository.connect() as connection:
+        connection.execute("UPDATE kairos_jobs SET deadline_at=clock_timestamp()-interval '1 second',lease_expires_at=clock_timestamp()-interval '1 second' WHERE id=%s",(second["id"],))
+    repository.reclaim_expired()
+    assert repository.read(second["id"],"tenant-a")["status"] == "failed"
+
+
+def test_non_utc_database_session_preserves_historical_event_hashes(repository):
+    queued = enqueue(repository)
+    before = repository.read(queued["id"],"tenant-a")
+    original = repository.connect
+    def non_utc():
+        connection = original()
+        connection.execute("SET TIME ZONE 'America/New_York'")
+        connection.commit()
+        return connection
+    repository.connect = non_utc
+    assert repository.read(queued["id"],"tenant-a")["integrity"]["verified"]
+    result = JobWorker(repository,lambda _:VALID).run_once()
+    assert result["integrity"]["verified"]
+    assert all(event["created_at"].endswith("+00:00") for event in result["events"])
+    assert result["events"][:len(before["events"])] == before["events"]
+    repository.connect = original
+    assert repository.replay(queued["id"],"tenant-a")["integrity"]["verified"]
+
+
+def test_known_response_continuation_rejects_new_code_version_but_replay_survives(repository,monkeypatch):
+    import kairos_api.jobs_repository as module
+    queued = enqueue(repository)
+    job = repository.claim("historical-worker")
+    repository.dispatch_intent(job,model_request(job["context_blocks"]))
+    repository.capture_response(job,VALID)
+    expire(repository,queued["id"])
+    repository.reclaim_expired()
+    original = module.input_snapshot
+    def changed(*args):
+        snapshot = original(*args)
+        snapshot["source_digests"]["model_runtime.py"] = "f"*64
+        return snapshot
+    monkeypatch.setattr(module,"input_snapshot",changed)
+    assert repository.replay(queued["id"],"tenant-a")["integrity"]["verified"]
+    with pytest.raises(HTTPException) as error:
+        repository.recover(queued["id"],"tenant-a")
+    assert error.value.status_code == 409
+    assert repository.read(queued["id"],"tenant-a")["model_calls"] == 1

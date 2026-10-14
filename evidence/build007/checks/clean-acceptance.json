@@ -1,0 +1,219 @@
+{
+  "version": "reviewer-acceptance-v1",
+  "started_at": "2026-10-13T19:08:21.512732+00:00",
+  "finished_at": "2026-10-13T19:09:29.382167+00:00",
+  "fullstack": false,
+  "passed": true,
+  "checks": [
+    {
+      "name": "backend",
+      "started_at": "2026-10-13T19:09:21.162767+00:00",
+      "command": [
+        "<clean-checkout>/.runtime/reviewer005/venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_api_boundary.py",
+        "tests/test_api_postgres.py",
+        "tests/test_api_runner.py",
+        "tests/test_check_capture007.py",
+        "tests/test_context_v5.py",
+        "tests/test_edits_v5.py",
+        "tests/test_effects_postgres.py",
+        "tests/test_evaluation.py",
+        "tests/test_free_model_pilot.py",
+        "tests/test_harness.py",
+        "tests/test_identity.py",
+        "tests/test_identity_app.py",
+        "tests/test_identity_provider.py",
+        "tests/test_ingest_contracts.py",
+        "tests/test_investigations.py",
+        "tests/test_investigations_advancement.py",
+        "tests/test_jobs_model.py",
+        "tests/test_jobs_postgres.py",
+        "tests/test_migrations007.py",
+        "tests/test_operations_backup.py",
+        "tests/test_package_release006.py",
+        "tests/test_package_release007.py",
+        "tests/test_protocol_v7.py",
+        "tests/test_replay_divergence.py",
+        "tests/test_reviewer_evidence.py",
+        "tests/test_reviewer_runtime.py",
+        "tests/test_statistical_gate.py",
+        "tests/test_study007.py",
+        "tests/test_v5_postgres.py",
+        "tests/test_v7_postgres.py",
+        "-q",
+        "--tb=short",
+        "--junitxml=<clean-checkout>/.runtime/reviewer005/checks/backend.xml"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 8.214,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/backend.log"
+    },
+    {
+      "name": "browser-install",
+      "started_at": "2026-10-13T19:08:53.364079+00:00",
+      "command": [
+        "<clean-checkout>/dashboard/node_modules/.bin/playwright",
+        "install",
+        "chromium"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.518,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/browser-install.log"
+    },
+    {
+      "name": "fixture-browser",
+      "started_at": "2026-10-13T19:09:00.216462+00:00",
+      "command": [
+        "<clean-checkout>/dashboard/node_modules/.bin/playwright",
+        "test",
+        "--config",
+        "playwright.config.ts",
+        "--reporter=list,json"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 20.944,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/fixture-browser.log"
+    },
+    {
+      "name": "frontend-boundary",
+      "started_at": "2026-10-13T19:08:33.418938+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:boundary"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.297,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/frontend-boundary.log"
+    },
+    {
+      "name": "frontend-client",
+      "started_at": "2026-10-13T19:08:33.716829+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:client"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.238,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/frontend-client.log"
+    },
+    {
+      "name": "frontend-lint",
+      "started_at": "2026-10-13T19:08:38.059937+00:00",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 3.584,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/frontend-lint.log"
+    },
+    {
+      "name": "frontend-types",
+      "started_at": "2026-10-13T19:08:50.102233+00:00",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 2.328,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/frontend-types.log"
+    },
+    {
+      "name": "node-install",
+      "started_at": "2026-10-13T19:08:29.660715+00:00",
+      "command": [
+        "npm",
+        "ci",
+        "--no-audit"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 3.736,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/node-install.log"
+    },
+    {
+      "name": "python-install",
+      "started_at": "2026-10-13T19:08:22.732805+00:00",
+      "command": [
+        "<clean-checkout>/.runtime/reviewer005/venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "-r",
+        "<clean-checkout>/requirements-reviewer.lock"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 6.918,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/python-install.log"
+    },
+    {
+      "name": "recorded-browser",
+      "started_at": "2026-10-13T19:08:53.882727+00:00",
+      "command": [
+        "<clean-checkout>/dashboard/node_modules/.bin/playwright",
+        "test",
+        "--config",
+        "playwright.recorded.config.ts"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 6.294,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/recorded-browser.log"
+    },
+    {
+      "name": "recorded-package",
+      "started_at": "2026-10-13T19:08:33.955113+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:recorded"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 4.104,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/recorded-package.log"
+    },
+    {
+      "name": "website-build-recorded",
+      "started_at": "2026-10-13T19:08:41.844212+00:00",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 8.245,
+      "log": "<clean-checkout>/.runtime/reviewer005/checks/website-build-recorded.log"
+    }
+  ],
+  "backend": {
+    "tests": 399,
+    "skipped": 122,
+    "failed": 0
+  },
+  "omissions": [
+    "PostgreSQL and actual OIDC journeys were not selected; use check --fullstack for full acceptance.",
+    "Real model/Docker opt-in probes retain separate build004 receipts; no inference was run.",
+    "Historical repair reproduction is a separate reviewer repair command and receipt.",
+    "Capacity and frozen model studies were preserved rather than rerun."
+  ],
+  "backend_scope": [
+    "test_*.py"
+  ],
+  "inference_calls": 0
+}

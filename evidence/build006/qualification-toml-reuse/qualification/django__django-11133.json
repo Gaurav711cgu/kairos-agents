@@ -1,0 +1,92 @@
+{
+  "baseline": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 1.399,
+    "stderr": "test_response (httpwrappers.tests.FileCloseTests) ... ok\ntest_streaming_response (httpwrappers.tests.FileCloseTests) ... ok\ntest_invalid_redirect_repr (httpwrappers.tests.HttpResponseSubclassesTests)\nIf HttpResponseRedirect raises DisallowedRedirect, its __repr__() ... ok\ntest_not_allowed (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_not_allowed_repr (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_not_allowed_repr_no_content_type (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_not_modified (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_not_modified_repr (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_redirect (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_redirect_lazy (httpwrappers.tests.HttpResponseSubclassesTests)\nMake sure HttpResponseRedirect works with lazy strings. ... ok\ntest_redirect_repr (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_json_response_custom_encoder (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_list (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_non_ascii (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_passing_arguments_to_json_dumps (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_raises_type_error_with_default_setting (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_text (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_uuid (httpwrappers.tests.JsonResponseTests) ... ok\ntest_basic_mutable_operations (httpwrappers.tests.QueryDictTests) ... ok\ntest_create_with_no_args (httpwrappers.tests.QueryDictTests) ... ok\ntest_duplicates_in_fromkeys_iterable (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_empty_iterable (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_is_immutable_by_default (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_mutable_override (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_noniterable (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_with_nondefault_encoding (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_with_nonempty_value (httpwrappers.tests.QueryDictTests) ... ok\ntest_immutability (httpwrappers.tests.QueryDictTests) ... ok\ntest_immutable_basic_operations (httpwrappers.tests.QueryDictTests) ... ok\ntest_immutable_get_with_default (httpwrappers.tests.QueryDictTests) ... ok\ntest_missing_key (httpwrappers.tests.QueryDictTests) ... ok\ntest_multiple_keys (httpwrappers.tests.QueryDictTests)\nTest QueryDict with two key/value pairs with same keys. ... ok\ntest_mutable_copy (httpwrappers.tests.QueryDictTests)\nA copy of a QueryDict is mutable. ... ok\ntest_mutable_delete (httpwrappers.tests.QueryDictTests) ... ok\ntest_non_default_encoding (httpwrappers.tests.QueryDictTests)\n#13572 - QueryDict with a non-default encoding ... ok\ntest_pickle (httpwrappers.tests.QueryDictTests) ... ok\ntest_querydict_fromkeys (httpwrappers.tests.QueryDictTests) ... ok\ntest_single_key_value (httpwrappers.tests.QueryDictTests)\nTest QueryDict with one key/value pair ... ok\ntest_update_from_querydict (httpwrappers.tests.QueryDictTests)\nRegression test for #8278: QueryDict.update(QueryDict) ... ok\ntest_urlencode (httpwrappers.tests.QueryDictTests) ... ok\ntest_urlencode_int (httpwrappers.tests.QueryDictTests) ... ok\ntest_streaming_response (httpwrappers.tests.StreamingHttpResponseTests) ... ok\ntest_cookie_edgecases (httpwrappers.tests.CookieTests) ... ok\ntest_decode (httpwrappers.tests.CookieTests)\nSemicolons and commas are decoded. ... ok\ntest_encode (httpwrappers.tests.CookieTests)\nSemicolons and commas are encoded. ... ok\ntest_httponly_after_load (httpwrappers.tests.CookieTests) ... ok\ntest_invalid_cookies (httpwrappers.tests.CookieTests)\nCookie strings that go against RFC6265 but browsers will send if set ... ok\ntest_load_dict (httpwrappers.tests.CookieTests) ... ok\ntest_nonstandard_keys (httpwrappers.tests.CookieTests)\nA single non-standard cookie name doesn't affect all cookies (#13007). ... ok\ntest_pickle (httpwrappers.tests.CookieTests) ... ok\ntest_python_cookies (httpwrappers.tests.CookieTests)\nTest cases copied from Python's Lib/test/test_http_cookies.py ... ok\ntest_repeated_nonstandard_keys (httpwrappers.tests.CookieTests)\nA repeated non-standard name doesn't affect all cookies (#15852). ... ok\ntest_samesite (httpwrappers.tests.CookieTests) ... ok\ntest_dict_behavior (httpwrappers.tests.HttpResponseTests)\nTest for bug #14020: Make HttpResponse.get work like dict.get ... ok\ntest_file_interface (httpwrappers.tests.HttpResponseTests) ... ok\ntest_headers_type (httpwrappers.tests.HttpResponseTests) ... ok\ntest_iter_content (httpwrappers.tests.HttpResponseTests) ... ok\ntest_iterator_isnt_rewound (httpwrappers.tests.HttpResponseTests) ... ok\ntest_lazy_content (httpwrappers.tests.HttpResponseTests) ... ok\ntest_long_line (httpwrappers.tests.HttpResponseTests) ... ok\ntest_memoryview_content (httpwrappers.tests.HttpResponseTests) ... FAIL\ntest_newlines_in_headers (httpwrappers.tests.HttpResponseTests) ... ok\ntest_non_string_content (httpwrappers.tests.HttpResponseTests) ... ok\ntest_stream_interface (httpwrappers.tests.HttpResponseTests) ... ok\ntest_unsafe_redirect (httpwrappers.tests.HttpResponseTests) ... ok\n\n======================================================================\nFAIL: test_memoryview_content (httpwrappers.tests.HttpResponseTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/httpwrappers/tests.py\", line 371, in test_memoryview_content\n    self.assertEqual(r.content, b'memoryview')\nAssertionError: b'<memory at 0xffffaa119e80>' != b'memoryview'\n\n----------------------------------------------------------------------\nRan 65 tests in 0.005s\n\nFAILED (failures=1)\n\n",
+    "stdout": "Testing against Django installed in '/workspace/django'\nImporting application httpwrappers\nSkipping setup of unused database(s): default, other.\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 65, \"execution_complete\": true, \"complete\": false, \"regression_failed\": [\"test_memoryview_content (httpwrappers.tests.HttpResponseTests)\"], \"regression_passed\": []}\n",
+    "tests_run": 65,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "baseline_summary": {
+    "complete": false,
+    "execution_complete": true,
+    "regression_failed": [
+      "test_memoryview_content (httpwrappers.tests.HttpResponseTests)"
+    ],
+    "regression_passed": [],
+    "tests_run": 65
+  },
+  "case": {
+    "approved_prefix": "django/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "django/http/response.py"
+    ],
+    "id": "django__django-11133",
+    "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+    "issue": "HttpResponse doesn't handle memoryview objects\nDescription\n\t\nI am trying to write a BinaryField retrieved from the database into a HttpResponse. When the database is Sqlite this works correctly, but Postgresql returns the contents of the field as a memoryview object and it seems like current Django doesn't like this combination:\nfrom django.http import HttpResponse\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \n# String content\nresponse = HttpResponse(\"My Content\")\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\nresponse.content\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \n# Out: b'My Content'\n# This is correct\n# Bytes content\nresponse = HttpResponse(b\"My Content\")\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \nresponse.content\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \n# Out: b'My Content'\n# This is also correct\n# memoryview content\nresponse = HttpResponse(memoryview(b\"My Content\"))\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \nresponse.content\n# Out: b'<memory at 0x7fcc47ab2648>'\n# This is not correct, I am expecting b'My Content'\n",
+    "issue_url": "https://github.com/django/django/pull/11133",
+    "provenance": "Build006 fresh model-unattempted SWE-bench Verified case. Human-localized entry files only; no reference-derived line windows. Explicit preflight retries and hermetic verification omissions are recorded separately. Public training contamination possible.",
+    "qualified": true,
+    "reference_digest": "a0fd6d0a4a1c733a1c6f98cbb524604ea24e643c26c5fcb152be4bfb29fb1c3d",
+    "repository": "django/django",
+    "revision": "879cc3da6249e920b8d54518a0ae06de835d7373",
+    "source_digest": "713d6fc1f8245c75359c9d1998e3389ddfb0647cd4f7dbbca6c69959d5d04ea4",
+    "source_url": "https://github.com/django/django/tree/879cc3da6249e920b8d54518a0ae06de835d7373",
+    "split": "validation",
+    "title": "HttpResponse doesn't handle memoryview objects",
+    "verification_digest": "f06c21d045fbca805986fafdcb2e9afc41b6ef57c007584d7259febba53039a4"
+  },
+  "explicit_preflight_retry": false,
+  "id": "django__django-11133",
+  "patch_changed_lines": 2,
+  "qualified": true,
+  "reason": null,
+  "reference": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": true,
+    "returncode": 0,
+    "seconds": 1.273,
+    "stderr": "test_response (httpwrappers.tests.FileCloseTests) ... ok\ntest_streaming_response (httpwrappers.tests.FileCloseTests) ... ok\ntest_invalid_redirect_repr (httpwrappers.tests.HttpResponseSubclassesTests)\nIf HttpResponseRedirect raises DisallowedRedirect, its __repr__() ... ok\ntest_not_allowed (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_not_allowed_repr (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_not_allowed_repr_no_content_type (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_not_modified (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_not_modified_repr (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_redirect (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_redirect_lazy (httpwrappers.tests.HttpResponseSubclassesTests)\nMake sure HttpResponseRedirect works with lazy strings. ... ok\ntest_redirect_repr (httpwrappers.tests.HttpResponseSubclassesTests) ... ok\ntest_json_response_custom_encoder (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_list (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_non_ascii (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_passing_arguments_to_json_dumps (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_raises_type_error_with_default_setting (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_text (httpwrappers.tests.JsonResponseTests) ... ok\ntest_json_response_uuid (httpwrappers.tests.JsonResponseTests) ... ok\ntest_basic_mutable_operations (httpwrappers.tests.QueryDictTests) ... ok\ntest_create_with_no_args (httpwrappers.tests.QueryDictTests) ... ok\ntest_duplicates_in_fromkeys_iterable (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_empty_iterable (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_is_immutable_by_default (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_mutable_override (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_noniterable (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_with_nondefault_encoding (httpwrappers.tests.QueryDictTests) ... ok\ntest_fromkeys_with_nonempty_value (httpwrappers.tests.QueryDictTests) ... ok\ntest_immutability (httpwrappers.tests.QueryDictTests) ... ok\ntest_immutable_basic_operations (httpwrappers.tests.QueryDictTests) ... ok\ntest_immutable_get_with_default (httpwrappers.tests.QueryDictTests) ... ok\ntest_missing_key (httpwrappers.tests.QueryDictTests) ... ok\ntest_multiple_keys (httpwrappers.tests.QueryDictTests)\nTest QueryDict with two key/value pairs with same keys. ... ok\ntest_mutable_copy (httpwrappers.tests.QueryDictTests)\nA copy of a QueryDict is mutable. ... ok\ntest_mutable_delete (httpwrappers.tests.QueryDictTests) ... ok\ntest_non_default_encoding (httpwrappers.tests.QueryDictTests)\n#13572 - QueryDict with a non-default encoding ... ok\ntest_pickle (httpwrappers.tests.QueryDictTests) ... ok\ntest_querydict_fromkeys (httpwrappers.tests.QueryDictTests) ... ok\ntest_single_key_value (httpwrappers.tests.QueryDictTests)\nTest QueryDict with one key/value pair ... ok\ntest_update_from_querydict (httpwrappers.tests.QueryDictTests)\nRegression test for #8278: QueryDict.update(QueryDict) ... ok\ntest_urlencode (httpwrappers.tests.QueryDictTests) ... ok\ntest_urlencode_int (httpwrappers.tests.QueryDictTests) ... ok\ntest_streaming_response (httpwrappers.tests.StreamingHttpResponseTests) ... ok\ntest_cookie_edgecases (httpwrappers.tests.CookieTests) ... ok\ntest_decode (httpwrappers.tests.CookieTests)\nSemicolons and commas are decoded. ... ok\ntest_encode (httpwrappers.tests.CookieTests)\nSemicolons and commas are encoded. ... ok\ntest_httponly_after_load (httpwrappers.tests.CookieTests) ... ok\ntest_invalid_cookies (httpwrappers.tests.CookieTests)\nCookie strings that go against RFC6265 but browsers will send if set ... ok\ntest_load_dict (httpwrappers.tests.CookieTests) ... ok\ntest_nonstandard_keys (httpwrappers.tests.CookieTests)\nA single non-standard cookie name doesn't affect all cookies (#13007). ... ok\ntest_pickle (httpwrappers.tests.CookieTests) ... ok\ntest_python_cookies (httpwrappers.tests.CookieTests)\nTest cases copied from Python's Lib/test/test_http_cookies.py ... ok\ntest_repeated_nonstandard_keys (httpwrappers.tests.CookieTests)\nA repeated non-standard name doesn't affect all cookies (#15852). ... ok\ntest_samesite (httpwrappers.tests.CookieTests) ... ok\ntest_dict_behavior (httpwrappers.tests.HttpResponseTests)\nTest for bug #14020: Make HttpResponse.get work like dict.get ... ok\ntest_file_interface (httpwrappers.tests.HttpResponseTests) ... ok\ntest_headers_type (httpwrappers.tests.HttpResponseTests) ... ok\ntest_iter_content (httpwrappers.tests.HttpResponseTests) ... ok\ntest_iterator_isnt_rewound (httpwrappers.tests.HttpResponseTests) ... ok\ntest_lazy_content (httpwrappers.tests.HttpResponseTests) ... ok\ntest_long_line (httpwrappers.tests.HttpResponseTests) ... ok\ntest_memoryview_content (httpwrappers.tests.HttpResponseTests) ... ok\ntest_newlines_in_headers (httpwrappers.tests.HttpResponseTests) ... ok\ntest_non_string_content (httpwrappers.tests.HttpResponseTests) ... ok\ntest_stream_interface (httpwrappers.tests.HttpResponseTests) ... ok\ntest_unsafe_redirect (httpwrappers.tests.HttpResponseTests) ... ok\n\n----------------------------------------------------------------------\nRan 65 tests in 0.004s\n\nOK\n\n",
+    "stdout": "Testing against Django installed in '/workspace/django'\nImporting application httpwrappers\nSkipping setup of unused database(s): default, other.\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 65, \"execution_complete\": true, \"complete\": true, \"regression_failed\": [], \"regression_passed\": [\"test_memoryview_content (httpwrappers.tests.HttpResponseTests)\"]}\n",
+    "tests_run": 65,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "reference_summary": {
+    "complete": true,
+    "execution_complete": true,
+    "regression_failed": [],
+    "regression_passed": [
+      "test_memoryview_content (httpwrappers.tests.HttpResponseTests)"
+    ],
+    "tests_run": 65
+  },
+  "source": {
+    "archive_sha256": "457a86298d8131c9a7ee72f7fafee2706e56467130b178055e25d9aac70ebdb3",
+    "downloaded_bytes": 8834564,
+    "expanded_bytes": 36165041,
+    "reused_original_tree": true,
+    "source_url": "https://codeload.github.com/django/django/tar.gz/879cc3da6249e920b8d54518a0ae06de835d7373"
+  },
+  "test_scope": {
+    "completion": "All declared regression statuses and final unittest count required",
+    "declared_regressions": [
+      "test_memoryview_content (httpwrappers.tests.HttpResponseTests)"
+    ],
+    "omissions": [],
+    "test_modules": [
+      "httpwrappers.tests"
+    ]
+  }
+}

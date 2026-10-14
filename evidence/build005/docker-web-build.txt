@@ -1,0 +1,118 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.web
+#1 transferring dockerfile: 745B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 250B done
+#3 DONE 0.0s
+
+#4 [build 1/6] FROM docker.io/library/node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+#4 resolve docker.io/library/node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 8.28MB 0.1s done
+#5 DONE 0.1s
+
+#6 [build 2/6] WORKDIR /app
+#6 CACHED
+
+#7 [build 3/6] COPY dashboard/package*.json ./
+#7 DONE 0.0s
+
+#8 [build 4/6] RUN npm ci
+#8 2.810 npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+#8 11.61 
+#8 11.61 added 307 packages, and audited 308 packages in 11s
+#8 11.61 
+#8 11.61 133 packages are looking for funding
+#8 11.61   run `npm fund` for details
+#8 11.61 
+#8 11.61 found 0 vulnerabilities
+#8 11.61 npm notice
+#8 11.61 npm notice New major version of npm available! 11.19.0 -> 12.2.0
+#8 11.61 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+#8 11.61 npm notice To update run: npm install -g npm@12.2.0
+#8 11.61 npm notice
+#8 DONE 12.1s
+
+#9 [build 5/6] COPY dashboard/ ./
+#9 DONE 0.2s
+
+#10 [build 6/6] RUN npm run build
+#10 0.248 
+#10 0.248 > dashboard@0.1.0 build
+#10 0.248 > next build
+#10 0.248 
+#10 0.510 ▲ Next.js 16.4.0 (Turbopack)
+#10 0.542 ✓ Running next.config.ts took 32ms
+#10 0.549 
+#10 0.569   Creating an optimized production build ...
+#10 2.700 ✓ Compiled successfully in 2.1s
+#10 2.713   Running TypeScript ...
+#10 6.094   Finished TypeScript in 3.4s ...
+#10 6.105   Collecting page data using 7 workers ...
+#10 6.684   Generating static pages using 7 workers (0/3) ...
+#10 6.741 ✓ Generating static pages using 7 workers (3/3) in 56ms
+#10 6.744   Finalizing page optimization ...
+#10 6.910 
+#10 6.912 Route (app)
+#10 6.912 ┌ ƒ /
+#10 6.912 ├ ƒ /_not-found
+#10 6.912 ├ ƒ /api/local-fork/[id]
+#10 6.912 ├ ƒ /api/public-evaluations/[id]
+#10 6.912 ├ ƒ /api/public-incidents
+#10 6.912 ├ ƒ /api/public-investigations/[...path]
+#10 6.912 ├ ƒ /api/workbench/[...path]
+#10 6.912 ├ ƒ /capacity
+#10 6.912 ├ ƒ /dev/trace-stress
+#10 6.912 ├ ƒ /docs
+#10 6.912 ├ ƒ /engineering
+#10 6.912 ├ ƒ /evidence
+#10 6.912 ├ ƒ /executions
+#10 6.912 ├ ƒ /executions/[id]
+#10 6.912 ├ ƒ /history
+#10 6.912 ├ ƒ /incidents
+#10 6.912 ├ ƒ /incidents/[id]
+#10 6.912 ├ ƒ /investigations
+#10 6.912 ├ ƒ /investigations/[id]
+#10 6.912 ├ ƒ /reports
+#10 6.912 ├ ƒ /reports/[id]
+#10 6.912 ├ ƒ /study
+#10 6.912 └ ƒ /workbench
+#10 6.912 
+#10 6.912 
+#10 6.912 ƒ  (Dynamic)  server-rendered on demand
+#10 6.912 
+#10 DONE 7.1s
+
+#11 [stage-1 3/6] COPY --from=build --chown=node:node /app/.next/standalone ./
+#11 DONE 0.2s
+
+#12 [stage-1 4/6] COPY --from=build --chown=node:node /app/.next/static ./.next/static
+#12 DONE 0.0s
+
+#13 [stage-1 5/6] COPY --from=build --chown=node:node /app/public ./public
+#13 DONE 0.0s
+
+#14 [stage-1 6/6] COPY --from=build --chown=node:node /app/evidence ./evidence
+#14 DONE 0.1s
+
+#15 exporting to image
+#15 exporting layers
+#15 exporting layers 0.9s done
+#15 exporting manifest sha256:a986ab9a4ebf5204838cd975ebddced5cb097e842064c26ba6952fcf25e323ae done
+#15 exporting config sha256:8093fbe5c5c34daeaa3a621ffc0a953d4961ac1cc5fdcb92e9bf0b661265cffc done
+#15 exporting attestation manifest sha256:923c61215d6b7bf4a20324a9ab3f508cbd590c7e305ef0797ba2ad75c6eefe12 done
+#15 exporting manifest list sha256:5f4550eb6db76644dffc09434864547a4cf1b778f386591a2ceaa6f038ffb1a2 done
+#15 naming to docker.io/library/kairos-web:build005 done
+#15 unpacking to docker.io/library/kairos-web:build005
+#15 unpacking to docker.io/library/kairos-web:build005 0.3s done
+#15 DONE 1.2s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/b5xzs684dqhxouzg48q7xd2f1

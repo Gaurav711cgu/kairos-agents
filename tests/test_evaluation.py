@@ -1,5 +1,6 @@
 import os
 import math
+import json
 from uuid import uuid4
 import pytest
 from fastapi import HTTPException
@@ -46,3 +47,66 @@ def test_report_durable_scope_and_tamper():
  with pytest.raises(HTTPException) as e:repo.get(report['id'],tenant)
  assert e.value.status_code==409
  with repo.connect() as c:c.execute('DELETE FROM kairos_evaluations WHERE tenant_id=%s',(tenant,))
+
+
+@pytest.mark.parametrize("changes", [
+    {"alpha": 0}, {"alpha": 1}, {"alpha": float("nan")}, {"alpha": True},
+    {"noninferiority_margin": -0.1}, {"noninferiority_margin": float("inf")},
+    {"minimum_independent_tasks": 0}, {"minimum_independent_tasks": 1.5},
+    {"minimum_independent_tasks": True}, {"optional_stopping": True},
+])
+def test_invalid_release_plan_rejected(changes):
+    with pytest.raises(ValueError):
+        paired_gate(rows(), HARD, {**PLAN, **changes})
+
+
+def test_empty_plan_and_task_identity_rejected():
+    with pytest.raises(ValueError):
+        paired_gate(rows(), HARD, {})
+    with pytest.raises(ValueError):
+        paired_gate([{"task_id": "", "baseline_passed": True, "candidate_passed": True}], HARD)
+
+
+@pytest.mark.parametrize("scenario_id,raw", [
+    ("late-order-standard", '{"disposition":"zero","disposition":"refund","reason":"x","evidence_ids":["policy.base","order.receipt"]}'),
+    ("late-order-standard", '{"disposition":"refund","reason":NaN,"evidence_ids":["policy.base"]}'),
+    ("late-order-standard", '{"disposition":"refund","reason":Infinity,"evidence_ids":["policy.base"]}'),
+    ("late-order-standard", json.dumps({"disposition":"refund","reason":" " * 2000 + "x","evidence_ids":["policy.base"]})),
+    ("insufficient-evidence", '{"disposition":"abstain","reason":"Missing","evidence_ids":["order.receipt"]}'),
+    ("late-order-exception", '{"disposition":"zero","reason":"Exception","evidence_ids":["order.receipt"]}'),
+])
+def test_evaluation_and_durable_job_reject_same_raw_contract(scenario_id,raw):
+    from kairos_api.evaluation import grade
+    from kairos_api.model_runtime import classify_and_grade
+    from kairos_api.scenarios import get_scenario, assemble_context
+    task = get_scenario(scenario_id)
+    blocks = assemble_context(task, "preserve")
+    evaluation_grade = grade(task, raw, blocks)
+    durable_grade = classify_and_grade(scenario_id, blocks, {"raw_response": raw})
+    assert not evaluation_grade["schema_valid"]
+    assert not evaluation_grade["passed"]
+    assert durable_grade["parse_error"]
+
+
+def test_duplicate_key_model_observation_is_hard_failure(monkeypatch):
+    raw = '{"disposition":"zero","disposition":"refund","reason":"x","evidence_ids":["policy.base","order.receipt"]}'
+    monkeypatch.setattr('kairos_api.evaluation.call_model', lambda request: {"raw_response": raw})
+    report = evaluate('model', 'development')
+    assert report['candidate_passes'] == 0
+    assert report['gate']['verdict'] == 'fail'
+    assert next(check for check in report['hard_checks'] if check['name'] == 'candidate_strict_schema')['passed'] is False
+
+
+def test_source_dependencies_and_mixed_model_revisions_block(monkeypatch):
+ from kairos_api.evaluation import grade,reference
+ import json
+ counter=[0]
+ def response(request):
+  counter[0]+=1
+  # Valid transport metadata with a changing revision; semantic failures remain explicit.
+  return {"raw_response":json.dumps({"disposition":"zero","reason":"test","evidence_ids":["policy.base"]}),"model":"fixture","model_revision":str(counter[0]%2)}
+ monkeypatch.setattr('kairos_api.evaluation.call_model',response)
+ report=evaluate('model','development')
+ assert set(report['source_digests'])=={'evaluation.py','model_runtime.py','scenarios.py','grading.py'}
+ assert next(x for x in report['hard_checks'] if x['name']=='one_explicit_model_revision')['passed'] is False
+ assert report['gate']['verdict']=='fail'

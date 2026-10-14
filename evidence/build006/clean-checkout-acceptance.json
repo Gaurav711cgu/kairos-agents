@@ -1,0 +1,175 @@
+{
+  "version": "reviewer-acceptance-v1",
+  "started_at": "2026-10-13T15:01:19.732552+00:00",
+  "finished_at": "2026-10-13T15:01:38.364241+00:00",
+  "fullstack": false,
+  "passed": true,
+  "checks": [
+    {
+      "name": "backend",
+      "started_at": "2026-10-13T15:01:36.104531+00:00",
+      "command": [
+        "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_api_boundary.py",
+        "tests/test_api_postgres.py",
+        "tests/test_api_runner.py",
+        "tests/test_context_v5.py",
+        "tests/test_edits_v5.py",
+        "tests/test_effects_postgres.py",
+        "tests/test_evaluation.py",
+        "tests/test_identity.py",
+        "tests/test_identity_app.py",
+        "tests/test_identity_provider.py",
+        "tests/test_investigations.py",
+        "tests/test_investigations_advancement.py",
+        "tests/test_jobs_model.py",
+        "tests/test_jobs_postgres.py",
+        "tests/test_operations_backup.py",
+        "tests/test_package_release006.py",
+        "tests/test_reviewer_evidence.py",
+        "tests/test_reviewer_runtime.py",
+        "tests/test_v5_postgres.py",
+        "-q",
+        "--tb=short",
+        "--junitxml=/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/backend.xml"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 2.256,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/backend.log"
+    },
+    {
+      "name": "browser-install",
+      "started_at": "2026-10-13T15:01:30.616619+00:00",
+      "command": [
+        "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/dashboard/node_modules/.bin/playwright",
+        "install",
+        "chromium"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.29,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/browser-install.log"
+    },
+    {
+      "name": "frontend-boundary",
+      "started_at": "2026-10-13T15:01:19.733823+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:boundary"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.455,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/frontend-boundary.log"
+    },
+    {
+      "name": "frontend-client",
+      "started_at": "2026-10-13T15:01:20.189490+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:client"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.24,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/frontend-client.log"
+    },
+    {
+      "name": "frontend-lint",
+      "started_at": "2026-10-13T15:01:22.979422+00:00",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 2.852,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/frontend-lint.log"
+    },
+    {
+      "name": "frontend-types",
+      "started_at": "2026-10-13T15:01:28.913193+00:00",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.826,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/frontend-types.log"
+    },
+    {
+      "name": "recorded-browser",
+      "started_at": "2026-10-13T15:01:30.907390+00:00",
+      "command": [
+        "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/dashboard/node_modules/.bin/playwright",
+        "test",
+        "--config",
+        "playwright.recorded.config.ts"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 5.156,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/recorded-browser.log"
+    },
+    {
+      "name": "recorded-package",
+      "started_at": "2026-10-13T15:01:20.430880+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:recorded"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 2.548,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/recorded-package.log"
+    },
+    {
+      "name": "website-build-recorded",
+      "started_at": "2026-10-13T15:01:25.966818+00:00",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 2.936,
+      "log": "/Users/gauravkumarnayak/Desktop/resume/kairos-accept006/.runtime/reviewer005/checks/website-build-recorded.log"
+    }
+  ],
+  "backend": {
+    "tests": 299,
+    "skipped": 107,
+    "failed": 0
+  },
+  "omissions": [
+    "PostgreSQL and actual OIDC journeys were not selected; use check --fullstack for full acceptance.",
+    "Real model/Docker opt-in probes retain separate build004 receipts; no inference was run.",
+    "Historical repair reproduction is a separate reviewer repair command and receipt.",
+    "Capacity and frozen model studies were preserved rather than rerun."
+  ],
+  "backend_scope": [
+    "test_api_*.py",
+    "test_identity*.py",
+    "test_jobs*.py",
+    "test_evaluation.py",
+    "test_effects_postgres.py",
+    "test_operations_backup.py",
+    "test_investigations*.py",
+    "test_reviewer*.py",
+    "test_edits_v5.py",
+    "test_context_v5.py",
+    "test_v5_postgres.py",
+    "test_package_release006.py"
+  ],
+  "inference_calls": 0
+}

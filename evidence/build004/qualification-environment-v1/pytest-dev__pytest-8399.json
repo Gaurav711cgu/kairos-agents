@@ -1,0 +1,50 @@
+{
+  "id": "pytest-dev__pytest-8399",
+  "qualified": false,
+  "reason": "Baseline regression or reference repair did not reproduce under registered 1GB/120s environment",
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 11, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/test_unittest.py::test_fixtures_setup_setUpClass_issue8394', 'testing/test_unittest.py::test_simple_unittest', 'testing/test_unittest.py::test_runTest_method', 'testing/test_unittest.py::test_isclasscheck_issue53', 'testing/test_unittest.py::test_setup', 'testing/test_unittest.py::test_setUpModule', 'testing/test_unittest.py::test_setUpModule_failing_no_teardown', 'testing/test_unittest.py::test_new_instances', 'testing/test_unittest.py::test_function_item_obj_is_instance', 'testing/test_unittest.py::test_teardown', 'testing/test_unittest.py::test_teardown_issue1649', 'testing/test_unittest.py::test_unittest_skip_issue148', 'testing/test_unittest.py::test_method_and_teardown_failing_reporting', 'testing/test_unittest.py::test_setup_failure_is_shown', 'testing/test_unittest.py::test_setup_setUpClass', 'testing/test_unittest.py::test_setup_class', 'testing/test_unittest.py::test_testcase_adderrorandfailure_defers[Error]', 'testing/test_unittest.py::test_testcase_adderrorandfailure_defers[Failure]', 'testing/test_unittest.py::test_testcase_custom_exception_info[Error]', 'testing/test_unittest.py::test_testcase_custom_exception_info[Failure]', 'testing/test_unittest.py::test_testcase_totally_incompatible_exception_info'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 145, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 323, in _prepareconfig\n    pluginmanager.register(plugin)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 445, in register\n    ret: Optional[str] = super().register(plugin, name)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 114, in register\n    self._verify_hook(hook, hookimpl)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 232, in _verify_hook\n    raise PluginValidationError(\npluggy._manager.PluginValidationError: Plugin '281473627033408' for hook 'pytest_runtest_logreport'\nhookimpl definition: pytest_runtest_logreport(r)\nArgument(s) {'r'} are declared in the hookimpl but can not be found in the hookspec\n",
+    "seconds": 0.686,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 11, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/test_unittest.py::test_fixtures_setup_setUpClass_issue8394', 'testing/test_unittest.py::test_simple_unittest', 'testing/test_unittest.py::test_runTest_method', 'testing/test_unittest.py::test_isclasscheck_issue53', 'testing/test_unittest.py::test_setup', 'testing/test_unittest.py::test_setUpModule', 'testing/test_unittest.py::test_setUpModule_failing_no_teardown', 'testing/test_unittest.py::test_new_instances', 'testing/test_unittest.py::test_function_item_obj_is_instance', 'testing/test_unittest.py::test_teardown', 'testing/test_unittest.py::test_teardown_issue1649', 'testing/test_unittest.py::test_unittest_skip_issue148', 'testing/test_unittest.py::test_method_and_teardown_failing_reporting', 'testing/test_unittest.py::test_setup_failure_is_shown', 'testing/test_unittest.py::test_setup_setUpClass', 'testing/test_unittest.py::test_setup_class', 'testing/test_unittest.py::test_testcase_adderrorandfailure_defers[Error]', 'testing/test_unittest.py::test_testcase_adderrorandfailure_defers[Failure]', 'testing/test_unittest.py::test_testcase_custom_exception_info[Error]', 'testing/test_unittest.py::test_testcase_custom_exception_info[Failure]', 'testing/test_unittest.py::test_testcase_totally_incompatible_exception_info'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 145, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 323, in _prepareconfig\n    pluginmanager.register(plugin)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 445, in register\n    ret: Optional[str] = super().register(plugin, name)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 114, in register\n    self._verify_hook(hook, hookimpl)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 232, in _verify_hook\n    raise PluginValidationError(\npluggy._manager.PluginValidationError: Plugin '281473270452032' for hook 'pytest_runtest_logreport'\nhookimpl definition: pytest_runtest_logreport(r)\nArgument(s) {'r'} are declared in the hookimpl but can not be found in the hookspec\n",
+    "seconds": 0.732,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "pytest-dev__pytest-8399",
+    "title": "Starting v6.2.0, unittest setUpClass fixtures are no longer \"private\"",
+    "issue": "Starting v6.2.0, unittest setUpClass fixtures are no longer \"private\"\n<!--\r\nThanks for submitting an issue!\r\n\r\nQuick check-list while reporting bugs:\r\n-->\r\nMinimal example:\r\n```\r\nimport unittest\r\n\r\nclass Tests(unittest.TestCase):\r\n    @classmethod\r\n    def setUpClass(cls):\r\n        pass\r\n\r\n    def test_1(self):\r\n        pass\r\n```\r\n```\r\n~$  pytest --fixtures\r\n...\r\nunittest_setUpClass_fixture_Tests [class scope] -- ../Platform/.venv/lib/python3.6/site-packages/_pytest/unittest.py:145\r\n    /home/ubuntu/src/Platform/.venv/lib/python3.6/site-packages/_pytest/unittest.py:145: no docstring available\r\n```\r\nThe expected (and previously implemented behavior) is that this fixture's name would start with an underscore, and would therefore only get printed if the additional `-v` flag was used. As it stands, I don't see a way to hide such generated fixtures which will not have a docstring.\r\n\r\nThis breaks a code-quality CI script that makes sure we don't have undocumented pytest fixtures (and the code-base has many legacy tests that use unittest, and that will not get upgraded).\r\n\n",
+    "repository": "pytest-dev/pytest",
+    "revision": "6e7dc8bac831cd8cf7a53b08efa366bd84f0c0fe",
+    "source_url": "https://github.com/pytest-dev/pytest/tree/6e7dc8bac831cd8cf7a53b08efa366bd84f0c0fe",
+    "issue_url": "https://github.com/pytest-dev/pytest/pull/8399",
+    "entry_files": [
+      "src/_pytest/python.py",
+      "src/_pytest/unittest.py"
+    ],
+    "approved_prefix": "src/_pytest/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:5d1d3e46f476c0d97f5068419b7acdff7cedcfab85ec2ebee05efe24f4af5667",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "51e167edd3ad107f8e2c60a4a3f04d4ddbe2bf49209ccb656de4603ecc496903",
+    "reference_digest": "fcc0962e001dbc5c6c718a885b0a3369af3b018b942d3574675c51ecdc59eff2",
+    "verification_digest": "6c0a38befce06d705ea518426f7ec4bb49115ae9bacd3cb4f9ba23760ff13c9e"
+  }
+}

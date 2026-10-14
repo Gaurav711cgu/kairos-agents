@@ -8,7 +8,7 @@ export const ContextMoment = ({ incident }: { incident: Incident }) => {
   return (
     <section className="context-canvas" aria-label="Captured incident context">
       <div className="canvas-top">
-        <span className="eyebrow">CAPTURED EXECUTION</span>
+        <span className="eyebrow">Captured execution</span>
         <span
           className={incident.grade.passed ? "status good" : "status attention"}
         >
@@ -18,9 +18,9 @@ export const ContextMoment = ({ incident }: { incident: Incident }) => {
       <div className="canvas-title">
         <span className="mono">{incident.scenario.order_id}</span>
         <h2>
-          Same order.
+          A refund exception.
           <br />
-          <em>Missing context.</em>
+          <em>Missing from context.</em>
         </h2>
         <p>{incident.task}</p>
       </div>
@@ -67,18 +67,16 @@ export const ContextMoment = ({ incident }: { incident: Incident }) => {
       </div>
       <div className="outcome-strip">
         <div>
-          <span className="eyebrow">PROPOSED</span>
+          <span className="eyebrow">Proposed</span>
           <strong>{money(incident.decision.refund_cents)}</strong>
         </div>
-        <span className="outcome-connector" aria-hidden="true">
-          →
-        </span>
+        <span className="outcome-connector" aria-hidden="true"></span>
         <div>
-          <span className="eyebrow">EXPECTED</span>
+          <span className="eyebrow">Expected</span>
           <strong>{money(incident.grade.expected_refund_cents)}</strong>
         </div>
         <Link href={"/incidents/" + incident.id}>
-          Inspect {incident.event_count} events ↗
+          Inspect {incident.event_count} events
         </Link>
       </div>
       <p className="canvas-caption">

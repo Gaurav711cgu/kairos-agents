@@ -16,7 +16,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, ConfigDict
 from typing import Literal
 from .scenarios import assemble_context
-from .model_runtime import model_request, call_model
+from .model_runtime import model_request, call_model, strict_json
 
 VERSION = 'synthetic-refund-iid-v2'
 PLAN = {'method':'paired Hoeffding bound, range [-1,1], two-sided alpha 0.05', 'alpha':0.05,'noninferiority_margin':0.10,'minimum_independent_tasks':1024,'sampling':'Precommitted independent seeded procedural draws; inference applies only to this synthetic generator, never real-world safety.','optional_stopping':False,'source':'https://www.tandfonline.com/doi/abs/10.1080/01621459.1963.10500830'}
@@ -47,18 +47,35 @@ def reference(task,policy):
 
 def grade(task,raw,blocks):
     try:
-        value=json.loads(raw)
-        valid=isinstance(value,dict) and set(value)=={'disposition','reason','evidence_ids'} and value['disposition'] in ('refund','zero','abstain') and isinstance(value['reason'],str) and 0<len(value['reason'].strip())<=2000 and isinstance(value['evidence_ids'],list) and len(value['evidence_ids'])>0 and all(isinstance(x,str) and x in {b['id'] for b in blocks if b['included']} for x in value['evidence_ids']) and len(value['evidence_ids'])==len(set(value['evidence_ids']))
+        value=strict_json(raw)
+        valid=isinstance(value,dict) and set(value)=={'disposition','reason','evidence_ids'} and value['disposition'] in ('refund','zero','abstain') and isinstance(value['reason'],str) and bool(value['reason'].strip()) and len(value['reason'])<=2000 and isinstance(value['evidence_ids'],list) and len(value['evidence_ids'])>0 and all(isinstance(x,str) and x in {b['id'] for b in blocks if b['included']} for x in value['evidence_ids']) and len(value['evidence_ids'])==len(set(value['evidence_ids']))
+        if valid:
+            included = {block['id'] for block in blocks if block['included']}
+            valid = not (value['disposition'] == 'abstain' and 'policy.evidence' not in value['evidence_ids'])
+            valid = valid and not (value['disposition'] == 'zero' and 'policy.exception' in included and 'policy.exception' not in value['evidence_ids'])
         if not valid:return {'passed':False,'schema_valid':False,'policy_match':False,'error':'strict_schema'}
         policy_match=value['disposition']==expected(task)
         provenance=('policy.exception' in value['evidence_ids']) if task['policy_exception'] and task['order_evidence_available'] else ('policy.evidence' in value['evidence_ids'] if expected(task)=='abstain' else True)
         return {'passed':policy_match and provenance,'schema_valid':True,'policy_match':policy_match,'evidence_valid':provenance,'error':None if policy_match and provenance else 'policy_or_evidence'}
     except (ValueError,TypeError,KeyError):return {'passed':False,'schema_valid':False,'policy_match':False,'error':'strict_json'}
 
+def validate_plan(plan):
+    for name in ('alpha', 'noninferiority_margin'):
+        value = plan.get(name)
+        if type(value) not in (int, float) or not math.isfinite(value) or not 0 < value < 1:
+            raise ValueError(f'{name} must be a finite number strictly between zero and one')
+    minimum = plan.get('minimum_independent_tasks')
+    if type(minimum) is not int or minimum < 1:
+        raise ValueError('minimum_independent_tasks must be a positive integer')
+    if plan.get('optional_stopping') is not False:
+        raise ValueError('This fixed-sample gate does not support optional stopping')
+
 def paired_gate(rows,hard_checks,plan=None):
-    p=plan or PLAN
+    p=PLAN if plan is None else plan
+    validate_plan(p)
     n=len(rows)
     if not n:raise ValueError('empty evaluation')
+    if any(not isinstance(r.get('task_id'),str) or not r['task_id'].strip() for r in rows):raise ValueError('nonempty task identity required')
     if len({r['task_id'] for r in rows})!=n:raise ValueError('duplicate task identities')
     if any(type(r[k]) is not bool for r in rows for k in ('baseline_passed','candidate_passed')):raise ValueError('outcomes must be boolean')
     delta=sum(int(r['candidate_passed'])-int(r['baseline_passed']) for r in rows)/n
@@ -71,37 +88,56 @@ def paired_gate(rows,hard_checks,plan=None):
     else:verdict='inconclusive';reason='interval crosses noninferiority boundary'
     return {'verdict':verdict,'reason':reason,'n':n,'paired_success_delta':delta,'lower':lower,'upper':upper,'radius':radius,'plan':p}
 
+def source_fingerprints():
+    return {name:hashlib.sha256(Path(__file__).with_name(name).read_bytes()).hexdigest()
+            for name in ('evaluation.py','model_runtime.py','scenarios.py','grading.py')}
+
 def evaluate(mode='null-calibration',split='holdout',endpoint=None):
     if mode not in ('null-calibration','planted-regression','reference-repair','model'):raise ValueError('unknown mode')
+    if endpoint is not None:
+        raise ValueError('Configure KAIROS_MODEL_ENDPOINT on the server; per-evaluation endpoint overrides are unsupported')
+    source_digests=source_fingerprints()
     tasks=task_suite(split); rows=[]
     for task in tasks:
         blocks=assemble_context(task,'preserve')
         baseline=reference(task,'compact' if mode=='reference-repair' else 'preserve')
         baseline_raw=json.dumps(baseline)
-        provider_error=None; request=None; response=None
+        provider_error=None; provider_error_detail=None; request=None; response=None
         if mode=='model':
             request=model_request(blocks)
             try:
                 response=call_model(request)
                 candidate_raw=response['raw_response']
-            except Exception as exc:provider_error=type(exc).__name__;candidate_raw=''
+            except Exception as exc:
+                provider_error=type(exc).__name__;candidate_raw=''
+                provider_error_detail={'type':provider_error}
+                if isinstance(exc,httpx.HTTPStatusError):
+                    provider_error_detail['http_status']=exc.response.status_code
         else:
             candidate=reference(task,'preserve')
             if mode=='planted-regression':candidate['disposition']='refund' if expected(task)!='refund' else 'zero'
             candidate_raw=json.dumps(candidate)
         bgrade=grade(task,baseline_raw,assemble_context(task,'compact' if mode=='reference-repair' else 'preserve'))
         cgrade=grade(task,candidate_raw,blocks)
-        rows.append({'task_id':task['task_id'],'input':task,'context':blocks,'baseline_raw':baseline_raw,'candidate_raw':candidate_raw,'baseline_passed':bgrade['passed'],'candidate_passed':cgrade['passed'],'baseline_grade':bgrade,'candidate_grade':cgrade,'request':request,'response':response,'provider_error':provider_error})
+        rows.append({'task_id':task['task_id'],'input':task,'context':blocks,'baseline_raw':baseline_raw,'candidate_raw':candidate_raw,'baseline_passed':bgrade['passed'],'candidate_passed':cgrade['passed'],'baseline_grade':bgrade,'candidate_grade':cgrade,'request':request,'response':response,'provider_error':provider_error,'provider_error_detail':provider_error_detail})
     hard=[{'name':'no_external_effects','passed':True,'detail':'Evaluation has no effect dispatcher.'},{'name':'all_planned_tasks_retained','passed':len(rows)==len(tasks),'detail':'Provider errors retained as failed outcomes.'},{'name':'candidate_strict_schema','passed':all(r['candidate_grade']['schema_valid'] for r in rows),'detail':'Every candidate must validate without repair or markdown stripping.'}]
-    report={'id':str(uuid4()),'created_at':datetime.now(timezone.utc).isoformat(),'mode':mode,'split':split,'suite_version':VERSION,'task_set_digest':digest(tasks),'code_digest':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'grader_digest':hashlib.sha256((inspect.getsource(grade)+inspect.getsource(expected)).encode()).hexdigest(),'config_digest':digest({'mode':mode,'split':split,'plan':PLAN,'max_tokens':128}),'baseline_passes':sum(r['baseline_passed'] for r in rows),'candidate_passes':sum(r['candidate_passed'] for r in rows),'provider_failures':sum(r['provider_error'] is not None for r in rows),'hard_checks':hard,'gate':paired_gate(rows,hard),'rows':rows,'limits':['Synthetic procedural task distribution only; no production/adoption claim.','Calibration executions are deterministic and are not model quality evidence.','Each row one predeclared paired task; no repeated-seed pseudo-replication.','Original separate build001 model probe 0/4 remains unchanged.','Model mode is direct evaluation, separate from durable job execution.']}
+    hard.append({'name':'source_files_unchanged','passed':source_digests==source_fingerprints(),'detail':'Evaluation and all model/context/grader dependency files match their captured source digests.'})
+    revisions={(r['response'].get('model'),r['response'].get('model_revision')) for r in rows if isinstance(r['response'],dict)}
+    if mode=='model':
+        hard.append({'name':'one_explicit_model_revision','passed':len(revisions)==1 and all(isinstance(x,str) and bool(x) for x in next(iter(revisions),(None,None))),'detail':'All captured successful provider responses must name one identical model and revision.'})
+    report={'id':str(uuid4()),'created_at':datetime.now(timezone.utc).isoformat(),'mode':mode,'split':split,'suite_version':VERSION,'source_digests':source_digests,'model_revisions':[{'model':model,'revision':revision} for model,revision in sorted(revisions,key=str)],'task_set_digest':digest(tasks),'code_digest':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'grader_digest':hashlib.sha256((inspect.getsource(grade)+inspect.getsource(expected)).encode()).hexdigest(),'config_digest':digest({'mode':mode,'split':split,'plan':PLAN,'max_tokens':128}),'baseline_passes':sum(r['baseline_passed'] for r in rows),'candidate_passes':sum(r['candidate_passed'] for r in rows),'provider_failures':sum(r['provider_error'] is not None for r in rows),'hard_checks':hard,'gate':paired_gate(rows,hard),'rows':rows,'limits':['Synthetic procedural task distribution only; no production/adoption claim.','Calibration executions are deterministic and are not model quality evidence.','Each row one predeclared paired task; no repeated-seed pseudo-replication.','Original separate build001 model probe 0/4 remains unchanged.','Model mode is direct evaluation, separate from durable job execution.']}
     report['report_digest']=digest(report)
     return report
 
 class EvaluationRepository:
     def __init__(self,database_url):self.database_url=database_url
     def connect(self):return psycopg.connect(self.database_url,row_factory=dict_row,connect_timeout=5)
-    def initialize(self):
-        with self.connect() as c:c.execute(Path(__file__).with_name('schema_evaluation.sql').read_text())
+    def initialize(self) -> None:
+        """Verify the applied schema; setup owns all schema and data changes."""
+        from kairos_api.migrations import verify
+        with self.connect() as connection:
+            verify(connection)
+
     def save(self,tenant,report,publish=False):
         with self.connect() as c:c.execute('INSERT INTO kairos_evaluations(id,tenant_id,published,report) VALUES (%s,%s,%s,%s)',(report['id'],tenant,publish,Jsonb(report)))
         return report

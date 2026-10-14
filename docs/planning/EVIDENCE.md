@@ -108,7 +108,7 @@ These paths are proposed, not currently populated results.
 
 Future resume bullet template: “Built [implemented system] supporting [measured workload]; implemented [specific reliability contract]; measured [result with conditions] using [reproducible method].” Fill it only after evidence exists.
 
-## Result registry
+## Build001 result registry — historical
 
 | ID | Capability | State | Artifact |
 |---|---|---|---|
@@ -134,3 +134,20 @@ Recorded7 published runs/49events:4 idempotently seeded executions and3 browser-
 The separate Qwen report preserves0/4 strict development passes. Its policy differs from the product task suite; no before/after model improvement may be claimed. Post-run model/script fingerprints are labeled as such.
 
 Npm runtime audit:0 findings. Full audit:5 related high entries in the development lint dependency chain ending at braces; no compatible upstream fix was applied. One Starlette/httpx TestClient deprecation remains. Hosted workflow is defined but unexecuted; browser checks are manual, not a reusable E2E suite.
+
+## Build002 current evidence registry
+
+Current receipts are under `evidence/build002/` and summarized in [BUILD_002.md](../BUILD_002.md). Its manifest fingerprints source and evidence, without claiming immutable attestation.
+
+| Capability | Earned evidence | Unproven boundary |
+|---|---|---|
+| E01/E02 SDE/backend |169 backend tests; committed commands, leases/fencing, tenant and version races, receipts | Production scale/ownership |
+| E03 frontend | Real identity/commands, context/event interaction, manual mobile and80-button trace bound; four stream tests; lint/types/build | Independent accessibility/usability study |
+| E04 applied AI | Six captured durable calls0/6; aligned32-task failed batch with12responses/20provider failures; private bounded smoke | Useful qualified model, model research |
+| E05/E06 harness/loop | Durable single-call state machine, exact context/captures, SIGKILL unknown/known recovery, cancellation/fresh forks | Arbitrary checkpoint and general multi-tool execution |
+| E07 statistics | Fixed1024-task Hoeffding calibration PASS/FAIL/PASS, honest INCONCLUSIVE rule and hard blockers | Model holdout and real-world generalization |
+| E08 FDE | Synthetic discovery hypothesis, scoped domain/permissions and deployment materials | Customer discovery, integrations and adoption |
+| E09 delivery | Non-root clean image builds/HTTP smoke, full clean audits, combined DB/object restore, bounded local load | Hosted CI/TLS deployment, offsite DR/SLO |
+| E10 presentation | Populated source-linked dark site and reviewer path | Recruiter/unfamiliar-user feedback |
+
+Final npm/API-lock audits report0 known findings, replacing build001's five open development-tool entries. Two upstream HTTP-client deprecations remain. Failed batches and the sanitized service-outage test log are retained. Never use planned guarantees above as completed evidence without an executed receipt.

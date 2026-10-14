@@ -1,0 +1,50 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.api
+#1 transferring dockerfile: 710B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 250B done
+#3 DONE 0.0s
+
+#4 [1/7] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#4 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 862.99kB 0.0s done
+#5 DONE 0.0s
+
+#6 [2/7] WORKDIR /app
+#6 CACHED
+
+#7 [3/7] COPY requirements-api.lock ./
+#7 CACHED
+
+#8 [4/7] RUN pip install --no-cache-dir -r requirements-api.lock && useradd --uid 10001 --create-home kairos
+#8 CACHED
+
+#9 [5/7] COPY kairos_api ./kairos_api
+#9 DONE 0.1s
+
+#10 [6/7] COPY cases ./cases
+#10 DONE 0.0s
+
+#11 [7/7] RUN mkdir -p /app/.runtime/blobs && chown -R kairos:kairos /app
+#11 DONE 0.2s
+
+#12 exporting to image
+#12 exporting layers 0.0s done
+#12 exporting manifest sha256:c7972205293c5c46f46c028b67d7c7fe4b5a9e3d39d4f6f18e78155b9fba32bc done
+#12 exporting config sha256:6813091c622b5c95fda5fc3f843cca594b50ebd76a1a35ad49e83e772877c9ff done
+#12 exporting attestation manifest sha256:d375e1e091a59bb3f2de3cc6dd27e907ac2b3945b00ff19e828a609abc378107 done
+#12 exporting manifest list sha256:6e06b29e6b1aade5a980ddb60358f72c88793c3ef07cebe82d4784be2066f12c done
+#12 naming to docker.io/library/kairos-api:build005 done
+#12 unpacking to docker.io/library/kairos-api:build005 0.0s done
+#12 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/9psa7ngt6augee3kvy3c8kzmu

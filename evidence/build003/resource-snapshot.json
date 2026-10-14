@@ -1,0 +1,27 @@
+{
+  "runtime_tree_bytes": 2175381504,
+  "frontend_build_bytes": 136912896,
+  "evidence_bytes": 2203648,
+  "free_bytes": 15148929024,
+  "runtime_cap_bytes": 6442450944,
+  "free_reserve_bytes": 4294967296,
+  "owned_images": {
+    "kairos-api:build003": {
+      "id": "sha256:053e56d5ae412d3569a7ec1ecb97bf82b4ff81c4654a9ff972874acaeb72d983",
+      "bytes": 67967484
+    },
+    "kairos-web:build003": {
+      "id": "sha256:b18cb1fabb0170959ec45f9f29b0c08aaf82f53a30a09c496ebca7c95d3861d1",
+      "bytes": 75079971
+    },
+    "kairos-investigation-django:build003": {
+      "id": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+      "bytes": 47762677
+    }
+  },
+  "limits": [
+    "Guard measures the investigation runtime tree and host free-space reserve, not all shared Docker storage.",
+    "Shared Docker images/build cache contain unrelated and earlier project work; no global Docker disk quota is asserted.",
+    "Measurements are local snapshots; future inference/build swap growth can change free space."
+  ]
+}

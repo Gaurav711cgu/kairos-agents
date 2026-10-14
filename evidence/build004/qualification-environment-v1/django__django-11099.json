@@ -1,0 +1,49 @@
+{
+  "id": "django__django-11099",
+  "qualified": true,
+  "reason": null,
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "Testing against Django installed in '/workspace/django'\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 22, \"complete\": false}\n",
+    "stderr": "Creating test database for alias 'default'...\n....................\n======================================================================\nFAIL: test_ascii_validator (auth_tests.test_validators.UsernameValidatorsTests) (invalid='trailingnewline\\n')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/auth_tests/test_validators.py\", line 261, in test_ascii_validator\n    v(invalid)\nAssertionError: ValidationError not raised\n\n======================================================================\nFAIL: test_unicode_validator (auth_tests.test_validators.UsernameValidatorsTests) (invalid='trailingnewline\\n')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/auth_tests/test_validators.py\", line 249, in test_unicode_validator\n    v(invalid)\nAssertionError: ValidationError not raised\n\n----------------------------------------------------------------------\nRan 22 tests in 0.182s\n\nFAILED (failures=2)\nDestroying test database for alias 'default'...\n\n",
+    "seconds": 2.027,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": true,
+    "environment_error": false,
+    "returncode": 0,
+    "stdout": "Testing against Django installed in '/workspace/django'\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 22, \"complete\": true}\n",
+    "stderr": "Creating test database for alias 'default'...\n......................\n----------------------------------------------------------------------\nRan 22 tests in 0.076s\n\nOK\nDestroying test database for alias 'default'...\n\n",
+    "seconds": 1.874,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "django__django-11099",
+    "title": "UsernameValidator allows trailing newline in usernames",
+    "issue": "UsernameValidator allows trailing newline in usernames\nDescription\n\t\nASCIIUsernameValidator and UnicodeUsernameValidator use the regex \nr'^[\\w.@+-]+$'\nThe intent is to only allow alphanumeric characters as well as ., @, +, and -. However, a little known quirk of Python regexes is that $ will also match a trailing newline. Therefore, the user name validators will accept usernames which end with a newline. You can avoid this behavior by instead using \\A and \\Z to terminate regexes. For example, the validator regex could be changed to\nr'\\A[\\w.@+-]+\\Z'\nin order to reject usernames that end with a newline.\nI am not sure how to officially post a patch, but the required change is trivial - using the regex above in the two validators in contrib.auth.validators.\n",
+    "repository": "django/django",
+    "revision": "d26b2424437dabeeca94d7900b37d2df4410da0c",
+    "source_url": "https://github.com/django/django/tree/d26b2424437dabeeca94d7900b37d2df4410da0c",
+    "issue_url": "https://github.com/django/django/pull/11099",
+    "entry_files": [
+      "django/contrib/auth/validators.py"
+    ],
+    "approved_prefix": "django/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "400bd3f7a447f2fd328eee79ef9cffb7376335dfcdf80fe5c5ebcd5120c65df1",
+    "reference_digest": "cf203df5a90df3747f2d9a59cb0d02620d70228c29cb0c3477e5509056c19c09",
+    "verification_digest": "63fe256a5ca0c6cd0b93de5eb127652f50184c868a615841dba8493441c31014"
+  }
+}

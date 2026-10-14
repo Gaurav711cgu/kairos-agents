@@ -1,0 +1,50 @@
+{
+  "id": "pytest-dev__pytest-5840",
+  "qualified": false,
+  "reason": "Baseline regression or reference repair did not reproduce under registered 1GB/120s environment",
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 4, in <module>\n    import pytest,json\n  File \"/workspace/src/pytest.py\", line 6, in <module>\n    from _pytest.assertion import register_assert_rewrite\n  File \"/workspace/src/_pytest/assertion/__init__.py\", line 6, in <module>\n    from _pytest.assertion import rewrite\n  File \"/workspace/src/_pytest/assertion/rewrite.py\", line 20, in <module>\n    import atomicwrites\nModuleNotFoundError: No module named 'atomicwrites'\n",
+    "seconds": 0.424,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 4, in <module>\n    import pytest,json\n  File \"/workspace/src/pytest.py\", line 6, in <module>\n    from _pytest.assertion import register_assert_rewrite\n  File \"/workspace/src/_pytest/assertion/__init__.py\", line 6, in <module>\n    from _pytest.assertion import rewrite\n  File \"/workspace/src/_pytest/assertion/rewrite.py\", line 20, in <module>\n    import atomicwrites\nModuleNotFoundError: No module named 'atomicwrites'\n",
+    "seconds": 0.537,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "pytest-dev__pytest-5840",
+    "title": "5.1.2 ImportError while loading conftest (windows import folder casing issues)",
+    "issue": "5.1.2 ImportError while loading conftest (windows import folder casing issues)\n5.1.1 works fine. after upgrade to 5.1.2, the path was converted to lower case\r\n```\r\nInstalling collected packages: pytest\r\n  Found existing installation: pytest 5.1.1\r\n    Uninstalling pytest-5.1.1:\r\n      Successfully uninstalled pytest-5.1.1\r\nSuccessfully installed pytest-5.1.2\r\nPS C:\\Azure\\KMS\\ComponentTest\\Python> pytest --collect-only .\\PIsys -m smoke\r\nImportError while loading conftest 'c:\\azure\\kms\\componenttest\\python\\pisys\\conftest.py'.\r\nModuleNotFoundError: No module named 'python'\r\nPS C:\\Azure\\KMS\\ComponentTest\\Python>\r\n```\r\n\r\n\n",
+    "repository": "pytest-dev/pytest",
+    "revision": "73c5b7f4b11a81e971f7d1bb18072e06a87060f4",
+    "source_url": "https://github.com/pytest-dev/pytest/tree/73c5b7f4b11a81e971f7d1bb18072e06a87060f4",
+    "issue_url": "https://github.com/pytest-dev/pytest/pull/5840",
+    "entry_files": [
+      "src/_pytest/config/__init__.py",
+      "src/_pytest/pathlib.py"
+    ],
+    "approved_prefix": "src/_pytest/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:5d1d3e46f476c0d97f5068419b7acdff7cedcfab85ec2ebee05efe24f4af5667",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "c28a686b1f37d67a3b8d65272881d12653194dae8492ba6d38af125ee62a7bfd",
+    "reference_digest": "7f6486d010e024a28295d8370931a9079d48e4b2ea3b8a6f66447ce2c73b5778",
+    "verification_digest": "317d929a8a1e27d718d859c3eaccfdeeb59f47613448322ad4a86baf8ca936c5"
+  }
+}

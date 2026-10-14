@@ -28,7 +28,7 @@ export default async function TraceStress() {
   return (
     <div className="page-shell">
       <div className="page-heading">
-        <span className="eyebrow">DEVELOPMENT ONLY / RENDERING FIXTURE</span>
+        <span className="eyebrow">Development only / Rendering fixture</span>
         <h1>
           1,000 event
           <br />

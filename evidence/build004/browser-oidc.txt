@@ -1,0 +1,79 @@
+[WebServer] /Users/gauravkumarnayak/Desktop/new-karos/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.
+[WebServer]   from ._compat import httpx2
+[WebServer] (node:10321) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10322) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:10407) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10465) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10469) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10473) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10475) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10479) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 e2e/identity.spec.ts:12:5 › real OIDC login, durable queue, cancel, fork, replay, publish, download, logout (46.9s)
+(node:10509) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:10507) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 e2e/identity.spec.ts:23:5 › real viewer role denies writes on server as well as controls (19.5s)
+[WebServer] (node:10543) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 e2e/identity.spec.ts:29:5 › real operator cannot read another tenant private investigation (950ms)
+
+
+  1) e2e/identity.spec.ts:12:5 › real OIDC login, durable queue, cancel, fork, replay, publish, download, logout 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('link', { name: 'Sign in', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('link', { name: 'Sign in', exact: true }) with timeout 5000ms
+      - waiting for getByRole('link', { name: 'Sign in', exact: true })
+        - waiting for "http://127.0.0.1:3105/workbench" navigation to finish...
+
+
+      18 |   await page.getByRole('button',{name:'Publish evidence'}).click();await expect(page.getByRole('button',{name:'Publish evidence'})).toBeDisabled();
+      19 |   const download=page.waitForEvent('download');await page.getByRole('link',{name:'Download evidence'}).click();expect((await download).suggestedFilename()).toMatch(/^kairos-.*\.json$/);
+    > 20 |   await page.getByRole('button',{name:'Sign out',exact:true}).click();await expect(page.getByRole('link',{name:'Sign in',exact:true})).toBeVisible();
+         |                                                                                                                                        ^
+      21 |   expect((await page.request.get('/api/workbench/investigations')).status()).toBe(401);
+      22 | });
+      23 | test('real viewer role denies writes on server as well as controls',async({page})=>{
+        at /Users/gauravkumarnayak/Desktop/new-karos/dashboard/e2e/identity.spec.ts:20:136
+
+    Error Context: .playwright-results-real/identity-real-OIDC-login-d-4d4b2-lay-publish-download-logout/error-context.md
+
+  2) e2e/identity.spec.ts:29:5 › real operator cannot read another tenant private investigation ────
+
+    Error: expect(received).not.toBe(expected) // Object.is equality
+
+    Expected: not ""
+
+      28 |
+      29 | test('real operator cannot read another tenant private investigation',async({page})=>{
+    > 30 |   expect(privateAttemptId).not.toBe('');await login(page,'operator');
+         |                                ^
+      31 |   expect((await page.request.get('/api/workbench/investigations/'+privateAttemptId)).status()).toBe(404);
+      32 |   expect((await page.request.get('/api/workbench/investigations/'+privateAttemptId+'/progress')).status()).toBe(404);
+      33 |   expect((await page.request.get('/api/workbench/investigations/'+privateAttemptId+'/bundle')).status()).toBe(404);
+        at /Users/gauravkumarnayak/Desktop/new-karos/dashboard/e2e/identity.spec.ts:30:32
+
+    Error Context: .playwright-results-real/identity-real-operator-can-adcf4-enant-private-investigation/error-context.md
+
+  2 failed
+    e2e/identity.spec.ts:12:5 › real OIDC login, durable queue, cancel, fork, replay, publish, download, logout 
+    e2e/identity.spec.ts:29:5 › real operator cannot read another tenant private investigation ─────
+  1 passed (2.8m)

@@ -6,8 +6,8 @@ export default async function Incidents() {
   return (
     <div className="page-shell">
       <div className="page-heading">
-        <span className="eyebrow">THE CASE FILES / CONTROLLED EXECUTIONS</span>
-        <h1>Follow the evidence.</h1>
+        <span className="eyebrow">The case files / Controlled executions</span>
+        <h1>Investigate an incident.</h1>
         <p>
           Failures, healthy controls, and isolated policy reruns. Every row
           comes from a persisted execution against synthetic order data.

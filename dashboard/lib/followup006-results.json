@@ -1,0 +1,288 @@
+{
+  "complete": true,
+  "historical_study": {
+    "verified": 0,
+    "attempts": 36,
+    "preserved": true
+  },
+  "qualification": {
+    "target": 6,
+    "actual": 5,
+    "target_met": false,
+    "excluded": "The remaining Requests regression did not reproduce on Python 3; it requires Python 2."
+  },
+  "validation": {
+    "baseline-v5": {
+      "attempts": 5,
+      "verified": 0,
+      "outcomes": {
+        "failed_checks": 3,
+        "invalid_patch": 2
+      },
+      "calls": 5,
+      "checks": 3,
+      "tokens": 7486,
+      "elapsed_seconds": 156.492
+    },
+    "loop-v5": {
+      "attempts": 5,
+      "verified": 0,
+      "outcomes": {
+        "failed_checks": 3,
+        "invalid_patch": 1,
+        "invalid_response": 1
+      },
+      "calls": 18,
+      "checks": 6,
+      "tokens": 31696,
+      "elapsed_seconds": 256.849
+    }
+  },
+  "development": {
+    "pilot-coder-r1": {
+      "attempts": 6,
+      "verified": 2,
+      "outcomes": {
+        "verified_repair": 2,
+        "invalid_patch": 1,
+        "failed_checks": 3
+      },
+      "calls": 9,
+      "checks": 7,
+      "tokens": 15721,
+      "elapsed_seconds": 189.07
+    },
+    "pilot-qwen3-r1": {
+      "attempts": 6,
+      "verified": 2,
+      "outcomes": {
+        "verified_repair": 2,
+        "failed_checks": 4
+      },
+      "calls": 11,
+      "checks": 8,
+      "tokens": 22037,
+      "elapsed_seconds": 143.285
+    },
+    "pilot-thinking-r2": {
+      "attempts": 6,
+      "verified": 2,
+      "outcomes": {
+        "verified_repair": 2,
+        "failed_checks": 2,
+        "invalid_response": 1,
+        "unknown_dispatch": 1
+      },
+      "calls": 8,
+      "checks": 5,
+      "tokens": 16673,
+      "elapsed_seconds": 505.494
+    }
+  },
+  "attempts": [
+    {
+      "id": "3cdaa893-f689-41f9-95fb-11044ae06310",
+      "task_id": "django__django-11066",
+      "configuration": "baseline-v5",
+      "outcome": "verified_repair",
+      "split": "development"
+    },
+    {
+      "id": "2c3b07ab-7ff3-4124-a33e-236f7ced0daf",
+      "task_id": "django__django-11066",
+      "configuration": "loop-v5",
+      "outcome": "verified_repair",
+      "split": "development"
+    },
+    {
+      "id": "d6d71cd9-9b92-4cab-8444-13e4313bea99",
+      "task_id": "psf__requests-2931",
+      "configuration": "baseline-v5",
+      "outcome": "invalid_patch",
+      "split": "development"
+    },
+    {
+      "id": "030b215a-4689-4797-8693-394967dfce0a",
+      "task_id": "psf__requests-2931",
+      "configuration": "loop-v5",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "8fbb9fbb-4449-472b-951c-f8cff788b6bc",
+      "task_id": "pytest-dev__pytest-6197",
+      "configuration": "baseline-v5",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "762e7610-2c15-45b2-a9ec-4ed505931eb7",
+      "task_id": "pytest-dev__pytest-6197",
+      "configuration": "loop-v5",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "8bdbd00f-3f54-4807-9c9e-6729525720d5",
+      "task_id": "django__django-11066",
+      "configuration": "baseline-v5",
+      "outcome": "verified_repair",
+      "split": "development"
+    },
+    {
+      "id": "c9bba52b-8e36-49bb-95a1-cd4030046bfc",
+      "task_id": "django__django-11066",
+      "configuration": "loop-v5",
+      "outcome": "verified_repair",
+      "split": "development"
+    },
+    {
+      "id": "a4cb3f73-f61b-4cf8-8f62-b11453520bec",
+      "task_id": "psf__requests-2931",
+      "configuration": "baseline-v5",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "d04b28af-63f3-4873-937d-f4ba5fb5fc58",
+      "task_id": "psf__requests-2931",
+      "configuration": "loop-v5",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "76fb57e4-e9c1-4399-9533-c94dbaac4170",
+      "task_id": "pytest-dev__pytest-6197",
+      "configuration": "baseline-v5",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "0a94bf62-8d31-4aeb-a775-fe1077a020e6",
+      "task_id": "pytest-dev__pytest-6197",
+      "configuration": "loop-v5",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "cf337acf-36c1-4e51-953d-2e063777f317",
+      "task_id": "django__django-11066",
+      "configuration": "baseline-v6",
+      "outcome": "verified_repair",
+      "split": "development"
+    },
+    {
+      "id": "31ee4591-70c0-4e8d-81d3-4de8be3541ff",
+      "task_id": "django__django-11066",
+      "configuration": "loop-v6",
+      "outcome": "verified_repair",
+      "split": "development"
+    },
+    {
+      "id": "6fcb254f-e650-4eea-80be-82addae8c2c2",
+      "task_id": "psf__requests-2931",
+      "configuration": "baseline-v6",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "02d6af52-cf6e-4fcd-8e58-2e1e14f97107",
+      "task_id": "psf__requests-2931",
+      "configuration": "loop-v6",
+      "outcome": "failed_checks",
+      "split": "development"
+    },
+    {
+      "id": "62cda6f3-1b8d-4684-91d4-b66c2c6c5e72",
+      "task_id": "pytest-dev__pytest-6197",
+      "configuration": "baseline-v6",
+      "outcome": "invalid_response",
+      "split": "development"
+    },
+    {
+      "id": "c78a29cf-6830-4ad8-9c05-9387b042c5c6",
+      "task_id": "pytest-dev__pytest-6197",
+      "configuration": "loop-v6",
+      "outcome": "unknown_dispatch",
+      "split": "development"
+    },
+    {
+      "id": "a74b0fbe-5ee9-4d1c-b3d7-7f9f6ab005e4",
+      "task_id": "django__django-11133",
+      "configuration": "baseline-v5",
+      "outcome": "failed_checks",
+      "split": "validation"
+    },
+    {
+      "id": "d740fdcd-2d8d-40cc-8264-1f379215df31",
+      "task_id": "django__django-11133",
+      "configuration": "loop-v5",
+      "outcome": "failed_checks",
+      "split": "validation"
+    },
+    {
+      "id": "8fad0bfd-8f90-4547-9dd6-b1ee79b5649d",
+      "task_id": "django__django-11141",
+      "configuration": "baseline-v5",
+      "outcome": "invalid_patch",
+      "split": "validation"
+    },
+    {
+      "id": "18f5788c-5258-466f-a54e-bd225fbe206c",
+      "task_id": "django__django-11141",
+      "configuration": "loop-v5",
+      "outcome": "invalid_patch",
+      "split": "validation"
+    },
+    {
+      "id": "ed4c942a-8665-4ca5-a229-4f7c2eaf6476",
+      "task_id": "psf__requests-2317",
+      "configuration": "baseline-v5",
+      "outcome": "failed_checks",
+      "split": "validation"
+    },
+    {
+      "id": "545cf037-1b43-40c8-ac84-1f7f875b5ac6",
+      "task_id": "psf__requests-2317",
+      "configuration": "loop-v5",
+      "outcome": "failed_checks",
+      "split": "validation"
+    },
+    {
+      "id": "21f481df-eee8-40ce-a579-59ccb6aca1b4",
+      "task_id": "pytest-dev__pytest-7324",
+      "configuration": "baseline-v5",
+      "outcome": "failed_checks",
+      "split": "validation"
+    },
+    {
+      "id": "dd0f9536-7bae-4784-8b89-769cc5adc701",
+      "task_id": "pytest-dev__pytest-7324",
+      "configuration": "loop-v5",
+      "outcome": "failed_checks",
+      "split": "validation"
+    },
+    {
+      "id": "ca1feffe-2511-4239-9648-4f8d9629800e",
+      "task_id": "pytest-dev__pytest-7432",
+      "configuration": "baseline-v5",
+      "outcome": "invalid_patch",
+      "split": "validation"
+    },
+    {
+      "id": "0afd12a7-4538-4ed6-896b-8146adb551b3",
+      "task_id": "pytest-dev__pytest-7432",
+      "configuration": "loop-v5",
+      "outcome": "invalid_response",
+      "split": "validation"
+    }
+  ],
+  "limits": [
+    "Frozen v5 validation remains 0/10; no replacement or retuning.",
+    "Development demonstrations are not fresh validation performance.",
+    "V6 is a separately recorded reasoning experiment, not a validation rerun.",
+    "Token totals contain captured usage only. Unknown dispatch consumption is unavailable, not zero.",
+    "Public historical cases may be contaminated; source entry files were human-localized.",
+    "No production-scale, leaderboard or loop-superiority claim."
+  ]
+}

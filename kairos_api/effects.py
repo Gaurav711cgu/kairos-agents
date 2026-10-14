@@ -3,7 +3,6 @@
 This target shares PostgreSQL with the authority, so its receipt can commit atomically.
 That guarantee does not extend to an arbitrary external payment API.
 """
-from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4, UUID
 
@@ -29,11 +28,11 @@ class EffectVersion(BaseModel):
 
 
 class EffectRepository(RunRepository):
-    def initialize(self):
-        super().initialize()
+    def initialize(self) -> None:
+        """Verify the applied schema; setup owns all schema and data changes."""
+        from kairos_api.migrations import verify
         with self.connect() as connection:
-            self._enforce_durability(connection)
-            connection.execute(Path(__file__).with_name("schema_effects.sql").read_text())
+            verify(connection)
 
     @staticmethod
     def _id(value):
@@ -55,6 +54,7 @@ class EffectRepository(RunRepository):
             raise MissingRun("Proposal not found.")
         if request_digest(row["proposal"]) != row["digest"]:
             raise CorruptRun("Proposal content failed local consistency checks.")
+        row["db_now"] = connection.execute("SELECT clock_timestamp() AS value").fetchone()["value"]
         return row
 
     def _command(self, connection, tenant, key, payload, action):
@@ -98,7 +98,7 @@ class EffectRepository(RunRepository):
             self._enforce_durability(connection)
             def action():
                 row=self._proposal(connection,tenant,proposal_id)
-                if row["version"] != version or not (row["state"] == "proposed" or (row["state"] == "approved" and row["approval_expires_at"] <= datetime.now(timezone.utc))):
+                if row["version"] != version or not (row["state"] == "proposed" or (row["state"] == "approved" and row["approval_expires_at"] <= row["db_now"])):
                     raise EffectConflict("Proposal version or state changed; reload before approving.")
                 updated=connection.execute("UPDATE kairos_effect_proposals SET state='approved',version=version+1,approved_by=%s,approval_expires_at=now()+interval '15 minutes' WHERE id=%s RETURNING *",(actor,proposal_id)).fetchone()
                 return self._view(updated)
@@ -122,7 +122,7 @@ class EffectRepository(RunRepository):
                 row=self._proposal(connection,tenant,proposal_id)
                 if row["state"] != "approved" or row["version"] != version:
                     raise EffectConflict("Dispatch requires the current approved proposal version.")
-                if row["approval_expires_at"] <= datetime.now(timezone.utc):
+                if row["approval_expires_at"] <= row["db_now"]:
                     raise EffectConflict("Approval expired; review and approve the current version again.")
                 proposal=row["proposal"]
                 run=self._read(connection,str(row["run_id"]),tenant_id=tenant)
@@ -141,6 +141,17 @@ class EffectRepository(RunRepository):
             raise LostSandboxResponse("Sandbox commit succeeded; response lost by test fault.")
         return result
 
+    def receipt(self, tenant, proposal_id):
+        with self.connect() as connection:
+            row=self._proposal(connection,tenant,proposal_id)
+            receipt=connection.execute("SELECT * FROM kairos_sandbox_adjustments WHERE tenant_id=%s AND order_id=%s",(tenant,row["proposal"]["order_id"])).fetchone()
+            if row["state"] != "applied" or not receipt:
+                raise MissingRun("Applied receipt not found.")
+            target={key:row["proposal"][key] for key in ("order_id","amount_cents","currency")}
+            if request_digest(target) != receipt["target_digest"]:
+                raise CorruptRun("Target receipt differs from the approved proposal.")
+            return {"proposal_id":proposal_id,"receipt_id":str(receipt["id"]),"order_id":receipt["order_id"],"amount_cents":receipt["amount_cents"],"state":"applied","target":"postgres-synthetic-adjustment-v1","real_money":False,"created_at":receipt["created_at"].isoformat()}
+
 
 def create_effects_router(tenant_dependency, key_dependency, database_url=None, *, approval_dependency=None, repository_dependency=None):
     router=APIRouter()
@@ -156,6 +167,10 @@ def create_effects_router(tenant_dependency, key_dependency, database_url=None, 
     @router.post("/api/runs/{run_id}/proposal",status_code=201)
     def propose(run_id:str,tenant:str=Depends(tenant_dependency),key:str=Depends(key_dependency),repository=Depends(repository_dependency)):
         return repository.propose(tenant,run_id,key)
+
+    @router.get("/api/effects/{proposal_id}/receipt")
+    def receipt(proposal_id:str,tenant:str=Depends(tenant_dependency),repository=Depends(repository_dependency)):
+        return repository.receipt(tenant,proposal_id)
 
     @router.post("/api/effects/{proposal_id}/approve")
     def approve(proposal_id:str,command:EffectVersion,request:Request,tenant:str=Depends(approval_dependency),key:str=Depends(key_dependency),repository=Depends(repository_dependency)):

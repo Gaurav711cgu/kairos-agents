@@ -1,4 +1,5 @@
-import { Incident, IncidentSummary } from "./kairos-api";
+// Legacy presentation fixtures. Never import into execution, authentication or evidence routes.
+import { Incident } from "./kairos-api";
 import { Report, Job } from "./workbench";
 
 export const CANONICAL_INCIDENTS: Incident[] = [

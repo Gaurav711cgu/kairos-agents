@@ -11,6 +11,7 @@ from kairos_api.worker import JobWorker
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output",default="evidence/build002/model-jobs.json")
+    parser.add_argument("--publish",action="store_true",help="Explicitly expose synthetic probe records; default private")
     parser.add_argument("--tenant",default="local-studio")
     parser.add_argument("--key-prefix",default="build002-model-development")
     args = parser.parse_args()
@@ -21,7 +22,7 @@ def main():
     for scenario in ("late-order-exception","late-order-standard","insufficient-evidence"):
         for policy in ("compact","preserve"):
             job = repository.enqueue(args.tenant,f"{args.key_prefix}:{scenario}:{policy}",
-                {"scenario_id":scenario,"policy":policy,"runner":"model","publish":True})
+                {"scenario_id":scenario,"policy":policy,"runner":"model","publish":args.publish})
             while job["status"] in {"queued","running"}:
                 processed = worker.run_once()
                 job = repository.read(job["id"],args.tenant)

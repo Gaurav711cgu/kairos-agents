@@ -1,0 +1,108 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.investigation-study
+#1 transferring dockerfile: 666B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f
+#2 ...
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f
+#2 DONE 2.7s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 142B done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f
+#5 resolve docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f 0.0s done
+#5 CACHED
+
+#6 [2/3] RUN pip install --no-cache-dir pytest==7.4.4 pluggy==1.0.0 iniconfig==2.0.0 packaging==23.2 exceptiongroup==1.2.2 tomli==2.0.1 attrs==23.1.0 hypothesis==6.79.4 py==1.11.0 mock==5.1.0 six==1.16.0 requests==2.31.0 urllib3==1.26.18 chardet==4.0.0 certifi==2024.2.2 idna==2.10 setuptools==68.2.2 setuptools-scm==7.1.0 && useradd --uid 10001 --create-home investigator
+#6 1.833 Collecting pytest==7.4.4
+#6 2.100   Downloading pytest-7.4.4-py3-none-any.whl (325 kB)
+#6 2.327      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.3/325.3 kB 1.4 MB/s eta 0:00:00
+#6 2.357 Collecting pluggy==1.0.0
+#6 2.430   Downloading pluggy-1.0.0-py2.py3-none-any.whl (13 kB)
+#6 2.451 Collecting iniconfig==2.0.0
+#6 2.524   Downloading iniconfig-2.0.0-py3-none-any.whl (5.9 kB)
+#6 2.557 Collecting packaging==23.2
+#6 2.629   Downloading packaging-23.2-py3-none-any.whl (53 kB)
+#6 2.634      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.0/53.0 kB 49.2 MB/s eta 0:00:00
+#6 2.659 Collecting exceptiongroup==1.2.2
+#6 2.732   Downloading exceptiongroup-1.2.2-py3-none-any.whl (16 kB)
+#6 2.789 Collecting tomli==2.0.1
+#6 2.864   Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
+#6 2.892 Collecting attrs==23.1.0
+#6 2.966   Downloading attrs-23.1.0-py3-none-any.whl (61 kB)
+#6 2.972      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 16.6 MB/s eta 0:00:00
+#6 3.758 Collecting hypothesis==6.79.4
+#6 3.841   Downloading hypothesis-6.79.4-py3-none-any.whl (417 kB)
+#6 3.915      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 417.7/417.7 kB 5.6 MB/s eta 0:00:00
+#6 3.945 Collecting py==1.11.0
+#6 4.017   Downloading py-1.11.0-py2.py3-none-any.whl (98 kB)
+#6 4.024      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.7/98.7 kB 18.2 MB/s eta 0:00:00
+#6 4.049 Collecting mock==5.1.0
+#6 4.121   Downloading mock-5.1.0-py3-none-any.whl (30 kB)
+#6 4.153 Collecting six==1.16.0
+#6 4.230   Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+#6 4.270 Collecting requests==2.31.0
+#6 4.345   Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+#6 4.347      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 135.0 MB/s eta 0:00:00
+#6 4.395 Collecting urllib3==1.26.18
+#6 4.469   Downloading urllib3-1.26.18-py2.py3-none-any.whl (143 kB)
+#6 4.474      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 143.8/143.8 kB 40.5 MB/s eta 0:00:00
+#6 4.536 Collecting chardet==4.0.0
+#6 4.610   Downloading chardet-4.0.0-py2.py3-none-any.whl (178 kB)
+#6 4.619      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 178.7/178.7 kB 25.3 MB/s eta 0:00:00
+#6 4.667 Collecting certifi==2024.2.2
+#6 4.738   Downloading certifi-2024.2.2-py3-none-any.whl (163 kB)
+#6 4.746      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 163.8/163.8 kB 26.3 MB/s eta 0:00:00
+#6 4.772 Collecting idna==2.10
+#6 4.845   Downloading idna-2.10-py2.py3-none-any.whl (58 kB)
+#6 4.848      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.8/58.8 kB 61.1 MB/s eta 0:00:00
+#6 5.007 Collecting setuptools==68.2.2
+#6 5.083   Downloading setuptools-68.2.2-py3-none-any.whl (807 kB)
+#6 5.221      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 5.8 MB/s eta 0:00:00
+#6 5.275 Collecting setuptools-scm==7.1.0
+#6 5.347   Downloading setuptools_scm-7.1.0-py3-none-any.whl (43 kB)
+#6 5.351      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.8/43.8 kB 19.0 MB/s eta 0:00:00
+#6 5.432 Collecting sortedcontainers<3.0.0,>=2.1.0
+#6 5.506   Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+#6 5.803 Collecting charset-normalizer<4,>=2
+#6 5.878   Downloading charset_normalizer-3.5.2-cp37-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (241 kB)
+#6 5.894      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 241.2/241.2 kB 16.1 MB/s eta 0:00:00
+#6 5.961 Collecting typing-extensions
+#6 6.035   Downloading typing_extensions-4.13.2-py3-none-any.whl (45 kB)
+#6 6.037      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.8/45.8 kB 326.7 MB/s eta 0:00:00
+#6 6.166 Installing collected packages: sortedcontainers, urllib3, typing-extensions, tomli, six, setuptools, py, pluggy, packaging, mock, iniconfig, idna, exceptiongroup, charset-normalizer, chardet, certifi, attrs, setuptools-scm, requests, pytest, hypothesis
+#6 6.329   Attempting uninstall: setuptools
+#6 6.330     Found existing installation: setuptools 57.5.0
+#6 6.359     Uninstalling setuptools-57.5.0:
+#6 6.441       Successfully uninstalled setuptools-57.5.0
+#6 7.695 Successfully installed attrs-23.1.0 certifi-2024.2.2 chardet-4.0.0 charset-normalizer-3.5.2 exceptiongroup-1.2.2 hypothesis-6.79.4 idna-2.10 iniconfig-2.0.0 mock-5.1.0 packaging-23.2 pluggy-1.0.0 py-1.11.0 pytest-7.4.4 requests-2.31.0 setuptools-68.2.2 setuptools-scm-7.1.0 six-1.16.0 sortedcontainers-2.4.0 tomli-2.0.1 typing-extensions-4.13.2 urllib3-1.26.18
+#6 7.696 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#6 7.817 
+#6 7.817 [notice] A new release of pip is available: 23.0.1 -> 25.0.1
+#6 7.817 [notice] To update, run: pip install --upgrade pip
+#6 DONE 8.1s
+
+#7 [3/3] WORKDIR /workspace
+#7 DONE 0.0s
+
+#8 exporting to image
+#8 exporting layers
+#8 exporting layers 0.6s done
+#8 exporting manifest sha256:dd88e8cb9a0f702a14e5c46c06ea32d705b7e7b7cfe031841916a7d7f63e59cb done
+#8 exporting config sha256:0aa45a207ff026c3fc3365a5fb1a73c3b12f2038fcfaf81528d27a4cffdc38ef done
+#8 exporting attestation manifest sha256:488fae00556b9d531cea2a83d19460674e3bc9be2901b991cc470b88dd876390 0.0s done
+#8 exporting manifest list sha256:5d1d3e46f476c0d97f5068419b7acdff7cedcfab85ec2ebee05efe24f4af5667 done
+#8 naming to docker.io/library/kairos-investigation-study:build004 done
+#8 unpacking to docker.io/library/kairos-investigation-study:build004
+#8 unpacking to docker.io/library/kairos-investigation-study:build004 0.2s done
+#8 DONE 0.8s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/i12urrd1qbtnq4h42c2zgkutu

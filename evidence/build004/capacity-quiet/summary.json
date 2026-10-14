@@ -1,0 +1,88 @@
+{
+  "scope": "Fixture identity and task; actual HTTP, PostgreSQL commits and integrity reads. No inference or OIDC throughput claim.",
+  "stages": [
+    {
+      "label": "load-1",
+      "clients": 1,
+      "requested_seconds": 180,
+      "actual_seconds": 180.03,
+      "requests": 9110,
+      "observed_quota_rejections": 0,
+      "unexpected_errors": 0,
+      "non_success_rate": 0.0,
+      "status_counts": {
+        "202": 3644,
+        "200": 5466
+      },
+      "operations": {
+        "cancel": {
+          "n": 1822,
+          "p50_ms": 8.441,
+          "p95_ms": 11.356,
+          "max_ms": 91.894
+        },
+        "durable_ack": {
+          "n": 1822,
+          "p50_ms": 17.952,
+          "p95_ms": 24.424,
+          "max_ms": 182.039
+        },
+        "retry_ack": {
+          "n": 1822,
+          "p50_ms": 10.144,
+          "p95_ms": 13.784,
+          "max_ms": 138.461
+        },
+        "summary_read": {
+          "n": 3644,
+          "p50_ms": 5.241,
+          "p95_ms": 7.774,
+          "max_ms": 94.796
+        }
+      },
+      "unexpected_error_rate": 0.0
+    },
+    {
+      "label": "load-5",
+      "clients": 5,
+      "requested_seconds": 180,
+      "actual_seconds": 180.07,
+      "requests": 42410,
+      "observed_quota_rejections": 0,
+      "unexpected_errors": 0,
+      "non_success_rate": 0.0,
+      "status_counts": {
+        "202": 16964,
+        "200": 25446
+      },
+      "operations": {
+        "cancel": {
+          "n": 8482,
+          "p50_ms": 9.814499999999999,
+          "p95_ms": 13.712,
+          "max_ms": 229.515
+        },
+        "durable_ack": {
+          "n": 8482,
+          "p50_ms": 18.2755,
+          "p95_ms": 32.973,
+          "max_ms": 254.532
+        },
+        "retry_ack": {
+          "n": 8482,
+          "p50_ms": 13.6735,
+          "p95_ms": 23.924,
+          "max_ms": 232.929
+        },
+        "summary_read": {
+          "n": 16964,
+          "p50_ms": 5.382,
+          "p95_ms": 8.448,
+          "max_ms": 252.059
+        }
+      },
+      "unexpected_error_rate": 0.0
+    }
+  ],
+  "complete": false
+}

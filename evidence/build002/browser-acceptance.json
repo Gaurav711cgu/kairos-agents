@@ -1,0 +1,53 @@
+{
+  "kind": "manual_in_app_browser_acceptance",
+  "recorded_date": "2026-10-11",
+  "target": "http://127.0.0.1:3100",
+  "checks": {
+    "actual_oidc_builder_login": true,
+    "private_reference_queue_succeeded": true,
+    "private_model_queue_raw_response_and_grade": true,
+    "admin_approval_then_sandbox_dispatch": true,
+    "durable_receipt_after_reload": true,
+    "logout_returns_signin": true,
+    "public_context_toggle_reveals_exception": true,
+    "mobile_390px_document_width_390px": true,
+    "trace_fixture_1000_events_80_event_buttons": true,
+    "trace_paging_and_keyboard_url_event82": true,
+    "trace_filter_empty_state": true,
+    "public_model_report_32_rows_20_provider_failures_visible": true,
+    "semantic_report_33_rows_including_header": true,
+    "report_failure_filter_29_tasks_and_raw_evidence_expansion": true,
+    "desktop_1440px_document_width_1440px_two_hero_columns": true
+  },
+  "private_reference_job_id": "00abd1b1-c478-476e-94a8-109b261ab023",
+  "private_model_job_id": "6cfe119b-1462-4f7b-a22f-477c945e4a99",
+  "sandbox_proposal_id": "b824c813-d49c-439f-86b5-e348e0ed280a",
+  "sandbox_state_after_reload": "applied",
+  "private_model_smoke": {
+    "status": "failed",
+    "model_calls": 1,
+    "finish_reason": "eos",
+    "duration_ms": 29005.368,
+    "generation_budget_seconds": 60,
+    "output_tokens": 35,
+    "error": "Exception decision must cite policy.exception",
+    "disposition": "zero",
+    "business_disposition_correct": true,
+    "qualification": false
+  },
+  "screenshots": [
+    "screenshots/home.png",
+    "screenshots/mobile.png",
+    "screenshots/receipt.png",
+    "screenshots/model.png",
+    "screenshots/desktop.png",
+    "screenshots/report.png",
+    "screenshots/home-current.png"
+  ],
+  "limits": [
+    "Manual local browser checks, not automated E2E or an accessibility/usability study.",
+    "1000-event fixture repeats synthetic rendering data; not1000 executed events or a performance benchmark.",
+    "Private smoke is separate from initial published six-cell development probe.",
+    "Viewport reset and synthetic app session signed out after checks."
+  ]
+}

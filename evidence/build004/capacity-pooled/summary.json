@@ -1,0 +1,186 @@
+{
+  "scope": "Fixture identity and task; actual HTTP and PostgreSQL. No inference or OIDC throughput claim.",
+  "stages": [
+    {
+      "label": "load-1",
+      "clients": 1,
+      "requested_seconds": 180,
+      "actual_seconds": 180.01,
+      "requests": 8840,
+      "expected_quota_rejections": 0,
+      "unexpected_errors": 0,
+      "operations": {
+        "cancel": {
+          "n": 1768,
+          "p50_ms": 9.0015,
+          "p95_ms": 10.699,
+          "max_ms": 69.325
+        },
+        "durable_ack": {
+          "n": 1768,
+          "p50_ms": 19.04,
+          "p95_ms": 24.508,
+          "max_ms": 129.593
+        },
+        "retry_ack": {
+          "n": 1768,
+          "p50_ms": 10.7975,
+          "p95_ms": 13.233,
+          "max_ms": 111.726
+        },
+        "summary_read": {
+          "n": 3536,
+          "p50_ms": 5.703,
+          "p95_ms": 7.512,
+          "max_ms": 119.098
+        }
+      },
+      "unexpected_error_rate": 0.0
+    },
+    {
+      "label": "load-5",
+      "clients": 5,
+      "requested_seconds": 180,
+      "actual_seconds": 180.03,
+      "requests": 42275,
+      "expected_quota_rejections": 0,
+      "unexpected_errors": 0,
+      "operations": {
+        "cancel": {
+          "n": 8455,
+          "p50_ms": 9.97,
+          "p95_ms": 14.159,
+          "max_ms": 180.064
+        },
+        "durable_ack": {
+          "n": 8455,
+          "p50_ms": 17.935,
+          "p95_ms": 33.049,
+          "max_ms": 280.52
+        },
+        "retry_ack": {
+          "n": 8455,
+          "p50_ms": 13.55,
+          "p95_ms": 23.582,
+          "max_ms": 175.143
+        },
+        "summary_read": {
+          "n": 16910,
+          "p50_ms": 5.477,
+          "p95_ms": 8.532,
+          "max_ms": 92.501
+        }
+      },
+      "unexpected_error_rate": 0.0
+    },
+    {
+      "label": "load-10",
+      "clients": 10,
+      "requested_seconds": 180,
+      "actual_seconds": 180.11,
+      "requests": 67380,
+      "expected_quota_rejections": 0,
+      "unexpected_errors": 0,
+      "operations": {
+        "cancel": {
+          "n": 13476,
+          "p50_ms": 11.43,
+          "p95_ms": 18.661,
+          "max_ms": 194.804
+        },
+        "durable_ack": {
+          "n": 13476,
+          "p50_ms": 29.4925,
+          "p95_ms": 56.133,
+          "max_ms": 358.685
+        },
+        "retry_ack": {
+          "n": 13476,
+          "p50_ms": 21.503,
+          "p95_ms": 48.514,
+          "max_ms": 327.259
+        },
+        "summary_read": {
+          "n": 26952,
+          "p50_ms": 6.264,
+          "p95_ms": 11.607,
+          "max_ms": 189.102
+        }
+      },
+      "unexpected_error_rate": 0.0
+    },
+    {
+      "label": "load-20",
+      "clients": 20,
+      "requested_seconds": 180,
+      "actual_seconds": 180.15,
+      "requests": 39770,
+      "expected_quota_rejections": 0,
+      "unexpected_errors": 0,
+      "operations": {
+        "cancel": {
+          "n": 7954,
+          "p50_ms": 51.81,
+          "p95_ms": 80.256,
+          "max_ms": 254.265
+        },
+        "durable_ack": {
+          "n": 7954,
+          "p50_ms": 175.23950000000002,
+          "p95_ms": 281.641,
+          "max_ms": 554.309
+        },
+        "retry_ack": {
+          "n": 7954,
+          "p50_ms": 88.1575,
+          "p95_ms": 153.033,
+          "max_ms": 469.803
+        },
+        "summary_read": {
+          "n": 15908,
+          "p50_ms": 36.181,
+          "p95_ms": 68.249,
+          "max_ms": 235.875
+        }
+      },
+      "unexpected_error_rate": 0.0
+    },
+    {
+      "label": "soak-10",
+      "clients": 10,
+      "requested_seconds": 1800,
+      "actual_seconds": 1800.23,
+      "requests": 212803,
+      "expected_quota_rejections": 11518,
+      "unexpected_errors": 31858,
+      "operations": {
+        "cancel": {
+          "n": 31569,
+          "p50_ms": 22.343,
+          "p95_ms": 41.595,
+          "max_ms": 1819.489
+        },
+        "durable_ack": {
+          "n": 31575,
+          "p50_ms": 110.963,
+          "p95_ms": 275.529,
+          "max_ms": 9340.037
+        },
+        "retry_ack": {
+          "n": 31569,
+          "p50_ms": 73.942,
+          "p95_ms": 182.858,
+          "max_ms": 7973.274
+        },
+        "summary_read": {
+          "n": 74714,
+          "p50_ms": 11.277,
+          "p95_ms": 37.754,
+          "max_ms": 7989.156
+        }
+      },
+      "unexpected_error_rate": 0.14970653609206638
+    }
+  ],
+  "complete": true
+}

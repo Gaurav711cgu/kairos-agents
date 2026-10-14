@@ -1,0 +1,49 @@
+{
+  "id": "django__django-10999",
+  "qualified": true,
+  "reason": null,
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "Testing against Django installed in '/workspace/django'\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 12, \"complete\": false}\n",
+    "stderr": "...........\n======================================================================\nFAIL: test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-15:30')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/utils_tests/test_dateparse.py\", line 125, in test_negative\n    self.assertEqual(parse_duration(source), expected)\nAssertionError: datetime.timedelta(days=-1, seconds=85530) != datetime.timedelta(days=-1, seconds=85470)\n\n======================================================================\nFAIL: test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-1:15:30')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/utils_tests/test_dateparse.py\", line 125, in test_negative\n    self.assertEqual(parse_duration(source), expected)\nAssertionError: datetime.timedelta(days=-1, seconds=83730) != datetime.timedelta(days=-1, seconds=81870)\n\n======================================================================\nFAIL: test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-00:01:01')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/utils_tests/test_dateparse.py\", line 125, in test_negative\n    self.assertEqual(parse_duration(source), expected)\nAssertionError: datetime.timedelta(seconds=61) != datetime.timedelta(days=-1, seconds=86339)\n\n======================================================================\nFAIL: test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-01:01')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/utils_tests/test_dateparse.py\", line 125, in test_negative\n    self.assertEqual(parse_duration(source), expected)\nAssertionError: datetime.timedelta(days=-1, seconds=86341) != datetime.timedelta(days=-1, seconds=86339)\n\n======================================================================\nFAIL: test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-01:-01')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/utils_tests/test_dateparse.py\", line 125, in test_negative\n    self.assertEqual(parse_duration(source), expected)\nAssertionError: datetime.timedelta(days=-1, seconds=86339) != None\n\n----------------------------------------------------------------------\nRan 12 tests in 0.003s\n\nFAILED (failures=5)\n\n",
+    "seconds": 2.091,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": true,
+    "environment_error": false,
+    "returncode": 0,
+    "stdout": "Testing against Django installed in '/workspace/django'\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 12, \"complete\": true}\n",
+    "stderr": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.002s\n\nOK\n\n",
+    "seconds": 1.99,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "django__django-10999",
+    "title": "Fix parse_duration() for some negative durations",
+    "issue": "Fix parse_duration() for some negative durations\nDescription\n\t\nThe \u200bhttps://docs.djangoproject.com/en/2.1/_modules/django/utils/dateparse/ defines:\nstandard_duration_re = re.compile(\n\tr'^'\n\tr'(?:(?P<days>-?\\d+) (days?, )?)?'\n\tr'((?:(?P<hours>-?\\d+):)(?=\\d+:\\d+))?'\n\tr'(?:(?P<minutes>-?\\d+):)?'\n\tr'(?P<seconds>-?\\d+)'\n\tr'(?:\\.(?P<microseconds>\\d{1,6})\\d{0,6})?'\n\tr'$'\n)\nthat doesn't match to negative durations, because of the <hours> definition final (lookahead) part does not have '-?' in it. The following will work:\n\tr'((?:(?P<hours>-?\\d+):)(?=-?\\d+:-?\\d+))?'\n(Thanks to Konstantin Senichev for finding the fix.)\n",
+    "repository": "django/django",
+    "revision": "36300ef336e3f130a0dadc1143163ff3d23dc843",
+    "source_url": "https://github.com/django/django/tree/36300ef336e3f130a0dadc1143163ff3d23dc843",
+    "issue_url": "https://github.com/django/django/pull/10999",
+    "entry_files": [
+      "django/utils/dateparse.py"
+    ],
+    "approved_prefix": "django/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "cc1cdbff054033fc08c0ca5f8445dfe93d56e26e79dbb3232b39716e5e95394b",
+    "reference_digest": "5f79fbb7e321b24ac8090df846218a64ff35048433bc1c818f1cbfd72ad58aab",
+    "verification_digest": "8597d6803fd3e0b7cbd649216f55179449632cdd4cf687f74be1e4c8119bc577"
+  }
+}

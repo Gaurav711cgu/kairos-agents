@@ -1,0 +1,11 @@
+Docker ready; starting only the selected pinned inference profile.
+Docker Desktop is not running
+Inference and Docker stopped after this phase.
+Traceback (most recent call last):
+  File "<stdin>", line 15, in <module>
+  File "/Users/gauravkumarnayak/Desktop/new-karos/scripts/advance004.py", line 56, in run
+    with (OUT/name).open('a') as output:subprocess.run(args,cwd=ROOT,stdout=output,stderr=subprocess.STDOUT,check=True)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/gauravkumarnayak/Desktop/new-karos/.venv/bin/python', '-m', 'scripts.study004', 'evaluation', '--profile', '/Users/gauravkumarnayak/Desktop/new-karos/evidence/build004/inference-qwen3-mac.json', '--label', 'qwen3', '--revision', '2']' returned non-zero exit status 1.

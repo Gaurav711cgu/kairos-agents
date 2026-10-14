@@ -1,0 +1,242 @@
+{
+  "registry_sha256": "5ed77cefe71b176fd6c175bb6023e015b2b7ad989cb2d2b353a34209d14a44b3",
+  "seed": 741903,
+  "development": [
+    "django__django-11066",
+    "django__django-11119",
+    "pytest-dev__pytest-6197",
+    "pytest-dev__pytest-6202",
+    "psf__requests-2931",
+    "psf__requests-6028"
+  ],
+  "evaluation": [
+    "django__django-10999",
+    "django__django-11087",
+    "django__django-11095",
+    "django__django-11099",
+    "pytest-dev__pytest-10051",
+    "pytest-dev__pytest-10081",
+    "pytest-dev__pytest-7205",
+    "pytest-dev__pytest-7236",
+    "psf__requests-1142",
+    "psf__requests-1766",
+    "psf__requests-1921",
+    "psf__requests-5414"
+  ],
+  "audit": [
+    {
+      "id": "django__django-10999",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-15:30')",
+        "test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-1:15:30')",
+        "test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-00:01:01')",
+        "test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-01:01')",
+        "test_negative (utils_tests.test_dateparse.DurationParseTests) (source='-01:-01')"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "django/utils/dateparse.py": 14
+      }
+    },
+    {
+      "id": "django__django-11066",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_existing_content_type_rename_other_database (contenttypes_tests.test_operations.ContentTypeOperationsTests)"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "django/contrib/contenttypes/management/__init__.py": 9
+      }
+    },
+    {
+      "id": "django__django-11087",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_only_referenced_fields_selected (delete.tests.DeletionTests)"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "django/db/models/deletion.py": 1
+      }
+    },
+    {
+      "id": "django__django-11095",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_get_inline_instances_override_get_inlines (generic_inline_admin.tests.GenericInlineModelAdminTest)"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "django/contrib/admin/options.py": 312
+      }
+    },
+    {
+      "id": "django__django-11099",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_ascii_validator (auth_tests.test_validators.UsernameValidatorsTests) (invalid='trailingnewline\\n')",
+        "test_unicode_validator (auth_tests.test_validators.UsernameValidatorsTests) (invalid='trailingnewline\\n')"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "django/contrib/auth/validators.py": 1
+      }
+    },
+    {
+      "id": "django__django-11119",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_autoescape_off (template_tests.test_engine.RenderToStringTest)"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "django/template/engine.py": 145
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-10051",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "testing/logging/test_fixture.py::test_clear_for_call_stage"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "src/_pytest/logging.py": 25
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-10081",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "testing/test_unittest.py::test_pdb_teardown_skipped_for_classes[@unittest.skip]"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "src/_pytest/unittest.py": 301
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-6197",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "testing/test_collection.py::test_does_not_eagerly_collect_packages",
+        "testing/test_collection.py::test_does_not_put_src_on_path"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "src/_pytest/python.py": 236
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-6202",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "testing/test_collection.py::Test_genitems::test_example_items1"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "src/_pytest/python.py": 270
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-7205",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "testing/test_setuponly.py::test_show_fixtures_with_parameter_ids[--setup-only]",
+        "testing/test_setuponly.py::test_show_fixtures_with_parameter_ids[--setup-plan]",
+        "testing/test_setuponly.py::test_show_fixtures_with_parameter_ids[--setup-show]",
+        "testing/test_setuponly.py::test_show_fixtures_with_parameter_ids_function[--setup-only]",
+        "testing/test_setuponly.py::test_show_fixtures_with_parameter_ids_function[--setup-plan]",
+        "testing/test_setuponly.py::test_show_fixtures_with_parameter_ids_function[--setup-show]",
+        "testing/test_setuponly.py::test_show_fixtures_with_parameters[--setup-only]",
+        "testing/test_setuponly.py::test_show_fixtures_with_parameters[--setup-plan]",
+        "testing/test_setuponly.py::test_show_fixtures_with_parameters[--setup-show]"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "src/_pytest/setuponly.py": 1
+      }
+    },
+    {
+      "id": "pytest-dev__pytest-7236",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "testing/test_unittest.py::test_pdb_teardown_skipped[@unittest.skip]"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "src/_pytest/unittest.py": 26
+      }
+    },
+    {
+      "id": "psf__requests-1142",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_requests.py::RequestsTestCase::test_no_content_length"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "requests/models.py": 371
+      }
+    },
+    {
+      "id": "psf__requests-1766",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "requests/auth.py": 90
+      }
+    },
+    {
+      "id": "psf__requests-1921",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_requests.py::RequestsTestCase::test_headers_on_session_with_None_are_not_sent"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "requests/sessions.py": 44
+      }
+    },
+    {
+      "id": "psf__requests-2931",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "test_requests.py::TestRequests::test_binary_put"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "requests/models.py": 66
+      }
+    },
+    {
+      "id": "psf__requests-5414",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "tests/test_requests.py::TestRequests::test_invalid_url[InvalidURL-http://.example.com]"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "requests/models.py": 388
+      }
+    },
+    {
+      "id": "psf__requests-6028",
+      "registered_regression_reproduced": true,
+      "baseline_failed_tests": [
+        "tests/test_utils.py::test_prepend_scheme_if_needed[http://user:pass@example.com/path?query-http://user:pass@example.com/path?query]",
+        "tests/test_utils.py::test_prepend_scheme_if_needed[http://user@example.com/path?query-http://user@example.com/path?query]"
+      ],
+      "reference_passed": true,
+      "entry_lines": {
+        "requests/utils.py": 959
+      }
+    }
+  ],
+  "historical_case_objects_unchanged": true
+}

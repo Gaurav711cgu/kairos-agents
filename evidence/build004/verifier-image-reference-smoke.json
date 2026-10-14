@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "all_registered_images_present": {
+    "sha256:5db01d3fa0f7880ccc2a69ee40b15e7635c6aa72bc2bfa2fda967efd18fd3c96": true,
+    "sha256:9f1fdb06b595456c36483ed2c7a008c33be33e311fdb257c1bb29db812b00a85": true,
+    "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e": true,
+    "sha256:f3dbdd3284de2eff1afa47b0cc6558498cc5aa307dbaa889ace73d168cfe91ce": true
+  },
+  "task_id": "pytest-dev__pytest-10051",
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "verification_complete": false,
+    "verification_incomplete": true,
+    "tests_run": 16,
+    "returncode": 1,
+    "stdout": "F...............                                                         [100%]\n=================================== FAILURES ===================================\n__________________________ test_clear_for_call_stage ___________________________\n\ncaplog = <_pytest.logging.LogCaptureFixture object at 0xffffa6c64a30>\nlogging_during_setup_and_teardown = None\n\n    def test_clear_for_call_stage(caplog, logging_during_setup_and_teardown):\n        logger.info(\"a_call_log\")\n        assert [x.message for x in caplog.get_records(\"call\")] == [\"a_call_log\"]\n        assert [x.message for x in caplog.get_records(\"setup\")] == [\"a_setup_log\"]\n        assert set(caplog._item.stash[caplog_records_key]) == {\"setup\", \"call\"}\n    \n        caplog.clear()\n    \n>       assert caplog.get_records(\"call\") == []\nE       assert [<LogRecord: ...\"a_call_log\">] == []\nE         Left contains one more item: <LogRecord: test_fixture, 20, /workspace/testing/logging/test_fixture.py, 176, \"a_call_log\">\nE         Use -v to get more diff\n\ntesting/logging/test_fixture.py:183: AssertionError\n------------------------------ Captured log setup ------------------------------\nINFO     test_fixture:test_fixture.py:157 a_setup_log\n------------------------------ Captured log call -------------------------------\nINFO     test_fixture:test_fixture.py:176 a_call_log\n---------------------------- Captured log teardown -----------------------------\nINFO     test_fixture:test_fixture.py:159 a_teardown_log\n=========================== short test summary info ============================\nFAILED testing/logging/test_fixture.py::test_clear_for_call_stage - assert [<...\n1 failed, 15 passed in 0.16s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 16, \"complete\": false, \"passed\": [\"testing/logging/test_fixture.py::test_caplog_can_override_global_log_level\", \"testing/logging/test_fixture.py::test_caplog_captures_despite_exception\", \"testing/logging/test_fixture.py::test_caplog_captures_for_all_stages\", \"testing/logging/test_fixture.py::test_change_level\", \"testing/logging/test_fixture.py::test_change_level_undo\", \"testing/logging/test_fixture.py::test_change_level_undos_handler_level\", \"testing/logging/test_fixture.py::test_clear\", \"testing/logging/test_fixture.py::test_fixture_help\", \"testing/logging/test_fixture.py::test_ini_controls_global_log_level\", \"testing/logging/test_fixture.py::test_log_access\", \"testing/logging/test_fixture.py::test_log_report_captures_according_to_config_option_upon_failure\", \"testing/logging/test_fixture.py::test_messages\", \"testing/logging/test_fixture.py::test_record_tuples\", \"testing/logging/test_fixture.py::test_unicode\", \"testing/logging/test_fixture.py::test_with_statement\"], \"failed\": [\"testing/logging/test_fixture.py::test_clear_for_call_stage\"]}\n",
+    "stderr": "",
+    "seconds": 0.929,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": true,
+    "environment_error": false,
+    "verification_complete": true,
+    "verification_incomplete": false,
+    "tests_run": 16,
+    "returncode": 0,
+    "stdout": "................                                                         [100%]\n16 passed in 0.15s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 16, \"complete\": true, \"passed\": [\"testing/logging/test_fixture.py::test_caplog_can_override_global_log_level\", \"testing/logging/test_fixture.py::test_caplog_captures_despite_exception\", \"testing/logging/test_fixture.py::test_caplog_captures_for_all_stages\", \"testing/logging/test_fixture.py::test_change_level\", \"testing/logging/test_fixture.py::test_change_level_undo\", \"testing/logging/test_fixture.py::test_change_level_undos_handler_level\", \"testing/logging/test_fixture.py::test_clear\", \"testing/logging/test_fixture.py::test_clear_for_call_stage\", \"testing/logging/test_fixture.py::test_fixture_help\", \"testing/logging/test_fixture.py::test_ini_controls_global_log_level\", \"testing/logging/test_fixture.py::test_log_access\", \"testing/logging/test_fixture.py::test_log_report_captures_according_to_config_option_upon_failure\", \"testing/logging/test_fixture.py::test_messages\", \"testing/logging/test_fixture.py::test_record_tuples\", \"testing/logging/test_fixture.py::test_unicode\", \"testing/logging/test_fixture.py::test_with_statement\"], \"failed\": []}\n",
+    "stderr": "",
+    "seconds": 0.766,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "model_dispatches": 0,
+  "frozen_evaluation_changed": false,
+  "scope": "Exact recovered environment independently executes original baseline regression and maintainer repair. No agent result reassessment."
+}

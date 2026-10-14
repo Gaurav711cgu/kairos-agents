@@ -1,0 +1,37 @@
+{
+  "outage": {
+    "detection_seconds_including_stop": 5.446229083001526,
+    "held_runtime_lock": {
+      "elapsed_seconds": 2.013598790999822,
+      "new_model_dispatches": 0,
+      "recovered_same_identity": true,
+      "status": 503
+    },
+    "model_calls": 0,
+    "outage_status": 503,
+    "passed": true,
+    "preserved_study_fingerprint": {
+      "rows": 46,
+      "sha256": "34d45f205d4d872998eadcaf851324226b5b8caa47f8da6ff177297c5993db82"
+    },
+    "recovery_seconds_after_start": 1.4084052500002144,
+    "same_durable_command_after_restart": true,
+    "scope": "Intentional local PostgreSQL outage, developer auth; actual OIDC journeys are separate",
+    "source_data_preserved": true
+  },
+  "passed": true,
+  "pool": {
+    "connections_held": 8,
+    "contending_borrowers": 40,
+    "maximum_elapsed_seconds": 5.0081247910020465,
+    "maximum_waiting": 32,
+    "outcomes": {
+      "PoolTimeout": 32,
+      "TooManyRequests": 8
+    },
+    "passed": true,
+    "recovered_after_release": true,
+    "scope": "Actual PostgreSQL pool saturation; this is not a throughput benchmark"
+  },
+  "release": "build007"
+}

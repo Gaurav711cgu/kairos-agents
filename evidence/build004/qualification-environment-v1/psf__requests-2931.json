@@ -1,0 +1,49 @@
+{
+  "id": "psf__requests-2931",
+  "qualified": false,
+  "reason": "Baseline regression or reference repair did not reproduce under registered 1GB/120s environment",
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 8, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'test_requests.py::TestRequests::test_binary_put', 'test_requests.py::TestRequests::test_entry_points', 'test_requests.py::TestRequests::test_invalid_url', 'test_requests.py::TestRequests::test_basic_building', 'test_requests.py::TestRequests::test_path_is_not_double_encoded', 'test_requests.py::TestRequests::test_params_are_added_before_fragment', 'test_requests.py::TestRequests::test_params_original_order_is_preserved_by_default', 'test_requests.py::TestRequests::test_params_bytes_are_encoded', 'test_requests.py::TestRequests::test_connection_error_invalid_domain', 'test_requests.py::TestRequests::test_connection_error_invalid_port', 'test_requests.py::TestRequests::test_LocationParseError', 'test_requests.py::TestRequests::test_links', 'test_requests.py::TestRequests::test_cookie_parameters', 'test_requests.py::TestRequests::test_cookie_as_dict_keeps_len', 'test_requests.py::TestRequests::test_cookie_as_dict_keeps_items', 'test_requests.py::TestRequests::test_cookie_as_dict_keys', 'test_requests.py::TestRequests::test_cookie_as_dict_values', 'test_requests.py::TestRequests::test_cookie_as_dict_items', 'test_requests.py::TestRequests::test_response_is_iterable', 'test_requests.py::TestRequests::test_response_decode_unicode', 'test_requests.py::TestRequests::test_get_auth_from_url'],plugins=[p])\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 150, in main\n    config = _prepareconfig(args, plugins)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 330, in _prepareconfig\n    pluginmanager.register(plugin)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 491, in register\n    ret: Optional[str] = super().register(plugin, name)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 114, in register\n    self._verify_hook(hook, hookimpl)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 232, in _verify_hook\n    raise PluginValidationError(\npluggy._manager.PluginValidationError: Plugin '281472828067120' for hook 'pytest_runtest_logreport'\nhookimpl definition: pytest_runtest_logreport(r)\nArgument(s) {'r'} are declared in the hookimpl but can not be found in the hookspec\n",
+    "seconds": 0.747,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 8, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'test_requests.py::TestRequests::test_binary_put', 'test_requests.py::TestRequests::test_entry_points', 'test_requests.py::TestRequests::test_invalid_url', 'test_requests.py::TestRequests::test_basic_building', 'test_requests.py::TestRequests::test_path_is_not_double_encoded', 'test_requests.py::TestRequests::test_params_are_added_before_fragment', 'test_requests.py::TestRequests::test_params_original_order_is_preserved_by_default', 'test_requests.py::TestRequests::test_params_bytes_are_encoded', 'test_requests.py::TestRequests::test_connection_error_invalid_domain', 'test_requests.py::TestRequests::test_connection_error_invalid_port', 'test_requests.py::TestRequests::test_LocationParseError', 'test_requests.py::TestRequests::test_links', 'test_requests.py::TestRequests::test_cookie_parameters', 'test_requests.py::TestRequests::test_cookie_as_dict_keeps_len', 'test_requests.py::TestRequests::test_cookie_as_dict_keeps_items', 'test_requests.py::TestRequests::test_cookie_as_dict_keys', 'test_requests.py::TestRequests::test_cookie_as_dict_values', 'test_requests.py::TestRequests::test_cookie_as_dict_items', 'test_requests.py::TestRequests::test_response_is_iterable', 'test_requests.py::TestRequests::test_response_decode_unicode', 'test_requests.py::TestRequests::test_get_auth_from_url'],plugins=[p])\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 150, in main\n    config = _prepareconfig(args, plugins)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 330, in _prepareconfig\n    pluginmanager.register(plugin)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 491, in register\n    ret: Optional[str] = super().register(plugin, name)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 114, in register\n    self._verify_hook(hook, hookimpl)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 232, in _verify_hook\n    raise PluginValidationError(\npluggy._manager.PluginValidationError: Plugin '281472847596848' for hook 'pytest_runtest_logreport'\nhookimpl definition: pytest_runtest_logreport(r)\nArgument(s) {'r'} are declared in the hookimpl but can not be found in the hookspec\n",
+    "seconds": 0.746,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "psf__requests-2931",
+    "title": "Request with binary payload fails due to calling to_native_string",
+    "issue": "Request with binary payload fails due to calling to_native_string\nIntroduced with https://github.com/kennethreitz/requests/issues/2844\n\n```\nimport requests\nrequests.put(\"http://httpbin.org/put\", data=u\"\u00f6\u00f6\u00f6\".encode(\"utf-8\"))\n```\n\nThis works with 2.8.1, but not with 2.9.\n\n",
+    "repository": "psf/requests",
+    "revision": "5f7a3a74aab1625c2bb65f643197ee885e3da576",
+    "source_url": "https://github.com/psf/requests/tree/5f7a3a74aab1625c2bb65f643197ee885e3da576",
+    "issue_url": "https://github.com/psf/requests/pull/2931",
+    "entry_files": [
+      "requests/models.py"
+    ],
+    "approved_prefix": "requests/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:5d1d3e46f476c0d97f5068419b7acdff7cedcfab85ec2ebee05efe24f4af5667",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "e5aadecdcfbc67eb2751ad2f7b3a03dc57b913b541158753dbae199deb7ab4de",
+    "reference_digest": "5b5a77408b00928b0380cd6a40ccb53f0cf77b16f040e1743e313883aad104db",
+    "verification_digest": "a0d6f601e4844001f0e909e9a401219fe80a26dfe11547ab18ce28b09532faab"
+  }
+}

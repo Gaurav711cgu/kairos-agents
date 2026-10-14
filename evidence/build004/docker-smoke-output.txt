@@ -1,0 +1,28 @@
+{
+  "method": "Actual built Docker images; isolated temporary PostgreSQL schema and private synthetic commands",
+  "checks": {
+    "durable_private_idempotency": true,
+    "payload_conflict": true,
+    "private_not_published": true,
+    "body_limit_before_auth": true,
+    "public_web_served": true,
+    "production_local_mutation_denied": true,
+    "private_proxy_anonymous_denied": true,
+    "unknown_public_report_not_fabricated": true,
+    "investigation_schema_initialized": true,
+    "private_investigation_anonymous_denied": true,
+    "nonroot_images": true,
+    "outage_proxy_returns_unavailable": true,
+    "outage_home_never_fabricates_records": true
+  },
+  "api_image_id": "sha256:414b0566682dbb23f4ae45975c9d6e5d15b0ff013bf73159517a4a3d50897f06",
+  "api_uid": 10001,
+  "web_image_id": "sha256:018891653413188d0dd8bde02d0af9edfc372f7177b3f0557a2f953fc7146aec",
+  "web_uid": 1000,
+  "passed": true,
+  "limits": [
+    "Development API auth used only inside isolated local smoke schema. Production OIDC has separate protocol/configuration tests.",
+    "No TLS edge or public hosting exercised.",
+    "All smoke runs private; temporary containers/schema removed."
+  ]
+}

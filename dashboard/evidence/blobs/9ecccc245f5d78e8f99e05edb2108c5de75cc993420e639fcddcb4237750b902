@@ -1,0 +1,1 @@
+{"action":"propose_patch","edits":[{"new":"if not hasattr(module, '__path__'):\n    self.unmigrated_apps.add(app_config.label)\n    continue","old":"if getattr(module, '__file__', None) is None:\n    self.unmigrated_apps.add(app_config.label)\n    continue","source_id":"S686c2a2b31eb"}],"model_seq":4}

@@ -1,0 +1,11 @@
+ERROR: NotFound: rpc error: code = NotFound desc = content digest sha256:4866d8c0cb3b338acda716ed15e902caf4b57f506162a5744767abfc5cb6940d: not found
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/gauravkumarnayak/Desktop/new-karos/scripts/recover_verifier004.py", line 79, in <module>
+    main()
+  File "/Users/gauravkumarnayak/Desktop/new-karos/scripts/recover_verifier004.py", line 43, in main
+    subprocess.run(['docker', 'buildx', 'history', 'inspect', 'attachment', BUILD_REF, digest], stdout=stream, check=True, timeout=90)
+  File "/Users/gauravkumarnayak/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['docker', 'buildx', 'history', 'inspect', 'attachment', 'pjmfdczmy4ls3gn7acqc12u73', 'sha256:4866d8c0cb3b338acda716ed15e902caf4b57f506162a5744767abfc5cb6940d']' returned non-zero exit status 1.

@@ -1,0 +1,89 @@
+{
+  "baseline": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 1.455,
+    "stderr": "Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\ntest_bulk (delete.tests.DeletionTests) ... ok\ntest_can_defer_constraint_checks (delete.tests.DeletionTests) ... ok\ntest_cannot_defer_constraint_checks (delete.tests.DeletionTests) ... skipped 'Database has feature(s) can_defer_constraint_checks'\ntest_delete_with_keeping_parents (delete.tests.DeletionTests) ... ok\ntest_delete_with_keeping_parents_relationships (delete.tests.DeletionTests) ... ok\ntest_deletion_order (delete.tests.DeletionTests) ... ok\ntest_hidden_related (delete.tests.DeletionTests) ... ok\ntest_instance_update (delete.tests.DeletionTests) ... ok\ntest_large_delete (delete.tests.DeletionTests) ... ok\ntest_large_delete_related (delete.tests.DeletionTests) ... ok\ntest_m2m (delete.tests.DeletionTests) ... ok\ntest_model_delete_returns_num_rows (delete.tests.DeletionTests)\nModel.delete() should return the number of deleted rows and a ... ok\ntest_proxied_model_duplicate_queries (delete.tests.DeletionTests)\n#25685 - Deleting instances of a model with existing proxy ... ok\ntest_queryset_delete_returns_num_rows (delete.tests.DeletionTests)\nQuerySet.delete() should return the number of deleted rows and a ... ok\ntest_relational_post_delete_signals_happen_before_parent_object (delete.tests.DeletionTests) ... ok\ntest_fast_delete_empty_no_update_can_self_select (delete.tests.FastDeleteTests)\n#25932 - Fast deleting on backends that don't have the ... ok\ntest_fast_delete_fk (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_inheritance (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_instance_set_pk_none (delete.tests.FastDeleteTests) ... FAIL\ntest_fast_delete_joined_qs (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_large_batch (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_m2m (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_qs (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_revm2m (delete.tests.FastDeleteTests) ... ok\ntest_auto (delete.tests.OnDeleteTests) ... ok\ntest_auto_nullable (delete.tests.OnDeleteTests) ... ok\ntest_cascade (delete.tests.OnDeleteTests) ... ok\ntest_cascade_from_child (delete.tests.OnDeleteTests) ... ok\ntest_cascade_from_parent (delete.tests.OnDeleteTests) ... ok\ntest_cascade_nullable (delete.tests.OnDeleteTests) ... ok\ntest_do_nothing (delete.tests.OnDeleteTests) ... ok\ntest_do_nothing_qscount (delete.tests.OnDeleteTests)\nA models.DO_NOTHING relation doesn't trigger a query. ... ok\ntest_inheritance_cascade_down (delete.tests.OnDeleteTests) ... ok\ntest_inheritance_cascade_up (delete.tests.OnDeleteTests) ... ok\ntest_o2o_setnull (delete.tests.OnDeleteTests) ... ok\ntest_protect (delete.tests.OnDeleteTests) ... ok\ntest_setdefault (delete.tests.OnDeleteTests) ... ok\ntest_setdefault_none (delete.tests.OnDeleteTests) ... ok\ntest_setnull (delete.tests.OnDeleteTests) ... ok\ntest_setnull_from_child (delete.tests.OnDeleteTests) ... ok\ntest_setnull_from_parent (delete.tests.OnDeleteTests) ... ok\ntest_setvalue (delete.tests.OnDeleteTests) ... ok\n\n======================================================================\nFAIL: test_fast_delete_instance_set_pk_none (delete.tests.FastDeleteTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/delete/tests.py\", line 481, in test_fast_delete_instance_set_pk_none\n    self.assertIsNone(u.pk)\nAssertionError: 1 is not None\n\n----------------------------------------------------------------------\nRan 42 tests in 0.308s\n\nFAILED (failures=1, skipped=1)\nDestroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\n\n",
+    "stdout": "Testing against Django installed in '/workspace/django'\nImporting application delete\nSkipping setup of unused database(s): other.\nOperations to perform:\n  Synchronize unmigrated apps: auth, contenttypes, delete, messages, sessions, staticfiles\n  Apply all migrations: admin, sites\nSynchronizing apps without migrations:\n  Creating tables...\n    Creating table django_content_type\n    Creating table auth_permission\n    Creating table auth_group\n    Creating table auth_user\n    Creating table django_session\n    Creating table delete_r\n    Creating table delete_s\n    Creating table delete_t\n    Creating table delete_u\n    Creating table delete_rchild\n    Creating table delete_a\n    Creating table delete_m\n    Creating table delete_mr\n    Creating table delete_mrnull\n    Creating table delete_avatar\n    Creating table delete_user\n    Creating table delete_hiddenuser\n    Creating table delete_hiddenuserprofile\n    Creating table delete_m2mto\n    Creating table delete_m2mfrom\n    Creating table delete_parent\n    Creating table delete_child\n    Creating table delete_base\n    Creating table delete_reltobase\n    Running deferred SQL...\nRunning migrations:\n  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying sites.0001_initial... OK\n  Applying sites.0002_alter_domain_unique... OK\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 42, \"execution_complete\": true, \"complete\": false, \"regression_failed\": [\"test_fast_delete_instance_set_pk_none (delete.tests.FastDeleteTests)\"], \"regression_passed\": []}\n",
+    "tests_run": 42,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "baseline_summary": {
+    "complete": false,
+    "execution_complete": true,
+    "regression_failed": [
+      "test_fast_delete_instance_set_pk_none (delete.tests.FastDeleteTests)"
+    ],
+    "regression_passed": [],
+    "tests_run": 42
+  },
+  "case": {
+    "approved_prefix": "django/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "django/db/models/deletion.py"
+    ],
+    "id": "django__django-11179",
+    "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+    "issue": "delete() on instances of models without any dependencies doesn't clear PKs.\nDescription\n\t\nDeleting any model with no dependencies not updates the PK on the model. It should be set to None after .delete() call.\nSee Django.db.models.deletion:276-281. Should update the model line 280.\n",
+    "issue_url": "https://github.com/django/django/pull/11179",
+    "provenance": "Registered entry files disclose maintainer-localized paths, never patch text or line hints; Public historical cases may have appeared in training",
+    "qualified": true,
+    "reference_digest": "a1896338de07ff4fa040d7e692a1c954e44f3cac29f6db8bd7f15820a123b45f",
+    "repository": "django/django",
+    "revision": "19fc6376ce67d01ca37a91ef2f55ef769f50513a",
+    "source_digest": "6c120b8a49c7f4f3cb529ea6f1bb6b80a8697a35f3610e6660bd21534f57e657",
+    "source_url": "https://github.com/django/django/tree/19fc6376ce67d01ca37a91ef2f55ef769f50513a",
+    "split": "evaluation",
+    "title": "delete() on instances of models without any dependencies doesn't clear PKs.",
+    "verification_digest": "7b6be42b55094c994a917a35be7fd57c1ce218defb68772e0e44d13eead38a5c"
+  },
+  "id": "django__django-11179",
+  "qualified": true,
+  "reason": null,
+  "reference": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": true,
+    "returncode": 0,
+    "seconds": 1.612,
+    "stderr": "Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\ntest_bulk (delete.tests.DeletionTests) ... ok\ntest_can_defer_constraint_checks (delete.tests.DeletionTests) ... ok\ntest_cannot_defer_constraint_checks (delete.tests.DeletionTests) ... skipped 'Database has feature(s) can_defer_constraint_checks'\ntest_delete_with_keeping_parents (delete.tests.DeletionTests) ... ok\ntest_delete_with_keeping_parents_relationships (delete.tests.DeletionTests) ... ok\ntest_deletion_order (delete.tests.DeletionTests) ... ok\ntest_hidden_related (delete.tests.DeletionTests) ... ok\ntest_instance_update (delete.tests.DeletionTests) ... ok\ntest_large_delete (delete.tests.DeletionTests) ... ok\ntest_large_delete_related (delete.tests.DeletionTests) ... ok\ntest_m2m (delete.tests.DeletionTests) ... ok\ntest_model_delete_returns_num_rows (delete.tests.DeletionTests)\nModel.delete() should return the number of deleted rows and a ... ok\ntest_proxied_model_duplicate_queries (delete.tests.DeletionTests)\n#25685 - Deleting instances of a model with existing proxy ... ok\ntest_queryset_delete_returns_num_rows (delete.tests.DeletionTests)\nQuerySet.delete() should return the number of deleted rows and a ... ok\ntest_relational_post_delete_signals_happen_before_parent_object (delete.tests.DeletionTests) ... ok\ntest_fast_delete_empty_no_update_can_self_select (delete.tests.FastDeleteTests)\n#25932 - Fast deleting on backends that don't have the ... ok\ntest_fast_delete_fk (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_inheritance (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_instance_set_pk_none (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_joined_qs (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_large_batch (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_m2m (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_qs (delete.tests.FastDeleteTests) ... ok\ntest_fast_delete_revm2m (delete.tests.FastDeleteTests) ... ok\ntest_auto (delete.tests.OnDeleteTests) ... ok\ntest_auto_nullable (delete.tests.OnDeleteTests) ... ok\ntest_cascade (delete.tests.OnDeleteTests) ... ok\ntest_cascade_from_child (delete.tests.OnDeleteTests) ... ok\ntest_cascade_from_parent (delete.tests.OnDeleteTests) ... ok\ntest_cascade_nullable (delete.tests.OnDeleteTests) ... ok\ntest_do_nothing (delete.tests.OnDeleteTests) ... ok\ntest_do_nothing_qscount (delete.tests.OnDeleteTests)\nA models.DO_NOTHING relation doesn't trigger a query. ... ok\ntest_inheritance_cascade_down (delete.tests.OnDeleteTests) ... ok\ntest_inheritance_cascade_up (delete.tests.OnDeleteTests) ... ok\ntest_o2o_setnull (delete.tests.OnDeleteTests) ... ok\ntest_protect (delete.tests.OnDeleteTests) ... ok\ntest_setdefault (delete.tests.OnDeleteTests) ... ok\ntest_setdefault_none (delete.tests.OnDeleteTests) ... ok\ntest_setnull (delete.tests.OnDeleteTests) ... ok\ntest_setnull_from_child (delete.tests.OnDeleteTests) ... ok\ntest_setnull_from_parent (delete.tests.OnDeleteTests) ... ok\ntest_setvalue (delete.tests.OnDeleteTests) ... ok\n\n----------------------------------------------------------------------\nRan 42 tests in 0.356s\n\nOK (skipped=1)\nDestroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...\n\n",
+    "stdout": "Testing against Django installed in '/workspace/django'\nImporting application delete\nSkipping setup of unused database(s): other.\nOperations to perform:\n  Synchronize unmigrated apps: auth, contenttypes, delete, messages, sessions, staticfiles\n  Apply all migrations: admin, sites\nSynchronizing apps without migrations:\n  Creating tables...\n    Creating table django_content_type\n    Creating table auth_permission\n    Creating table auth_group\n    Creating table auth_user\n    Creating table django_session\n    Creating table delete_r\n    Creating table delete_s\n    Creating table delete_t\n    Creating table delete_u\n    Creating table delete_rchild\n    Creating table delete_a\n    Creating table delete_m\n    Creating table delete_mr\n    Creating table delete_mrnull\n    Creating table delete_avatar\n    Creating table delete_user\n    Creating table delete_hiddenuser\n    Creating table delete_hiddenuserprofile\n    Creating table delete_m2mto\n    Creating table delete_m2mfrom\n    Creating table delete_parent\n    Creating table delete_child\n    Creating table delete_base\n    Creating table delete_reltobase\n    Running deferred SQL...\nRunning migrations:\n  Applying admin.0001_initial... OK\n  Applying admin.0002_logentry_remove_auto_add... OK\n  Applying admin.0003_logentry_add_action_flag_choices... OK\n  Applying sites.0001_initial... OK\n  Applying sites.0002_alter_domain_unique... OK\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 42, \"execution_complete\": true, \"complete\": true, \"regression_failed\": [], \"regression_passed\": [\"test_fast_delete_instance_set_pk_none (delete.tests.FastDeleteTests)\"]}\n",
+    "tests_run": 42,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "reference_summary": {
+    "complete": true,
+    "execution_complete": true,
+    "regression_failed": [],
+    "regression_passed": [
+      "test_fast_delete_instance_set_pk_none (delete.tests.FastDeleteTests)"
+    ],
+    "tests_run": 42
+  },
+  "source": {
+    "archive_sha256": "f0a2f799f9ee4f62a51aca4715916be3023b816f8753cc459b4cfb3d85f8e80b",
+    "downloaded_bytes": 8893010,
+    "expanded_bytes": 36403709,
+    "source_url": "https://codeload.github.com/django/django/tar.gz/19fc6376ce67d01ca37a91ef2f55ef769f50513a"
+  },
+  "test_scope": {
+    "completion": "All declared regression statuses and final unittest count required",
+    "declared_regressions": [
+      "test_fast_delete_instance_set_pk_none (delete.tests.FastDeleteTests)"
+    ],
+    "omissions": [],
+    "test_modules": [
+      "delete.tests"
+    ]
+  }
+}

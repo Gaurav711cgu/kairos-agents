@@ -1,0 +1,43 @@
+{"id": "7edeb042-e869-4eb1-8294-8c919015ba9b", "task_id": "django__django-11066", "configuration": "baseline-v4", "status": "failed", "outcome": "invalid_response", "model_calls": 1, "patch_count": 0, "check_count": 0, "started_at": "2026-10-11T18:53:27.272686+00:00", "updated_at": "2026-10-11T18:53:51.872006+00:00", "repository": "django/django", "split": "development", "tokens": 1940, "api_spend_usd": 0, "evidence_file": "evidence/build004/study-coder/profile-pilot/django__django-11066-baseline-v4.json", "profile_digest": "d2676698828b65285b69753f197f5b05dd6bc65e2f415c9ae845159866866b57"}
+{"id": "020b3227-713c-4230-a8d1-09bc09909dda", "task_id": "django__django-11119", "configuration": "baseline-v4", "status": "failed", "outcome": "invalid_response", "model_calls": 1, "patch_count": 0, "check_count": 0, "started_at": "2026-10-11T18:53:55.450000+00:00", "updated_at": "2026-10-11T18:54:12.426883+00:00", "repository": "django/django", "split": "development", "tokens": 1103, "api_spend_usd": 0, "evidence_file": "evidence/build004/study-coder/profile-pilot/django__django-11119-baseline-v4.json", "profile_digest": "d2676698828b65285b69753f197f5b05dd6bc65e2f415c9ae845159866866b57"}
+{"id": "b802baab-e2f5-49e8-9d16-44e58c2fbdf0", "task_id": "pytest-dev__pytest-6197", "configuration": "baseline-v4", "status": "failed", "outcome": "invalid_response", "model_calls": 1, "patch_count": 0, "check_count": 0, "started_at": "2026-10-11T18:54:14.497476+00:00", "updated_at": "2026-10-11T18:56:01.735980+00:00", "repository": "pytest-dev/pytest", "split": "development", "tokens": 3481, "api_spend_usd": 0, "evidence_file": "evidence/build004/study-coder/profile-pilot/pytest-dev__pytest-6197-baseline-v4.json", "profile_digest": "d2676698828b65285b69753f197f5b05dd6bc65e2f415c9ae845159866866b57"}
+{"id": "33c677ea-87ae-4db6-85e0-0c22cb442335", "task_id": "pytest-dev__pytest-6202", "configuration": "baseline-v4", "status": "failed", "outcome": "environment_failure", "model_calls": 1, "patch_count": 1, "check_count": 1, "started_at": "2026-10-11T18:56:02.835793+00:00", "updated_at": "2026-10-11T18:56:44.490072+00:00", "repository": "pytest-dev/pytest", "split": "development", "tokens": 2595, "api_spend_usd": 0, "evidence_file": "evidence/build004/study-coder/profile-pilot/pytest-dev__pytest-6202-baseline-v4.json", "profile_digest": "d2676698828b65285b69753f197f5b05dd6bc65e2f415c9ae845159866866b57"}
+{"id": "e3da6169-b3e7-46c3-a442-7c075ae48cd5", "task_id": "psf__requests-2931", "configuration": "baseline-v4", "status": "failed", "outcome": "invalid_response", "model_calls": 1, "patch_count": 0, "check_count": 0, "started_at": "2026-10-11T18:56:45.189042+00:00", "updated_at": "2026-10-11T18:57:01.880636+00:00", "repository": "psf/requests", "split": "development", "tokens": 1600, "api_spend_usd": 0, "evidence_file": "evidence/build004/study-coder/profile-pilot/psf__requests-2931-baseline-v4.json", "profile_digest": "d2676698828b65285b69753f197f5b05dd6bc65e2f415c9ae845159866866b57"}
+Traceback (most recent call last):
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/worker.py", line 35, in run_once
+    return self._run_drafts(job,workspace) if job['configuration'].startswith('drafts-') else self._run(job,workspace)
+                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/worker.py", line 174, in _run
+    self.repository.capture(job,seq,response)
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/repository.py", line 229, in capture
+    with self.connect() as connection:
+         ^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/repository.py", line 28, in connect
+    return self.pool.connection() if self.pool else psycopg.connect(self.database_url,row_factory=dict_row,connect_timeout=5)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/.venv/lib/python3.12/site-packages/psycopg/connection.py", line 126, in connect
+    raise last_ex.with_traceback(None)
+psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/gauravkumarnayak/Desktop/new-karos/scripts/study004.py", line 92, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/scripts/study004.py", line 62, in main
+    value=worker.run_once()
+          ^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/worker.py", line 42, in run_once
+    return self.repository.finish(job,'environment_failure',type(error).__name__+': '+str(error)[:500])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/repository.py", line 245, in finish
+    with self.connect() as connection:
+         ^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/kairos_api/investigations/repository.py", line 28, in connect
+    return self.pool.connection() if self.pool else psycopg.connect(self.database_url,row_factory=dict_row,connect_timeout=5)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkumarnayak/Desktop/new-karos/.venv/lib/python3.12/site-packages/psycopg/connection.py", line 126, in connect
+    raise last_ex.with_traceback(None)
+psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused

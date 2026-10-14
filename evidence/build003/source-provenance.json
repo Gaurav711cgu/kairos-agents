@@ -1,0 +1,57 @@
+{
+  "method": "Compare evaluated module hashes against frozen v3 lock; preserve changed evaluated sources",
+  "modules": {
+    "__init__.py": {
+      "frozen_sha256": "81880000d0a79c0186ecf1c81b6e4ce41619c6d8f445d9722421d543995fae7f",
+      "current_sha256": "81880000d0a79c0186ecf1c81b6e4ce41619c6d8f445d9722421d543995fae7f",
+      "current_matches": true
+    },
+    "contracts.py": {
+      "frozen_sha256": "1e9eb687a291d91472ea0f7dba035f74893ae4609cf1a5f6d0a06964dd818a3b",
+      "current_sha256": "1e9eb687a291d91472ea0f7dba035f74893ae4609cf1a5f6d0a06964dd818a3b",
+      "current_matches": true
+    },
+    "model.py": {
+      "frozen_sha256": "d6f55e2c2aea1e6bacdf30adf3735804e1fad2e7375588bd35b53391f52f5977",
+      "current_sha256": "d6f55e2c2aea1e6bacdf30adf3735804e1fad2e7375588bd35b53391f52f5977",
+      "current_matches": true
+    },
+    "patches.py": {
+      "frozen_sha256": "ae3f2cdc128a9a7826bc932ddfc483353e4dfe78b0f51f19ee94292669f16d7a",
+      "current_sha256": "ae3f2cdc128a9a7826bc932ddfc483353e4dfe78b0f51f19ee94292669f16d7a",
+      "current_matches": true
+    },
+    "registry.py": {
+      "frozen_sha256": "104dbf1122076c852f6128e7d83ac36eac70b078c8c66a84507f991e291becae",
+      "current_sha256": "104dbf1122076c852f6128e7d83ac36eac70b078c8c66a84507f991e291becae",
+      "current_matches": true
+    },
+    "repository.py": {
+      "frozen_sha256": "840c2c3e60e010ac707dc7113648cd9845f3c9e37642f128ed6e580688b96492",
+      "current_sha256": "840c2c3e60e010ac707dc7113648cd9845f3c9e37642f128ed6e580688b96492",
+      "current_matches": true
+    },
+    "routes.py": {
+      "frozen_sha256": "7e53f4de00fad6f5a4b1e50e009b6c50aadaec6ffb30f2231ef5d5fd968c58a4",
+      "current_sha256": "adf5176c272395ca0674da987321124e6e7df132aa9b6687a388cad43b0c623e",
+      "current_matches": false,
+      "archived_sha256": "7e53f4de00fad6f5a4b1e50e009b6c50aadaec6ffb30f2231ef5d5fd968c58a4"
+    },
+    "sandbox.py": {
+      "frozen_sha256": "25d10e94efab27a442a877ef2b80434b241b13683571b3c6281a538a1fa28b15",
+      "current_sha256": "d9cd158db1296f6d108359ff02e4699da4c8f39e850fea2ca003cce253459f42",
+      "current_matches": false,
+      "archived_sha256": "25d10e94efab27a442a877ef2b80434b241b13683571b3c6281a538a1fa28b15"
+    },
+    "worker.py": {
+      "frozen_sha256": "35a2bf66ce9c6f7730d2664353e332d8275793a084d2ffb7518d7c201c45e779",
+      "current_sha256": "35a2bf66ce9c6f7730d2664353e332d8275793a084d2ffb7518d7c201c45e779",
+      "current_matches": true
+    }
+  },
+  "post_evaluation_changes": {
+    "routes.py": "Reject corrupt public patch downloads with HTTP 409",
+    "sandbox.py": "Require preinstalled Docker image with --pull=never; no runtime image fetch"
+  },
+  "evaluation_rerun": false
+}

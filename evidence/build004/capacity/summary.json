@@ -1,0 +1,42 @@
+{
+  "scope": "Fixture identity and task; actual HTTP, PostgreSQL commits and integrity reads. No inference or OIDC throughput claim.",
+  "stages": [
+    {
+      "label": "load-1",
+      "clients": 1,
+      "requested_seconds": 180,
+      "actual_seconds": 180.08,
+      "requests": 6210,
+      "expected_quota_rejections": 0,
+      "unexpected_errors": 0,
+      "operations": {
+        "cancel": {
+          "n": 1242,
+          "p50_ms": 20.227,
+          "p95_ms": 23.933,
+          "max_ms": 85.767
+        },
+        "durable_ack": {
+          "n": 1242,
+          "p50_ms": 29.4655,
+          "p95_ms": 34.6,
+          "max_ms": 154.641
+        },
+        "retry_ack": {
+          "n": 1242,
+          "p50_ms": 22.235,
+          "p95_ms": 26.162,
+          "max_ms": 106.294
+        },
+        "summary_read": {
+          "n": 2484,
+          "p50_ms": 10.834,
+          "p95_ms": 13.818,
+          "max_ms": 37.686
+        }
+      },
+      "unexpected_error_rate": 0.0
+    }
+  ],
+  "complete": false
+}

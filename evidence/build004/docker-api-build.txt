@@ -1,0 +1,155 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.api
+#1 transferring dockerfile: 634B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 142B done
+#3 DONE 0.0s
+
+#4 [1/7] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#4 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 893.60kB 0.1s done
+#5 DONE 0.1s
+
+#6 [2/7] WORKDIR /app
+#6 CACHED
+
+#7 [3/7] COPY requirements-api.lock ./
+#7 DONE 0.0s
+
+#8 [4/7] RUN pip install --no-cache-dir -r requirements-api.lock && useradd --uid 10001 --create-home kairos
+#8 2.564 Collecting annotated-doc==0.0.5 (from -r requirements-api.lock (line 3))
+#8 2.678   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+#8 2.699 Collecting annotated-types==0.8.0 (from -r requirements-api.lock (line 5))
+#8 2.714   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#8 2.763 Collecting anyio==4.15.1 (from -r requirements-api.lock (line 7))
+#8 2.779   Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+#8 2.814 Collecting authlib==1.8.0 (from -r requirements-api.lock (line 11))
+#8 2.829   Downloading authlib-1.8.0-py2.py3-none-any.whl.metadata (10 kB)
+#8 2.857 Collecting certifi==2026.7.22 (from -r requirements-api.lock (line 13))
+#8 2.871   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+#8 2.974 Collecting cffi==2.1.1 (from -r requirements-api.lock (line 17))
+#8 2.989   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl.metadata (2.5 kB)
+#8 3.019 Collecting click==8.5.0 (from -r requirements-api.lock (line 19))
+#8 3.035   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#8 3.260 Collecting cryptography==50.0.2 (from -r requirements-api.lock (line 21))
+#8 3.275   Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_aarch64.whl.metadata (4.4 kB)
+#8 3.328 Collecting fastapi==0.143.0 (from -r requirements-api.lock (line 26))
+#8 3.342   Downloading fastapi-0.143.0-py3-none-any.whl.metadata (26 kB)
+#8 3.368 Collecting h11==0.16.0 (from -r requirements-api.lock (line 28))
+#8 3.427   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#8 3.468 Collecting httpcore==1.0.9 (from -r requirements-api.lock (line 32))
+#8 3.484   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+#8 3.512 Collecting httpx==0.28.1 (from -r requirements-api.lock (line 34))
+#8 3.526   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+#8 3.550 Collecting idna==3.20 (from -r requirements-api.lock (line 36))
+#8 3.564   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#8 3.584 Collecting iniconfig==2.3.1 (from -r requirements-api.lock (line 40))
+#8 3.598   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+#8 3.619 Collecting joserfc==1.7.5 (from -r requirements-api.lock (line 42))
+#8 3.635   Downloading joserfc-1.7.5-py3-none-any.whl.metadata (3.1 kB)
+#8 3.662 Collecting opentelemetry-api==1.45.1 (from -r requirements-api.lock (line 44))
+#8 3.680   Downloading opentelemetry_api-1.45.1-py3-none-any.whl.metadata (1.4 kB)
+#8 3.710 Collecting packaging==26.3 (from -r requirements-api.lock (line 46))
+#8 3.724   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+#8 3.747 Collecting pluggy==1.6.0 (from -r requirements-api.lock (line 48))
+#8 3.760   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+#8 3.784 Collecting psycopg==3.3.6 (from -r requirements-api.lock (line 50))
+#8 3.797   Downloading psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+#8 4.032 Collecting psycopg-binary==3.3.6 (from -r requirements-api.lock (line 52))
+#8 4.048   Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (2.7 kB)
+#8 4.071 Collecting psycopg-pool==3.3.3 (from -r requirements-api.lock (line 54))
+#8 4.087   Downloading psycopg_pool-3.3.3-py3-none-any.whl.metadata (2.8 kB)
+#8 4.106 Collecting pycparser==3.11 (from -r requirements-api.lock (line 56))
+#8 4.120   Downloading pycparser-3.11-py3-none-any.whl.metadata (8.2 kB)
+#8 4.257 Collecting pydantic==2.14.0 (from -r requirements-api.lock (line 58))
+#8 4.273   Downloading pydantic-2.14.0-py3-none-any.whl.metadata (131 kB)
+#8 4.964 Collecting pydantic-core==2.50.0 (from -r requirements-api.lock (line 60))
+#8 4.979   Downloading pydantic_core-2.50.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (6.5 kB)
+#8 5.001 Collecting pygments==2.21.0 (from -r requirements-api.lock (line 62))
+#8 5.015   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+#8 5.041 Collecting pyjwt==2.15.1 (from -r requirements-api.lock (line 64))
+#8 5.056   Downloading pyjwt-2.15.1-py3-none-any.whl.metadata (3.5 kB)
+#8 5.100 Collecting pytest==9.1.1 (from -r requirements-api.lock (line 66))
+#8 5.115   Downloading pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+#8 5.156 Collecting starlette==1.7.0 (from -r requirements-api.lock (line 68))
+#8 5.170   Downloading starlette-1.7.0-py3-none-any.whl.metadata (6.6 kB)
+#8 5.198 Collecting typing-extensions==4.16.0 (from -r requirements-api.lock (line 70))
+#8 5.213   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#8 5.236 Collecting typing-inspection==0.4.4 (from -r requirements-api.lock (line 81))
+#8 5.253   Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+#8 5.283 Collecting uvicorn==0.54.0 (from -r requirements-api.lock (line 85))
+#8 5.297   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#8 5.574 Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+#8 5.587 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#8 5.605 Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+#8 5.631 Downloading authlib-1.8.0-py2.py3-none-any.whl (260 kB)
+#8 5.674 Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+#8 5.694 Downloading cffi-2.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (222 kB)
+#8 5.728 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#8 5.749 Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_aarch64.whl (4.7 MB)
+#8 6.318    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 8.1 MB/s eta 0:00:00
+#8 6.334 Downloading fastapi-0.143.0-py3-none-any.whl (144 kB)
+#8 6.364 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#8 6.382 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+#8 6.403 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+#8 6.424 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#8 6.445 Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+#8 6.458 Downloading joserfc-1.7.5-py3-none-any.whl (71 kB)
+#8 6.478 Downloading opentelemetry_api-1.45.1-py3-none-any.whl (60 kB)
+#8 6.497 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+#8 6.531 Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+#8 6.546 Downloading psycopg-3.3.6-py3-none-any.whl (215 kB)
+#8 6.588 Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (6.8 MB)
+#8 7.340    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.8/6.8 MB 9.2 MB/s eta 0:00:00
+#8 7.356 Downloading psycopg_pool-3.3.3-py3-none-any.whl (40 kB)
+#8 7.374 Downloading pycparser-3.11-py3-none-any.whl (51 kB)
+#8 7.391 Downloading pydantic-2.14.0-py3-none-any.whl (487 kB)
+#8 7.447 Downloading pydantic_core-2.50.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (2.0 MB)
+#8 7.624    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 11.7 MB/s eta 0:00:00
+#8 7.639 Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+#8 7.736    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 13.3 MB/s eta 0:00:00
+#8 7.750 Downloading pyjwt-2.15.1-py3-none-any.whl (33 kB)
+#8 7.765 Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+#8 7.806 Downloading starlette-1.7.0-py3-none-any.whl (78 kB)
+#8 7.825 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#8 7.845 Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+#8 7.858 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#8 7.980 Installing collected packages: typing-extensions, pyjwt, pygments, pycparser, psycopg-binary, pluggy, packaging, iniconfig, idna, h11, click, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, pytest, pydantic-core, psycopg-pool, psycopg, opentelemetry-api, httpcore, cffi, anyio, starlette, pydantic, httpx, cryptography, joserfc, fastapi, authlib
+#8 10.86 Successfully installed annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 authlib-1.8.0 certifi-2026.7.22 cffi-2.1.1 click-8.5.0 cryptography-50.0.2 fastapi-0.143.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 iniconfig-2.3.1 joserfc-1.7.5 opentelemetry-api-1.45.1 packaging-26.3 pluggy-1.6.0 psycopg-3.3.6 psycopg-binary-3.3.6 psycopg-pool-3.3.3 pycparser-3.11 pydantic-2.14.0 pydantic-core-2.50.0 pygments-2.21.0 pyjwt-2.15.1 pytest-9.1.1 starlette-1.7.0 typing-extensions-4.16.0 typing-inspection-0.4.4 uvicorn-0.54.0
+#8 10.86 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#8 10.97 
+#8 10.97 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+#8 10.97 [notice] To update, run: pip install --upgrade pip
+#8 DONE 11.3s
+
+#9 [5/7] COPY kairos_api ./kairos_api
+#9 DONE 0.0s
+
+#10 [6/7] COPY cases ./cases
+#10 DONE 0.0s
+
+#11 [7/7] RUN mkdir -p /app/.runtime/blobs && chown -R kairos:kairos /app
+#11 DONE 0.3s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 2.7s done
+#12 exporting manifest sha256:925c62fa6c35649caccaca8e3b06699d8c9c634cbd47025413de1147d18b4de8 done
+#12 exporting config sha256:bac010883cca61cf38904e9f28673772ba5bec42d1cb3e1923f6b811a37c4c54 done
+#12 exporting attestation manifest sha256:93b839327668d0263cb14fe2f533f87d493ecb398f5d08e6139c3eed75452bdc 0.0s done
+#12 exporting manifest list sha256:414b0566682dbb23f4ae45975c9d6e5d15b0ff013bf73159517a4a3d50897f06 done
+#12 naming to docker.io/library/kairos-api:build004 done
+#12 unpacking to docker.io/library/kairos-api:build004
+#12 unpacking to docker.io/library/kairos-api:build004 0.7s done
+#12 DONE 3.4s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/c07qup5c84yd8rb6t7zk7vozl

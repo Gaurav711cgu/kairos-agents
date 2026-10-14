@@ -193,3 +193,9 @@ Fencing only prevents external stale effects if the target enforces it. Otherwis
 **Proof:** actual browser forks and chained forks, local foreign/missing-origin rejection, unsupported-policy rejection, production403 despite enabled flag, and disabled production UI.
 
 **Limit/revisit:** do not expose developer mode on a public deployment. Replace with managed identity, role/tenant membership, quotas and session controls before a private remote workbench is offered.
+
+## Build002 decisions — supersede planned assumptions where narrower
+
+D20–D28 are implemented in [ARCHITECTURE.md](../../ARCHITECTURE.md): one committed PostgreSQL authority; fenced intent/result worker; strict raw model captures and deterministic arithmetic; OIDC plus membership; reviewed sandbox approval; fixed paired Hoeffding gate; source-reading frontend; observed HTTP byte bounds; one production public origin. Each section records the reason and tradeoff. D19's production read-only limit now applies to the local-fork developer shortcut; the separately authenticated workbench supports production commands behind configured OIDC.
+
+The active runtime intentionally omits the legacy Go ingest hop, arbitrary-step replay, S3 and general tool execution. Their presence in an earlier proposal is not implementation evidence. The final build report records external gates and rejected claims.

@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "counts": {
+    "tests": 434,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 6,
+    "passed": 428
+  },
+  "source_sha256": "4f4194e723cda67427c8dadb83b451cdecb3fe190c47deba0eed10bb98a0e164",
+  "skips": [
+    {
+      "test": "test_real_provider_pkce_nonce_login_membership_and_logout[0]",
+      "reason": "Enable real local provider integration with KAIROS_TEST_IDENTITY_PROVIDER=1"
+    },
+    {
+      "test": "test_real_provider_pkce_nonce_login_membership_and_logout[1]",
+      "reason": "Enable real local provider integration with KAIROS_TEST_IDENTITY_PROVIDER=1"
+    },
+    {
+      "test": "test_real_provider_pkce_nonce_login_membership_and_logout[2]",
+      "reason": "Enable real local provider integration with KAIROS_TEST_IDENTITY_PROVIDER=1"
+    },
+    {
+      "test": "test_real_provider_valid_identity_without_membership_denied",
+      "reason": "Enable real local provider integration with KAIROS_TEST_IDENTITY_PROVIDER=1"
+    },
+    {
+      "test": "test_real_docker_verifier_is_nonroot_readonly_and_network_disabled",
+      "reason": "Set KAIROS_TEST_INVESTIGATION_DOCKER=1 for real Docker isolation check"
+    },
+    {
+      "test": "test_real_model_enforces_nested_schema",
+      "reason": "Set KAIROS_TEST_INVESTIGATION_PROVIDER=1 for actual local schema probe"
+    }
+  ]
+}

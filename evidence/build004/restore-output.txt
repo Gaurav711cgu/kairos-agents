@@ -1,0 +1,32 @@
+/Users/gauravkumarnayak/Desktop/new-karos/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.
+  from ._compat import httpx2
+Consistent database/blob snapshot captured; source writers may resume.
+{
+  "kind": "consistent_postgresql_and_content_addressed_object_restore",
+  "passed": true,
+  "source": "Local PostgreSQL18 development database and referenced local model objects",
+  "snapshot_method": "SHARE locks on existing public kairos_* tables; pg_export_snapshot supplied to pg_dump; referenced immutable objects copied before releasing locks",
+  "target": "Fresh isolated database and fresh temporary object directory; both removed after verification",
+  "backup_storage": "Ignored .runtime/backups; directory0700, database dump and object archive0600; private captures never published",
+  "database_backup_sha256": "d89b11e6aebfc3013d26bed290524f2a1eef3be836f0447800d46205fdebb237",
+  "database_backup_bytes": 633808,
+  "object_archive_sha256": "2320ecc0cc6996fe84795f39ae33396cc61a012a8cb8723f87f6a8b96bf9f031",
+  "object_archive_bytes": 299869,
+  "jobs_verified": 9,
+  "reference_runs_verified": 7,
+  "captured_object_references_verified": 444,
+  "distinct_objects_restored": 356,
+  "all_job_integrity_passed": true,
+  "all_reference_integrity_passed": true,
+  "investigation_records_verified": 54,
+  "all_investigation_integrity_passed": true,
+  "object_inventory_sha256": "0a03566023674b995c8b19ae38e71d9537e8295242bf031054364ac0ada43b9d",
+  "duration_seconds": 2.066,
+  "limits": [
+    "Same host/container recovery; not regional disaster recovery or an immutable backup claim.",
+    "Includes every object referenced by this frozen database snapshot; unreferenced orphan objects are excluded.",
+    "Existing Kairos table writers wait during capture. Schema migration/DDL and blob deletion must remain stopped during this drill.",
+    "No production retention, offsite copy, encryption/key rotation or recovery-time objective is established."
+  ],
+  "recorded_at": "2026-10-12T06:06:53.499156+00:00"
+}

@@ -1,0 +1,623 @@
+................EEEEEEEEEEEEE..............EEEEEEEEEEEEEEEEEEE.......EEE [ 42%]
+EE.EEEE.....................EEEEEEEEEEEEEEEEEEEEEEEEE........F.......... [ 85%]
+.........EEEEEEEE........                                                [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_commit_visible_to_new_connection_before_http_success_and_restart _
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_______ ERROR at setup of test_idempotent_retry_and_conflicting_payload ________
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_____ ERROR at setup of test_concurrent_duplicate_command_creates_one_run ______
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_tenant_identity_is_credential_bound_and_private_reads_denied _
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+______ ERROR at setup of test_auth_and_idempotency_required_for_mutations ______
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_public_response_sanitizes_identity_and_keeps_model_provenance _
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_fork_reexecutes_in_isolation_preserves_publication_and_is_idempotent _
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_________ ERROR at setup of test_corruption_detected_and_fork_rejected _________
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_partial_write_failure_rolls_back_receipt_run_and_events _
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_document_corruption_detected_and_unknown_public_fields_omitted _
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_transaction_enforces_synchronous_commit_even_if_database_default_is_off _
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+________ ERROR at setup of test_storage_sequence_corruption_is_detected ________
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+__ ERROR at setup of test_whole_valid_chain_cannot_be_attached_to_another_run __
+tests/test_api_postgres.py:28: in repository
+    with psycopg.connect(url, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____ ERROR at setup of test_hashed_session_membership_revocation_and_expiry ____
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____________ ERROR at setup of test_state_is_bound_expiring_one_use ____________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____________ ERROR at setup of test_cookie_origin_roles_and_logout _____________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+______________ ERROR at setup of test_verified_jwt_and_principal _______________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___________ ERROR at setup of test_wrong_claims_fail_closed[change0] ___________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___________ ERROR at setup of test_wrong_claims_fail_closed[change1] ___________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___________ ERROR at setup of test_wrong_claims_fail_closed[change2] ___________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___________ ERROR at setup of test_wrong_claims_fail_closed[change3] ___________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___________ ERROR at setup of test_wrong_claims_fail_closed[change4] ___________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___________ ERROR at setup of test_wrong_claims_fail_closed[change5] ___________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___________ ERROR at setup of test_wrong_claims_fail_closed[change6] ___________
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___ ERROR at setup of test_wrong_signature_algorithm_and_missing_membership ____
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___ ERROR at setup of test_open_redirect_denied_and_secure_production_config ___
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___ ERROR at setup of test_lazy_route_install_has_no_startup_database_access ___
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_multiple_audience_authorized_party_binding[audiences0-None-False] _
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_multiple_audience_authorized_party_binding[audiences1-other-client-False] _
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_multiple_audience_authorized_party_binding[audiences2-kairos-web-True] _
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_multiple_audience_authorized_party_binding[audiences3-None-True] _
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_multiple_audience_authorized_party_binding[kairos-web-None-True] _
+tests/test_identity.py:28: in repository
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____________ ERROR at setup of test_viewer_reads_but_cannot_enqueue ____________
+tests/test_identity_app.py:27: in product
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+__ ERROR at setup of test_operator_can_enqueue_but_cross_tenant_reads_denied ___
+tests/test_identity_app.py:27: in product
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_operator_cannot_approve_admin_can_and_identity_recorded _
+tests/test_identity_app.py:27: in product
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_cookie_mutation_wrong_origin_and_dev_bearer_fail_closed _
+tests/test_identity_app.py:27: in product
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+__ ERROR at setup of test_membership_role_change_revokes_mutation_immediately __
+tests/test_identity_app.py:27: in product
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_real_provider_pkce_nonce_login_membership_and_logout[0] _
+tests/test_identity_provider.py:68: in provider_client
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_real_provider_pkce_nonce_login_membership_and_logout[1] _
+tests/test_identity_provider.py:68: in provider_client
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_real_provider_pkce_nonce_login_membership_and_logout[2] _
+tests/test_identity_provider.py:68: in provider_client
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_real_provider_valid_identity_without_membership_denied _
+tests/test_identity_provider.py:68: in provider_client
+    with psycopg.connect(database, autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_______ ERROR at setup of test_durable_identity_idempotency_and_conflict _______
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____ ERROR at setup of test_concurrent_duplicate_enqueue_and_distinct_claim ____
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____ ERROR at setup of test_real_reference_executor_and_independent_grader _____
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_provider_sees_committed_intent_and_no_open_worker_transaction _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_strict_failure_preserves_raw_response_and_does_not_retry _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+______ ERROR at setup of test_unknown_provider_outcome_never_redispatched ______
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+__ ERROR at setup of test_cancel_queued_and_during_provider_preserves_capture __
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_expired_lease_before_dispatch_requeues_and_fences_old_worker _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_crash_after_dispatch_becomes_unknown_without_redispatch _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_crash_after_known_response_explicit_continuation_no_model_call _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____ ERROR at setup of test_checkpoint_version_context_and_attempt_budgets _____
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____________ ERROR at setup of test_deadline_stops_before_dispatch _____________
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_____ ERROR at setup of test_tenant_and_public_isolation_and_scoped_blobs ______
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_network_free_recorded_replay_and_corruption_rejection _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+______ ERROR at setup of test_foreign_event_and_result_tampering_detected ______
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_router_validation_scoping_replay_verification_and_fresh_fork _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_______ ERROR at setup of test_active_job_quota_and_durability_override ________
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_untouched_capture_survives_code_version_change_but_resume_requires_current_code _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_blob_reference_substitution_detected_even_when_object_digest_is_valid _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_worker_clock_skew_cannot_extend_or_prematurely_expire_lease[-365] _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_worker_clock_skew_cannot_extend_or_prematurely_expire_lease[365] _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_expired_database_deadline_blocks_dispatch_finish_and_requeue[-365] _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_expired_database_deadline_blocks_dispatch_finish_and_requeue[365] _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_non_utc_database_session_preserves_historical_event_hashes _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_known_response_continuation_rejects_new_code_version_but_replay_survives _
+tests/test_jobs_postgres.py:29: in repository
+    with psycopg.connect(url,autocommit=True) as connection:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_____ ERROR at setup of test_dispatch_requires_approval_and_binds_version ______
+tests/test_effects_postgres.py:18: in effects
+    with psycopg.connect(url,autocommit=True) as c:c.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_concurrent_retry_and_lost_response_reconcile_one_receipt _
+tests/test_effects_postgres.py:18: in effects
+    with psycopg.connect(url,autocommit=True) as c:c.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+__ ERROR at setup of test_fork_does_not_inherit_approval_or_duplicate_target ___
+tests/test_effects_postgres.py:18: in effects
+    with psycopg.connect(url,autocommit=True) as c:c.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____ ERROR at setup of test_bad_and_abstained_drafts_cannot_create_proposal ____
+tests/test_effects_postgres.py:18: in effects
+    with psycopg.connect(url,autocommit=True) as c:c.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+______________ ERROR at setup of test_cross_tenant_and_revocation ______________
+tests/test_effects_postgres.py:18: in effects
+    with psycopg.connect(url,autocommit=True) as c:c.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+___________ ERROR at setup of test_expired_approval_requires_renewal ___________
+tests/test_effects_postgres.py:18: in effects
+    with psycopg.connect(url,autocommit=True) as c:c.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+____________ ERROR at setup of test_proposal_tamper_blocks_dispatch ____________
+tests/test_effects_postgres.py:18: in effects
+    with psycopg.connect(url,autocommit=True) as c:c.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+_ ERROR at setup of test_applied_receipt_survives_client_key_loss_and_is_scoped _
+tests/test_effects_postgres.py:18: in effects
+    with psycopg.connect(url,autocommit=True) as c:c.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+=================================== FAILURES ===================================
+_____________________ test_report_durable_scope_and_tamper _____________________
+tests/test_evaluation.py:40: in test_report_durable_scope_and_tamper
+    repo=EvaluationRepository(os.environ['TEST_DATABASE_URL']);repo.initialize()
+                                                               ^^^^^^^^^^^^^^^^^
+kairos_api/evaluation.py:136: in initialize
+    with self.connect() as c:c.execute(Path(__file__).with_name('schema_evaluation.sql').read_text())
+         ^^^^^^^^^^^^^^
+kairos_api/evaluation.py:134: in connect
+    def connect(self):return psycopg.connect(self.database_url,row_factory=dict_row,connect_timeout=5)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/psycopg/connection.py:126: in connect
+    raise last_ex.with_traceback(None)
+E   psycopg.OperationalError: connection failed: connection to server at "127.0.0.1", port 55432 failed: could not receive data from server: Connection refused
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/gauravkumarnayak/Desktop/new-karos/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5
+  /Users/gauravkumarnayak/Desktop/new-karos/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.
+    from ._compat import httpx2
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_evaluation.py::test_report_durable_scope_and_tamper - psyco...
+ERROR tests/test_api_postgres.py::test_commit_visible_to_new_connection_before_http_success_and_restart
+ERROR tests/test_api_postgres.py::test_idempotent_retry_and_conflicting_payload
+ERROR tests/test_api_postgres.py::test_concurrent_duplicate_command_creates_one_run
+ERROR tests/test_api_postgres.py::test_tenant_identity_is_credential_bound_and_private_reads_denied
+ERROR tests/test_api_postgres.py::test_auth_and_idempotency_required_for_mutations
+ERROR tests/test_api_postgres.py::test_public_response_sanitizes_identity_and_keeps_model_provenance
+ERROR tests/test_api_postgres.py::test_fork_reexecutes_in_isolation_preserves_publication_and_is_idempotent
+ERROR tests/test_api_postgres.py::test_corruption_detected_and_fork_rejected
+ERROR tests/test_api_postgres.py::test_partial_write_failure_rolls_back_receipt_run_and_events
+ERROR tests/test_api_postgres.py::test_document_corruption_detected_and_unknown_public_fields_omitted
+ERROR tests/test_api_postgres.py::test_transaction_enforces_synchronous_commit_even_if_database_default_is_off
+ERROR tests/test_api_postgres.py::test_storage_sequence_corruption_is_detected
+ERROR tests/test_api_postgres.py::test_whole_valid_chain_cannot_be_attached_to_another_run
+ERROR tests/test_identity.py::test_hashed_session_membership_revocation_and_expiry
+ERROR tests/test_identity.py::test_state_is_bound_expiring_one_use - psycopg....
+ERROR tests/test_identity.py::test_cookie_origin_roles_and_logout - psycopg.O...
+ERROR tests/test_identity.py::test_verified_jwt_and_principal - psycopg.Opera...
+ERROR tests/test_identity.py::test_wrong_claims_fail_closed[change0] - psycop...
+ERROR tests/test_identity.py::test_wrong_claims_fail_closed[change1] - psycop...
+ERROR tests/test_identity.py::test_wrong_claims_fail_closed[change2] - psycop...
+ERROR tests/test_identity.py::test_wrong_claims_fail_closed[change3] - psycop...
+ERROR tests/test_identity.py::test_wrong_claims_fail_closed[change4] - psycop...
+ERROR tests/test_identity.py::test_wrong_claims_fail_closed[change5] - psycop...
+ERROR tests/test_identity.py::test_wrong_claims_fail_closed[change6] - psycop...
+ERROR tests/test_identity.py::test_wrong_signature_algorithm_and_missing_membership
+ERROR tests/test_identity.py::test_open_redirect_denied_and_secure_production_config
+ERROR tests/test_identity.py::test_lazy_route_install_has_no_startup_database_access
+ERROR tests/test_identity.py::test_multiple_audience_authorized_party_binding[audiences0-None-False]
+ERROR tests/test_identity.py::test_multiple_audience_authorized_party_binding[audiences1-other-client-False]
+ERROR tests/test_identity.py::test_multiple_audience_authorized_party_binding[audiences2-kairos-web-True]
+ERROR tests/test_identity.py::test_multiple_audience_authorized_party_binding[audiences3-None-True]
+ERROR tests/test_identity.py::test_multiple_audience_authorized_party_binding[kairos-web-None-True]
+ERROR tests/test_identity_app.py::test_viewer_reads_but_cannot_enqueue - psyc...
+ERROR tests/test_identity_app.py::test_operator_can_enqueue_but_cross_tenant_reads_denied
+ERROR tests/test_identity_app.py::test_operator_cannot_approve_admin_can_and_identity_recorded
+ERROR tests/test_identity_app.py::test_cookie_mutation_wrong_origin_and_dev_bearer_fail_closed
+ERROR tests/test_identity_app.py::test_membership_role_change_revokes_mutation_immediately
+ERROR tests/test_identity_provider.py::test_real_provider_pkce_nonce_login_membership_and_logout[0]
+ERROR tests/test_identity_provider.py::test_real_provider_pkce_nonce_login_membership_and_logout[1]
+ERROR tests/test_identity_provider.py::test_real_provider_pkce_nonce_login_membership_and_logout[2]
+ERROR tests/test_identity_provider.py::test_real_provider_valid_identity_without_membership_denied
+ERROR tests/test_jobs_postgres.py::test_durable_identity_idempotency_and_conflict
+ERROR tests/test_jobs_postgres.py::test_concurrent_duplicate_enqueue_and_distinct_claim
+ERROR tests/test_jobs_postgres.py::test_real_reference_executor_and_independent_grader
+ERROR tests/test_jobs_postgres.py::test_provider_sees_committed_intent_and_no_open_worker_transaction
+ERROR tests/test_jobs_postgres.py::test_strict_failure_preserves_raw_response_and_does_not_retry
+ERROR tests/test_jobs_postgres.py::test_unknown_provider_outcome_never_redispatched
+ERROR tests/test_jobs_postgres.py::test_cancel_queued_and_during_provider_preserves_capture
+ERROR tests/test_jobs_postgres.py::test_expired_lease_before_dispatch_requeues_and_fences_old_worker
+ERROR tests/test_jobs_postgres.py::test_crash_after_dispatch_becomes_unknown_without_redispatch
+ERROR tests/test_jobs_postgres.py::test_crash_after_known_response_explicit_continuation_no_model_call
+ERROR tests/test_jobs_postgres.py::test_checkpoint_version_context_and_attempt_budgets
+ERROR tests/test_jobs_postgres.py::test_deadline_stops_before_dispatch - psyc...
+ERROR tests/test_jobs_postgres.py::test_tenant_and_public_isolation_and_scoped_blobs
+ERROR tests/test_jobs_postgres.py::test_network_free_recorded_replay_and_corruption_rejection
+ERROR tests/test_jobs_postgres.py::test_foreign_event_and_result_tampering_detected
+ERROR tests/test_jobs_postgres.py::test_router_validation_scoping_replay_verification_and_fresh_fork
+ERROR tests/test_jobs_postgres.py::test_active_job_quota_and_durability_override
+ERROR tests/test_jobs_postgres.py::test_untouched_capture_survives_code_version_change_but_resume_requires_current_code
+ERROR tests/test_jobs_postgres.py::test_blob_reference_substitution_detected_even_when_object_digest_is_valid
+ERROR tests/test_jobs_postgres.py::test_worker_clock_skew_cannot_extend_or_prematurely_expire_lease[-365]
+ERROR tests/test_jobs_postgres.py::test_worker_clock_skew_cannot_extend_or_prematurely_expire_lease[365]
+ERROR tests/test_jobs_postgres.py::test_expired_database_deadline_blocks_dispatch_finish_and_requeue[-365]
+ERROR tests/test_jobs_postgres.py::test_expired_database_deadline_blocks_dispatch_finish_and_requeue[365]
+ERROR tests/test_jobs_postgres.py::test_non_utc_database_session_preserves_historical_event_hashes
+ERROR tests/test_jobs_postgres.py::test_known_response_continuation_rejects_new_code_version_but_replay_survives
+ERROR tests/test_effects_postgres.py::test_dispatch_requires_approval_and_binds_version
+ERROR tests/test_effects_postgres.py::test_concurrent_retry_and_lost_response_reconcile_one_receipt
+ERROR tests/test_effects_postgres.py::test_fork_does_not_inherit_approval_or_duplicate_target
+ERROR tests/test_effects_postgres.py::test_bad_and_abstained_drafts_cannot_create_proposal
+ERROR tests/test_effects_postgres.py::test_cross_tenant_and_revocation - psyc...
+ERROR tests/test_effects_postgres.py::test_expired_approval_requires_renewal
+ERROR tests/test_effects_postgres.py::test_proposal_tamper_blocks_dispatch - ...
+ERROR tests/test_effects_postgres.py::test_applied_receipt_survives_client_key_loss_and_is_scoped
+1 failed, 94 passed, 2 warnings, 74 errors in 1.57s

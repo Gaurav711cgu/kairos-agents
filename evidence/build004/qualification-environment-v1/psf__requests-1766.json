@@ -1,0 +1,49 @@
+{
+  "id": "psf__requests-1766",
+  "qualified": false,
+  "reason": "Baseline regression or reference repair did not reproduce under registered 1GB/120s environment",
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 8, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_ALTERNATIVE', 'test_requests.py::RequestsTestCase::test_cookie_sent_on_redirect', 'test_requests.py::RequestsTestCase::test_custom_content_type', 'test_requests.py::RequestsTestCase::test_params_are_merged_case_sensitive', 'test_requests.py::RequestsTestCase::test_user_agent_transfers', 'test_requests.py::RequestsTestCase::test_BASICAUTH_TUPLE_HTTP_200_OK_GET', 'test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET', 'test_requests.py::RequestsTestCase::test_DIGEST_AUTH_RETURNS_COOKIE', 'test_requests.py::RequestsTestCase::test_DIGEST_AUTH_SETS_SESSION_COOKIES', 'test_requests.py::RequestsTestCase::test_DIGEST_STREAM', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT', 'test_requests.py::RequestsTestCase::test_HTTP_302_ALLOW_REDIRECT_GET', 'test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA', 'test_requests.py::RequestsTestCase::test_autoset_header_values_are_native', 'test_requests.py::RequestsTestCase::test_basic_building', 'test_requests.py::RequestsTestCase::test_basicauth_with_netrc', 'test_requests.py::RequestsTestCase::test_can_send_nonstring_objects_with_files', 'test_requests.py::RequestsTestCase::test_cannot_send_unprepared_requests', 'test_requests.py::RequestsTestCase::test_cookie_parameters', 'test_requests.py::RequestsTestCase::test_cookie_persists_via_api', 'test_requests.py::RequestsTestCase::test_cookie_quote_wrapped', 'test_requests.py::RequestsTestCase::test_decompress_gzip'],plugins=[p])\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 150, in main\n    config = _prepareconfig(args, plugins)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 330, in _prepareconfig\n    pluginmanager.register(plugin)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 491, in register\n    ret: Optional[str] = super().register(plugin, name)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 114, in register\n    self._verify_hook(hook, hookimpl)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 232, in _verify_hook\n    raise PluginValidationError(\npluggy._manager.PluginValidationError: Plugin '281473549618480' for hook 'pytest_runtest_logreport'\nhookimpl definition: pytest_runtest_logreport(r)\nArgument(s) {'r'} are declared in the hookimpl but can not be found in the hookspec\n",
+    "seconds": 0.684,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 8, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_ALTERNATIVE', 'test_requests.py::RequestsTestCase::test_cookie_sent_on_redirect', 'test_requests.py::RequestsTestCase::test_custom_content_type', 'test_requests.py::RequestsTestCase::test_params_are_merged_case_sensitive', 'test_requests.py::RequestsTestCase::test_user_agent_transfers', 'test_requests.py::RequestsTestCase::test_BASICAUTH_TUPLE_HTTP_200_OK_GET', 'test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET', 'test_requests.py::RequestsTestCase::test_DIGEST_AUTH_RETURNS_COOKIE', 'test_requests.py::RequestsTestCase::test_DIGEST_AUTH_SETS_SESSION_COOKIES', 'test_requests.py::RequestsTestCase::test_DIGEST_STREAM', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD', 'test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT', 'test_requests.py::RequestsTestCase::test_HTTP_302_ALLOW_REDIRECT_GET', 'test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA', 'test_requests.py::RequestsTestCase::test_autoset_header_values_are_native', 'test_requests.py::RequestsTestCase::test_basic_building', 'test_requests.py::RequestsTestCase::test_basicauth_with_netrc', 'test_requests.py::RequestsTestCase::test_can_send_nonstring_objects_with_files', 'test_requests.py::RequestsTestCase::test_cannot_send_unprepared_requests', 'test_requests.py::RequestsTestCase::test_cookie_parameters', 'test_requests.py::RequestsTestCase::test_cookie_persists_via_api', 'test_requests.py::RequestsTestCase::test_cookie_quote_wrapped', 'test_requests.py::RequestsTestCase::test_decompress_gzip'],plugins=[p])\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 150, in main\n    config = _prepareconfig(args, plugins)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 330, in _prepareconfig\n    pluginmanager.register(plugin)\n  File \"/usr/local/lib/python3.8/site-packages/_pytest/config/__init__.py\", line 491, in register\n    ret: Optional[str] = super().register(plugin, name)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 114, in register\n    self._verify_hook(hook, hookimpl)\n  File \"/usr/local/lib/python3.8/site-packages/pluggy/_manager.py\", line 232, in _verify_hook\n    raise PluginValidationError(\npluggy._manager.PluginValidationError: Plugin '281472929844528' for hook 'pytest_runtest_logreport'\nhookimpl definition: pytest_runtest_logreport(r)\nArgument(s) {'r'} are declared in the hookimpl but can not be found in the hookspec\n",
+    "seconds": 0.689,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "psf__requests-1766",
+    "title": "quote qop options in Digest Auth",
+    "issue": "quote qop options in Digest Auth\nBased on RFC2617 (http://tools.ietf.org/html/rfc2617), the value of\n'qop-options' directive should be quoted with double quotes:\n\n```\nqop-options\n     This directive is optional, but is made so only for backward\n     compatibility with RFC 2069 [6]; it SHOULD be used by all\n     implementations compliant with this version of the Digest\n     scheme. If present, it is a quoted string of one or more\n     tokens indicating the \"quality of protection\" values supported by\n     the server.  The value \"auth\" indicates authentication; the\n     value \"auth-int\" indicates authentication with\n     integrity protection; see the\n```\n\ncurl comamnd-line tool also appends these quotes. You can see this\nby `curl -v --digest --user user:passwd http://example.com/digest-auth`.\nUnfortunately, some minor server-side implementations seem to be sensitive\non this difference.\n\n",
+    "repository": "psf/requests",
+    "revision": "847735553aeda6e6633f2b32e14ba14ba86887a4",
+    "source_url": "https://github.com/psf/requests/tree/847735553aeda6e6633f2b32e14ba14ba86887a4",
+    "issue_url": "https://github.com/psf/requests/pull/1766",
+    "entry_files": [
+      "requests/auth.py"
+    ],
+    "approved_prefix": "requests/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:5d1d3e46f476c0d97f5068419b7acdff7cedcfab85ec2ebee05efe24f4af5667",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "7eab6861dbcb4518aa361b7af14481b37fda2173809fad8ebd37c447392546c4",
+    "reference_digest": "fdf4dc67f564bc801f1fe74b1e6000a3186f19acec083f7585caef1b58671b12",
+    "verification_digest": "0ba19ae74b855e8473661fa73c245e15afb5b4fdb10fc0c6dcad07e51d464d4a"
+  }
+}

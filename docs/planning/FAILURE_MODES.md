@@ -135,3 +135,17 @@ Cause: adding connectors, queues, models, or infrastructure before core journey 
 - Collect browser traces on failed journeys so DOM state, requests, and timing are inspectable. [Playwright Trace Viewer](https://playwright.dev/docs/trace-viewer).
 
 These techniques increase evidence coverage; they do not constitute proof against every failure or replace review of the actual implementation.
+
+## Build002 executed closure map
+
+F01/F02: committed receipts, changed-payload conflicts, partial-write rollback and duplicate races tested. F04/F14/F15: database-clock fencing/deadlines, actual SIGKILL unknown/known branches and incompatible continuation rejection tested. F05/F06/F25: supported PostgreSQL target receipts, version/approval races, equivalent-fork conflicts and lost-response/key-loss reconciliation tested. These do not close arbitrary external target behavior.
+
+F07/F08/F26: fsynced local objects, scoped digest reads, corruption tests and consistent fresh database/object restore verified. No WORM or offsite disaster-recovery claim. F09–F11: recorded playback has no provider/effect dispatcher; fresh fork starts a scenario; historical input snapshots persist and incompatible continuation fails. No arbitrary-code egress sandbox is implemented. F12/F13: actual OIDC/member/tenant/role checks, fail-closed proxies and independent grading tested. F27:120-request local reference load reports its exact conditions, excluding model capacity. F28 remains external discovery/adoption. F29: fabricated active fallback/demo/simulated proof removed; model/provider failures retained. F30: active path consolidated to Next/Python/PostgreSQL; legacy code excluded.
+
+## F31 — Observed body exceeds declared size (P1)
+
+Chunked, absent or false Content-Length can force buffering before rejection. Next.js reads at most32KiB and cancels excess streams. API ASGI rejects observed excess before JSON/auth parsing. Multibyte data is counted in bytes. Tests cover both boundaries. Edge buffering and slow-client time limits remain deployment requirements.
+
+## F32 — Host-only cookie cannot reach website (P1)
+
+Separate production callback and website hosts can create a permanent sign-in loop. Production configuration requires the same public HTTPS origin and exact login/callback paths. Edge path routing and forwarded-header overwrite are documented; split origins are rejected in tests.

@@ -88,3 +88,12 @@ def test_proposal_tamper_blocks_dispatch(effects):
         c.execute("UPDATE kairos_effect_proposals SET proposal=%s WHERE id=%s",(Jsonb(altered),a["id"]))
     with pytest.raises(CorruptRun):effects.dispatch("a",a["id"],2,"dispatch")
     assert count(effects)==0
+
+
+def test_applied_receipt_survives_client_key_loss_and_is_scoped(effects):
+    a=approved(effects)
+    with pytest.raises(LostSandboxResponse):effects.dispatch("a",a["id"],2,"lost-client-key",lose_response=True)
+    receipt=effects.receipt("a",a["id"])
+    assert receipt["state"]=="applied" and receipt["amount_cents"]==360 and count(effects)==1
+    with pytest.raises(MissingRun):effects.receipt("b",a["id"])
+    assert effects.receipt("a",a["id"])["receipt_id"]==receipt["receipt_id"]

@@ -1,0 +1,92 @@
+{
+  "baseline": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": false,
+    "returncode": 1,
+    "seconds": 1.072,
+    "stderr": "test_decimal_numbers (utils_tests.test_numberformat.TestNumberFormat) ... test_decimal_subclass (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_float_numbers (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_format_number (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_format_string (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_large_number (utils_tests.test_numberformat.TestNumberFormat) ... ok\n\n======================================================================\nFAIL: test_decimal_numbers (utils_tests.test_numberformat.TestNumberFormat) (value='0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001234')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/workspace/tests/utils_tests/test_numberformat.py\", line 101, in test_decimal_numbers\n    self.assertEqual(nformat(Decimal(value), '.', decimal_pos), expected_value)\nAssertionError: '1.234e-300' != '0.000'\n- 1.234e-300\n+ 0.000\n\n\n----------------------------------------------------------------------\nRan 6 tests in 0.001s\n\nFAILED (failures=1)\n\n",
+    "stdout": "Testing against Django installed in '/workspace/django'\nImporting application utils_tests\nSkipping setup of unused database(s): default, other.\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 6, \"execution_complete\": true, \"complete\": false, \"regression_failed\": [], \"regression_passed\": [\"test_decimal_numbers (utils_tests.test_numberformat.TestNumberFormat)\", \"test_decimal_subclass (utils_tests.test_numberformat.TestNumberFormat)\"]}\n",
+    "tests_run": 6,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "baseline_summary": {
+    "complete": false,
+    "execution_complete": true,
+    "regression_failed": [],
+    "regression_passed": [
+      "test_decimal_numbers (utils_tests.test_numberformat.TestNumberFormat)",
+      "test_decimal_subclass (utils_tests.test_numberformat.TestNumberFormat)"
+    ],
+    "tests_run": 6
+  },
+  "case": {
+    "approved_prefix": "django/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "django/utils/numberformat.py"
+    ],
+    "id": "django__django-11206",
+    "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+    "issue": "utils.numberformat.format renders small decimals in exponential notation.\nDescription\n\t\nWhen using utils.number_format with decimal_pos, extremely small numbers get displayed using exponential notation.\n>>> from django.utils.numberformat import format as nformat\n>>> nformat(Decimal('1e-199'), '.', decimal_pos=2)\n'0.00'\n>>> nformat(Decimal('1e-200'), '.', decimal_pos=2)\n'1.00e-200'\nThis is caused by a hardcoded cut-off point in the internal logic, but I would argue that when a decimal_pos argument is supplied and the number to be formatted is smaller in absolute size than what can be encoded using the provided number of decimal positions, the returned string should be 0.0000...000 instead.\n",
+    "issue_url": "https://github.com/django/django/pull/11206",
+    "provenance": "Registered entry files disclose maintainer-localized paths, never patch text or line hints; Public historical cases may have appeared in training",
+    "qualified": true,
+    "reference_digest": "2e311025f3a17cb4089d7e9e54928e06c11399cfc1ac07d2eeaf713338a0e618",
+    "repository": "django/django",
+    "revision": "571ab44e8a8936014c22e7eebe4948d9611fd7ce",
+    "source_digest": "c0153dde304eae14928a06533687dfc54517275c6376c2324f7acb2aad138762",
+    "source_url": "https://github.com/django/django/tree/571ab44e8a8936014c22e7eebe4948d9611fd7ce",
+    "split": "evaluation",
+    "title": "utils.numberformat.format renders small decimals in exponential notation.",
+    "verification_digest": "449d1def1ca2d242ebafa37ddc50c0a28bba953e68046b4c3481985a42aae722"
+  },
+  "id": "django__django-11206",
+  "qualified": false,
+  "reason": "Baseline behavioral failure and complete reference repair were not both reproduced",
+  "reference": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_truncated": false,
+    "passed": true,
+    "returncode": 0,
+    "seconds": 1.036,
+    "stderr": "test_decimal_numbers (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_decimal_subclass (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_float_numbers (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_format_number (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_format_string (utils_tests.test_numberformat.TestNumberFormat) ... ok\ntest_large_number (utils_tests.test_numberformat.TestNumberFormat) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.001s\n\nOK\n\n",
+    "stdout": "Testing against Django installed in '/workspace/django'\nImporting application utils_tests\nSkipping setup of unused database(s): default, other.\nSystem check identified no issues (0 silenced).\n\nKAIROS_VERIFIER_RESULT {\"tests_run\": 6, \"execution_complete\": true, \"complete\": true, \"regression_failed\": [], \"regression_passed\": [\"test_decimal_numbers (utils_tests.test_numberformat.TestNumberFormat)\", \"test_decimal_subclass (utils_tests.test_numberformat.TestNumberFormat)\"]}\n",
+    "tests_run": 6,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "reference_summary": {
+    "complete": true,
+    "execution_complete": true,
+    "regression_failed": [],
+    "regression_passed": [
+      "test_decimal_numbers (utils_tests.test_numberformat.TestNumberFormat)",
+      "test_decimal_subclass (utils_tests.test_numberformat.TestNumberFormat)"
+    ],
+    "tests_run": 6
+  },
+  "source": {
+    "archive_sha256": "00e6a9d8f49678ab58d1eef2f2c661f27acf05601f48b180069e82eb2b482b56",
+    "downloaded_bytes": 8892391,
+    "expanded_bytes": 36405836,
+    "source_url": "https://codeload.github.com/django/django/tar.gz/571ab44e8a8936014c22e7eebe4948d9611fd7ce"
+  },
+  "test_scope": {
+    "completion": "All declared regression statuses and final unittest count required",
+    "declared_regressions": [
+      "test_decimal_numbers (utils_tests.test_numberformat.TestNumberFormat)",
+      "test_decimal_subclass (utils_tests.test_numberformat.TestNumberFormat)"
+    ],
+    "omissions": [],
+    "test_modules": [
+      "utils_tests.test_numberformat"
+    ]
+  }
+}

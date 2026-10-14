@@ -52,6 +52,25 @@ class IdentityConfig:
             raise ValueError("OIDC issuer and confidential client secret required.")
         if prod and any(urlparse(url).scheme != "https" for url in (config.issuer, config.callback, config.web_origin)):
             raise ValueError("Production identity requires HTTPS issuer, callback and web origin.")
+        if prod:
+            def public_origin(value):
+                parsed = urlparse(value)
+                if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+                    raise ValueError("Production identity requires valid HTTPS public URLs without credentials.")
+                return (parsed.scheme, parsed.hostname, parsed.port if parsed.port is not None else 443)
+            web = urlparse(config.web_origin)
+            callback = urlparse(config.callback)
+            if web.path not in ("", "/") or web.query or web.fragment:
+                raise ValueError("Production web origin must not include a path, query or fragment.")
+            if public_origin(config.callback) != public_origin(config.web_origin):
+                raise ValueError("Production callback and web must share one public origin for host-only session cookies.")
+            if callback.path != "/api/auth/callback" or callback.query or callback.fragment:
+                raise ValueError("Production callback must use the configured public /api/auth/callback route.")
+            login_url = os.environ.get("KAIROS_AUTH_LOGIN_URL")
+            if login_url:
+                login = urlparse(login_url)
+                if public_origin(login_url) != public_origin(config.web_origin) or login.path != "/api/auth/login" or login.query or login.fragment:
+                    raise ValueError("Production login must use the same public origin and /api/auth/login route.")
         if not 60 <= config.session_seconds <= 86400:
             raise ValueError("Session lifetime outside allowed range.")
         return config
@@ -64,9 +83,11 @@ class IdentityRepository:
     def connect(self):
         return psycopg.connect(self.database_url, row_factory=dict_row, connect_timeout=5)
 
-    def initialize(self):
+    def initialize(self) -> None:
+        """Verify the applied schema; setup owns all schema and data changes."""
+        from kairos_api.migrations import verify
         with self.connect() as connection:
-            connection.execute(Path(__file__).with_name("schema_identity.sql").read_text())
+            verify(connection)
 
     def membership(self, subject):
         with self.connect() as connection:
@@ -160,6 +181,9 @@ class IdentityService:
                 raise ValueError("access token required")
             if nonce is not None and (not isinstance(claims.get("nonce"), str) or not hmac.compare_digest(claims["nonce"], nonce)):
                 raise ValueError("nonce")
+            audiences = claims["aud"]
+            if isinstance(audiences, list) and len(audiences) > 1 and claims.get("azp") != self.config.client_id:
+                raise ValueError("Multiple audiences require the expected authorized party")
             if claims.get("azp") not in (None, self.config.client_id):
                 raise ValueError("authorized party")
             return claims

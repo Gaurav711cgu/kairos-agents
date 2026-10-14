@@ -1,3 +1,4 @@
+import { displayLabel } from "@/lib/display";
 import Link from "next/link";
 import { RetryEvidence } from "@/components/RetryEvidence";
 import { date, type IncidentSummary } from "@/lib/kairos-api";
@@ -16,7 +17,7 @@ export const IncidentRows = ({
         <span className="row-number">{String(index + 1).padStart(2, "0")}</span>
         <div>
           <div className="eyebrow">
-            {item.scenario_id.replaceAll("-", " ")} · {item.policy}
+            {displayLabel(item.scenario_id)} · {displayLabel(item.policy)}
           </div>
           <h3>{item.title}</h3>
           <p>{item.summary}</p>
@@ -37,9 +38,7 @@ export const IncidentRows = ({
             {date(item.created_at)}
           </small>
         </div>
-        <span className="row-arrow" aria-hidden="true">
-          ↗
-        </span>
+        <span className="row-arrow" aria-hidden="true"></span>
       </Link>
     ))}
   </div>
@@ -47,7 +46,7 @@ export const IncidentRows = ({
 export const ServiceError = ({ message }: { message: string }) => (
   <div role="status" className="service-error">
     <span className="eyebrow">Evidence unavailable</span>
-    <h3>No record, no claim.</h3>
+    <h3>Records are unavailable</h3>
     <p>{message}</p>
     <RetryEvidence />
   </div>

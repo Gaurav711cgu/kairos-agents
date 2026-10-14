@@ -1,9 +1,11 @@
 FROM python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 KAIROS_INVESTIGATION_MODEL_MANIFEST=/app/cases/runtime-profiles/active.json
 WORKDIR /app
 COPY requirements-api.lock ./
 RUN pip install --no-cache-dir -r requirements-api.lock && useradd --uid 10001 --create-home kairos
 COPY kairos_api ./kairos_api
+COPY cases ./cases
+COPY scripts ./scripts
 RUN mkdir -p /app/.runtime/blobs && chown -R kairos:kairos /app
 USER kairos
 EXPOSE 8100

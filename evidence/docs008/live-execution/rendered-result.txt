@@ -1,0 +1,193 @@
+Workbench / Private execution
+Investigate a real case.
+Review the evidence.
+
+Registered repository defects, bounded model tools and independent checks. Every investigation keeps its captured steps and observed outcome.
+
+Workspace member005 · Admin
+Sign out
+Registered repository cases
+Start an investigation.
+
+Private by default. Six calls maximum. Source changes stay in a disposable copy.
+
+Historical case
+Clock skew breaks worker lease checks · development
+Oversized commands reach JSON parsing · validation
+Ordering a union changes its selected columns · development
+Distinct counts generate invalid SQL · development
+Uploaded files receive inconsistent permissions · validation
+Pass database shell credentials through a scoped environment · validation
+Fix parse_duration() for some negative durations · evaluation
+Renaming a content type uses the wrong database · development
+Optimize .delete() to use only required fields. · evaluation
+add ModelAdmin.get_inlines() hook to allow set inlines based on the request or model instance. · evaluation
+UsernameValidator allows trailing newline in usernames · evaluation
+Engine.render_to_string() should honor the autoescape attribute · development
+caplog.get_records and caplog.clear conflict · evaluation
+unittest.TestCase.tearDown executed for classes marked with `unittest.skip` when running --pdb · evaluation
+Test collection imports unrelated package files · development
+'.[' replaced with '[' in the headline shown of the test report · development
+BytesWarning when using --setup-show with bytes parameter · evaluation
+unittest.TestCase.tearDown executed on skipped tests when running --pdb · evaluation
+requests.get is ALWAYS sending content length · evaluation
+quote qop options in Digest Auth · evaluation
+Removing a default header of a session · evaluation
+Binary request bodies fail during string conversion · development
+Getting http://.example.com raises UnicodeError · evaluation
+Proxy authentication bug · development
+Approach
+Tool loop · Checked revisions
+Single call · Captured line edits
+Historical tool loop · Version 5
+Single call · Source-bound edits
+Historical tool loop · Version 4
+Historical single call · Version 4
+Historical independent drafts
+Queue investigation
+Refresh records
+
+Evaluation and validation cases are frozen study material. An interactive rerun is a new attempt, not an untouched holdout result.
+
+Renaming a content type uses the wrong database
+Tool loop · Queued
+Renaming a content type uses the wrong database
+
+Verified repair · 2 model calls · 1 check run
+
+Recorded playback. No model calls or tool execution.
+
+Replay saved steps
+Refresh this attempt
+Cancel
+Create a fresh fork
+Publish evidence
+Investigation outcome
+Verified repair
+
+The candidate passed the registered regression and selected existing tests.
+
+Read the stop reason and final summary
+Model calls
+2
+Captured tokens
+2722
+Elapsed
+35s
+Checks run
+1
+Download evidence
+Download patch
+Local inference · $0 API spend
+Candidate change
+The proposed patch.
+
+1 file changed. 2 lines removed; 2 lines added.
+
+Source file
+django/contrib/contenttypes/management/__init__.py
+Before
+26
+                with transaction.atomic(using=db):
+27
+                    content_type.save(update_fields={'model'})
+After
+26
+             with transaction.atomic(using=db):
+27
+                 content_type.save(using=db, update_fields={'model'})
+View complete diff and surrounding code
+Checks passed
+
+4 tests run. 2.1 seconds.
+
+Read test output
+Source record
+django/django
+Revision
+4b45b6c8e4d7c9701a332e80d3b1c84209dc36e2
+Evaluation split
+Development
+Verification command
+python /verification/verify.py
+
+Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible. Entry files and line windows derive from historical maintainer localization; reference text is not supplied to the model.
+
+Original issue
+Pinned source
+Read the issue
+Captured execution
+Follow each step.
+
+Replay shows saved records. It does not call the model or execute tools.
+
+01
+Retained original source
+Captured
+02
+Retained original source
+Captured
+03
+Prepared the context
+Captured
+04
+Model chose a next step
+Captured
+05
+Reviewed the proposed change
+Captured
+06
+Prepared the context
+Captured
+07
+Model chose a next step
+Captured
+08
+Reviewed the proposed change
+Captured
+09
+Ran independent checks
+Captured
+Retained original source
+
+Step 1 · captured
+
+Public issue function ranking; explicit function citations precede indirect usage
+
+django/contrib/contenttypes/management/__init__.py · From line 13
+
+13:     def _rename(self, apps, schema_editor, old_model, new_model):
+14:         ContentType = apps.get_model('contenttypes', 'ContentType')
+15:         db = schema_editor.connection.alias
+16:         if not router.allow_migrate_model(db, ContentType):
+17:             return
+18: 
+19:         try:
+20:             content_type = ContentType.objects.db_manager(db).get_by_natural_key(self.app_label, old_model)
+21:         except ContentType.DoesNotExist:
+22:             pass
+23:         else:
+24:             content_type.model = new_model
+25:             try:
+26:                 with transaction.atomic(using=db):
+27:                     content_type.save(update_fields={'model'})
+28:             except IntegrityError:
+29:                 # Gracefully fallback if a stale content type causes a
+30:                 # conflict as remove_stale_contenttypes will take care of
+31:                 # asking the user what should be done next.
+32:                 content_type.model = old_model
+33:             else:
+34:                 # Clear the cache as the `get_by_natual_key()` call will cache
+35:                 # the renamed ContentType instance by its old model name.
+36:                 ContentType.objects.clear_cache()
+
+
+This excerpt was shortened to fit the retrieval limit.
+
+Exact captured result
+Exact request
+
+Request SHA-256
+400bfefce61c531cece9ba7c1c1ded48580ce342b4e4200d74b5196adb9b6011
+
+Historical synthetic order workbench

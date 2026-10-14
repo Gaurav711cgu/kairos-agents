@@ -1,0 +1,155 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.investigation-study
+#1 transferring dockerfile: 900B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 142B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f
+#4 resolve docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f 0.0s done
+#4 CACHED
+
+#5 [2/3] RUN pip install --no-cache-dir httpbin==0.7.0 Flask==1.1.4 Werkzeug==0.16.1 Jinja2==2.11.3 MarkupSafe==2.0.1 itsdangerous==1.1.0 click==7.1.2 brotlipy==0.7.0 raven==6.10.0 decorator==4.4.2 atomicwrites==1.4.1 more-itertools==8.14.0 wcwidth==0.2.13 pygments==2.17.2 pytest==7.4.4 pluggy==1.0.0 iniconfig==2.0.0 packaging==23.2 exceptiongroup==1.2.2 tomli==2.0.1 attrs==23.1.0 hypothesis==6.79.4 py==1.11.0 mock==5.1.0 six==1.16.0 requests==2.31.0 urllib3==1.26.18 chardet==4.0.0 certifi==2024.2.2 idna==2.10 setuptools==68.2.2 setuptools-scm==7.1.0 && useradd --uid 10001 --create-home investigator
+#5 1.416 Collecting httpbin==0.7.0
+#5 1.683   Downloading httpbin-0.7.0-py2.py3-none-any.whl (86 kB)
+#5 1.717      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 86.9/86.9 kB 2.5 MB/s eta 0:00:00
+#5 1.754 Collecting Flask==1.1.4
+#5 1.769   Downloading Flask-1.1.4-py2.py3-none-any.whl (94 kB)
+#5 1.778      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.6/94.6 kB 17.0 MB/s eta 0:00:00
+#5 1.823 Collecting Werkzeug==0.16.1
+#5 1.839   Downloading Werkzeug-0.16.1-py2.py3-none-any.whl (327 kB)
+#5 1.878      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 327.4/327.4 kB 10.4 MB/s eta 0:00:00
+#5 1.976 Collecting Jinja2==2.11.3
+#5 1.990   Downloading Jinja2-2.11.3-py2.py3-none-any.whl (125 kB)
+#5 2.001      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 125.7/125.7 kB 19.9 MB/s eta 0:00:00
+#5 2.110 Collecting MarkupSafe==2.0.1
+#5 2.393   Downloading MarkupSafe-2.0.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (27 kB)
+#5 2.420 Collecting itsdangerous==1.1.0
+#5 2.436   Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+#5 2.495 Collecting click==7.1.2
+#5 2.509   Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+#5 2.517      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 82.8/82.8 kB 10.9 MB/s eta 0:00:00
+#5 2.814 Collecting brotlipy==0.7.0
+#5 2.829   Downloading brotlipy-0.7.0-cp35-abi3-manylinux2014_aarch64.whl (1.0 MB)
+#5 2.977      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 7.1 MB/s eta 0:00:00
+#5 3.268 Collecting raven==6.10.0
+#5 3.293   Downloading raven-6.10.0-py2.py3-none-any.whl (284 kB)
+#5 3.362      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 284.3/284.3 kB 4.5 MB/s eta 0:00:00
+#5 3.387 Collecting decorator==4.4.2
+#5 3.400   Downloading decorator-4.4.2-py2.py3-none-any.whl (9.2 kB)
+#5 3.436 Collecting atomicwrites==1.4.1
+#5 3.452   Downloading atomicwrites-1.4.1.tar.gz (14 kB)
+#5 3.458   Preparing metadata (setup.py): started
+#5 3.947   Preparing metadata (setup.py): finished with status 'done'
+#5 3.980 Collecting more-itertools==8.14.0
+#5 3.996   Downloading more_itertools-8.14.0-py3-none-any.whl (52 kB)
+#5 4.003      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.2/52.2 kB 9.7 MB/s eta 0:00:00
+#5 4.036 Collecting wcwidth==0.2.13
+#5 4.053   Downloading wcwidth-0.2.13-py2.py3-none-any.whl (34 kB)
+#5 4.181 Collecting pygments==2.17.2
+#5 4.197   Downloading pygments-2.17.2-py3-none-any.whl (1.2 MB)
+#5 4.910      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 1.8 MB/s eta 0:00:00
+#5 4.970 Collecting pytest==7.4.4
+#5 4.985   Downloading pytest-7.4.4-py3-none-any.whl (325 kB)
+#5 5.145      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.3/325.3 kB 2.1 MB/s eta 0:00:00
+#5 5.171 Collecting pluggy==1.0.0
+#5 5.185   Downloading pluggy-1.0.0-py2.py3-none-any.whl (13 kB)
+#5 5.210 Collecting iniconfig==2.0.0
+#5 5.227   Downloading iniconfig-2.0.0-py3-none-any.whl (5.9 kB)
+#5 5.261 Collecting packaging==23.2
+#5 5.278   Downloading packaging-23.2-py3-none-any.whl (53 kB)
+#5 5.295      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.0/53.0 kB 3.5 MB/s eta 0:00:00
+#5 5.319 Collecting exceptiongroup==1.2.2
+#5 5.335   Downloading exceptiongroup-1.2.2-py3-none-any.whl (16 kB)
+#5 5.400 Collecting tomli==2.0.1
+#5 5.417   Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
+#5 5.454 Collecting attrs==23.1.0
+#5 5.470   Downloading attrs-23.1.0-py3-none-any.whl (61 kB)
+#5 5.490      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 3.9 MB/s eta 0:00:00
+#5 6.493 Collecting hypothesis==6.79.4
+#5 6.512   Downloading hypothesis-6.79.4-py3-none-any.whl (417 kB)
+#5 7.779      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 417.7/417.7 kB 326.2 kB/s eta 0:00:00
+#5 7.814 Collecting py==1.11.0
+#5 7.839   Downloading py-1.11.0-py2.py3-none-any.whl (98 kB)
+#5 8.807      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.7/98.7 kB 141.4 kB/s eta 0:00:00
+#5 9.116 Collecting mock==5.1.0
+#5 9.133   Downloading mock-5.1.0-py3-none-any.whl (30 kB)
+#5 9.220 Collecting six==1.16.0
+#5 9.236   Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+#5 9.339 Collecting requests==2.31.0
+#5 9.355   Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+#5 9.582      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 264.6 kB/s eta 0:00:00
+#5 9.639 Collecting urllib3==1.26.18
+#5 9.674   Downloading urllib3-1.26.18-py2.py3-none-any.whl (143 kB)
+#5 10.36      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 143.8/143.8 kB 212.5 kB/s eta 0:00:00
+#5 10.45 Collecting chardet==4.0.0
+#5 10.47   Downloading chardet-4.0.0-py2.py3-none-any.whl (178 kB)
+#5 10.80      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 178.7/178.7 kB 738.1 kB/s eta 0:00:00
+#5 10.84 Collecting certifi==2024.2.2
+#5 10.85   Downloading certifi-2024.2.2-py3-none-any.whl (163 kB)
+#5 10.95      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 163.8/163.8 kB 1.7 MB/s eta 0:00:00
+#5 10.98 Collecting idna==2.10
+#5 11.00   Downloading idna-2.10-py2.py3-none-any.whl (58 kB)
+#5 11.04      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.8/58.8 kB 1.3 MB/s eta 0:00:00
+#5 11.29 Collecting setuptools==68.2.2
+#5 11.31   Downloading setuptools-68.2.2-py3-none-any.whl (807 kB)
+#5 14.37      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 262.9 kB/s eta 0:00:00
+#5 14.48 Collecting setuptools-scm==7.1.0
+#5 14.50   Downloading setuptools_scm-7.1.0-py3-none-any.whl (43 kB)
+#5 14.61      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.8/43.8 kB 569.2 kB/s eta 0:00:00
+#5 15.01 Collecting cffi>=1.0.0
+#5 15.03   Downloading cffi-1.17.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (448 kB)
+#5 15.40      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 448.6/448.6 kB 1.3 MB/s eta 0:00:00
+#5 15.52 Collecting sortedcontainers<3.0.0,>=2.1.0
+#5 15.53   Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+#5 15.96 Collecting charset-normalizer<4,>=2
+#5 15.98   Downloading charset_normalizer-3.5.2-cp37-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (241 kB)
+#5 16.37      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 241.2/241.2 kB 601.8 kB/s eta 0:00:00
+#5 16.45 Collecting typing-extensions
+#5 16.46   Downloading typing_extensions-4.13.2-py3-none-any.whl (45 kB)
+#5 16.52      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.8/45.8 kB 1.1 MB/s eta 0:00:00
+#5 16.55 Collecting pycparser
+#5 16.57   Downloading pycparser-2.23-py3-none-any.whl (118 kB)
+#5 16.77      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.1/118.1 kB 636.2 kB/s eta 0:00:00
+#5 16.82 Collecting blinker>=1.1
+#5 16.87   Downloading blinker-1.8.2-py3-none-any.whl (9.5 kB)
+#5 16.94 Building wheels for collected packages: atomicwrites
+#5 16.94   Building wheel for atomicwrites (setup.py): started
+#5 17.48   Building wheel for atomicwrites (setup.py): finished with status 'done'
+#5 17.48   Created wheel for atomicwrites: filename=atomicwrites-1.4.1-py2.py3-none-any.whl size=6958 sha256=70a673e2b39c4e36895c0aad49ac8edc3bc564ef9d6107bb94acc336b894d3da
+#5 17.48   Stored in directory: /tmp/pip-ephem-wheel-cache-i96semr_/wheels/ce/24/c1/56b1ca77dda9577b75eb88d7ec50425f103ec2f6170c6e97df
+#5 17.48 Successfully built atomicwrites
+#5 17.65 Installing collected packages: wcwidth, sortedcontainers, raven, Werkzeug, urllib3, typing-extensions, tomli, six, setuptools, pygments, pycparser, py, pluggy, packaging, more-itertools, mock, MarkupSafe, itsdangerous, iniconfig, idna, exceptiongroup, decorator, click, charset-normalizer, chardet, certifi, blinker, attrs, atomicwrites, setuptools-scm, requests, pytest, Jinja2, hypothesis, cffi, Flask, brotlipy, httpbin
+#5 18.03   Attempting uninstall: setuptools
+#5 18.03     Found existing installation: setuptools 57.5.0
+#5 18.05     Uninstalling setuptools-57.5.0:
+#5 18.10       Successfully uninstalled setuptools-57.5.0
+#5 19.97 Successfully installed Flask-1.1.4 Jinja2-2.11.3 MarkupSafe-2.0.1 Werkzeug-0.16.1 atomicwrites-1.4.1 attrs-23.1.0 blinker-1.8.2 brotlipy-0.7.0 certifi-2024.2.2 cffi-1.17.1 chardet-4.0.0 charset-normalizer-3.5.2 click-7.1.2 decorator-4.4.2 exceptiongroup-1.2.2 httpbin-0.7.0 hypothesis-6.79.4 idna-2.10 iniconfig-2.0.0 itsdangerous-1.1.0 mock-5.1.0 more-itertools-8.14.0 packaging-23.2 pluggy-1.0.0 py-1.11.0 pycparser-2.23 pygments-2.17.2 pytest-7.4.4 raven-6.10.0 requests-2.31.0 setuptools-68.2.2 setuptools-scm-7.1.0 six-1.16.0 sortedcontainers-2.4.0 tomli-2.0.1 typing-extensions-4.13.2 urllib3-1.26.18 wcwidth-0.2.13
+#5 19.97 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#5 20.13 
+#5 20.13 [notice] A new release of pip is available: 23.0.1 -> 25.0.1
+#5 20.13 [notice] To update, run: pip install --upgrade pip
+#5 DONE 20.8s
+
+#6 [3/3] WORKDIR /workspace
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 1.2s done
+#7 exporting manifest sha256:661a387552fdf050907fce7af2a65ab1755cfda3551ca4e107910a55298ada01 done
+#7 exporting config sha256:a962a09d8b6d60a4a1057693dd445fc8d369339caa44851d7285ffd05157df95 done
+#7 exporting attestation manifest sha256:f3432efc67b1091900c3919a88701d2273bd7c40a0e08a8dc69be3ee4c4239c2 done
+#7 exporting manifest list sha256:9f1fdb06b595456c36483ed2c7a008c33be33e311fdb257c1bb29db812b00a85 done
+#7 naming to docker.io/library/kairos-investigation-study:build004 done
+#7 unpacking to docker.io/library/kairos-investigation-study:build004
+#7 unpacking to docker.io/library/kairos-investigation-study:build004 0.3s done
+#7 DONE 1.5s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/ef5ovsc9onx0nwpqkawbnhnkj

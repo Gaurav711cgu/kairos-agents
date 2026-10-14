@@ -1,0 +1,120 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.investigation-study
+#1 transferring dockerfile: 742B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 142B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f
+#4 resolve docker.io/library/python:3.8-slim@sha256:1d52838af602b4b5a831beb13a0e4d073280665ea7be7f69ce2382f29c5a613f 0.0s done
+#4 CACHED
+
+#5 [2/3] RUN pip install --no-cache-dir atomicwrites==1.4.1 more-itertools==8.14.0 wcwidth==0.2.13 pygments==2.17.2 pytest==7.4.4 pluggy==1.0.0 iniconfig==2.0.0 packaging==23.2 exceptiongroup==1.2.2 tomli==2.0.1 attrs==23.1.0 hypothesis==6.79.4 py==1.11.0 mock==5.1.0 six==1.16.0 requests==2.31.0 urllib3==1.26.18 chardet==4.0.0 certifi==2024.2.2 idna==2.10 setuptools==68.2.2 setuptools-scm==7.1.0 && useradd --uid 10001 --create-home investigator
+#5 1.218 Collecting atomicwrites==1.4.1
+#5 1.330   Downloading atomicwrites-1.4.1.tar.gz (14 kB)
+#5 1.339   Preparing metadata (setup.py): started
+#5 1.944   Preparing metadata (setup.py): finished with status 'done'
+#5 1.986 Collecting more-itertools==8.14.0
+#5 2.007   Downloading more_itertools-8.14.0-py3-none-any.whl (52 kB)
+#5 2.025      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.2/52.2 kB 3.3 MB/s eta 0:00:00
+#5 2.065 Collecting wcwidth==0.2.13
+#5 2.087   Downloading wcwidth-0.2.13-py2.py3-none-any.whl (34 kB)
+#5 2.136 Collecting pygments==2.17.2
+#5 2.153   Downloading pygments-2.17.2-py3-none-any.whl (1.2 MB)
+#5 2.258      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 11.6 MB/s eta 0:00:00
+#5 2.329 Collecting pytest==7.4.4
+#5 2.346   Downloading pytest-7.4.4-py3-none-any.whl (325 kB)
+#5 2.374      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 325.3/325.3 kB 12.6 MB/s eta 0:00:00
+#5 2.403 Collecting pluggy==1.0.0
+#5 2.421   Downloading pluggy-1.0.0-py2.py3-none-any.whl (13 kB)
+#5 2.440 Collecting iniconfig==2.0.0
+#5 2.456   Downloading iniconfig-2.0.0-py3-none-any.whl (5.9 kB)
+#5 2.487 Collecting packaging==23.2
+#5 2.505   Downloading packaging-23.2-py3-none-any.whl (53 kB)
+#5 2.508      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.0/53.0 kB 121.0 MB/s eta 0:00:00
+#5 2.534 Collecting exceptiongroup==1.2.2
+#5 2.552   Downloading exceptiongroup-1.2.2-py3-none-any.whl (16 kB)
+#5 2.609 Collecting tomli==2.0.1
+#5 2.625   Downloading tomli-2.0.1-py3-none-any.whl (12 kB)
+#5 2.657 Collecting attrs==23.1.0
+#5 2.674   Downloading attrs-23.1.0-py3-none-any.whl (61 kB)
+#5 2.678      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 26.0 MB/s eta 0:00:00
+#5 3.550 Collecting hypothesis==6.79.4
+#5 3.569   Downloading hypothesis-6.79.4-py3-none-any.whl (417 kB)
+#5 3.601      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 417.7/417.7 kB 14.1 MB/s eta 0:00:00
+#5 3.630 Collecting py==1.11.0
+#5 3.646   Downloading py-1.11.0-py2.py3-none-any.whl (98 kB)
+#5 3.653      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.7/98.7 kB 16.6 MB/s eta 0:00:00
+#5 3.679 Collecting mock==5.1.0
+#5 3.696   Downloading mock-5.1.0-py3-none-any.whl (30 kB)
+#5 3.720 Collecting six==1.16.0
+#5 3.737   Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+#5 3.786 Collecting requests==2.31.0
+#5 3.804   Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+#5 3.806      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 137.4 MB/s eta 0:00:00
+#5 3.852 Collecting urllib3==1.26.18
+#5 3.869   Downloading urllib3-1.26.18-py2.py3-none-any.whl (143 kB)
+#5 3.880      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 143.8/143.8 kB 19.8 MB/s eta 0:00:00
+#5 3.947 Collecting chardet==4.0.0
+#5 3.968   Downloading chardet-4.0.0-py2.py3-none-any.whl (178 kB)
+#5 4.023      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 178.7/178.7 kB 3.3 MB/s eta 0:00:00
+#5 4.062 Collecting certifi==2024.2.2
+#5 4.080   Downloading certifi-2024.2.2-py3-none-any.whl (163 kB)
+#5 4.097      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 163.8/163.8 kB 10.7 MB/s eta 0:00:00
+#5 4.124 Collecting idna==2.10
+#5 4.141   Downloading idna-2.10-py2.py3-none-any.whl (58 kB)
+#5 4.148      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.8/58.8 kB 11.1 MB/s eta 0:00:00
+#5 4.337 Collecting setuptools==68.2.2
+#5 4.355   Downloading setuptools-68.2.2-py3-none-any.whl (807 kB)
+#5 4.439      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 10.0 MB/s eta 0:00:00
+#5 4.493 Collecting setuptools-scm==7.1.0
+#5 4.510   Downloading setuptools_scm-7.1.0-py3-none-any.whl (43 kB)
+#5 4.514      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.8/43.8 kB 26.4 MB/s eta 0:00:00
+#5 4.644 Collecting sortedcontainers<3.0.0,>=2.1.0
+#5 4.658   Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+#5 5.008 Collecting charset-normalizer<4,>=2
+#5 5.026   Downloading charset_normalizer-3.5.2-cp37-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (241 kB)
+#5 5.050      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 241.2/241.2 kB 11.7 MB/s eta 0:00:00
+#5 5.133 Collecting typing-extensions
+#5 5.152   Downloading typing_extensions-4.13.2-py3-none-any.whl (45 kB)
+#5 5.157      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.8/45.8 kB 17.2 MB/s eta 0:00:00
+#5 5.220 Building wheels for collected packages: atomicwrites
+#5 5.220   Building wheel for atomicwrites (setup.py): started
+#5 6.000   Building wheel for atomicwrites (setup.py): finished with status 'done'
+#5 6.001   Created wheel for atomicwrites: filename=atomicwrites-1.4.1-py2.py3-none-any.whl size=6958 sha256=453ea48e6991949de19776ee76ab449930508a8f3c42b5a1445e9594dc408bbc
+#5 6.001   Stored in directory: /tmp/pip-ephem-wheel-cache-mqi03yht/wheels/ce/24/c1/56b1ca77dda9577b75eb88d7ec50425f103ec2f6170c6e97df
+#5 6.005 Successfully built atomicwrites
+#5 6.251 Installing collected packages: wcwidth, sortedcontainers, urllib3, typing-extensions, tomli, six, setuptools, pygments, py, pluggy, packaging, more-itertools, mock, iniconfig, idna, exceptiongroup, charset-normalizer, chardet, certifi, attrs, atomicwrites, setuptools-scm, requests, pytest, hypothesis
+#5 6.750   Attempting uninstall: setuptools
+#5 6.752     Found existing installation: setuptools 57.5.0
+#5 6.783     Uninstalling setuptools-57.5.0:
+#5 6.856       Successfully uninstalled setuptools-57.5.0
+#5 8.683 Successfully installed atomicwrites-1.4.1 attrs-23.1.0 certifi-2024.2.2 chardet-4.0.0 charset-normalizer-3.5.2 exceptiongroup-1.2.2 hypothesis-6.79.4 idna-2.10 iniconfig-2.0.0 mock-5.1.0 more-itertools-8.14.0 packaging-23.2 pluggy-1.0.0 py-1.11.0 pygments-2.17.2 pytest-7.4.4 requests-2.31.0 setuptools-68.2.2 setuptools-scm-7.1.0 six-1.16.0 sortedcontainers-2.4.0 tomli-2.0.1 typing-extensions-4.13.2 urllib3-1.26.18 wcwidth-0.2.13
+#5 8.684 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#5 8.822 
+#5 8.822 [notice] A new release of pip is available: 23.0.1 -> 25.0.1
+#5 8.822 [notice] To update, run: pip install --upgrade pip
+#5 DONE 9.2s
+
+#6 [3/3] WORKDIR /workspace
+#6 DONE 0.0s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.9s done
+#7 exporting manifest sha256:8b0c2e1f8611846846826ddce9fed791aa294386c929205304722648005af307 done
+#7 exporting config sha256:8aed3098575d0db1bde946e3bb6e5576e1a86c03559458d5918fdf5480d39531 done
+#7 exporting attestation manifest sha256:9cc75eeda3a0f08a3e0aa759048395aee53dfdeac537892061403fc361149a9d done
+#7 exporting manifest list sha256:5db01d3fa0f7880ccc2a69ee40b15e7635c6aa72bc2bfa2fda967efd18fd3c96 done
+#7 naming to docker.io/library/kairos-investigation-study:build004 done
+#7 unpacking to docker.io/library/kairos-investigation-study:build004
+#7 unpacking to docker.io/library/kairos-investigation-study:build004 0.2s done
+#7 DONE 1.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/pjmfdczmy4ls3gn7acqc12u73

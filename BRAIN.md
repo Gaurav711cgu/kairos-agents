@@ -1,51 +1,27 @@
-# Kairos working brain
+# Kairos working context
 
-Updated: 2026-10-11, Asia/Kolkata. Status: **build 001 local vertical slice implemented and checked; flagship project still in progress.**
+Updated 2026-10-14. Main: Desktop/new-karos. Preserved seal: build007. Accepted delivery: showcase008. Chat uses concise Caveman; saved prose uses normal English.
 
-## Start here
+## Pointers
 
-Primary goal: SDE/full-stack evidence through a polished recruiter website and explainable backend, persistence, debugging and interaction. Applied AI/FDE/harness/loop depth must earn separate evidence.
+README.md introduces the project and earned benchmarks. docs/showcase/FINAL_REPORT.md maps current acceptance; ARCHITECTURE.md and OPERATIONS.md describe implementation. VISITOR_WORKFLOW.md records DOM behavior; DEMO.md is the interview walkthrough; LINKEDIN.md is the publication-scoped draft. Decisions D86–D91 explain the final changes.
 
-Product: Kairos turns agent failures into inspectable incidents, isolated experiments and evidence-backed release decisions.
+## Current evidence
 
-Actual project: `/Users/gauravkumarnayak/Desktop/new-karos`; `resume/new-karos` is a symlink. Resume planning files mirror `docs/planning/` in the project. Do not create another prototype or overwrite unrelated repositories.
+Full-stack acceptance: 434 collected, 428 passed, six explicit skips, zero failures. Frontend units, lint, types and both builds passed. Browser journeys: eight recorded, eleven fault fixtures, four actual OIDC and one separate real-model journey. Total 24 across those scopes.
 
-## Implemented checkpoint
+The real browser submitted Django11066 development through OIDC and durable API. Two model calls produced one candidate; one check passed four tests. Worker elapsed time: 35.100004 seconds. Context, downloads, replay without execution, mobile layout and logout passed. Source issue supplies a repair hint; source entry files were human-localized. Exclude this exposed demonstration from locked validation.
 
-- Next.js editorial public site: home, incident archive/inspector, engineering, evidence and docs. Paper/ink/forest design, local fonts, actual populated records; no sample-data fallback in active routes.
-- Python/FastAPI + PostgreSQL command/run/event authority. Commit precedes response; synchronous commit enforced and fsync required. Scoped idempotency keys bind request digests, tenant comes from configured developer credentials.
-- Bounded deterministic reference scenarios: exception failure, ordinary success, missing-evidence abstention. Independent grader reads complete source facts. Fresh full-scenario forks preserve parent lineage.
-- Seven published executions/49 events at the saved evidence snapshot: four seeded records plus three browser-created forks. Counts are descriptive and can change.
-- Exact context inclusion/omission, filterable timeline, URL event state, keyboard navigation, explicit outage state and production-disabled mutation proxy.
-- 27 backend checks passed (14 unit,13 actual PostgreSQL), also passed with locked dependencies in a fresh Python3.12 environment. Lint, TypeScript and production build passed, including Node24.15.0. Manual desktop/mobile/fork/outage/production browser checks saved. Hosted CI has not run.
-- Offline Qwen2.5-0.5B probe passed **0/4** strict development cases. Raw responses preserved. This separate probe uses a different exception/threshold and is not integrated with the product runner or a qualification study.
+## Preservation and limits
 
-Current services: API `127.0.0.1:8100`, web `127.0.0.1:3100`, PostgreSQL `127.0.0.1:55432`. Container `kairos-postgres-build001`, named persistent volume. Do not launch Compose over the occupied port. Ignored local env files contain credentials; never print or commit them.
+Original build007 archive/index/manifest/receipt and 122 public records/1,243 blobs remain unchanged. API, worker protocol, model/case profiles and frozen evidence are preserved. Declared008 delta changes presentation, documentation, reviewer setup/cleanup, private-state validation and tests. scripts.verify_showcase008 binds the active delta; --publication verifies the new archive. Original package_release007 verification applies to its unchanged extracted snapshot.
 
-## Read only what the next task needs
+Fresh v7 remains 0/10; older 0/10 and 0/36 remain visible. Historical local capacity: 435,270 requests over approximately 42 minutes, zero unexpected errors, soak ACK p95 275.19 ms/read p95 16.79 ms. Original Django10914 patch reproduced 110 tests/one skip. Operational and migration/restore receipts remain.
 
-| Need | Read |
-|---|---|
-| Current checks, commands, limits | `docs/BUILD_001.md`, `evidence/build001/manifest.json` |
-| Product/source boundaries | `PLAN.md`, `ARCHITECTURE.md` |
-| User intent and assumptions | `CONTEXT.md` |
-| Why a choice exists | Relevant Dxx in `DECISIONS.md`; D17-D19 cover build001 |
-| Next milestone | Relevant Pxx in `IMPLEMENTATION_PLAN.md` |
-| Failure or claim | Relevant Fxx in `FAILURE_MODES.md`, Exx in `EVIDENCE.md` |
-| Website interaction | `WEBSITE_SPEC.md`, then active dashboard source |
+## Operation
 
-Planning links above resolve inside `docs/planning/`; root BRAIN copies this checkpoint. Inspect relevant source before editing; documents do not substitute for execution. Old harness/engine/Go ingest and unused dashboard components remain legacy code outside this path.
+Only the recorded website on 3310 stays on at handoff. Docker, model and worker are stopped; volumes/images remain. Fullstack defaults inference off. --with-inference reuses pinned existing cache and has a 900-second deadline. .runtime/live-showcase008 preserves the real demonstration; .runtime/showcase008-acceptance is separate. Never print credentials, export sessions, rerun locked studies or resend uncertain API calls. The free API400/503 pilot has no proposal and no retry.
 
-## Next work and open gates
+## Handoff
 
-P00/P01 remain partial. First align the real model probe with versioned product tasks and independent grading; save a model-specific error taxonomy and baseline. Math belongs in a deterministic tool, schema constraints need explicit validation, exceptions need preserved provenance, and insufficient evidence needs abstention. Do not hide failed outputs through permissive parsing.
-
-Before remote model calls join execution, design durable intent/result jobs and unknown-outcome handling; current bounded reference execution inside one transaction is unsuitable for slow remote work. Compare existing runtime/checkpoint capabilities before building an orchestration framework.
-
-Still unimplemented: managed auth/memberships, async worker leases, arbitrary checkpoint resume, approval/effect reconciliation, object storage, calibrated held-out release decisions, restore/load evidence, hosted deployment and outside-user feedback. Five related high npm audit entries remain in dev lint tooling; runtime audit reports zero. One TestClient dependency deprecation remains.
-
-## Claim discipline
-
-Synthetic records are labeled. Hash consistency is not immutable history. No detected regression is not safe release. Website polish is not usability proof. Deployment is not adoption. Calling a model is not model research. No fabricated metrics, users, model outputs or test results.
-
-Update this checkpoint after meaningful work; add evidence and decision IDs, keep below750words, and do not rescan all documents each turn.
+Professional README, website, acceptance and live workflow are complete. Packaging adds a sanitized source archive, declared manifest, clean-extraction and tamper receipts. No GitHub push/PR or public hosting was authorized/performed. Publish the reviewed snapshot before using the LinkedIn draft; localhost is not a public URL. Interview practice remains separate from software acceptance.

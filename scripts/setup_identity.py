@@ -92,6 +92,8 @@ def main():
     env = local_env(ROOT / ".env.kairos.local")
     database_url = os.environ.get("DATABASE_URL", env["DATABASE_URL"])
     from kairos_api.identity import IdentityRepository
+    from kairos_api.migrations import apply
+    apply(database_url)
     IdentityRepository(database_url).initialize()
     with psycopg.connect(database_url) as connection:
         for account in data["accounts"]:

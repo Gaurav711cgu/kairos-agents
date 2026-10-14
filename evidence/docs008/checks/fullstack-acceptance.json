@@ -1,0 +1,252 @@
+{
+  "version": "reviewer-acceptance-v1",
+  "started_at": "2026-10-14T05:52:47.420423+00:00",
+  "finished_at": "2026-10-14T05:55:01.112859+00:00",
+  "fullstack": true,
+  "passed": true,
+  "checks": [
+    {
+      "name": "backend",
+      "started_at": "2026-10-14T05:53:36.372601+00:00",
+      "command": [
+        "<checkout>/.runtime/showcase008-acceptance/venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_api_boundary.py",
+        "tests/test_api_postgres.py",
+        "tests/test_api_runner.py",
+        "tests/test_check_capture007.py",
+        "tests/test_context_v5.py",
+        "tests/test_edits_v5.py",
+        "tests/test_effects_postgres.py",
+        "tests/test_evaluation.py",
+        "tests/test_free_model_pilot.py",
+        "tests/test_harness.py",
+        "tests/test_identity.py",
+        "tests/test_identity_app.py",
+        "tests/test_identity_provider.py",
+        "tests/test_ingest_contracts.py",
+        "tests/test_investigations.py",
+        "tests/test_investigations_advancement.py",
+        "tests/test_jobs_model.py",
+        "tests/test_jobs_postgres.py",
+        "tests/test_migrations007.py",
+        "tests/test_operations_backup.py",
+        "tests/test_package_release006.py",
+        "tests/test_package_release007.py",
+        "tests/test_protocol_v7.py",
+        "tests/test_replay_divergence.py",
+        "tests/test_reviewer_evidence.py",
+        "tests/test_reviewer_inference.py",
+        "tests/test_reviewer_runtime.py",
+        "tests/test_statistical_gate.py",
+        "tests/test_study007.py",
+        "tests/test_v5_postgres.py",
+        "tests/test_v7_postgres.py",
+        "-q",
+        "--tb=short",
+        "--junitxml=<checkout>/.runtime/showcase008-acceptance/checks/backend.xml"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 65.4,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/backend.log"
+    },
+    {
+      "name": "browser-install",
+      "started_at": "2026-10-14T05:53:00.110492+00:00",
+      "command": [
+        "<checkout>/dashboard/node_modules/.bin/playwright",
+        "install",
+        "chromium"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.291,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/browser-install.log"
+    },
+    {
+      "name": "fixture-browser",
+      "started_at": "2026-10-14T05:53:06.618093+00:00",
+      "command": [
+        "<checkout>/dashboard/node_modules/.bin/playwright",
+        "test",
+        "--config",
+        "playwright.config.ts",
+        "--reporter=list,json"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 19.086,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/fixture-browser.log"
+    },
+    {
+      "name": "frontend-boundary",
+      "started_at": "2026-10-14T05:52:47.421871+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:boundary"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.29,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/frontend-boundary.log"
+    },
+    {
+      "name": "frontend-client",
+      "started_at": "2026-10-14T05:52:47.713073+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:client"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.236,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/frontend-client.log"
+    },
+    {
+      "name": "frontend-lint",
+      "started_at": "2026-10-14T05:52:51.923361+00:00",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 3.067,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/frontend-lint.log"
+    },
+    {
+      "name": "frontend-types",
+      "started_at": "2026-10-14T05:52:58.318894+00:00",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.887,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/frontend-types.log"
+    },
+    {
+      "name": "fullstack-provision",
+      "started_at": "2026-10-14T05:54:46.630861+00:00",
+      "command": [
+        "<checkout>/.runtime/showcase008-acceptance/venv/bin/python",
+        "-m",
+        "scripts.reviewer_services",
+        "prepare",
+        "--runtime",
+        "<checkout>/.runtime/showcase008-acceptance",
+        "--evidence",
+        "<checkout>/dashboard/evidence"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 3.905,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/fullstack-provision.log"
+    },
+    {
+      "name": "live-browser",
+      "started_at": "2026-10-14T05:54:52.609900+00:00",
+      "command": [
+        "<checkout>/dashboard/node_modules/.bin/playwright",
+        "test",
+        "--config",
+        "playwright.reviewer.config.ts"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 6.169,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/live-browser.log"
+    },
+    {
+      "name": "private-state",
+      "started_at": "2026-10-14T05:54:52.414986+00:00",
+      "command": [
+        "<checkout>/.runtime/showcase008-acceptance/venv/bin/python",
+        "-m",
+        "scripts.verify_reviewer005",
+        "--runtime",
+        "<checkout>/.runtime/showcase008-acceptance"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.194,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/private-state.log"
+    },
+    {
+      "name": "recorded-browser",
+      "started_at": "2026-10-14T05:53:00.401939+00:00",
+      "command": [
+        "<checkout>/dashboard/node_modules/.bin/playwright",
+        "test",
+        "--config",
+        "playwright.recorded.config.ts"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 6.181,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/recorded-browser.log"
+    },
+    {
+      "name": "recorded-package",
+      "started_at": "2026-10-14T05:52:47.949514+00:00",
+      "command": [
+        "npm",
+        "run",
+        "test:recorded"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 3.973,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/recorded-package.log"
+    },
+    {
+      "name": "website-build-live",
+      "started_at": "2026-10-14T05:54:42.152056+00:00",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 3.54,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/website-build-live.log"
+    },
+    {
+      "name": "website-build-recorded",
+      "started_at": "2026-10-14T05:52:55.182907+00:00",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 3.123,
+      "log": "<checkout>/.runtime/showcase008-acceptance/checks/website-build-recorded.log"
+    }
+  ],
+  "backend": {
+    "tests": 434,
+    "skipped": 6,
+    "failed": 0
+  },
+  "omissions": [
+    "Real model/Docker opt-in probes retain separate build004 receipts; no inference was run.",
+    "Historical repair reproduction is a separate reviewer repair command and receipt.",
+    "Capacity and frozen model studies were preserved rather than rerun."
+  ],
+  "backend_scope": [
+    "test_*.py"
+  ],
+  "inference_calls": 0,
+  "source_receipt_sha256": "5836adfbd3b3da7bb833063a1356b55251d139ec948b65bbcb5a175c30d42962",
+  "sanitization": "Machine paths rendered as logical checkout/home paths. Private source remains unchanged."
+}

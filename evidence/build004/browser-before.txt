@@ -1,0 +1,72 @@
+[WebServer] INFO:     Started server process [6355]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8195 (Press CTRL+C to quit)
+[WebServer] (node:6378) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6379) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:6384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6405) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6406) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 e2e/workbench.spec.ts:17:5 › late detail response cannot overwrite a newer selection (7.9s)
+(node:6410) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 e2e/workbench.spec.ts:26:5 › uncertain create keeps the command identity across reload (817ms)
+
+
+  1) e2e/workbench.spec.ts:17:5 › late detail response cannot overwrite a newer selection ──────────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.private-investigation-detail h3').first()
+    Expected: "Fixture B"
+    Received: "Fixture A"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('.private-investigation-detail h3').first() with timeout 5000ms
+      - waiting for locator('.private-investigation-detail h3').first()
+        14 × locator resolved to <h3>Fixture A</h3>
+           - unexpected value "Fixture A"
+
+
+      22 |   await expect(page.locator('.private-investigation-detail h3').first()).toHaveText('Fixture B');
+      23 |   await page.waitForTimeout(1800);
+    > 24 |   await expect(page.locator('.private-investigation-detail h3').first()).toHaveText('Fixture B');
+         |                                                                          ^
+      25 | });
+      26 | test('uncertain create keeps the command identity across reload',async({page})=>{
+      27 |   await fixture(page);const keys:string[]=[];
+        at /Users/gauravkumarnayak/Desktop/new-karos/dashboard/e2e/workbench.spec.ts:24:74
+
+    Error Context: .playwright-results/workbench-late-detail-resp-0b246-overwrite-a-newer-selection/error-context.md
+
+  2) e2e/workbench.spec.ts:26:5 › uncertain create keeps the command identity across reload ────────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "44e393ea-0098-4456-923f-a2ef8333f630"
+    Received: "f0e89e55-b322-49b8-9358-845b674d37f4"
+
+      35 |   await expect(page.getByRole('alert')).toBeVisible();await page.reload();
+      36 |   await page.getByRole('button',{name:'Queue investigation'}).click();
+    > 37 |   await expect.poll(()=>keys.length).toBe(2);expect(keys[1]).toBe(keys[0]);
+         |                                                              ^
+      38 | });
+      39 |
+        at /Users/gauravkumarnayak/Desktop/new-karos/dashboard/e2e/workbench.spec.ts:37:62
+
+    Error Context: .playwright-results/workbench-uncertain-create-13661-mand-identity-across-reload/error-context.md
+
+  2 failed
+    e2e/workbench.spec.ts:17:5 › late detail response cannot overwrite a newer selection ───────────
+    e2e/workbench.spec.ts:26:5 › uncertain create keeps the command identity across reload ─────────

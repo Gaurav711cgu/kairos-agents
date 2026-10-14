@@ -1,0 +1,49 @@
+{
+  "id": "psf__requests-1921",
+  "qualified": true,
+  "reason": null,
+  "baseline": {
+    "passed": false,
+    "environment_error": false,
+    "returncode": 1,
+    "stdout": "....F.....................                                               [100%]\n=================================== FAILURES ===================================\n_______ RequestsTestCase.test_headers_on_session_with_None_are_not_sent ________\n\nself = <test_requests.RequestsTestCase testMethod=test_headers_on_session_with_None_are_not_sent>\n\n    def test_headers_on_session_with_None_are_not_sent(self):\n        \"\"\"Do not send headers in Session.headers with None values.\"\"\"\n        ses = requests.Session()\n        ses.headers['Accept-Encoding'] = None\n        req = requests.Request('GET', 'http://httpbin.org/get')\n        prep = ses.prepare_request(req)\n>       assert 'Accept-Encoding' not in prep.headers\nE       AssertionError: assert 'Accept-Encoding' not in CaseInsensitiveDict({'User-Agent': 'python-requests/2.3.0 CPython/3.8.20 Linux/6.12.76-linuxkit', 'Accept-Encoding': None, 'Accept': '*/*', 'Authorization': 'Basic dXNlcjpwYXNz'})\nE        +  where CaseInsensitiveDict({'User-Agent': 'python-requests/2.3.0 CPython/3.8.20 Linux/6.12.76-linuxkit', 'Accept-Encoding': None, 'Accept': '*/*', 'Authorization': 'Basic dXNlcjpwYXNz'}) = <PreparedRequest [GET]>.headers\n\ntest_requests.py:220: AssertionError\n=============================== warnings summary ===============================\ntest_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET\n  /workspace/requests/models.py:164: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n    if isinstance(hook, collections.Callable):\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED test_requests.py::RequestsTestCase::test_headers_on_session_with_None_are_not_sent\n1 failed, 25 passed, 1 warning in 0.27s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 26, \"complete\": false, \"passed\": [\"test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE\", \"test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET\", \"test_requests.py::RequestsTestCase::test_DIGEST_AUTH_RETURNS_COOKIE\", \"test_requests.py::RequestsTestCase::test_DIGEST_STREAM\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT\", \"test_requests.py::RequestsTestCase::test_HTTP_302_ALLOW_REDIRECT_GET\", \"test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES\", \"test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA\", \"test_requests.py::RequestsTestCase::test_autoset_header_values_are_native\", \"test_requests.py::RequestsTestCase::test_basic_building\", \"test_requests.py::RequestsTestCase::test_basicauth_with_netrc\", \"test_requests.py::RequestsTestCase::test_can_send_nonstring_objects_with_files\", \"test_requests.py::RequestsTestCase::test_cannot_send_unprepared_requests\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_items\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_keeps_items\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_keeps_len\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_keys\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_values\", \"test_requests.py::RequestsTestCase::test_cookie_parameters\", \"test_requests.py::RequestsTestCase::test_cookie_persists_via_api\", \"test_requests.py::RequestsTestCase::test_cookie_quote_wrapped\", \"test_requests.py::RequestsTestCase::test_uppercase_scheme_redirect\"], \"failed\": [\"test_requests.py::RequestsTestCase::test_headers_on_session_with_None_are_not_sent\"]}\n",
+    "stderr": "",
+    "seconds": 1.213,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "reference": {
+    "passed": true,
+    "environment_error": false,
+    "returncode": 0,
+    "stdout": "..........................                                               [100%]\n=============================== warnings summary ===============================\ntest_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET\n  /workspace/requests/models.py:164: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3, and in 3.10 it will stop working\n    if isinstance(hook, collections.Callable):\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n26 passed, 1 warning in 0.23s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 26, \"complete\": true, \"passed\": [\"test_requests.py::RequestsTestCase::test_DIGESTAUTH_QUOTES_QOP_VALUE\", \"test_requests.py::RequestsTestCase::test_DIGESTAUTH_WRONG_HTTP_401_GET\", \"test_requests.py::RequestsTestCase::test_DIGEST_AUTH_RETURNS_COOKIE\", \"test_requests.py::RequestsTestCase::test_DIGEST_STREAM\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_MIXED_PARAMS\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_GET_WITH_PARAMS\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_HEAD\", \"test_requests.py::RequestsTestCase::test_HTTP_200_OK_PUT\", \"test_requests.py::RequestsTestCase::test_HTTP_302_ALLOW_REDIRECT_GET\", \"test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES\", \"test_requests.py::RequestsTestCase::test_POSTBIN_GET_POST_FILES_WITH_DATA\", \"test_requests.py::RequestsTestCase::test_autoset_header_values_are_native\", \"test_requests.py::RequestsTestCase::test_basic_building\", \"test_requests.py::RequestsTestCase::test_basicauth_with_netrc\", \"test_requests.py::RequestsTestCase::test_can_send_nonstring_objects_with_files\", \"test_requests.py::RequestsTestCase::test_cannot_send_unprepared_requests\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_items\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_keeps_items\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_keeps_len\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_keys\", \"test_requests.py::RequestsTestCase::test_cookie_as_dict_values\", \"test_requests.py::RequestsTestCase::test_cookie_parameters\", \"test_requests.py::RequestsTestCase::test_cookie_persists_via_api\", \"test_requests.py::RequestsTestCase::test_cookie_quote_wrapped\", \"test_requests.py::RequestsTestCase::test_headers_on_session_with_None_are_not_sent\", \"test_requests.py::RequestsTestCase::test_uppercase_scheme_redirect\"], \"failed\": []}\n",
+    "stderr": "",
+    "seconds": 1.042,
+    "output_limit_bytes": 24000,
+    "output_truncated": false
+  },
+  "case": {
+    "id": "psf__requests-1921",
+    "title": "Removing a default header of a session",
+    "issue": "Removing a default header of a session\n[The docs](http://docs.python-requests.org/en/latest/user/advanced/#session-objects) say that you can prevent sending a session header by setting the headers value to None in the method's arguments. You would expect (as [discussed on IRC](https://botbot.me/freenode/python-requests/msg/10788170/)) that this would work for session's default headers, too:\n\n``` python\nsession = requests.Session()\n# Do not send Accept-Encoding\nsession.headers['Accept-Encoding'] = None\n```\n\nWhat happens is that \"None\"  gets sent as the value of header.\n\n```\nAccept-Encoding: None\n```\n\nFor the reference, here is a way that works:\n\n``` python\ndel session.headers['Accept-Encoding']\n```\n\n",
+    "repository": "psf/requests",
+    "revision": "3c88e520da24ae6f736929a750876e7654accc3d",
+    "source_url": "https://github.com/psf/requests/tree/3c88e520da24ae6f736929a750876e7654accc3d",
+    "issue_url": "https://github.com/psf/requests/pull/1921",
+    "entry_files": [
+      "requests/sessions.py"
+    ],
+    "approved_prefix": "requests/",
+    "split": "qualification",
+    "provenance": "Build004 curated SWE-bench Verified case; human-localized entry files. Public training contamination possible.",
+    "image": "sha256:9f1fdb06b595456c36483ed2c7a008c33be33e311fdb257c1bb29db812b00a85",
+    "qualified": true,
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "source_digest": "90d3195657bb2ef5687535738f18ebe71b3b46f41ec572493f59604e74562303",
+    "reference_digest": "33fc461de67706a7d3c91008799489d6d1e6b521bfc0131dd22c4959d00b9f08",
+    "verification_digest": "d00ea64ccaa3241b1bf2757e09de87d6c4cc73ca6ec31a87e28b8fa200209d05"
+  }
+}

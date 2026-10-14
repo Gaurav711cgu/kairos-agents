@@ -186,3 +186,9 @@ P00 partial: cached-model developmental failures saved, independent reference gr
 P01 partial: actual PostgreSQL persisted commands/events, developer credential tenant boundary and browser detail/fork work. Managed identity, memberships, durable worker jobs and migration system remain open. P03 interaction subset is demonstrable; exact rendered model request capture and full replay conformance remain open. P02/P04/P05/P06/P07 are not marked complete.
 
 Next executable work: align task-fit probe with product task versions and error taxonomy; then define durable model intent/result jobs before remote execution. Keep model qualification, production auth, recovery and outside-user feedback as explicit gates.
+
+## Build002 completion checkpoint — 2026-10-11
+
+Local implementable scope completed and verified; see [BUILD_002.md](../BUILD_002.md). P01 includes real local OIDC and membership. P02 is a bounded durable single-call loop with tested intent/result/unknown semantics. P03 includes exact model capture, recorded playback and populated inspection. P04 includes fresh forks and approval/receipt sandbox. P05's calibrated three-state rule is implemented; configured model fails development and remains unqualified. P06's local packaging, audits, restore/load and manual browser gates passed; hosted CI/TLS/cloud operations remain external. P00 discovery and P07 outside-user adoption remain unproven; presentation artifacts are ready for review.
+
+Next work is external validation, not another framework layer: run an unfamiliar-user study; choose a model that passes development provenance/schema checks; predeclare and run untouched model holdout; configure a real HTTPS deployment with backups/monitoring; measure pilot adoption. Do not mark those gates achieved from local artifacts.

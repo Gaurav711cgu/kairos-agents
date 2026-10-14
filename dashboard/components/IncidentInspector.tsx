@@ -1,4 +1,5 @@
 "use client";
+import { displayLabel } from "@/lib/display";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -100,7 +101,7 @@ export const IncidentInspector = ({
       <div className="inspector-grid">
         <section className="timeline" aria-label="Execution timeline">
           <div className="panel-heading">
-            <span className="eyebrow">01 / EVENT LOG</span>
+            <span className="eyebrow">01 / Event log</span>
             <span className="mono">{incident.events.length}</span>
           </div>
           <label className="search-label">
@@ -148,7 +149,7 @@ export const IncidentInspector = ({
                 </span>
                 <span>
                   <strong>{item.title}</strong>
-                  <small>{item.event_type.replaceAll("_", " ")}</small>
+                  <small>{displayLabel(item.event_type)}</small>
                 </span>
                 <span aria-hidden="true">↗</span>
               </button>
@@ -175,7 +176,7 @@ export const IncidentInspector = ({
                   )
                 }
               >
-                Later →
+                Later
               </button>
             </div>
           )}
@@ -183,7 +184,7 @@ export const IncidentInspector = ({
             <p className="empty-state">No events match this filter.</p>
           )}
           <p className="keyboard-hint">
-            ↑ ↓ move between events · selection saved in URL
+            ↑ move between events · selection saved in URL
             {filtered.length > 80 && (
               <>
                 {" "}
@@ -196,8 +197,8 @@ export const IncidentInspector = ({
         </section>
         <section className="event-detail" aria-label="Selected event">
           <div className="panel-heading">
-            <span className="eyebrow">02 / INSPECT</span>
-            <span className="mono">STEP {selected}</span>
+            <span className="eyebrow">02 / Inspect</span>
+            <span className="mono">Step {selected}</span>
           </div>
           {event && (
             <>
@@ -239,15 +240,17 @@ export const IncidentInspector = ({
           </p>
         </section>
         <aside className="verdict-pane">
-          <span className="eyebrow">03 / INDEPENDENT VERDICT</span>
+          <span className="eyebrow">03 / Independent verdict</span>
           <div
             className={
               "verdict " + (incident.grade.passed ? "passed" : "failed")
             }
           >
-            <span>{incident.grade.passed ? "[PASS]" : "[FAIL]"}</span>
+            <span>{incident.grade.passed ? "Passed" : "Failed"}</span>
             <h2>
-              {incident.grade.passed ? "Checks passed." : "Evidence disagrees."}
+              {incident.grade.passed
+                ? "Checks passed."
+                : "Refund does not match."}
             </h2>
           </div>
           <dl className="outcome-list">
@@ -264,11 +267,8 @@ export const IncidentInspector = ({
           <ul className="grade-checks">
             {incident.grade.checks.map((check) => (
               <li key={check.name}>
-                <span aria-hidden="true">
-                  {check.passed ? "[OK]" : "[FAIL]"}
-                </span>
                 <div>
-                  <strong>{check.name.replaceAll("_", " ")}</strong>
+                  <strong>{displayLabel(check.name)}</strong>
                   <p>{check.detail}</p>
                   <small>{check.passed ? "Passed" : "Failed"}</small>
                 </div>
@@ -276,7 +276,7 @@ export const IncidentInspector = ({
             ))}
           </ul>
           <div className="fork-panel">
-            <span className="eyebrow">ONE CONTROLLED INTERVENTION</span>
+            <span className="eyebrow">One controlled intervention</span>
             <h3>Keep the policy context.</h3>
             <p>
               Run this scenario again with all policy blocks retained. The
@@ -287,7 +287,7 @@ export const IncidentInspector = ({
               onClick={fork}
               disabled={busy || !canFork}
             >
-              {busy ? "Creating isolated run…" : "Run with preserved context ↗"}
+              {busy ? "Creating isolated run…" : "Run with preserved context"}
             </button>
             <p className="fine-print">
               {canFork
@@ -304,12 +304,12 @@ export const IncidentInspector = ({
       </div>
       <section className="record-provenance">
         <div>
-          <span className="eyebrow">RECORD PROVENANCE</span>
+          <span className="eyebrow">Record provenance</span>
           <p>{incident.provenance}</p>
           <span className="mono">{incident.id}</span>
         </div>
         <div>
-          <span className="eyebrow">INTEGRITY SCOPE</span>
+          <span className="eyebrow">Integrity scope</span>
           <p>{incident.integrity.scope}</p>
           <strong>
             {incident.integrity.verified
@@ -318,10 +318,10 @@ export const IncidentInspector = ({
           </strong>
         </div>
         <div>
-          <span className="eyebrow">LINEAGE</span>
+          <span className="eyebrow">Lineage</span>
           {incident.lineage.parent_run_id ? (
             <Link href={"/incidents/" + incident.lineage.parent_run_id}>
-              Inspect parent execution ↗
+              Inspect parent execution
             </Link>
           ) : (
             <p>Original controlled execution.</p>

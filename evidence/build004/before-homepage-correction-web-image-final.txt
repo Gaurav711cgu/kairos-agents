@@ -1,0 +1,110 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.web
+#1 transferring dockerfile: 684B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 142B done
+#3 DONE 0.0s
+
+#4 [build 1/6] FROM docker.io/library/node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+#4 resolve docker.io/library/node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 839.86kB 0.0s done
+#5 DONE 0.0s
+
+#6 [build 2/6] WORKDIR /app
+#6 CACHED
+
+#7 [build 3/6] COPY dashboard/package*.json ./
+#7 CACHED
+
+#8 [build 4/6] RUN npm ci
+#8 CACHED
+
+#9 [build 5/6] COPY dashboard/ ./
+#9 DONE 0.1s
+
+#10 [build 6/6] RUN npm run build
+#10 0.353 
+#10 0.353 > dashboard@0.1.0 build
+#10 0.353 > next build
+#10 0.353 
+#10 0.724 ▲ Next.js 16.4.0 (Turbopack)
+#10 0.812 ✓ Running next.config.ts took 88ms
+#10 0.819 
+#10 0.837   Creating an optimized production build ...
+#10 2.934 ✓ Compiled successfully in 2.1s
+#10 2.936   Running TypeScript ...
+#10 5.927   Finished TypeScript in 3.0s ...
+#10 5.929   Collecting page data using 7 workers ...
+#10 6.450   Generating static pages using 7 workers (0/8) ...
+#10 6.580   Generating static pages using 7 workers (2/8) 
+#10 6.619   Generating static pages using 7 workers (4/8) 
+#10 6.619   Generating static pages using 7 workers (6/8) 
+#10 6.620 ✓ Generating static pages using 7 workers (8/8) in 170ms
+#10 6.624   Finalizing page optimization ...
+#10 6.729 
+#10 6.731 Route (app)
+#10 6.731 ┌ ƒ /
+#10 6.731 ├ ○ /_not-found
+#10 6.731 ├ ƒ /api/local-fork/[id]
+#10 6.731 ├ ƒ /api/public-evaluations/[id]
+#10 6.731 ├ ƒ /api/public-incidents
+#10 6.731 ├ ƒ /api/public-investigations/[...path]
+#10 6.731 ├ ƒ /api/workbench/[...path]
+#10 6.731 ├ ○ /capacity
+#10 6.731 ├ ƒ /dev/trace-stress
+#10 6.731 ├ ○ /docs
+#10 6.731 ├ ○ /engineering
+#10 6.731 ├ ƒ /evidence
+#10 6.731 ├ ƒ /executions
+#10 6.731 ├ ƒ /executions/[id]
+#10 6.731 ├ ƒ /history
+#10 6.731 ├ ƒ /incidents
+#10 6.731 ├ ƒ /incidents/[id]
+#10 6.731 ├ ƒ /investigations
+#10 6.731 ├ ƒ /investigations/[id]
+#10 6.731 ├ ƒ /reports
+#10 6.731 ├ ƒ /reports/[id]
+#10 6.731 ├ ○ /study
+#10 6.731 └ ƒ /workbench
+#10 6.731 
+#10 6.731 
+#10 6.731 ○  (Static)   prerendered as static content
+#10 6.731 ƒ  (Dynamic)  server-rendered on demand
+#10 6.731 
+#10 DONE 6.9s
+
+#6 [build 2/6] WORKDIR /app
+#6 CACHED
+
+#11 [stage-1 3/5] COPY --from=build --chown=node:node /app/.next/standalone ./
+#11 DONE 0.1s
+
+#12 [stage-1 4/5] COPY --from=build --chown=node:node /app/.next/static ./.next/static
+#12 DONE 0.0s
+
+#13 [stage-1 5/5] COPY --from=build --chown=node:node /app/public ./public
+#13 DONE 0.0s
+
+#14 exporting to image
+#14 exporting layers
+#14 exporting layers 0.8s done
+#14 exporting manifest sha256:d01873eb3b7dc0e8848e4c052c2bf6bef3a02d5a575d550c212880e963d92922
+#14 exporting manifest sha256:d01873eb3b7dc0e8848e4c052c2bf6bef3a02d5a575d550c212880e963d92922 done
+#14 exporting config sha256:90a1ef6082e738a70ef413816f6887791dfca32bf9aa286dc1dd9891d87bb457 done
+#14 exporting attestation manifest sha256:5a8d5f527606f5f7cf781068039e8201009dd1ea082f4d798a2705a365d642a0 done
+#14 exporting manifest list sha256:ccf4bb6b628d923d6e34378b7ae5d13c9a168597f8605d37dc6c48a03a13643d done
+#14 naming to docker.io/library/kairos-web:build004 done
+#14 unpacking to docker.io/library/kairos-web:build004
+#14 unpacking to docker.io/library/kairos-web:build004 0.2s done
+#14 DONE 1.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/b0mxt0xgtl4tbf771qw0sh3sy

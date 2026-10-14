@@ -11,7 +11,7 @@ parser.add_argument('--publish',action='store_true')
 parser.add_argument('--tenant',default='local-studio')
 parser.add_argument('--save-db',action='store_true')
 args=parser.parse_args()
-report=evaluate(args.mode,args.split,os.getenv('KAIROS_MODEL_URL'))
+report=evaluate(args.mode,args.split)
 path=Path(args.output);path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(report,indent=2)+'\n')
 if args.save_db:
  repo=EvaluationRepository(os.environ['DATABASE_URL']);repo.initialize();repo.save(args.tenant,report,args.publish)

@@ -38,7 +38,7 @@ def public_value(value):
     if isinstance(value, list):
         return [public_value(item) for item in value]
     if isinstance(value, (datetime, UUID)):
-        return value.isoformat() if isinstance(value, datetime) else str(value)
+        return value.astimezone(timezone.utc).isoformat() if isinstance(value, datetime) else str(value)
     return value
 
 
@@ -50,23 +50,18 @@ class JobsRepository:
     def connect(self):
         return psycopg.connect(self.database_url, row_factory=dict_row, connect_timeout=5)
 
-    def initialize(self):
+    def initialize(self) -> None:
+        """Verify the applied schema; setup owns all schema and data changes."""
+        from kairos_api.migrations import verify
         with self.connect() as connection:
-            connection.execute("SET LOCAL synchronous_commit=on")
-            if connection.execute("SHOW fsync").fetchone()["fsync"] != "on":
-                raise RuntimeError("Durable job capture requires PostgreSQL fsync=on")
-            connection.execute(Path(__file__).with_name("schema_jobs.sql").read_text())
-            # Additive migration: only backfill historical fingerprints if they still match.
-            for row in connection.execute("SELECT id,scenario_id,policy,context_blocks,input_digest FROM kairos_jobs WHERE input_snapshot IS NULL").fetchall():
-                snapshot = input_snapshot(row["scenario_id"],row["policy"],row["context_blocks"])
-                if digest(snapshot) == row["input_digest"]:
-                    connection.execute("UPDATE kairos_jobs SET input_snapshot=%s WHERE id=%s",(Jsonb(snapshot),row["id"]))
+            verify(connection)
 
     def _event(self, connection, job_id, event_type, payload):
         # Caller holds the parent row lock, serializing sequence and hash writes.
         previous = connection.execute("SELECT seq,event_hash FROM kairos_job_events WHERE job_id=%s ORDER BY seq DESC LIMIT 1", (job_id,)).fetchone()
         event = {"job_id": str(job_id), "seq": previous["seq"] + 1 if previous else 1,
-                 "event_type": event_type, "payload": payload, "created_at": datetime.now(timezone.utc).isoformat(),
+                 "event_type": event_type, "payload": payload,
+                 "created_at": public_value(connection.execute("SELECT clock_timestamp() AS now").fetchone()["now"]),
                  "prev_hash": previous["event_hash"] if previous else GENESIS}
         event["event_hash"] = digest(event)
         connection.execute("INSERT INTO kairos_job_events VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -220,14 +215,14 @@ class JobsRepository:
     def reclaim_expired(self):
         with self.connect() as connection:
             connection.execute("SET LOCAL synchronous_commit=on")
-            rows = connection.execute("SELECT * FROM kairos_jobs WHERE status='running' AND lease_expires_at<clock_timestamp() FOR UPDATE SKIP LOCKED").fetchall()
+            rows = connection.execute("SELECT * FROM kairos_jobs WHERE status='running' AND lease_expires_at<=clock_timestamp() FOR UPDATE SKIP LOCKED").fetchall()
             for row in rows:
                 if row["stage"] == "response_captured" or row["stage"] == "dispatched":
                     status = "unknown"
                     reason = "lease_expired_known_result" if row["response"] else "lease_expired_dispatch_outcome_unknown"
                 elif row["cancel_requested"]:
                     status,reason = "cancelled","cancel_before_dispatch"
-                elif row["attempt"] >= row["max_attempts"] or row["deadline_at"] < datetime.now(timezone.utc):
+                elif row["attempt"] >= row["max_attempts"] or self._deadline_expired(connection,row):
                     status,reason = "failed","deadline_or_attempt_budget_exhausted"
                 else:
                     status,reason = "queued","lease_expired_before_dispatch"
@@ -251,9 +246,16 @@ class JobsRepository:
             self._event(connection,row["id"],"job.claimed",{"attempt":row["attempt"],"lease_token":row["lease_token"],"checkpoint_version":row["checkpoint_version"]})
         return row
 
+    @staticmethod
+    def _deadline_expired(connection, row):
+        # Database time is authoritative across workers with different host clocks.
+        return connection.execute("SELECT %s::timestamptz <= clock_timestamp() AS expired", (row["deadline_at"],)).fetchone()["expired"]
+
     def _fenced(self, connection, job):
         row = self._locked(connection,job["id"])
-        if row["status"] != "running" or row["lease_token"] != job["lease_token"] or row["lease_owner"] != job["lease_owner"] or row["lease_expires_at"] <= datetime.now(timezone.utc):
+        # Check the database clock after acquiring the lock, not before a possible wait.
+        expired = connection.execute("SELECT %s::timestamptz <= clock_timestamp() AS expired", (row["lease_expires_at"],)).fetchone()["expired"]
+        if row["status"] != "running" or row["lease_token"] != job["lease_token"] or row["lease_owner"] != job["lease_owner"] or expired:
             raise RuntimeError("Stale worker lease rejected")
         return row
 
@@ -262,7 +264,7 @@ class JobsRepository:
         with self.connect() as connection:
             connection.execute("SET LOCAL synchronous_commit=on")
             row = self._fenced(connection,job)
-            if row["cancel_requested"] or row["deadline_at"] <= datetime.now(timezone.utc):
+            if row["cancel_requested"] or self._deadline_expired(connection,row):
                 return False
             if row["model_calls"] >= 1 or row["stage"] != "prepared":
                 raise RuntimeError("Model call budget/checkpoint prevents redispatch")
@@ -289,7 +291,7 @@ class JobsRepository:
                 status = "cancelled"
             elif unknown:
                 status = "unknown"
-            elif row["deadline_at"] <= datetime.now(timezone.utc):
+            elif self._deadline_expired(connection,row):
                 status,error = "failed",{"code":"deadline_exhausted"}
             else:
                 status = "succeeded" if result and result["grade"]["passed"] else "failed"
