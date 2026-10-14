@@ -12,10 +12,10 @@ The new overlay includes:
 The API contracts, authorization, worker repair protocol, frozen cases, model profiles and original public captures remain unchanged. The local runtime startup helper has a declared cleanup change; an ownership-receipt failure now stops the model instead of leaving an untracked process. Existing study source freezes and failed results are retained; the locked evaluation is not rerun.
 
 ```bash
-python3 -m scripts.verify_showcase008
+python3 -m scripts.verify_ci009
 ```
 
-This command checks the original archive and permitted overlay fingerprints. Unexpected files or changes outside the declared delta fail verification. These local references establish byte consistency, not signing or administrator-proof provenance.
+This current command checks the original008 archive and permitted CI009 correction fingerprints. Unexpected files or changes outside the declared delta fail verification. These local references establish byte consistency, not signing or administrator-proof provenance. The original `scripts.verify_showcase008` command applies to the unchanged008 archive after extraction. [CI correction and hosted acceptance](CI_009.md).
 
 New acceptance and browser-submitted execution are separate from historical build007 evidence. The actual interactive Django development run passed four tests with two model calls; it is excluded from fresh validation totals. Credentials, browser authentication state and weights remain private and outside the publication.
 

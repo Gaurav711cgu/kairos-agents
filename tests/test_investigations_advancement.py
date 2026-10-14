@@ -1,5 +1,6 @@
 """Build004 control-plane regressions, using isolated PostgreSQL schemas."""
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import ExitStack
 from fastapi import FastAPI, HTTPException
 from fastapi.testclient import TestClient
 import pytest
@@ -129,11 +130,25 @@ def test_pool_reuses_connections_and_rolls_back_failed_transactions(repository):
     from kairos_api.investigations.repository import InvestigationRepository
     pooled=InvestigationRepository(repository.database_url,repository.blobs.root,repository.registry,pooled=True)
     try:
-        with pooled.connect() as connection: first=connection.execute('SELECT pg_backend_pid() AS id').fetchone()['id']
+        record=enqueue(repository)
+        # The pool may grow and rotate FIFO connections. Warm every slot before
+        # asserting reuse rather than requiring consecutive checkouts to share a PID.
+        with ExitStack() as stack:
+            connections=[stack.enter_context(pooled.connect()) for _ in range(pooled.pool.max_size)]
+            pids={connection.execute('SELECT pg_backend_pid() AS id').fetchone()['id'] for connection in connections}
+        assert len(pids)==pooled.pool.max_size
+        opened=pooled.pool.get_stats()['connections_num']
+        for _ in range(2*pooled.pool.max_size):
+            with pooled.connect() as connection:
+                assert connection.execute('SELECT pg_backend_pid() AS id').fetchone()['id'] in pids
+        assert pooled.pool.get_stats()['connections_num']==opened
         with pytest.raises(RuntimeError):
             with pooled.connect() as connection:
-                connection.execute("UPDATE kairos_investigations SET status='cancelled'");raise RuntimeError('rollback')
-        with pooled.connect() as connection: assert connection.execute('SELECT pg_backend_pid() AS id').fetchone()['id']==first
+                connection.execute("UPDATE kairos_investigations SET status='cancelled' WHERE id=%s",(record['id'],))
+                raise RuntimeError('rollback')
+        with pooled.connect() as connection:
+            assert connection.execute('SELECT pg_backend_pid() AS id').fetchone()['id'] in pids
+            assert connection.execute('SELECT status FROM kairos_investigations WHERE id=%s',(record['id'],)).fetchone()['status']=='queued'
     finally: pooled.close()
 
 

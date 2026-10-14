@@ -172,11 +172,11 @@ The active implementation is in `kairos_api/investigations/`, `kairos_api/migrat
 Build007 software and model evidence remain frozen. This delivery adds clearer presentation, the recruiter documentation and an opt-in live-session bootstrap. Its receipt binds these changes to the preserved release. Verify the active checkout with:
 
 ```bash
-python3 -m scripts.verify_showcase008
+python3 -m scripts.verify_ci009
 ```
 
-The verifier checks the original build007 archive, preserved API/worker source and the explicitly declared presentation/bootstrap changes. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md).
+The verifier checks the original008 archive, preserved API/worker source and the explicitly declared CI portability correction. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
 
-Hashes establish byte consistency against stored references, not signed or administrator-proof history. Candidate Python shares the registered test environment, so adversarial test-forgery resistance is not established. Measurements cover local operation; public hosting, production scale, customer adoption, model research and staff-level impact are not claimed. Hosted CI configuration exists; its hosted execution is not claimed.
+Hashes establish byte consistency against stored references, not signed or administrator-proof history. Candidate Python shares the registered test environment, so adversarial test-forgery resistance is not established. Measurements cover local operation; public hosting, production scale, customer adoption, model research and staff-level impact are not claimed. [Pull request checks](https://github.com/Gaurav711cgu/kairos-agents/pull/1/checks) report hosted CI outcomes separately from the original Mac acceptance.
 
 Historical source, receipts, images and failed studies are retained. Credentials, browser sessions, installed dependencies and model weights are excluded from the release archive.

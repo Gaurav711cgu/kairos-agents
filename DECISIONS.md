@@ -320,3 +320,13 @@ LinkedIn handoff is a reviewed runnable repository release. A localhost site is 
 ## D91 — Test private-state validation in a real Git checkout
 
 The private-state checker used git check-ignore --quiet with two pathnames, which Git rejects with exit128. Clean extracted snapshots without .git did not exercise this branch. Check each credential/environment pathname independently and add a real disposable Git regression covering both ignored and partially ignored files. The existing .runtime/ exclusion was already correct; no runtime files were tracked. This fixes the checker without weakening the privacy gate.
+
+## D92 — Correct hosted test assumptions without relabeling local acceptance
+
+The first hosted PR run failed after local acceptance. A legacy Go integration fixture used an absolute laptop binary path; both hosted jobs execute that fixture but neither installed the declared Go toolchain. Build the checkout-derived Go source into a pytest temporary directory, isolate its database and port, and terminate only its own child. Install the toolchain specified by ingest/go.mod in both jobs. A missing toolchain or failed build remains a failure, not a new skip.
+
+The pool test assumed consecutive checkouts return the same PostgreSQL PID. The configured eight-connection pool may grow asynchronously and rotate FIFO connections. Warm all eight slots, verify subsequent requests reuse that bounded PID set without opening more connections, then change an actual queued row inside a failed transaction and confirm rollback. This tests the intended contract instead of constraining valid scheduling. The isolated native PostgreSQL18 suite passed 428 tests with six explicit skips; Docker and inference stayed off.
+
+The website job hid its backend failure in a private runtime log. Print bounded failure tails after redacting known generated credentials, database URLs, tokens and authorization codes. Keep private files and complete logs outside publication. New diagnostic tests cover credential redaction, output bounds and escaped paths.
+
+Preserve build007 and showcase008 manifests, source archives, original results and acceptance receipts byte-for-byte. Declare the CI correction under evidence/ci009 and use scripts.verify_ci009 for the current source. The original008 command continues to verify its extracted historical snapshot. Hosted GitHub checks are a separate acceptance scope; do not retroactively label the earlier Mac evidence as a successful Linux run.

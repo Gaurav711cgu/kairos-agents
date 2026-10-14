@@ -29,6 +29,10 @@ jobs:
       TEST_DATABASE_URL: postgresql://kairos:ci-test-only-password@127.0.0.1:5432/kairos_test
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ingest/go.mod
+          cache-dependency-path: ingest/go.sum
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -38,6 +42,8 @@ jobs:
             requirements-reviewer.lock
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
+      - name: Verify current source and preserved delivery
+        run: .venv/bin/python -m scripts.verify_ci009
       - name: Prepare isolated test database configuration
         run: |
           .venv/bin/python - <<'PYTHON'
@@ -79,11 +85,18 @@ jobs:
           .venv/bin/python scripts/run_evaluation.py --mode null-calibration --output /tmp/null.json
           .venv/bin/python scripts/run_evaluation.py --mode planted-regression --output /tmp/planted.json
           .venv/bin/python -c "import json; assert json.load(open('/tmp/null.json'))['gate']['verdict']=='pass'; assert json.load(open('/tmp/planted.json'))['gate']['verdict']=='fail'"
+      - name: Redacted reviewer failure details
+        if: failure()
+        run: .venv/bin/python -m scripts.ci_diagnostics009 --runtime .runtime/ci007
 
   website:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ingest/go.mod
+          cache-dependency-path: ingest/go.sum
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -96,6 +109,8 @@ jobs:
           python-version: '3.12'
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
+      - name: Verify current source and preserved delivery
+        run: .venv/bin/python -m scripts.verify_ci009
       - run: npx playwright install --with-deps chromium
         working-directory: dashboard
       - run: npm run test:browser
@@ -112,3 +127,6 @@ jobs:
           npm run typecheck
           npm run build
         working-directory: dashboard
+      - name: Redacted reviewer failure details
+        if: failure()
+        run: .venv/bin/python -m scripts.ci_diagnostics009 --runtime .runtime/recorded-ci007

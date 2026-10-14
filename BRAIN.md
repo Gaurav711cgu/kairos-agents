@@ -1,6 +1,6 @@
 # Kairos working context
 
-Updated 2026-10-14. Main: Desktop/new-karos. Preserved seal: build007. Accepted delivery: showcase008. Chat uses concise Caveman; saved prose uses normal English.
+Updated 2026-10-14. Main: Desktop/new-karos. Preserved seals: build007 and showcase008. Current follow-up: CI portability009. Chat uses concise Caveman; saved prose uses normal English.
 
 ## Pointers
 
@@ -24,4 +24,6 @@ Only the recorded website on 3310 stays on at handoff. Docker, model and worker 
 
 ## Handoff
 
-Professional README, website, acceptance and live workflow are complete. Packaging adds a sanitized source archive, declared manifest, clean-extraction and tamper receipts. No GitHub push/PR or public hosting was authorized/performed. Publish the reviewed snapshot before using the LinkedIn draft; localhost is not a public URL. Interview practice remains separate from software acceptance.
+GitHub PR1 exposed two test defects after the original release commit 0759751: the legacy ingest fixture hardcoded the developer binary, and pool reuse assumed consecutive checkouts share a PID. CI009 builds Go from checkout sources into a temporary directory, installs the go.mod toolchain in both jobs, warms every pool slot and verifies reuse plus rollback of an actual row. Failure diagnostics expose bounded redacted logs. The first corrected native PostgreSQL18 suite passed 428 with six skips; new diagnostics/provenance tests are checked separately. Hosted outcomes remain in GitHub run records, not the historical acceptance receipt. scripts.verify_ci009 verifies the active correction and original008 archive; the older008 command applies to its preserved snapshot. See docs/showcase/CI_009.md.
+
+Professional README, website, acceptance and live workflow are complete. The user authorized commit and push of release 0759751 to Gaurav711cgu/feat/finalize-kairos-reviewer-release in kairos-agents; PR1 exists. CI009 follows up the first hosted failures without changing main. The repository is private; public hosting and visibility changes were not authorized. Localhost is not a public URL. Interview practice remains separate from software acceptance.
