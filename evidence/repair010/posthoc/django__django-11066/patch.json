@@ -1,0 +1,44 @@
+{
+  "added": 1,
+  "construction": "captured-source-line-handles-v7",
+  "edits": [
+    {
+      "end_line": 27,
+      "new": "                    content_type.save(using=db, update_fields={'model'})",
+      "source_id": "S01736005275d",
+      "start_line": 27
+    }
+  ],
+  "files": [
+    "django/contrib/contenttypes/management/__init__.py"
+  ],
+  "patch": "--- a/django/contrib/contenttypes/management/__init__.py\n+++ b/django/contrib/contenttypes/management/__init__.py\n@@ -24,7 +24,7 @@\n             content_type.model = new_model\n             try:\n                 with transaction.atomic(using=db):\n-                    content_type.save(update_fields={'model'})\n+                    content_type.save(using=db, update_fields={'model'})\n             except IntegrityError:\n                 # Gracefully fallback if a stale content type causes a\n                 # conflict as remove_stale_contenttypes will take care of\n",
+  "reference_bindings": {
+    "S01736005275d": {
+      "end_line": 36,
+      "excerpt_id": "01736005275d10cd54ca646bf99875475a209a4eda6b267b389a6756946de3e5",
+      "path": "django/contrib/contenttypes/management/__init__.py",
+      "source_digest": "28a7f8616baebd400e7f99765e7e7310847858703cbca439479a5a55f6003de3",
+      "start_line": 13
+    },
+    "S72bf7e7b5382": {
+      "end_line": 69,
+      "excerpt_id": "72bf7e7b538200cc0a464366b46be2672628284adbda829410d66596a391ecaf",
+      "path": "django/contrib/auth/base_user.py",
+      "source_digest": "817992dcc7bfc537ca4d37f93d2411c67d2c3c9983a74e3862b9dc5ebe7143b5",
+      "start_line": 65
+    }
+  },
+  "references": [
+    {
+      "end_line": 27,
+      "excerpt_id": "01736005275d10cd54ca646bf99875475a209a4eda6b267b389a6756946de3e5",
+      "new": "                    content_type.save(using=db, update_fields={'model'})",
+      "path": "django/contrib/contenttypes/management/__init__.py",
+      "source_digest": "28a7f8616baebd400e7f99765e7e7310847858703cbca439479a5a55f6003de3",
+      "start_line": 27
+    }
+  ],
+  "removed": 1,
+  "rendering": "A missing final replacement newline is supplied mechanically; source content is not repaired"
+}

@@ -1,29 +1,25 @@
 # Kairos working context
 
-Updated 2026-10-14. Main: Desktop/new-karos. Preserved seals: build007 and showcase008. Current follow-up: CI portability009. Chat uses concise Caveman; saved prose uses normal English.
+Updated 2026-10-15. Active checkout: Desktop/new-karos. Current delta: optional repair workflow010 over CI009. Chat uses concise Caveman; files use normal prose. Read docs/showcase/REPAIR_010.md for current behavior, receipts, owned gaps and closure plans. README introduces the full-stack release.
 
-## Pointers
+## What changed
 
-README.md introduces the project and earned benchmarks. docs/showcase/FINAL_REPORT.md maps current acceptance; ARCHITECTURE.md and OPERATIONS.md describe implementation. VISITOR_WORKFLOW.md records DOM behavior; DEMO.md is the interview walkthrough; LINKEDIN.md is the publication-scoped draft. Decisions D86–D91 explain the final changes.
+Optional scripts.study010 doctor|validate-task|run|report accepts reviewed unresolved Python tasks without a known repair. It uses strict pinned source/verifier/baseline receipt validation, exact rejected-edit feedback, native PostgreSQL and existing disposable Docker checks. Future runs explicitly request gpt-6.1-sol through existing ChatGPT login. No API billing fallback. Existing website/API/local provider defaults and v1–v7 behavior are unchanged.
 
-## Current evidence
+Website /repair-workflow shows two exact captured model-generated development patches and independent post-hoc checks: pytest6197 passed 22 tests; Django11066 passed four. These are not successful original investigations or fresh validation. Earlier CLI-default resolved model identity is unavailable. Public issue hints and benchmark-assisted entry files limit the claim.
 
-Full-stack acceptance: 434 collected, 428 passed, six explicit skips, zero failures. Frontend units, lint, types and both builds passed. Browser journeys: eight recorded, eleven fault fixtures, four actual OIDC and one separate real-model journey. Total 24 across those scopes.
+## Outcome ownership
 
-The real browser submitted Django11066 development through OIDC and durable API. Two model calls produced one candidate; one check passed four tests. Worker elapsed time: 35.100004 seconds. Context, downloads, replay without execution, mobile layout and logout passed. Source issue supplies a repair hint; source entry files were human-localized. Exclude this exposed demonstration from locked validation.
+Historical v7 remains 0/10; older 0/10 and 0/36 remain. The new ledger preserves five development attempts: local feedback context failure, CLI startup-warning classification uncertainty, two metadata-response rejections and a later account usage-limit uncertainty. Two uncertain CLI dispatches were not resent. Exact candidate verification adds zero model calls. Adapter bugs are fixed with regressions; quota availability gates a future live stronger-provider score. Do not retune locked validation or claim universal repairs.
 
-## Preservation and limits
+Reference-free software journeys use real PostgreSQL/Docker and explicitly prewritten fixture actions. They establish source isolation, baselines, durable retries, checks, downloads/replay and pre-dispatch refusal after mutation. They are not model performance. Current local acceptance: 695 backend tests passed, six explicit skips; three real PostgreSQL/Docker journeys; 22 frontend unit tests; ten recorded browser journeys. Lint, types, production build and dependency audit passed. See evidence/repair010/acceptance.json for exact invocation scopes and cleanup. Hosted CI009 run38530892176 passed before this delta; new hosted status must be checked separately.
 
-Original build007 archive/index/manifest/receipt and 122 public records/1,243 blobs remain unchanged. API, worker protocol, model/case profiles and frozen evidence are preserved. Declared008 delta changes presentation, documentation, reviewer setup/cleanup, private-state validation and tests. scripts.verify_showcase008 binds the active delta; --publication verifies the new archive. Original package_release007 verification applies to its unchanged extracted snapshot.
+## Preserved release facts
 
-Fresh v7 remains 0/10; older 0/10 and 0/36 remain visible. Historical local capacity: 435,270 requests over approximately 42 minutes, zero unexpected errors, soak ACK p95 275.19 ms/read p95 16.79 ms. Original Django10914 patch reproduced 110 tests/one skip. Operational and migration/restore receipts remain.
+Sealed007/008/009 remain byte-identical. scripts.verify_repair010 verifies the additive current tree and original008 archive. Old verifiers apply to sealed snapshots. Prior control-plane capacity: 435270 requests/~42 minutes, zero unexpected errors, soak ACK p95 275.19ms; fixture workload, not production/inference scale. Original Django10914 patch reproduced 110 tests/one skip. Original showcase008 had 24 browser journeys including real OIDC/model demonstration. Existing data/images/weights stay untouched.
 
-## Operation
+## Operation and next measurement
 
-Only the recorded website on 3310 stays on at handoff. Docker, model and worker are stopped; volumes/images remain. Fullstack defaults inference off. --with-inference reuses pinned existing cache and has a 900-second deadline. .runtime/live-showcase008 preserves the real demonstration; .runtime/showcase008-acceptance is separate. Never print credentials, export sessions, rerun locked studies or resend uncertain API calls. The free API400/503 pilot has no proposal and no retry.
+A POSIX lock permits one optional CLI run per checkout. Stop owned Docker/model/database services after heavy checks; preserve unrelated processes and the recorded site. Never print credentials or export private runtime/session files. The explicitly configured Gemini key file is absent; do not search other credential locations. CLI account quota blocked new inference; buying credits or changing billing is not authorized. README/docs contain cause, mitigation, resource and closure criteria for every remaining gap. Next model evidence requires a new reviewed unresolved task/runtime after normal quota availability, then a cohort frozen before inference. No background retry of unknown work.
 
-## Handoff
-
-GitHub PR1 exposed two test defects after the original release commit 0759751: the legacy ingest fixture hardcoded the developer binary, and pool reuse assumed consecutive checkouts share a PID. CI009 builds Go from checkout sources into a temporary directory, installs the go.mod toolchain in both jobs, warms every pool slot and verifies reuse plus rollback of an actual row. Failure diagnostics expose bounded redacted logs. The first corrected native PostgreSQL18 suite passed 428 with six skips; new diagnostics/provenance tests are checked separately. Hosted outcomes remain in GitHub run records, not the historical acceptance receipt. scripts.verify_ci009 verifies the active correction and original008 archive; the older008 command applies to its preserved snapshot. See docs/showcase/CI_009.md.
-
-Professional README, website, acceptance and live workflow are complete. The user authorized commit and push of release 0759751 to Gaurav711cgu/feat/finalize-kairos-reviewer-release in kairos-agents; PR1 exists. CI009 follows up the first hosted failures without changing main. The repository is private; public hosting and visibility changes were not authorized. Localhost is not a public URL. Interview practice remains separate from software acceptance.
+GitHub repository: Gaurav711cgu/kairos-agents, private. Follow-up branch: Gaurav711cgu/feat/repair-workflow010. PR1 is merged; observed main is aed73302bab5a17f4b4aa41362dd5d6786a1be4a. Repair010 uses a separate review branch; inspect its GitHub PR for current hosted status. No public hosting, visibility change or main merge authorized.
