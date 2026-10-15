@@ -384,3 +384,33 @@ Tests distinguish mechanical software fixtures, actual embeddings, real PostgreS
 The Mac remains the application, data-review and evidence-inspection machine. Prepare free Kaggle GPU training first, with Colab as a fallback after actual allocation, memory, quota and interruption checks. No upload, training, model download or paid account change occurred during this preparation. Keep cloud base weights remote; return only reviewed bounded adapters and receipts within local storage limits.
 
 The 122-record audit contains only two distinct successful tasks and three distinct rendered patches. Deduplicate by issue family and target, review public-data provenance, and freeze disjoint training/development/held-out sets before fitting. Additional public training examples are required for a meaningful repair adapter study. A small retrieval adaptation is the first candidate; causal-model LoRA requires its own runtime-fit evidence. Cloud hardware makes training more practical but does not establish better repair outcomes. Promotion requires measured held-out performance against the frozen base profile, plus a verified checkpoint-resume path. See the advancement plan for the separate phase and gates.
+
+
+## D99: Execute a development pilot without relabeling old validation
+
+The new pilot uses the trusted development registry directly and refuses held-out/evaluation/unresolved entries. Reuse already qualified baseline/reference evidence; do not mutate the original task into an unresolved one. Freeze retrieval, source, generation and budgets before dispatch. The shared durable runner captures source selection before generation and keeps model/tool results, fencing and uncertain-dispatch behavior intact.
+
+The exposed pytest6197 pilot completed in five calls, one patch and one check with 22 tests passing. Existing signed-in CLI requested gpt-6.1-sol; resolved identity is unavailable. Record the 66,744 input tokens explicitly: the last call overshot a post-response 64,000-token admission ceiling. The result strengthens this narrow development demonstration, while earlier 0/36 and 0/10 outcomes remain unchanged. A fresh comparison must qualify and freeze its own cases.
+
+## D100: Separate metadata selection, qualification and model evidence
+
+Freeze only safe columns from the pinned official 300-row Lite metadata, excluding historical task IDs and normalized issue digests. Select 24 candidates by a fixed seeded ordering across Django and pytest. Candidate counts are not qualified-case counts; no repair or benchmark claim follows until baseline failure and reference success reproduce under registered resource limits.
+
+Validate comparison identities and complete attempt accounting before computing descriptive paired differences. Unknown/missing measurements stay unavailable, infrastructure failures remain visible and optional confidence must precede verification. Preserve the original audit while adding the pilot and all planned-case exposure. The new audit has three distinct verified tasks, not 123 independent successes.
+
+## D101: Block training leakage before using free GPU time
+
+Use strict source/provenance-bound labels, issue-family splits, exact/near deduplication and current exposure guards before exporting licensed public examples. Review found two defects: normalized issue aliases could evade raw digest checks, and unchanged source could be retagged to another revision in a verification receipt. Both now have regression coverage. Keep the empty freeze false rather than manufacturing training data from failed or duplicate trajectories.
+
+Kaggle/Colab can provide a later measured GPU allocation, but no upload, account action or fitting occurred. The inert notebook and deterministic exporter prepare that phase; promotion requires reviewed data, a pinned compatible profile, measured fit/resume and held-out base-versus-adapter outcomes. Preserve local storage and zero-spend limits.
+
+## D102: Show the actual investigation, not an opaque model response
+
+Reuse the existing muted evidence components for original-source accordions, highlighted patch lines, check output, ordered steps and byte-verified downloads. The new static route presents reviewed public-upstream captures without changing the original record's private publication flag or simulating live execution. Product text explains the development scope and actual token/latency cost beside the result.
+
+Browser acceptance checks desktop and 390 px layout, keyboard controls, patch/evidence downloads and invalid identifiers. Fix test assertions to accept the existing timed count and actual stdout stream; do not rewrite captured output to satisfy an invented expectation. Preserve failed receipts, reuse an unchanged production build and run real DB/OIDC gates separately from local environment skips. Seal013 additively and verify older manifests against their exact Git snapshots.
+
+
+## D103: Reclaim disposable dependencies before sealing the resource receipt
+
+The final aggregate storage check detected two separate reviewer acceptance virtual environments beyond the 6 GiB experiment ceiling. Stop using those completed environments, record their installed distributions and byte sizes, then remove only those reproducible dependency copies. Preserve every original acceptance receipt, log, model, source snapshot, database and artifact. Recompute the aggregate guard before sealing. This closes a delivery-resource overrun without moving assets outside accounting or deleting historical evidence. `evidence/evaluation013/dependency-cleanup.json` records the cleanup. Future acceptance should reuse one owned dependency environment or remove its disposable copy immediately after recording results.

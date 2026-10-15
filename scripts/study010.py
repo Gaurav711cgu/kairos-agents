@@ -338,7 +338,8 @@ def _run_new010(args, checkout, registry, case, runtime, *, policy=None):
     experiment = {"version": version, "task_id": case["id"], "task_digest": registry.fingerprint(case),
                   "provider": identity, "source": source_identity, "generation": generation_profile,
                   "budgets": budgets, "action_protocol": configuration,
-                  "scope": "One reviewed unresolved task; a checked outcome does not establish universal repair ability"}
+                  "scope": (policy.metadata.get("scope", "One reviewed unresolved task; a checked outcome does not establish universal repair ability")
+                            if policy is not None else "One reviewed unresolved task; a checked outcome does not establish universal repair ability")}
     if policy is not None:
         experiment["policy"] = policy.metadata
     _immutable(runtime / "experiment.json", experiment)

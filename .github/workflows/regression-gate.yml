@@ -55,8 +55,13 @@ jobs:
           mkdir -p "$RUNNER_TEMP/kairos-retrieval011"
           git archive 78586f0e51ca8a42d632090bfe3c4fa877fa85f1 | tar -xf - -C "$RUNNER_TEMP/kairos-retrieval011"
           .venv/bin/python -m scripts.verify_retrieval011 --root "$RUNNER_TEMP/kairos-retrieval011"
-      - name: Verify current bounded-loop phase and inherited source inventory
-        run: .venv/bin/python -m scripts.verify_loop012
+      - name: Verify preserved loop012 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-loop012"
+          git archive 4f487000d5d6d92c10c4b08589d4dbf9644816ae | tar -xf - -C "$RUNNER_TEMP/kairos-loop012"
+          .venv/bin/python -m scripts.verify_loop012 --root "$RUNNER_TEMP/kairos-loop012"
+      - name: Verify current evaluation source and inherited evidence
+        run: .venv/bin/python -m scripts.verify_evaluation013
       - name: Prepare isolated test database configuration
         run: |
           .venv/bin/python - <<'PYTHON'
@@ -148,8 +153,13 @@ jobs:
           mkdir -p "$RUNNER_TEMP/kairos-retrieval011"
           git archive 78586f0e51ca8a42d632090bfe3c4fa877fa85f1 | tar -xf - -C "$RUNNER_TEMP/kairos-retrieval011"
           .venv/bin/python -m scripts.verify_retrieval011 --root "$RUNNER_TEMP/kairos-retrieval011"
-      - name: Verify current bounded-loop phase and inherited source inventory
-        run: .venv/bin/python -m scripts.verify_loop012
+      - name: Verify preserved loop012 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-loop012"
+          git archive 4f487000d5d6d92c10c4b08589d4dbf9644816ae | tar -xf - -C "$RUNNER_TEMP/kairos-loop012"
+          .venv/bin/python -m scripts.verify_loop012 --root "$RUNNER_TEMP/kairos-loop012"
+      - name: Verify current evaluation source and inherited evidence
+        run: .venv/bin/python -m scripts.verify_evaluation013
       - run: npx playwright install --with-deps chromium
         working-directory: dashboard
       - run: npm run test:browser

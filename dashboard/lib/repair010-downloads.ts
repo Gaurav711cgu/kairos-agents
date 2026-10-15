@@ -4,6 +4,7 @@ import { Buffer } from "node:buffer";
 const MAX_BYTES = 1024 * 1024;
 const MAX_BASE64 = 4 * Math.ceil(MAX_BYTES / 3);
 const FILES = new Set(["candidate.patch", "checks.json", "original-model-response.json"]);
+const ROOT_FILES = new Set(["attempts.json", "candidate.patch", "checks.json", "bundle.json", "receipt.json", "retrieval.json"]);
 const MEDIA_TYPES = new Set(["application/json", "text/x-diff", "text/plain"]);
 
 function error(status: number, message: string): Response {
@@ -19,7 +20,7 @@ function error(status: number, message: string): Response {
 
 function logicalPath(segments: unknown): string | null {
   if (!Array.isArray(segments)) return null;
-  if (segments.length === 1 && segments[0] === "attempts.json") return "attempts.json";
+  if (segments.length === 1 && typeof segments[0] === "string" && ROOT_FILES.has(segments[0])) return segments[0];
   if (segments.length !== 2 || typeof segments[0] !== "string" ||
       !/^[a-z0-9][a-z0-9_-]{0,119}$/.test(segments[0]) ||
       typeof segments[1] !== "string" || !FILES.has(segments[1])) return null;

@@ -1,0 +1,905 @@
+{
+  "audit": {
+    "followup010_attempts": 5,
+    "public_records": 123,
+    "record_model_calls": 286,
+    "record_outcomes": {
+      "environment_failure": 17,
+      "failed_checks": 30,
+      "invalid_patch": 46,
+      "invalid_response": 6,
+      "no_patch": 11,
+      "timeout": 1,
+      "unknown_dispatch": 2,
+      "verified_repair": 10
+    },
+    "training_data_ready": false,
+    "training_use": "An exposure/error-regression corpus, not one independent positive example per record. Do not train failed patches as successful repairs. Group by issue and revision, deduplicate patch bytes, and retain all failed/unknown outcomes. Post-hoc checks are separate from original investigation outcomes.",
+    "unique_record_tasks": 31,
+    "verified_patch_counts_by_task": {
+      "django__django-10914": 1,
+      "django__django-11066": 2,
+      "pytest-dev__pytest-6197": 1
+    },
+    "verified_trajectories": 10,
+    "verified_unique_rendered_patches": 4,
+    "verified_unique_tasks": 3
+  },
+  "exposed_issue_digests": [
+    "031da3dc20631810261fbcb9eb2382ff568a18c5d89c6708f6f32d58af91af94",
+    "0c263c582f92bbe5e271024ee481cf2a576c4d2c7cc44875f1d9ed33701ea6b8",
+    "0c384cf6bce234af8c766b395dd96e11705814465faf41a1212882be05064a80",
+    "0ee60ef7dcabee63d5e29eff3076d9d75331a64235039795a4970a33ad90a86e",
+    "1054f77672862cadb07105ce5e75967184a4f3515abbd89cb4c56f899dfefdab",
+    "13a108e43df97c3e4edef65c44a00d69f2a7ea23c383969898e2b450905489a9",
+    "1483c875433a7c57256465ab70ff084bce7644f3f4f23fd366bf731408bcca23",
+    "15ea385525a3e5ebfdcc6563e778a45e039e0e69f1efab3b53e2731022ec8c6f",
+    "170c1b3da6e5dfd65ea21bb40f3c4f077ac4fcb62c5345eac42e46474bb59204",
+    "18b60b36c54e546326b64e701db278f2d6713a29da0f1289579b657d386fd958",
+    "1936fb0e046a8aa6192edfe523985b595ec015a1ff052df4838c0c3222713eaa",
+    "19f777b2aef4c44bb88530d19a4881240fa51c09245d792e89256cceb605a1d1",
+    "21a2dbbbca0218b1da7c21add2396b86a7b26f8d6fdd56ac304af2ef8f523df1",
+    "22cd2eb6f00910ea733728820207a5aeb6e8c08a9d0676cbf69abbbde0286dc5",
+    "24e6b1968e8c79378d6f5b2570bd413249380e743d1213b70b005322fee245cc",
+    "272990568aec4057f8520989acd93aa2bb800825bd83561e66d26766a84113b6",
+    "2a3105c914e2b2aa42ffd71023c4b0fcd9c888fdb53e2868df6debc9b65826df",
+    "2d8ff509b6bc3992f9a11d5d1ae285cca68c3642979e8da7f4fc3ba319a25a9b",
+    "39feec2e68d027f7de7a2dc0dc6c97b56abd4f07372d4ee58145f6bd4aaf826f",
+    "3ab7f3abc526f31e295ebbe3ff4b599acec1aec95daadc73dd041cadf7fb87b6",
+    "3cd23f02d43e09a9030d6e9d32bb44ead9b7586d7ec86abb185fb78d125c1420",
+    "429f9a858286ebc7b10dbded01256efd049e63a85acbca99012ec0940800e1ec",
+    "43217c82eb4bd2f564f15cade88afbf01ff00c16927d0dc9cc11de897d0ce2e0",
+    "4582ec289ddbe71ee63748aa680397c9d0d60e90e0074f947941186ba442fbc0",
+    "4970a2517f35956524475f0ec95b39ebd647cb84399674a2f8fb23b9830d6f91",
+    "49c1abd483def2a28c883e3dd525ad4c18a1a78fcd2dc989ce7435eb95dffb67",
+    "4b4fa00bd91f2af863333ee9723098c74611e059cd5dadb4939657726bef32dc",
+    "632544b9051de1def85cab38656d115907d76192d95883ca3e115304dc5639c3",
+    "641872603a6dffafe7d3773c64311cf11ec62e4dab77868c86a5a048c7eb2cc2",
+    "680c71d588a78a3a2772acf79a961cf13f592498e377fccb81fb6f0413efb7b6",
+    "681674100bb56fb2216bd177d422b7fb2d34c12b40b3374f60ce9c0363c712d4",
+    "6876c8bbaccfd3cbeb2351fb6a3077e65928481c70afc258d7e26adcf16ef21d",
+    "6f47f67b1bd3d00ceced96576967ee8ffef292f1e5174ff184c64fe87d0a5aa2",
+    "6ff8966a47690c59e1eaf3b08b17ca58505a1ed1fffd5c726c2196535550b17b",
+    "7085637b1a8230aad96867980bf5b00dedcade2f2536df1c305d16c608f8e07a",
+    "717a9a4f166d96cb7ff10fde9114abc858d834a70988765cbeae6aeface7488b",
+    "7d658511dbef7f50ecc82497242f24139882bc2ec706aaf34e8799ef50628d18",
+    "81992f6d25b91a0de94ccd3c402f59653c10a53d1f2422f80e588a62cc9384ab",
+    "891bc1384bca3dd58fcfb67ce656efc416ff61a14bd30f41fbd177fcae2a458f",
+    "8ae06fa7598303817a81f4be1a09945958014933aa0f457fe692909bc5186f8c",
+    "8de3f064ed67efbfa528d3d533dac07e1ee556819133d632db4da71626a7201d",
+    "9957e4803b38df6c4b76c5372bf2e5d9887d8c35c836c2b26b5c4327d00bd88b",
+    "9ead6f567030e7ebf6976ea435cc16944df2fc77cfd1c7689a68a43a43e4377c",
+    "a426c97d3c5f22227e6a2f8ea7f99183700675e8657ec56e59297fbff7223341",
+    "a7bab2bd539fdc005cc5655511d3539a313a6a2ec24f8858709dfa0460608b03",
+    "a82ea7ca6aa6cafe9f9bfefb3df75df7c411198b69d36d18f19cbeea4fcedf7d",
+    "aab647dc9dd1c69b7c16a790fa19f1eb63e89689e2d8765651207b39d2c7c73b",
+    "b911999955aea1e7c7afa3ec12c7a4939151f8b52f8f3832b02c1ee2330dc8e2",
+    "bc8b3a4c38325ebda87e6b2a5f20d15b917807eb22875ae9d3362d68ac17a1fa",
+    "befb5fc6d2e4ceabf3d9c7e0f5ca9d6120e26b5c0f8bba60d11209ab5316c58d",
+    "bf0303572475960de015aba570db4f751a7b0a03341ea2e18283753412967aef",
+    "bf8e861c4d73f03fbfe8a95a0cef9a3b387960072ea5d16580ed5fe45fcabd97",
+    "cb4c7623b498f3ddad0999a0012b7948447c67d51c8179867983510ede02f186",
+    "cf40ea8d1e6dc89295d27e9a7fb90d79d6bf6a8f2aa7d78da1ab848b5c6a440e",
+    "d10452074c1b5bc42b17d6c566716a9eb2f1dc7ae72428c14a83a1442d23bbe5",
+    "d21c9e2f48c58638221e23641fb3a090b8bd06639ddd0385f9ae148c8574f451",
+    "d3f8a83281195fc414aeaf5d7bc09b9694c38f764edc7574129057de2d75ae29",
+    "d826dc648589ce69340f33740d8694caafd537f67342fb640fc5b683bfc89907",
+    "d91c5f927b7181ec5e8f71f0e7b7b5a492eb3cb3e30fce94cafe04fb098e4be6",
+    "dbfd280ad864b6642f4e6f7f4c7e51b44a3cca46441fe8850d85747bdd0e35da",
+    "dcfb578fc7ad23f82592d76c53946234061b129edfeddc28631cc05374bffc09",
+    "e3e0d67eeb6fb47986ce3c3457f156044c57689cb1056f30ce8d1514ad589b85",
+    "e4424f19a11ca272fc798f09a52540c7639e237dc54da0d48f6ce59bb6e610fd",
+    "e7649f96502d145e2a980a800747645b88994c02064c510e2b058b534b24b00f",
+    "e8b5b2d26bd54b519826c97515e756df6cbcfd59bcb866d8565cdc21b634678e",
+    "ebc96333d93c5b19d7f1159255a7959b6f42144882ed55c45c122817505e70ee",
+    "edb7b644f9e78d53b5220e14d706cc31cc3b207dd8efb103a06fa6ffc93cbd3a",
+    "f46740485aabc2749eb4a671010619fa5e8b07701dea9a4200bcff2dc935fbf7",
+    "fc7d91926c1a5236c1b47ed5b4409747822deaba23ec10876d6b8177909515a4"
+  ],
+  "exposed_task_count": 85,
+  "exposures": [
+    {
+      "instance_id": "django__django-10097",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical registration or source provenance"
+      ]
+    },
+    {
+      "instance_id": "django__django-10554",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-10880",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-10914",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-10973",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-10999",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11066",
+      "reasons": [
+        "Exposed repair010 development diagnostic",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11087",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11095",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11099",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11119",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance"
+      ]
+    },
+    {
+      "instance_id": "django__django-11133",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11133-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "django__django-11138",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "django__django-11141",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11141-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "django__django-11149",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance"
+      ]
+    },
+    {
+      "instance_id": "django__django-11163",
+      "reasons": [
+        "Frozen build007 registration",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11179",
+      "reasons": [
+        "Frozen build007 registration",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "django__django-11206",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "django__django-11211",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json"
+      ]
+    },
+    {
+      "instance_id": "django__django-11239",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json"
+      ]
+    },
+    {
+      "instance_id": "django__django-11265",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json"
+      ]
+    },
+    {
+      "instance_id": "django__django-12125",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-12497",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-12589",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-12983",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-13158",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-13658",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-13768",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-14752",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-15347",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-15388",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-16255",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "django__django-17051",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "kairos-body-limit",
+      "reasons": [
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "kairos-clock-lease",
+      "reasons": [
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-1142",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-1724",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-1724-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-1766",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-1921",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-2317",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-2317-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-2931",
+      "reasons": [
+        "Exposed repair010 development diagnostic",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-5414",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "psf__requests-6028",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-10051",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-10081",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-10356",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11143",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11148",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5103",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5221",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5262",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5413",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5495",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5631",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5692",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5787",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5809",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5840",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-6116",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-6197",
+      "reasons": [
+        "Exposed repair010 development diagnostic",
+        "Exposed013 development pilot",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-6202",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7168",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7205",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7236",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7324",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7324-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7373",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7432",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Historical registration or source provenance",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7432-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7490",
+      "reasons": [
+        "Frozen build007 registration",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7490-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7521",
+      "reasons": [
+        "Frozen build007 registration",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7521-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7571",
+      "reasons": [
+        "Frozen build007 registration",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions",
+        "Published investigation"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7571-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7982",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7982-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-8365",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-8399",
+      "reasons": [
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml-reuse/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build006/qualification-toml/qualification-plan.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan-initial-selection-error.json",
+        "Historical candidate-selection or exclusion metadata: evidence/build007/qualification-plan.json",
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-8399-scope",
+      "reasons": [
+        "Historical qualification, including exclusions"
+      ]
+    },
+    {
+      "instance_id": "pytest-dev__pytest-9359",
+      "reasons": [
+        "Frozen013 metadata candidate; reserved from training"
+      ]
+    }
+  ],
+  "inputs": {
+    "evidence/evaluation013/cohort/cohort.json": {
+      "bytes": 56463,
+      "sha256": "97f681a503ca3e1f63314c5c22c82e6e12be0f7891b2a80b6c16e74042f4fd1f"
+    },
+    "evidence/evaluation013/cohort/prior-exposures.json": {
+      "bytes": 42280,
+      "sha256": "466bf6cb13e1766e5719b787d610b3f813b4321d82269f306ceec460c32608e4"
+    },
+    "evidence/evaluation013/pilot/bundle.json": {
+      "bytes": 412376,
+      "sha256": "ffaaaf6dcdf85848e4ef27b044cae2bacbfd939cf91b2f38f91321cf6a42cb3d"
+    }
+  },
+  "scope": "Legacy public collection plus explicit013 pilot and frozen metadata candidates; not a licensed training corpus",
+  "version": "training-exposure013-v1"
+}
