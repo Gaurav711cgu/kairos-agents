@@ -81,6 +81,12 @@ Added revision-bound source retrieval with a pinned 137M code encoder, lexical s
 
 The index covered 55 source files and 1,652 regions, built in 145.557 seconds on the 8 GiB M2 Mac. Original-source handles, encoding omissions, backend agreement, memory and exact receipts are inspectable. [Implementation and reproduction](docs/RETRIEVAL_011.md) · [All phases and resource decisions](docs/AI_ADVANCEMENT_PLAN_011.md).
 
+## Iterative repair — Phase 2
+
+A new optional workflow connects the pinned source index to `loop-v8`: **ten model calls, four applied candidates, four checks and 900 seconds**. `baseline-v8` permits one call/candidate/check. Original-source handles, immediate feedback, duplicate-check reuse, durable recovery and explicit unknown dispatch remain enforced. The existing website and worker defaults are preserved.
+
+Retrieval selection is captured before dispatch; replay performs no execution. Query embeddings exit their own CPU process before model generation or container checks. Empty retrieval stops without silently adding registered file hints. A broader frozen study remains the next measurement; passing software fixtures does not create a repair score. [Workflow, commands and owned fixes](docs/LOOP_012.md) · [Acceptance receipts](evidence/loop012/acceptance.json).
+
 ## What the project demonstrates
 
 | Engineering area | Implemented behavior |
@@ -196,10 +202,10 @@ The active implementation is in `kairos_api/investigations/`, `kairos_api/migrat
 Build007 software and model evidence remain frozen. This delivery adds clearer presentation, the recruiter documentation and an opt-in live-session bootstrap. Its receipt binds these changes to the preserved release. Verify the active checkout with:
 
 ```bash
-python3 -m scripts.verify_retrieval011
+python3 -m scripts.verify_loop012
 ```
 
-The verifier checks the original008 archive, preserved historical receipts and the declared CI009, repair010 and retrieval011 source overlays. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
+The verifier checks the original008 archive, preserved historical receipts and the declared CI009, repair010, retrieval011 and loop012 source overlays. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
 
 Hashes establish byte consistency against stored references, not signed or administrator-proof history. Candidate Python shares the registered test environment, so adversarial test-forgery resistance is not established. Measurements cover local operation; public hosting, production scale, customer adoption, model research and staff-level impact are not claimed. [Pull request checks](https://github.com/Gaurav711cgu/kairos-agents/pull/1/checks) report hosted CI outcomes separately from the original Mac acceptance.
 

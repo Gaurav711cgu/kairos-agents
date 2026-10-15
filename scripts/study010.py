@@ -166,7 +166,7 @@ def _source_identity(checkout):
     return {name: _sha(path) for name, path in files.items()}
 
 
-def report010(runtime):
+def report010(runtime, expected_version=VERSION):
     """Validate the saved result and its evidence hashes without starting work."""
     root = Path(runtime)
     if not root.is_dir() or root.is_symlink():
@@ -176,7 +176,7 @@ def report010(runtime):
         return {"operation": "report", "status": "incomplete", "automatic_redispatch": False,
                 "detail": "Existing runtime is preserved; no new dispatch is authorized"}
     receipt = _load(receipt_path)
-    if receipt.get("version") != VERSION:
+    if receipt.get("version") != expected_version:
         raise ValueError("Unsupported investigation receipt version")
     hashes = receipt.get("evidence_hashes")
     if not isinstance(hashes, dict):
@@ -222,14 +222,14 @@ def checked_runtime010(value, registry, case):
     return runtime
 
 
-def existing_runtime010(runtime, task_id):
+def existing_runtime010(runtime, task_id, expected_version=VERSION):
     """Inspect an existing runtime without authorizing a changed task or dispatch."""
     experiment_path = runtime / "experiment.json"
     if experiment_path.exists():
         experiment = _load(experiment_path)
         if experiment.get("task_id") != task_id:
             raise ValueError("Existing runtime belongs to a different registered task")
-    result = report010(runtime)
+    result = report010(runtime, expected_version=expected_version)
     if result.get("task_id") is not None and result["task_id"] != task_id:
         raise ValueError("Existing runtime result belongs to a different registered task")
     return result
@@ -275,7 +275,7 @@ def runner_lock010(checkout):
         os.close(descriptor)
 
 
-def run010(args):
+def run010(args, *, policy=None):
     """Run one task once. All owned services are stopped through finally cleanup."""
     checkout = Path(args.checkout).resolve(strict=True)
     registry, case = registered_task010(args.manifest, args.case_root, args.task_id)
@@ -283,15 +283,19 @@ def run010(args):
         raise ValueError("run requires --manifest, --case-root and --task-id")
     runtime = checked_runtime010(args.runtime or checkout / ".runtime/study010" / case["id"], registry, case)
     if runtime.exists():
-        return existing_runtime010(runtime, case["id"])
+        return (existing_runtime010(runtime, case["id"]) if policy is None else
+                    existing_runtime010(runtime, case["id"], expected_version=policy.version))
     with runner_lock010(checkout):
         # The other process may have completed between inspection and locking.
         if runtime.exists():
-            return existing_runtime010(runtime, case["id"])
-        return _run_new010(args, checkout, registry, case, runtime)
+            return (existing_runtime010(runtime, case["id"]) if policy is None else
+                    existing_runtime010(runtime, case["id"], expected_version=policy.version))
+        if policy is None:
+            return _run_new010(args, checkout, registry, case, runtime)
+        return _run_new010(args, checkout, registry, case, runtime, policy=policy)
 
 
-def _run_new010(args, checkout, registry, case, runtime):
+def _run_new010(args, checkout, registry, case, runtime, *, policy=None):
     """Execute only while the checkout-owned nonblocking lock is held."""
     executable, identity = cli_identity010(args.codex)
     from scripts.study007_runtime import storage_guard
@@ -302,6 +306,15 @@ def _run_new010(args, checkout, registry, case, runtime):
     from kairos_api.model_runtime import digest
     from psycopg.types.json import Jsonb
     provider_class, _, worker_class, _, _ = _helpers()
+    from kairos_api.investigations.contracts import CONFIGURATIONS
+    version = VERSION if policy is None else policy.version
+    configuration = "loop-v7" if policy is None else policy.configuration
+    budgets = dict(BUDGETS if policy is None else CONFIGURATIONS[configuration])
+    generation_profile = dict(GENERATION if policy is None else policy.generation)
+    base_workspace = Workspace if policy is None or policy.workspace_base is None else policy.workspace_base
+    if policy is not None:
+        provider_class = policy.provider_factory or provider_class
+        worker_class = policy.worker_factory or worker_class
     budget_paths = {"cache": registry.runtime, "state": runtime}
     storage_guard(budget_paths, projected=96 * 1024**2)
     initdb, pg_ctl = shutil.which("initdb"), shutil.which("pg_ctl")
@@ -309,13 +322,25 @@ def _run_new010(args, checkout, registry, case, runtime):
         raise ValueError("Existing native PostgreSQL tools are required")
     if not shutil.which("docker"):
         raise ValueError("Docker CLI is required for disposable verification")
+    additional_sources = {}
+    if policy is not None:
+        for name in policy.source_files:
+            relative = Path(name)
+            path = checkout / relative
+            if (not name or relative.is_absolute() or '..' in relative.parts
+                    or path.is_symlink() or not path.resolve(strict=True).is_relative_to(checkout)):
+                raise ValueError("Additional policy source escapes the checkout")
+            additional_sources[name] = _sha(path)
+    source_identity = {**_source_identity(checkout), **additional_sources}
     runtime.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     runtime.mkdir(mode=0o700)
     runtime.chmod(0o700)
-    experiment = {"version": VERSION, "task_id": case["id"], "task_digest": registry.fingerprint(case),
-                  "provider": identity, "source": _source_identity(checkout), "generation": GENERATION,
-                  "budgets": BUDGETS, "action_protocol": "loop-v7",
+    experiment = {"version": version, "task_id": case["id"], "task_digest": registry.fingerprint(case),
+                  "provider": identity, "source": source_identity, "generation": generation_profile,
+                  "budgets": budgets, "action_protocol": configuration,
                   "scope": "One reviewed unresolved task; a checked outcome does not establish universal repair ability"}
+    if policy is not None:
+        experiment["policy"] = policy.metadata
     _immutable(runtime / "experiment.json", experiment)
     _immutable(runtime / "model-profile.json", {"experiment010": experiment})
     repository = provider = None
@@ -327,7 +352,7 @@ def _run_new010(args, checkout, registry, case, runtime):
     cleanup_errors = []
     before = tree_hash(registry.directory(case) / "source")
     started = time.monotonic()
-    generation = dict(GENERATION)
+    generation = generation_profile
     previous_manifest = os.environ.get("KAIROS_INVESTIGATION_MODEL_MANIFEST")
     os.environ["KAIROS_INVESTIGATION_MODEL_MANIFEST"] = str(runtime / "model-profile.json")
 
@@ -339,7 +364,7 @@ def _run_new010(args, checkout, registry, case, runtime):
                 if saved["model_calls"]:
                     raise ValueError("Existing dispatch configuration cannot be rewritten")
                 snapshot = {**saved["config_snapshot"], "generation": generation,
-                            "experiment_version": VERSION}
+                            "experiment_version": version}
                 connection.execute("SET LOCAL synchronous_commit=on")
                 connection.execute("UPDATE kairos_investigations SET config_snapshot=%s,config_digest=%s WHERE id=%s",
                                    (Jsonb(snapshot), digest(snapshot), saved["id"]))
@@ -355,7 +380,7 @@ def _run_new010(args, checkout, registry, case, runtime):
                     raise ValueError("Owned Docker shutdown failed")
                 docker_started = False
 
-    class SequentialChecks(Workspace):
+    class SequentialChecks(base_workspace):
         def checks(self, timeout=120):
             nonlocal docker_started
             available = _command(["docker", "info", "--format", "{{.ServerVersion}}"]).returncode == 0
@@ -403,7 +428,7 @@ def _run_new010(args, checkout, registry, case, runtime):
                                   identity["cli_version"], identity["cli_sha256"],
                                   model_id=REQUESTED_MODEL)
         worker = worker_class(repository, provider, SequentialChecks)
-        record = repository.enqueue("study010", VERSION + ":" + case["id"], case["id"], "loop-v7")
+        record = repository.enqueue("study010", version + ":" + case["id"], case["id"], configuration)
         record = worker.run_once()
         if not record or record["task_id"] != case["id"]:
             raise ValueError("Owned queue returned unexpected work")
@@ -446,7 +471,7 @@ def _run_new010(args, checkout, registry, case, runtime):
         failure = {"type": "SourceIsolationError", "message": "Original source changed during investigation"}
     if record is not None:
         _immutable(runtime / "record.json", record)
-    result = {"version": VERSION, "task_id": case["id"],
+    result = {"version": version, "task_id": case["id"],
               "status": record["status"] if record else "failed",
               "outcome": record["outcome"] if record else "environment_failure",
               "cli_dispatches": record["model_calls"] if record else 0,
@@ -460,7 +485,7 @@ def _run_new010(args, checkout, registry, case, runtime):
         result["status"] = "failed"
         result["outcome"] = "environment_failure"
     _immutable(runtime / "result.json", result)
-    return report010(runtime)
+    return report010(runtime, expected_version=version)
 
 
 def parser010():

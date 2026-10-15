@@ -9,12 +9,12 @@ from kairos_api.model_runtime import canonical, digest
 class CreateInvestigation(BaseModel):
     model_config=ConfigDict(extra='forbid')
     task_id:str
-    configuration:Literal['loop-v1','baseline-v1','loop-v2','baseline-v2','loop-v3','baseline-v3','loop-v4','baseline-v4','drafts-v4','loop-v5','baseline-v5','loop-v6','baseline-v6','loop-v7','baseline-v7']='loop-v3'
+    configuration:Literal['loop-v1','baseline-v1','loop-v2','baseline-v2','loop-v3','baseline-v3','loop-v4','baseline-v4','drafts-v4','loop-v5','baseline-v5','loop-v6','baseline-v6','loop-v7','baseline-v7','loop-v8','baseline-v8']='loop-v3'
 
 
 class ForkInvestigation(BaseModel):
     model_config=ConfigDict(extra='forbid')
-    configuration:Literal['loop-v1','baseline-v1','loop-v2','baseline-v2','loop-v3','baseline-v3','loop-v4','baseline-v4','drafts-v4','loop-v5','baseline-v5','loop-v6','baseline-v6','loop-v7','baseline-v7']='loop-v3'
+    configuration:Literal['loop-v1','baseline-v1','loop-v2','baseline-v2','loop-v3','baseline-v3','loop-v4','baseline-v4','drafts-v4','loop-v5','baseline-v5','loop-v6','baseline-v6','loop-v7','baseline-v7','loop-v8','baseline-v8']='loop-v3'
 
 
 def create_investigation_router(tenant,key,admin,repository):

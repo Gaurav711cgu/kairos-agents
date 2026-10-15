@@ -108,12 +108,24 @@ class LineHandlePatch(StrictModel):
 ActionV7 = TypeAdapter(Annotated[Search | ReadFile | LineHandlePatch | FinalResult, Field(discriminator='action')])
 CONFIGURATIONS['baseline-v7'] = dict(CONFIGURATIONS['baseline-v5'])
 CONFIGURATIONS['loop-v7'] = dict(CONFIGURATIONS['loop-v5'])
+# New configuration identity; historical versions and their captured budgets stay fixed.
+CONFIGURATIONS['loop-v8'] = {'max_calls': 10, 'max_patches': 4, 'max_checks': 4, 'seconds': 900}
+CONFIGURATIONS['baseline-v8'] = {'max_calls': 1, 'max_patches': 1, 'max_checks': 1, 'seconds': 600}
+
+
+def execution_timeouts(configuration):
+    """Return the registered database deadline and its 60-second lease margin."""
+    if configuration not in CONFIGURATIONS:
+        raise ValueError('Unknown investigation configuration')
+    seconds = CONFIGURATIONS[configuration]['seconds']
+    return seconds, seconds + 60
+
 
 
 def generation_for(configuration):
     """Keep historical sampling unchanged and freeze the v5 profile explicitly."""
     generation = {**GENERATION, 'chat_template_kwargs': dict(GENERATION['chat_template_kwargs'])}
-    if configuration.endswith(('-v5', '-v7')):
+    if configuration.endswith(('-v5', '-v7', '-v8')):
         generation.update(temperature=0, presence_penalty=0, top_p=1)
     if configuration.endswith('-v6'):
         generation.update(temperature=0.6,top_p=0.95,presence_penalty=0.5,max_tokens=2048,chat_template_kwargs={'enable_thinking':True})

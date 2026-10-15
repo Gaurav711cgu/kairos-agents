@@ -210,7 +210,7 @@ class FeedbackWorker010(InvestigationWorker):
 
     def _state(self, job, workspace):
         record, observations, patch, verification, invalid = super()._state(job, workspace)
-        if job["configuration"].endswith("-v7"):
+        if job["configuration"].endswith(("-v7", "-v8")):
             observations = observations_from_record010(record, observations)
         return record, observations, patch, verification, invalid
 
@@ -234,8 +234,8 @@ class FeedbackInvestigator010(LocalInvestigator):
         return len(tokens.json()["tokens"])
 
     def prepare(self, case, configuration, observations, budgets, generation_snapshot=None):
-        if not configuration.endswith("-v7"):
-            raise ValueError("Feedback experiment010 only supports the unchanged v7 action protocol")
+        if not configuration.endswith(("-v7", "-v8")):
+            raise ValueError("Feedback experiment010 only supports the unchanged line-handle action protocol through v7/v8")
         request, context = super().prepare(case, configuration, observations, budgets, generation_snapshot)
         request, context = copy.deepcopy(request), copy.deepcopy(context)
         if request.get("max_tokens") != OUTPUT_LIMIT:

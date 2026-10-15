@@ -25,7 +25,7 @@ from uuid import uuid4
 
 from scripts.repair010.codex_context010 import build_context010, normalize_action010
 
-VERSION = "codex-cli-transport-experimental010-v3"
+VERSION = "codex-cli-transport-experimental011-v1"
 ALLOWED_MODEL_ID = "gpt-6.1-sol"
 MAX_CAPTURE_BYTES = 1024 * 1024
 MAX_DISPATCHES = 6
@@ -194,9 +194,12 @@ class _Events:
 class CodexInvestigator010:
     """Use one pinned, authenticated CLI as an external structured-action model."""
 
-    def __init__(self, runtime, executable, expected_version, expected_sha256, model_id=None):
+    def __init__(self, runtime, executable, expected_version, expected_sha256, model_id=None, max_dispatches=MAX_DISPATCHES):
         if model_id is not None and (type(model_id) is not str or model_id != ALLOWED_MODEL_ID):
             raise CodexProfileError010("Only the explicitly supported model gpt-6.1-sol may be selected")
+        if type(max_dispatches) is not int or max_dispatches not in {1, 6, 10}:
+            raise CodexProfileError010("A frozen CLI profile must allow exactly 1, 6 or 10 dispatches")
+        self._max_dispatches = max_dispatches
         self._model_id = model_id
         self.runtime = Path(runtime).absolute()
         _private_directory(self.runtime)
@@ -217,6 +220,11 @@ class CodexInvestigator010:
     def model_id(self):
         """The requested model is immutable; it is not a resolved-model receipt."""
         return self._model_id
+
+    @property
+    def max_dispatches(self):
+        """Frozen transport ceiling; each investigation may have a lower budget."""
+        return self._max_dispatches
 
     def verify_profile(self):
         if _sha(self.executable.read_bytes()) != self.expected_sha256:
@@ -254,7 +262,7 @@ class CodexInvestigator010:
                        "Explicit CLI model request; execution has not independently confirmed resolved model identity"),
                    "internal_provider_retries": "CLI-controlled/unavailable",
                    "kairos_automatic_redispatch": False,
-                   "max_cli_dispatches": MAX_DISPATCHES,
+                   "max_cli_dispatches": self.max_dispatches,
                    "usage_scope": "Actual CLI token usage when supplied; CLI dispatch count is not internal provider request count"}
         if self._profile is not None and self._profile != profile:
             raise CodexProfileError010("CLI profile changed during the investigation")
@@ -262,9 +270,12 @@ class CodexInvestigator010:
         return dict(profile)
 
     def prepare(self, case, configuration, observations, budgets):
+        if budgets.get("calls_remaining", 0) > self.max_dispatches:
+            raise CodexProfileError010("Investigation calls exceed the frozen CLI dispatch profile")
         request, context = build_context010(case, configuration, observations, budgets)
         context = {**context, "provider_identity": {"provider": VERSION,
-            "requested_model": self.model_id, "resolved_model": None}}
+            "requested_model": self.model_id, "resolved_model": None,
+            "max_cli_dispatches": self.max_dispatches}}
         prompt_hash = _sha(request["prompt"].encode("utf-8"))
         context_path = self.contexts / (prompt_hash + ".json")
         raw = _canonical(context)
@@ -275,7 +286,8 @@ class CodexInvestigator010:
             _immutable(context_path, raw)
         request = {**request, "cli_dispatch_id": uuid4().hex,
                    "provider": VERSION, "requested_model": self.model_id,
-                   "resolved_model": None, "prompt_sha256": prompt_hash,
+                   "resolved_model": None, "max_cli_dispatches": self.max_dispatches,
+                   "prompt_sha256": prompt_hash,
                    "schema_sha256": _sha(_canonical(request["schema"]))}
         self._prepared[request["cli_dispatch_id"]] = (_sha(_canonical(request)), context)
         return request, {**context, "provider_profile": self._profile,
@@ -313,7 +325,7 @@ class CodexInvestigator010:
         # Recheck the binary immediately before every dispatch; no auth file is opened.
         if _sha(self.executable.read_bytes()) != self.expected_sha256:
             raise CodexProfileError010("Pinned CLI executable hash changed")
-        if len(list(self.dispatches.iterdir())) >= MAX_DISPATCHES:
+        if len(list(self.dispatches.iterdir())) >= self.max_dispatches:
             raise CodexDispatchUnknown010("CLI dispatch limit reached; no request was resent")
         directory = self.dispatches / identifier
         try:
@@ -333,7 +345,8 @@ class CodexInvestigator010:
                   "schema_sha256": request["schema_sha256"], "timeout_seconds": timeout,
                   "argv": argv, "profile": self._profile, "automatic_redispatch": False,
                   "native_tools_authorized": False,
-                  "requested_model": self.model_id, "resolved_model": None}
+                  "requested_model": self.model_id, "resolved_model": None,
+                  "max_cli_dispatches": self.max_dispatches}
         _immutable(directory / "intent.json", _canonical(intent))
         self._prepared.pop(identifier)
         start = time.monotonic()
@@ -398,7 +411,7 @@ class CodexInvestigator010:
                        "final_output_truncation": final_truncation,
                        "capture_hashes": self._capture_hashes(directory),
                        "requested_model": self.model_id, "resolved_model": None,
-                       "automatic_redispatch": False}
+                       "max_cli_dispatches": self.max_dispatches, "automatic_redispatch": False}
             _immutable(directory / "receipt.json", _canonical(receipt))
         if outcome != "captured_model_response":
             raise CodexDispatchUnknown010("CLI dispatch uncertainty: " + (reason or "capture_incomplete"))
@@ -409,7 +422,7 @@ class CodexInvestigator010:
                     "experiment010": {"provider": VERSION, "dispatch_id": identifier,
                                       "normalization_error": normalization_error,
                                       "requested_model": self.model_id, "resolved_model": None,
-                                      "usage_scope": "CLI turn tokens"}}
+                                      "max_cli_dispatches": self.max_dispatches, "usage_scope": "CLI turn tokens"}}
         if events.usage is not None:
             mapping = {"input_tokens": "prompt_tokens", "output_tokens": "completion_tokens",
                        "cached_input_tokens": "cached_prompt_tokens"}

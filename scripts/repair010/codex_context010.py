@@ -87,8 +87,8 @@ def _schema(bindings, allowed):
 
 def build_context010(case, configuration, observations, budgets):
     """Return a CLI prompt/schema and captured v7-compatible tool authority."""
-    if configuration not in {"baseline-v7", "loop-v7"}:
-        raise ValueError("Experiment010 requires baseline-v7 or loop-v7")
+    if configuration not in {"baseline-v7", "loop-v7", "baseline-v8", "loop-v8"}:
+        raise ValueError("Experiment010 requires the v7 or v8 configuration family")
     if any(type(value) is not int or value < 0 for value in budgets.values()):
         raise ValueError("Remaining budgets must be nonnegative integers")
     if not all(isinstance(case.get(key), str) and case[key]
@@ -115,9 +115,10 @@ def build_context010(case, configuration, observations, budgets):
     ordered = [sources[handle] for handle in sorted(sources, key=lambda handle: priority[handle])]
     if not ordered:
         raise ValueError("At least one actionable captured original source region is required")
-    for region in ordered[4:]:
-        omissions.append(_omission("source_blocks", source_block(region), "Outside four complete source regions"))
-    selected = ordered[:4]
+    source_limit = 6 if configuration.endswith("-v8") else 4
+    for region in ordered[source_limit:]:
+        omissions.append(_omission("source_blocks", source_block(region), "Outside six complete source regions" if configuration.endswith("-v8") else "Outside four complete source regions"))
+    selected = ordered[:source_limit]
     latest_check = next((item["result"] for item in reversed(observations)
                          if item["action"] == "run_checks"), None)
     verification = None
@@ -150,15 +151,17 @@ def build_context010(case, configuration, observations, budgets):
     latest_error = next(({"action": item["action"], "error": item["result"]["error"]}
                          for item in reversed(observations) if item["result"].get("error")), None)
     retrievals = sum(item["action"] in {"search", "read_file"} for item in observations)
-    remaining = max(0, 2 - retrievals)
+    retrieval_limit = 6 if configuration.endswith("-v8") else 2
+    remaining = max(0, retrieval_limit - retrievals)
     allowed = {"propose_patch", "final_result"}
-    if configuration == "loop-v7" and remaining and budgets.get("calls_remaining", 1) > 1:
+    if configuration in {"loop-v7", "loop-v8"} and remaining and budgets.get("calls_remaining", 1) > 1:
         allowed.update({"search", "read_file"})
     if budgets.get("patches_remaining", 1) <= 0 or budgets.get("checks_remaining", 1) <= 0:
         allowed.discard("propose_patch")
     value = {"issue": case["issue"], "source_revision": case["revision"],
              "approved_source": case["approved_prefix"],
-             "budgets": {**budgets, "retrievals_remaining": remaining},
+             "budgets": {**budgets, "retrievals_remaining": remaining,
+                         **({"source_region_limit": source_limit} if configuration.endswith("-v8") else {})},
              "source_blocks": [source_block(item) for item in selected],
              "latest_verification": verification, "current_candidate": current,
              "rejected_proposal": rejected, "latest_error": latest_error,

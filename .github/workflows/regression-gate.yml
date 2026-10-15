@@ -50,8 +50,13 @@ jobs:
           mkdir -p "$RUNNER_TEMP/kairos-repair010"
           git archive 69432bd468e2d8ccefcf522d89365cbe32970d31 | tar -xf - -C "$RUNNER_TEMP/kairos-repair010"
           .venv/bin/python -m scripts.verify_repair010 --root "$RUNNER_TEMP/kairos-repair010"
-      - name: Verify current retrieval phase and inherited source inventory
-        run: .venv/bin/python -m scripts.verify_retrieval011
+      - name: Verify preserved retrieval011 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-retrieval011"
+          git archive 78586f0e51ca8a42d632090bfe3c4fa877fa85f1 | tar -xf - -C "$RUNNER_TEMP/kairos-retrieval011"
+          .venv/bin/python -m scripts.verify_retrieval011 --root "$RUNNER_TEMP/kairos-retrieval011"
+      - name: Verify current bounded-loop phase and inherited source inventory
+        run: .venv/bin/python -m scripts.verify_loop012
       - name: Prepare isolated test database configuration
         run: |
           .venv/bin/python - <<'PYTHON'
@@ -91,6 +96,8 @@ jobs:
         run: .venv/bin/python -m scripts.acceptance007 backend
         env:
           KAIROS_TEST_IDENTITY_PROVIDER: '1'
+          KAIROS_TEST_INVESTIGATION_DOCKER: '1'
+          KAIROS_TEST_INVESTIGATION_IMAGE: ${{ env.KAIROS_REPAIR010_IMAGE }}
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -136,8 +143,13 @@ jobs:
           mkdir -p "$RUNNER_TEMP/kairos-repair010"
           git archive 69432bd468e2d8ccefcf522d89365cbe32970d31 | tar -xf - -C "$RUNNER_TEMP/kairos-repair010"
           .venv/bin/python -m scripts.verify_repair010 --root "$RUNNER_TEMP/kairos-repair010"
-      - name: Verify current retrieval phase and inherited source inventory
-        run: .venv/bin/python -m scripts.verify_retrieval011
+      - name: Verify preserved retrieval011 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-retrieval011"
+          git archive 78586f0e51ca8a42d632090bfe3c4fa877fa85f1 | tar -xf - -C "$RUNNER_TEMP/kairos-retrieval011"
+          .venv/bin/python -m scripts.verify_retrieval011 --root "$RUNNER_TEMP/kairos-retrieval011"
+      - name: Verify current bounded-loop phase and inherited source inventory
+        run: .venv/bin/python -m scripts.verify_loop012
       - run: npx playwright install --with-deps chromium
         working-directory: dashboard
       - run: npm run test:browser

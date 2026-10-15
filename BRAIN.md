@@ -1,6 +1,6 @@
 # Kairos working context
 
-Updated 2026-10-15. Active checkout: Desktop/new-karos. Current delta: optional repair workflow010 over CI009. Chat uses concise Caveman; files use normal prose. Read docs/showcase/REPAIR_010.md for current behavior, receipts, owned gaps and closure plans. README introduces the full-stack release.
+Updated 2026-10-15. Active checkout: Desktop/new-karos. Current delta: bounded retrieval loop012 over sealed retrieval011. Chat uses concise Caveman; files use normal prose. Read docs/showcase/REPAIR_010.md for current behavior, receipts, owned gaps and closure plans. README introduces the full-stack release.
 
 ## What changed
 
@@ -31,3 +31,12 @@ Branch: Gaurav711cgu/feat/retrieval011, parent 69432bd. Read docs/RETRIEVAL_011.
 Original pytest6197 source produced 55 files and 1,652 chunks. Dense retrieval found the changed file at rank five; hybrid at six; AST and BM25 missed within their returned regions. Every method missed with a matched four-region budget. Actual FAISS and NumPy top ten agreed; ten regions passed original-source handle capture. Embeddings ran on CPU. Docker and repair-model inference remained off. A native OpenMP conflict was fixed by isolating FAISS in a fresh process without the unsafe override.
 
 The 122 records are not 122 independent successful examples. User wants all additions phase by phase and permits free Kaggle/Colab training planning. No cloud upload or training has occurred. The longer-loop patch remains outside the active tree under the writable kairos-ai011/loop scratch directory. Use verify_retrieval011 for the current overlay and old verifiers for their sealed snapshots.
+
+
+## Loop012 — Phase 2 acceptance
+
+Branch: Gaurav711cgu/feat/loop012, parent 78586f0. Read docs/LOOP_012.md. V8 adds ten calls, four candidates, four checks and 900 seconds; baseline permits one call/candidate/check. Versioned SQL constraints and database-clock leases enforce budgets. Optional scripts.study012 doctor|validate-task|run|report connects prepared retrieval to durable original-source handles. Historical defaults remain unchanged. Query embeddings exit a short-lived child before generation/checks; actual probe: 768 dimensions, 8.121 seconds. Token ceilings stop subsequent calls using captured usage; a final call may overshoot.
+
+Owned fixes cover the old physical six-call limit, incorrect successful shell status, mutated registry metadata and zero-hit fallback to entry hints. Registry metadata now remains intact; no-source selection stops as no_patch. Full backend acceptance passed 868 tests with six explicit opt-in skips; real PostgreSQL and disposable-image journeys included. See evidence/loop012/acceptance.json for additional scopes, failures, cleanup and hashes. No new autoregressive repair score exists. scripts.verify_loop012 checks the current overlay; original010/011 verifiers use exact sealed snapshots. Phase1 PR3 has both hosted jobs green. Phase2 hosted status is separate.
+
+Free cloud design and an inert notebook are staged under Desktop/resume/kairos-ai011/cloud013. Seven scaffold checks passed. No cloud action, upload or training occurred. Prefer Kaggle, with Colab fallback; measure actual GPU fit and test resumable checkpoints first. Broader data qualification and held-out measurement remain separate phases. Two successful tasks are not 122 clean positives. Preserve the private account constraint; never resend unknown dispatches. Stop owned heavy services after acceptance.

@@ -7,13 +7,14 @@ from kairos_api.investigations.context_v5 import source_handle
 from kairos_api.investigations.patches import source_path
 
 
-def initial_sources(workspace):
+def initial_sources(workspace, *, use_entry_hints=True):
     """Prefer explicitly cited functions, then include direct same-file callees.
 
     Only the public issue and approved original source are inspected. Reference
     fixes, hidden tests and candidate source never participate in localization.
     """
     case = workspace.case
+    entry_files = case['entry_files'] if use_entry_hints else []
     root = workspace.registry.directory(case) / 'source'
     symbols = set(re.findall(r'[A-Za-z_]\w{2,}', case['issue']))
     arguments = set(re.findall(r'\b([A-Za-z_]\w*)\s*=', case['issue']))
@@ -47,7 +48,7 @@ def initial_sources(workspace):
                 continue
             # Explicit issue names outrank indirect identifier occurrences.
             rank = 0 if explicit else (1 if named else (2 if argument_match else 3))
-            candidates.append((rank, name not in case['entry_files'], name, node.lineno, node))
+            candidates.append((rank, name not in entry_files, name, node.lineno, node))
 
     selected = []
     selected_nodes = []
@@ -90,11 +91,13 @@ def initial_sources(workspace):
         if len(selected) == 4:
             break
     if not selected:
-        for name in case['entry_files'][:2]:
+        for name in entry_files[:2]:
             result = workspace.read_original(name, case.get('entry_lines', {}).get(name, 1))
             result['selection_reason'] = 'Registered original-source fallback; no bounded issue function found'
             selected.append(result)
     if not selected:
+        if not use_entry_hints:
+            return []
         raise ValueError('No actionable original source region is available')
     selected[0]['localization'] = {
         'version': 'public-issue-functions-and-callees-v1',

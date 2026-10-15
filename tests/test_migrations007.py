@@ -31,7 +31,7 @@ def database():
 
 def test_revision_files_have_contiguous_checksums():
     rows=migrations.revisions()
-    assert [row[0] for row in rows]==[1,2,3,4]
+    assert [row[0] for row in rows]==list(range(1, len(rows) + 1))
     assert all(len(row[2])==64 for row in rows)
 
 
@@ -41,7 +41,7 @@ def test_revision_gap_rejected(tmp_path):
 
 
 def test_fresh_apply_repeat_preserves_constraint_ids(database):
-    assert migrations.apply(database)['head']==4
+    assert migrations.apply(database)['head']==len(migrations.revisions())
     with psycopg.connect(database,row_factory=dict_row) as connection:
         before=connection.execute('SELECT oid FROM pg_constraint WHERE conrelid=%s::regclass ORDER BY oid',('kairos_investigations',)).fetchall()
     assert migrations.apply(database)['applied']==[]
@@ -73,7 +73,7 @@ def test_startup_refuses_pending_migrations(database):
 def test_concurrent_migrators_apply_each_revision_once(database):
     with ThreadPoolExecutor(max_workers=2) as executor:
         results=list(executor.map(lambda _:migrations.apply(database),range(2)))
-    assert sum(len(row['applied']) for row in results)==4
+    assert sum(len(row['applied']) for row in results)==len(migrations.revisions())
 
 
 def test_checksum_drift_rejected_before_changes(database,tmp_path):
@@ -92,7 +92,7 @@ def test_catalog_drift_rejected(database):
 def test_table_lock_timeout_rolls_back_revision(database,tmp_path):
     migrations.apply(database)
     for path in migrations.DIRECTORY.glob('*.sql'):(tmp_path/path.name).write_bytes(path.read_bytes())
-    (tmp_path/'0005_lock_probe.sql').write_text('ALTER TABLE kairos_investigations ADD COLUMN lock_probe text;')
+    (tmp_path/f'{len(migrations.revisions())+1:04d}_lock_probe.sql').write_text('ALTER TABLE kairos_investigations ADD COLUMN lock_probe text;')
     with psycopg.connect(database) as blocker:
         blocker.execute('LOCK TABLE kairos_investigations IN ACCESS EXCLUSIVE MODE')
         with pytest.raises(psycopg.errors.LockNotAvailable):migrations.apply(database,tmp_path)
@@ -104,7 +104,7 @@ def test_table_lock_timeout_rolls_back_revision(database,tmp_path):
 def test_killed_migrator_rolls_back_then_resumes(database,tmp_path):
     migrations.apply(database)
     for path in migrations.DIRECTORY.glob('*.sql'):(tmp_path/path.name).write_bytes(path.read_bytes())
-    revision=tmp_path/'0005_interruption.sql'
+    revision=tmp_path/f'{len(migrations.revisions())+1:04d}_interruption.sql'
     revision.write_text('CREATE TABLE kairos_interruption_probe(id integer); SELECT pg_sleep(8);')
     code='from kairos_api.migrations import apply; import os; apply(os.environ["MIGRATION_TEST_URL"],os.environ["MIGRATION_TEST_DIRECTORY"])'
     env={**os.environ,'MIGRATION_TEST_URL':database,'MIGRATION_TEST_DIRECTORY':str(tmp_path)}
@@ -123,8 +123,8 @@ def test_killed_migrator_rolls_back_then_resumes(database,tmp_path):
         time.sleep(8.2)
         with psycopg.connect(database) as connection:
             assert connection.execute("SELECT to_regclass('kairos_interruption_probe')").fetchone()[0] is None
-            assert connection.execute('SELECT max(version) FROM kairos_schema_migrations').fetchone()[0]==4
-        assert migrations.apply(database,tmp_path)['head']==5
+            assert connection.execute('SELECT max(version) FROM kairos_schema_migrations').fetchone()[0]==len(migrations.revisions())
+        assert migrations.apply(database,tmp_path)['head']==len(migrations.revisions())+1
         assert migrations.apply(database,tmp_path)['applied']==[]
     finally:
         if process.poll() is None:process.kill();process.wait(timeout=5)

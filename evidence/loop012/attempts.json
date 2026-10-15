@@ -1,0 +1,128 @@
+{
+  "attempts": [
+    {
+      "attempt": "initial-counter-rehearsal",
+      "captured_original": {
+        "bytes": 4565,
+        "sha256": "4bfc42568fb11ec22bca2c1fe4b2e60c491a105f108ba41e611d30cfbec6d8f4"
+      },
+      "receipt": {
+        "passed": false,
+        "scope": "Prepared isolated Phase 2 patch; actual native PostgreSQL; no Docker/model calls; active Phase 1 source unchanged",
+        "seconds": 23.135,
+        "storage_before": {
+          "budget_bytes": 6442450944,
+          "free_bytes": 17203003392,
+          "owned_bytes": 6222101931,
+          "projected_bytes": 100663296,
+          "reserve_bytes": 4294967296,
+          "scope": "Caller-declared owned experiment roots, de-duplicated; machine paths are private"
+        },
+        "tail": "nsactionally_enforced ____________\n\nrepository = <kairos_api.investigations.repository.InvestigationRepository object at 0x10b91f590>\n\n    def test_long_profile_counters_are_transactionally_enforced(repository):\n        record=repository.enqueue('tenant-a','counters-v8','fixture','loop-v8')\n        job=repository.claim('counter-worker')\n        for index in range(10):\n>           seq=repository.begin(job,'model','dispatch',{'fixture_call':index})\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/test_v8_postgres.py:34: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nkairos_api/investigations/repository.py:221: in begin\n    connection.execute(f'UPDATE kairos_investigations SET {counter}={counter}+1 WHERE id=%s',(job['id'],))\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <psycopg.Connection [BAD] at 0x10d816150>\nquery = 'UPDATE kairos_investigations SET model_calls=model_calls+1 WHERE id=%s'\nparams = (UUID('b36b89e9-78ca-4757-a8ff-7dc0cc258381'),), prepare = None\nbinary = False\n\n    def execute(\n        self,\n        query: Query,\n        params: Params | None = None,\n        *,\n        prepare: bool | None = None,\n        binary: bool = False,\n    ) -> Cursor[Row]:\n        \"\"\"Execute a query and return a cursor to read its results.\"\"\"\n        try:\n            cur = self.cursor()\n            if binary:\n                cur.format = BINARY\n    \n            if isinstance(query, Template):\n                if params is not None:\n                    raise TypeError(\n                        \"'execute()' with string template query doesn't support parameters\"\n                    )\n                return cur.execute(query, prepare=prepare)\n            else:\n                return cur.execute(query, params, prepare=prepare)\n        except e._NO_TRACEBACK as ex:\n>           raise ex.with_traceback(None)\nE           psycopg.errors.CheckViolation: new row for relation \"kairos_investigations\" violates check constraint \"kairos_investigations_model_calls_check\"\nE           DETAIL:  Failing row contains (b36b89e9-78ca-4757-a8ff-7dc0cc258381, tenant-a, counters-v8, 9f1c96050e4020f0bbffe49da3433e5817512538e8a984ea49a90adfc77abcc9, fixture, {\"id\": \"fixture\", \"issue\": \"Fix value\", \"split\": \"development\", ..., 6648be0a44f7b0e60be6abfeec3281ac906aa6daf035b9466038188c932d1ce3, loop-v8, {\"budgets\": {\"seconds\": 900, \"max_calls\": 10, \"max_checks\": 4, \"..., 8d904f34f23112b352583a96b69477a22bf479592781159c19e031f5613f161d, repository-cases-v1, null, f, running, null, null, 2026-10-15 21:38:41.636621+05:30, 2026-10-15 21:38:41.679796+05:30, 2026-10-15 21:38:41.641744+05:30, 2026-10-15 21:53:41.641744+05:30, counter-worker, 1, 2026-10-15 21:54:41.641744+05:30, f, 1, 7, 0, 0).\n\n../../../../new-karos/.venv/lib/python3.12/site-packages/psycopg/connection.py:304: CheckViolation\n=============================== warnings summary ===============================\n../../../../new-karos/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  CHECKOUT/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_v8_postgres.py::test_registered_profile_deadline_and_lease_use_database_clock[loop-v7-600-660]\n  CHECKOUT/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.\n    from ._compat import httpx2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED tests/test_v8_postgres.py::test_long_profile_counters_are_transactionally_enforced\n1 failed, 20 passed, 2 warnings in 22.16s\n"
+      }
+    },
+    {
+      "attempt": "corrected-counter-rehearsal",
+      "captured_original": {
+        "bytes": 1474,
+        "sha256": "42aee6b8c149ade244a1f1ba98d3d1551d4133d7cdf097b550475620864147d4"
+      },
+      "receipt": {
+        "passed": true,
+        "scope": "Prepared isolated Phase 2 patch; actual native PostgreSQL; no Docker/model calls; active Phase 1 source unchanged",
+        "seconds": 23.137,
+        "storage_before": {
+          "budget_bytes": 6442450944,
+          "free_bytes": 17228558336,
+          "owned_bytes": 6222118058,
+          "projected_bytes": 100663296,
+          "reserve_bytes": 4294967296,
+          "scope": "Caller-declared owned experiment roots, de-duplicated; machine paths are private"
+        },
+        "tail": ".....................                                                    [100%]\n=============================== warnings summary ===============================\n../../../../new-karos/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  CHECKOUT/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_v8_postgres.py::test_registered_profile_deadline_and_lease_use_database_clock[loop-v7-600-660]\n  CHECKOUT/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.\n    from ._compat import httpx2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 2 warnings in 22.20s\n"
+      }
+    },
+    {
+      "attempt": "initial-integration",
+      "captured_original": {
+        "bytes": 2990,
+        "sha256": "7debddc2113b30decda1f04a1b2b4b3360df7ca41b315a7cd449da4ebe82684f"
+      },
+      "receipt": {
+        "cleanup_errors": [],
+        "outcomes": [
+          {
+            "check": "retrieval-integration",
+            "exit_code": 0,
+            "seconds": 11.556,
+            "tail": ".....                                                                    [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  CHECKOUT/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_retrieval_integration012.py::test_retrieval_loop_captures_source_checks_patch_and_replays_without_execution\n  CHECKOUT/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.\n    from ._compat import httpx2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n5 passed, 2 warnings in 11.18s\n"
+          },
+          {
+            "check": "postgres",
+            "exit_code": 0,
+            "seconds": 22.367,
+            "tail": ".....................                                                    [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  CHECKOUT/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\ntests/test_v8_postgres.py::test_registered_profile_deadline_and_lease_use_database_clock[loop-v7-600-660]\n  CHECKOUT/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.\n    from ._compat import httpx2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 2 warnings in 22.11s\nIN pg_class c ON c.oid=a.attrelid JOIN pg_namespace n ON n.oid=c.relnamespace\n\t          LEFT JOIN pg_attrdef d ON d.adrelid=c.oid AND d.adnum=a.attnum\n\t          WHERE n.nspname=$1 AND c.relname=$2 AND a.attnum>0 AND NOT a.attisdropped ORDER BY a.attname\n2026-10-15 22:03:55.363 IST [11565] LOG:  unexpected EOF on client connection with an open transaction\n2026-10-15 22:04:03.826 IST [11577] ERROR:  permission denied for schema migration007_6929579d17234b7b9245443f4ca4e8fc at character 14\n2026-10-15 22:04:03.826 IST [11577] STATEMENT:  CREATE TABLE forbidden(id integer)\n"
+          }
+        ],
+        "passed": true,
+        "scope": "Actual PostgreSQL and existing disposable image; explicit mechanical provider/encoder fixtures, not model repair performance"
+      }
+    },
+    {
+      "attempt": "initial-full-inventory",
+      "captured_original": {
+        "bytes": 4509,
+        "sha256": "5b4d6ddcfe72642643c11cbfb7233f965f47fbef61aa94d5cf5ddfdc9ffe66fb"
+      },
+      "receipt": {
+        "cleanup_errors": [],
+        "outcomes": [
+          {
+            "check": "backend",
+            "exit_code": 1,
+            "seconds": 76.796,
+            "tail": "........................................................................ [  8%]\n........................................................................ [ 16%]\n........................................................................ [ 24%]\n........................................................................ [ 32%]\n.................................................................ssss... [ 41%]\n.........................ss............................................. [ 49%]\n........................................................................ [ 57%]\n........................................................................ [ 65%]\n.......................FFFF............................................. [ 74%]\n........................................................................ [ 82%]\n........................................................................ [ 90%]\n........................................................................ [ 98%]\n..........                                                               [100%]\n=================================== FAILURES ===================================\n_ test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch[hybrid-baseline-v8] _\ntests/test_retrieval_integration012.py:129: in test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch\n    assert result['version'] == VERSION and result['verified'] and result['evidence_verified']\n           ^^^^^^^^^^^^^^^^^\nE   KeyError: 'version'\n_ test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch[hybrid-loop-v8] _\ntests/test_retrieval_integration012.py:129: in test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch\n    assert result['version'] == VERSION and result['verified'] and result['evidence_verified']\n           ^^^^^^^^^^^^^^^^^\nE   KeyError: 'version'\n_ test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch[ast-baseline-v8] _\ntests/test_retrieval_integration012.py:129: in test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch\n    assert result['version'] == VERSION and result['verified'] and result['evidence_verified']\n           ^^^^^^^^^^^^^^^^^\nE   KeyError: 'version'\n_ test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch[ast-loop-v8] _\ntests/test_retrieval_integration012.py:129: in test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch\n    assert result['version'] == VERSION and result['verified'] and result['evidence_verified']\n           ^^^^^^^^^^^^^^^^^\nE   KeyError: 'version'\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  CHECKOUT/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5\n  CHECKOUT/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.\n    from ._compat import httpx2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED tests/test_retrieval_integration012.py::test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch[hybrid-baseline-v8]\nFAILED tests/test_retrieval_integration012.py::test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch[hybrid-loop-v8]\nFAILED tests/test_retrieval_integration012.py::test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch[ast-baseline-v8]\nFAILED tests/test_retrieval_integration012.py::test_versioned_runner_preserves_frozen_policy_and_reports_without_redispatch[ast-loop-v8]\n4 failed, 864 passed, 6 skipped, 2 warnings in 76.35s (0:01:16)\n"
+          }
+        ],
+        "passed": false,
+        "scope": "Actual PostgreSQL and existing disposable image; explicit mechanical provider/encoder fixtures, not model repair performance"
+      }
+    },
+    {
+      "attempt": "final-full-inventory",
+      "captured_original": {
+        "bytes": 2270,
+        "sha256": "61dbf80880541daf27878af19c8a0ae0654ffcba3a2a9c4e075c67e2bb741606"
+      },
+      "receipt": {
+        "cleanup_errors": [],
+        "outcomes": [
+          {
+            "check": "backend",
+            "exit_code": 0,
+            "seconds": 76.756,
+            "tail": "........................................................................ [  8%]\n........................................................................ [ 16%]\n........................................................................ [ 24%]\n........................................................................ [ 32%]\n.................................................................ssss... [ 41%]\n.........................ss............................................. [ 49%]\n........................................................................ [ 57%]\n........................................................................ [ 65%]\n........................................................................ [ 74%]\n........................................................................ [ 82%]\n........................................................................ [ 90%]\n........................................................................ [ 98%]\n..........                                                               [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  CHECKOUT/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5\n  CHECKOUT/.venv/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.\n    from ._compat import httpx2\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n868 passed, 6 skipped, 2 warnings in 76.27s (0:01:16)\n"
+          }
+        ],
+        "passed": true,
+        "scope": "Actual PostgreSQL and existing disposable image; explicit mechanical provider/encoder fixtures, not model repair performance"
+      }
+    },
+    {
+      "attempt": "affected-isolation",
+      "captured_original": {
+        "bytes": 245,
+        "sha256": "975d6f5c6eb1a7da8145777a6455bebff84a33d98444a7c94285760fd4c48b71"
+      },
+      "receipt": {
+        "cleanup_errors": [],
+        "exit_code": 0,
+        "passed": true,
+        "scope": "Actual non-root/read-only/network-disabled Docker verification, output limits and missing dependencies; no database or model execution",
+        "seconds": 2.2458255420006026
+      }
+    }
+  ],
+  "scope": "Private machine path prefixes normalized in public views; original captured bytes remain preserved and fingerprinted",
+  "version": "loop012-attempt-ledger-v1"
+}

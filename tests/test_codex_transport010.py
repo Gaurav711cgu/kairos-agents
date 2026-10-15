@@ -521,3 +521,54 @@ def test_default_model_stays_unspecified_and_identity_remains_unavailable(provid
 def test_requested_model_property_is_read_only(provider):
     with pytest.raises(AttributeError):
         provider.model_id = "other-model"
+
+
+@pytest.mark.parametrize("max_dispatches", [0, 2, 7, 11, 100, True, "10", None])
+def test_invalid_dispatch_profile_refused_before_runtime_write(provider, tmp_path, max_dispatches):
+    destination=tmp_path/"invalid-ceiling"
+    with pytest.raises(transport.CodexProfileError010,match="exactly 1, 6 or 10"):
+        transport.CodexInvestigator010(destination,provider.executable,
+            provider.expected_version,provider.expected_sha256,max_dispatches=max_dispatches)
+    assert not destination.exists()
+
+
+def test_explicit_ten_dispatch_profile_is_frozen_and_default_six_is_unchanged(provider,monkeypatch):
+    assert provider.max_dispatches==6
+    selected=transport.CodexInvestigator010(provider.runtime/"long-profile",provider.executable,
+        provider.expected_version,provider.expected_sha256,model_id="gpt-6.1-sol",max_dispatches=10)
+    profile=selected.verify_profile()
+    assert profile["max_cli_dispatches"]==10
+    request,context=selected.prepare({},"loop-v8",[],{"calls_remaining":10})
+    assert request["max_cli_dispatches"]==10
+    assert context["provider_identity"]["max_cli_dispatches"]==10
+    popen,_=mock_complete(selected,monkeypatch)
+    selected(request,1)
+    for _ in range(9):selected(prepare(selected),1)
+    assert popen.call_count==10
+    assert receipt(selected)["max_cli_dispatches"]==10
+    assert json.loads((selected.last_dispatch/"intent.json").read_text())["max_cli_dispatches"]==10
+    with pytest.raises(transport.CodexDispatchUnknown010,match="limit"):
+        selected(prepare(selected),1)
+    assert popen.call_count==10
+    with pytest.raises(AttributeError):selected.max_dispatches=6
+
+
+def test_v8_calls_cannot_silently_exceed_default_transport_profile(provider):
+    before=list(provider.runtime.rglob("*"))
+    with pytest.raises(transport.CodexProfileError010,match="frozen CLI dispatch profile"):
+        provider.prepare({},"loop-v8",[],{"calls_remaining":10})
+    assert list(provider.runtime.rglob("*"))==before
+
+
+def test_baseline_transport_refuses_second_dispatch(provider, monkeypatch):
+    selected=transport.CodexInvestigator010(provider.runtime/"baseline-profile",provider.executable,
+        provider.expected_version,provider.expected_sha256,model_id="gpt-6.1-sol",max_dispatches=1)
+    selected.verify_profile()
+    request,_=selected.prepare({},"baseline-v8",[],{"calls_remaining":1})
+    popen,_=mock_complete(selected,monkeypatch)
+    selected(request,1)
+    second,_=selected.prepare({},"baseline-v8",[],{"calls_remaining":1})
+    with pytest.raises(transport.CodexDispatchUnknown010,match="limit"):
+        selected(second,1)
+    assert popen.call_count==1
+    assert receipt(selected)["max_cli_dispatches"]==1
