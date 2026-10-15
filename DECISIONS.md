@@ -330,3 +330,30 @@ The pool test assumed consecutive checkouts return the same PostgreSQL PID. The 
 The website job hid its backend failure in a private runtime log. Print bounded failure tails after redacting known generated credentials, database URLs, tokens and authorization codes. Keep private files and complete logs outside publication. New diagnostic tests cover credential redaction, output bounds and escaped paths.
 
 Preserve build007 and showcase008 manifests, source archives, original results and acceptance receipts byte-for-byte. Declare the CI correction under evidence/ci009 and use scripts.verify_ci009 for the current source. The original008 command continues to verify its extracted historical snapshot. Hosted GitHub checks are a separate acceptance scope; do not retroactively label the earlier Mac evidence as a successful Linux run.
+
+
+## D93: Restore exact rejection feedback and separate stronger-provider evidence
+
+The worker stored tool requests but omitted them during context reconstruction. A rejected edit's replacement bytes therefore disappeared from the next prompt. The optional repair010 worker reconstructs exact captured requests and source authority. It does not correct model-authored code, weaken syntax/path checks or add case-specific fixes. Required feedback is never silently truncated. A local pilot exceeded its pinned context budget; the later provider uses its own explicit prompt/runtime profile.
+
+The Codex CLI reuses normal ChatGPT authentication, forces that login method and strips API credentials. Native shell, web, apps, hooks, plugins and multi-agent tools are disabled; unexpected native-tool events terminate the attempt. Read-only filesystem mode alone is not a confidentiality boundary. The CLI's internal retries are not exact Kairos dispatch counts. Future unresolved-task runs request gpt-6.1-sol explicitly; earlier default-model captures retain their unavailable resolved identity.
+
+Two implementation mistakes are owned: startup warning events were classified as tool calls, and explanatory summary metadata invalidated otherwise authorized patch actions. Focused regressions cover both. Exact captured candidates subsequently passed 22 pytest tests and four Django tests under original independent verifier images. They are post-hoc candidate verifications; original invalid/unknown outcomes and historical 0/10 remain unchanged. A later live run reached the account usage limit. No uncertain call was resent and no paid fallback was enabled.
+
+## D94: Register unresolved tasks without a reference repair
+
+The benchmark registry requires a known maintainer fix. It also derives entry-file paths from reference-patch headers, which is localization assistance and must be disclosed. The optional reviewed-unresolved registry instead requires pinned source, reviewed image/command, explicit approved source paths and complete independently captured failing-regression/passing-existing-test receipts. It reads no reference.patch. Strict path/link/hash validation refuses changed material before inference. Trusted operator review remains necessary; hashes do not prove verifier authorship or adversarial resistance. Existing live API/provider defaults remain unchanged.
+
+The local CLI owns a separate private runtime, native PostgreSQL instance and bounded disposable checks. Existing runtimes are reported, never silently redispatched. Three real PostgreSQL/Docker journeys exercise the registry through the unchanged API/router and worker using an explicitly prewritten software fixture. They prove software behavior, not model effectiveness.
+
+## D95: Present dated outcomes and actionable closure plans
+
+The website labels the completed 13 October local-model study as frozen rather than a current overall product score. A separate follow-up page shows exact captured patches, check output, all new attempt outcomes and downloads using existing muted components. No old score is replaced by a post-hoc success. README and docs map every open gap to cause, evidence, mitigation, needed resource and closure criterion. Account quota is a resource constraint; adapter bugs are our responsibility. New GPU purchases, billing changes and universal repair promises are not prerequisites or substitutes for evidence.
+
+Source packaging is an additive repair010 overlay over unchanged CI009/008/007 manifests. The new verifier checks exact active bytes plus original archive members and seals. Software acceptance and fresh model effectiveness retain separate receipts.
+
+The optional runner uses one nonblocking POSIX file lock per checkout. It refuses contention before provider/database startup, never deletes the lock inode and releases ownership after failure. This enforces the one-investigation resource policy across separate private runtimes.
+
+CI pins ubuntu-24.04 rather than the moving latest label and discovers the installed native PostgreSQL bindir before the CLI lifecycle test. GitHub's official runner inventory lists PostgreSQL16 and announces a November2026 latest-label change. The main database service stays pinned to PostgreSQL18; this avoids silently skipping the native lifecycle journey or assuming its binaries are on PATH. The software verifier uses the already declared pinned Python base image. [Official runner inventory](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md).
+
+Follow-up downloads use a small compiled byte catalogue and a read-only API route. Each request checks exact size, canonical base64 and SHA-256, with fixed logical identifiers and attachment headers. This prevents a post-build static-file change from silently replacing a patch or check receipt. Unknown/corrupt entries return404/409, without replacement data. Four focused Node tests cover byte equality, corruption, bounds, path selection and header safety.

@@ -1,0 +1,186 @@
+{
+  "attempts": [
+    {
+      "calls": 1,
+      "case": "psf__requests-2931",
+      "checks": 0,
+      "elapsed_seconds": 42.912,
+      "experiment": "feedback-development010-v1",
+      "original_record_sha256": "40a4d09092783b2ab98c558de5fc18388a84bda157df13c7bbf855b02ad8c7cb",
+      "outcome": "environment_failure",
+      "patches": 0,
+      "provider_receipts": [],
+      "scope": "Previously exposed development cases; not fresh validation or a general repair claim",
+      "summary": "FeedbackContextOverflow010: Rejection feedback requires 3501 input + 1024 output + 32 reserve tokens; limit is 4096"
+    },
+    {
+      "calls": 1,
+      "case": "psf__requests-2931",
+      "checks": 0,
+      "elapsed_seconds": 7.121,
+      "experiment": "codex-development010-v1",
+      "original_record_sha256": "36b9d50f2234747d6f435b3c452fbccfe049f04af737abc9181ab7391c107d9b",
+      "outcome": "unknown_dispatch",
+      "patches": 0,
+      "provider_receipts": [
+        {
+          "capture_hashes": {
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout.jsonl": "e188a28db2b60a79c74557d80c28aaecda4d26cba6530a12ef4c190e8df96114"
+          },
+          "elapsed_seconds": 2.5109616669997195,
+          "normalization_error": null,
+          "outcome": "unknown_dispatch",
+          "reason": "native_tool_attempt",
+          "usage": null,
+          "usage_unavailable": true
+        }
+      ],
+      "scope": "Previously exposed development cases; not fresh validation or universal repair evidence",
+      "summary": "CodexDispatchUnknown010: CLI dispatch uncertainty: native_tool_attempt"
+    },
+    {
+      "calls": 3,
+      "case": "pytest-dev__pytest-6197",
+      "checks": 0,
+      "elapsed_seconds": 33.989,
+      "experiment": "codex-development010-v2",
+      "original_record_sha256": "362f40260b62d851e81fe9f039ae4b0242f98fa5b3da3a1a3fadd93c227886a4",
+      "outcome": "invalid_response",
+      "patches": 0,
+      "provider_receipts": [
+        {
+          "capture_hashes": {
+            "final.txt": "fa3e4c4d859a2af3fb5a6faa2e917c81aeef6794c99549b69e48ea52d3cd8cc0",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout.jsonl": "f38a1889bacff1c3880cb10dbe1a100aa4e2c1baa20bb420f07150f6ca836c56"
+          },
+          "elapsed_seconds": 8.396257249999962,
+          "normalization_error": "ValueError: Unused flat action fields must retain their neutral values",
+          "outcome": "captured_model_response",
+          "reason": null,
+          "usage": {
+            "cached_input_tokens": 0,
+            "input_tokens": 12667,
+            "output_tokens": 96
+          },
+          "usage_unavailable": false
+        },
+        {
+          "capture_hashes": {
+            "final.txt": "a5bc2300078d2fbd65ff3ca456f11495df47790dfe5341051249245d8dcaa0f0",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout.jsonl": "f79cade6640044d641c1ae82874d2a0e0a1e4ff1f492b7723054a9c9386bc11f"
+          },
+          "elapsed_seconds": 12.701222457999847,
+          "normalization_error": null,
+          "outcome": "captured_model_response",
+          "reason": null,
+          "usage": {
+            "cached_input_tokens": 0,
+            "input_tokens": 10714,
+            "output_tokens": 51
+          },
+          "usage_unavailable": false
+        },
+        {
+          "capture_hashes": {
+            "final.txt": "4099bf193575c29fcbb1d436062c9c35ef92b646c6aa1b4d83efc84b7d05828c",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout.jsonl": "f5d617b4ddbacc5e92ab2bd84f89e76060b1f9cea81974f76417ed807a0f2491"
+          },
+          "elapsed_seconds": 8.278515667000192,
+          "normalization_error": null,
+          "outcome": "captured_model_response",
+          "reason": null,
+          "usage": {
+            "cached_input_tokens": 0,
+            "input_tokens": 11763,
+            "output_tokens": 52
+          },
+          "usage_unavailable": false
+        }
+      ],
+      "scope": "Previously exposed development cases; not fresh validation or universal repair evidence",
+      "summary": "1 validation error for tagged-union[Search,ReadFile,LineHandlePatch,FinalResult]\n  Unable to extract tag using discriminator 'action' [type=union_tag_not_found, input_value={'invalid_flat_action': '...aw_response_bytes': 256}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/union_tag_not_found"
+    },
+    {
+      "calls": 1,
+      "case": "django__django-11066",
+      "checks": 0,
+      "elapsed_seconds": 17.616,
+      "experiment": "codex-development010-v2",
+      "original_record_sha256": "29b82756f2246c8ba55a6aae2f206aa693a2f00cc499e23eea5f769ec971d590",
+      "outcome": "invalid_response",
+      "patches": 0,
+      "provider_receipts": [
+        {
+          "capture_hashes": {
+            "final.txt": "e3fb5df3b4e25f120d9f34b58953bc240fcc1c597e9557408c48a2c8606328cd",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout.jsonl": "13aeca2def3ce185d25e455794177dee55a5cfa68f99f73d603319d2eb6a1a7e"
+          },
+          "elapsed_seconds": 9.01982074999978,
+          "normalization_error": "ValueError: Unused flat action fields must retain their neutral values",
+          "outcome": "captured_model_response",
+          "reason": null,
+          "usage": {
+            "cached_input_tokens": 0,
+            "input_tokens": 10326,
+            "output_tokens": 102
+          },
+          "usage_unavailable": false
+        }
+      ],
+      "scope": "Previously exposed development cases; not fresh validation or universal repair evidence",
+      "summary": "1 validation error for tagged-union[Search,ReadFile,LineHandlePatch,FinalResult]\n  Unable to extract tag using discriminator 'action' [type=union_tag_not_found, input_value={'invalid_flat_action': '...aw_response_bytes': 300}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/union_tag_not_found"
+    },
+    {
+      "calls": 2,
+      "case": "pytest-dev__pytest-6197",
+      "checks": 0,
+      "elapsed_seconds": 20.265,
+      "experiment": "codex-development010-v3",
+      "original_record_sha256": "84faf758e9054cd1bca08c343d12f924bed3ebaf9aead2edf889edf036d30b16",
+      "outcome": "unknown_dispatch",
+      "patches": 0,
+      "provider_receipts": [
+        {
+          "capture_hashes": {
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout.jsonl": "464cdcb925a195dd5c5e8697098299522601ab8566e0f1224c6e26fd746e5e6a"
+          },
+          "elapsed_seconds": 5.643455874999745,
+          "normalization_error": null,
+          "outcome": "unknown_dispatch",
+          "reason": "cli_reported_failure",
+          "usage": null,
+          "usage_unavailable": true
+        },
+        {
+          "capture_hashes": {
+            "final.txt": "5cfbdbaeaabdc7f2027dee71daa60688ac4626f276fc263b3522f04c11704409",
+            "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout.jsonl": "66aec22e9d21d6efdbc42808a65f3835f787d0588a936166a8c0577d243d457e"
+          },
+          "elapsed_seconds": 9.982807374999993,
+          "normalization_error": null,
+          "outcome": "captured_model_response",
+          "reason": null,
+          "usage": {
+            "cached_input_tokens": 0,
+            "input_tokens": 10778,
+            "output_tokens": 66
+          },
+          "usage_unavailable": false
+        }
+      ],
+      "scope": "Previously exposed development cases; not fresh validation or universal repair evidence",
+      "summary": "CodexDispatchUnknown010: CLI dispatch uncertainty: cli_reported_failure"
+    }
+  ],
+  "historical_validation": "Frozen build007 remains 0/10; no cases replaced or retuned",
+  "provider_limit": "Codex development v3 stopped at subscription usage limit; uncertain dispatches were not resent",
+  "scope": "Exposed development diagnostics; not fresh validation or end-to-end success",
+  "version": "repair010-attempt-ledger-v1"
+}

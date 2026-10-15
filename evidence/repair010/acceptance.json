@@ -1,0 +1,232 @@
+{
+  "backend": {
+    "command": "python3 -m scripts.acceptance007 backend",
+    "failed": 0,
+    "passed": 695,
+    "seconds": 53.213,
+    "skipped": 6,
+    "skips": [
+      {
+        "cases": 3,
+        "reason": "Local KAIROS_TEST_IDENTITY_PROVIDER not enabled; hosted OIDC job separately enables it",
+        "test": "test_real_provider_pkce_nonce_login_membership_and_logout"
+      },
+      {
+        "cases": 1,
+        "reason": "Same local real-OIDC opt-in",
+        "test": "test_real_provider_valid_identity_without_membership_denied"
+      },
+      {
+        "cases": 1,
+        "reason": "Legacy Docker opt-in not enabled in this invocation; three new real sandbox journeys ran separately and inside the suite",
+        "test": "test_real_docker_verifier_is_nonroot_readonly_and_network_disabled"
+      },
+      {
+        "cases": 1,
+        "reason": "Historical local-model inference intentionally off; no new model dispatch during acceptance",
+        "test": "test_real_model_enforces_nested_schema"
+      }
+    ]
+  },
+  "browser": {
+    "command": "playwright test --config playwright.recorded.config.ts",
+    "duration_ms": 8552.161,
+    "failed": 0,
+    "flaky": 0,
+    "passed": 10,
+    "scope": "Recorded inspection, actual DOM/keyboard controls, original patch/check/response downloads, safe download headers and unknown-artifact refusal; no simulated live authentication",
+    "skipped": 0,
+    "viewports": [
+      "1440x1000",
+      "390x844"
+    ]
+  },
+  "cleanup": {
+    "inference_started": false,
+    "owned_database_and_docker_cleanup_errors": [],
+    "recorded_website_left_running": true
+  },
+  "dependency_audit": {
+    "command": "npm audit --audit-level=low --json",
+    "exit_code": 0,
+    "package_lock": {
+      "bytes": 182109,
+      "sha256": "29fa59d8ddcf8b7ee67bb3e2682e3985a539343f721360f4463dae14cf454984"
+    },
+    "vulnerabilities": 0
+  },
+  "frontend": {
+    "checks": {
+      "build": {
+        "exit_code": 0,
+        "seconds": 5.35
+      },
+      "lint": {
+        "exit_code": 0,
+        "seconds": 3.2
+      },
+      "test:boundary": {
+        "exit_code": 0,
+        "seconds": 0.266
+      },
+      "test:client": {
+        "exit_code": 0,
+        "seconds": 0.196
+      },
+      "test:recorded": {
+        "exit_code": 0,
+        "seconds": 4.05
+      },
+      "typecheck": {
+        "exit_code": 0,
+        "seconds": 1.299
+      }
+    },
+    "unit_tests_passed": 22
+  },
+  "functional_source": {
+    ".github/workflows/regression-gate.yml": {
+      "bytes": 6094,
+      "sha256": "38306d474b6f9566e50f0b4019138dacf48dbdeea61c2ce9c509bda76977a5ce"
+    },
+    "dashboard/app/api/repair010/[...path]/route.ts": {
+      "bytes": 401,
+      "sha256": "97111081273a4d711bad3eed3c5f37781348035f6f882772947b8b17268d05e4"
+    },
+    "dashboard/app/repair-workflow/page.tsx": {
+      "bytes": 8818,
+      "sha256": "6d6fc09addf9f3c9a98151cae00ccf6d490d63fc63af344c3ff27f4750d6c2bc"
+    },
+    "dashboard/e2e/repair-workflow.spec.ts": {
+      "bytes": 4986,
+      "sha256": "8e347dcfaddc7e429abc2d5202b4a02983dca301aca2214da3ec7d6069fc2367"
+    },
+    "dashboard/lib/repair010-downloads.json": {
+      "bytes": 24985,
+      "sha256": "094da8f4345b09984209dc5ccd77f4d54c3a11437ef0808886b93a3686855fb8"
+    },
+    "dashboard/lib/repair010-downloads.test.mjs": {
+      "bytes": 3949,
+      "sha256": "43c296ecb225ab7aa7768f2612e213f7050aa9bf39f719a83ad460aaccc29fc3"
+    },
+    "dashboard/lib/repair010-downloads.ts": {
+      "bytes": 3227,
+      "sha256": "e7e0ac35ce4c187e3dd545a5f412c00c1dab584c5502eabb754d0bda6a213bf8"
+    },
+    "dashboard/lib/repair010-results.json": {
+      "bytes": 17360,
+      "sha256": "882ec039467328a5375b111a5c32cfa57684768f1d550b306e56ce9371336ac2"
+    },
+    "dashboard/package.json": {
+      "bytes": 1253,
+      "sha256": "c191ab96a6790224bf108e916ce64ae219601e0d29f84b5b7109e2f1d5a55de7"
+    },
+    "dashboard/playwright.recorded.config.ts": {
+      "bytes": 749,
+      "sha256": "7c8ab47dcb704c193daf9957b4e836b7902d7167efa9277ffebfc565cec4d12b"
+    },
+    "scripts/acceptance007.py": {
+      "bytes": 2185,
+      "sha256": "57057af28fed057e6007d035331beb2c3f2f9b7ddaa7fc1461922c192d99f9f0"
+    },
+    "scripts/repair010/__init__.py": {
+      "bytes": 71,
+      "sha256": "adb4deb3945c6227347dd8ed62679b246e0ef1c1008d48f3e1665ddf44b53599"
+    },
+    "scripts/repair010/codex_context010.py": {
+      "bytes": 13335,
+      "sha256": "3ee95b572b33865a1200d48a03e3720be9e7174353892d0285b88ea4a920ed63"
+    },
+    "scripts/repair010/codex_transport010.py": {
+      "bytes": 27714,
+      "sha256": "0600596c14eacc3a2b8c481fb3dbfda15874814a595976089851bdac3d4c1aca"
+    },
+    "scripts/repair010/feedback010.py": {
+      "bytes": 14509,
+      "sha256": "53e74c95b435e3700ca9b5286bd4c95d0ba11ca2d0f1a783e1e6468fd2da7b84"
+    },
+    "scripts/repair010/unresolved_registry010.py": {
+      "bytes": 13769,
+      "sha256": "1fbdf17e36338e3eae4b6e6fd58d0610fcc9988b3914fce984ea0e39d2055080"
+    },
+    "scripts/study010.py": {
+      "bytes": 25588,
+      "sha256": "19ccd41db6aca8ed0894613afdcf4fa42afa66a5bf3d277bc01f52bdba33d34d"
+    },
+    "scripts/verify_repair010.py": {
+      "bytes": 6940,
+      "sha256": "2698f72c98dbfe7b2bf7f043bf87ea62aff5a0462d9e0b78914c64df3a78196b"
+    },
+    "tests/test_codex_context010.py": {
+      "bytes": 14635,
+      "sha256": "abb219360849cdcbd1e4b1874988a428a1ba859eaebd50d9fd46a077471fb172"
+    },
+    "tests/test_codex_transport010.py": {
+      "bytes": 25968,
+      "sha256": "d712ecfb59674f851967d2d822f38f649f76c14291a3a772a3dca50e706aee98"
+    },
+    "tests/test_feedback010.py": {
+      "bytes": 15481,
+      "sha256": "0643535ccbd7b4e9d83f74a87a852bdc1a0e45a706c618ef66c008bea2dc16b4"
+    },
+    "tests/test_study010.py": {
+      "bytes": 18282,
+      "sha256": "2d39e4ee008793fe14cc198a17723ec3dece65caa6bef4455ed51860aa9079e1"
+    },
+    "tests/test_unresolved_integration010.py": {
+      "bytes": 16794,
+      "sha256": "ec5b33ce48210b4bb916426fc46f79e8b3dbc7a96c6b2a39bbfe5608387cfd64"
+    },
+    "tests/test_unresolved_registry010.py": {
+      "bytes": 13393,
+      "sha256": "17b9f4764168ff57b2dbe59e95f7dc9689f96dd87fe22b5f3e065a9189c51c7b"
+    },
+    "tests/test_verify_repair010.py": {
+      "bytes": 7917,
+      "sha256": "8e84ba42148bbeb586f8786fe70b7ef0230fbdadfa48af8dbc37a4584ba5d77f"
+    }
+  },
+  "hosted_ci": "Pending this follow-up; local outcomes do not claim a hosted pass",
+  "model_evidence_scope": {
+    "fresh_validation_unchanged": "0/10",
+    "new_end_to_end_score_earned": false,
+    "posthoc_candidates_checked": 2,
+    "posthoc_candidates_verified": 2,
+    "resource_blocker": "Existing Codex account usage limit; no uncertain dispatch retried or paid fallback enabled"
+  },
+  "prior_failures_preserved": {
+    "cli_v1": "startup warnings classified as tools",
+    "cli_v2": "explanatory metadata rejected",
+    "cli_v3": "account usage limit",
+    "initial_local_feedback": "required rejection feedback exceeded frozen context"
+  },
+  "raw_private_log_fingerprints": {
+    "backend.log": {
+      "bytes": 1689,
+      "sha256": "2acb303894a1d72fdcaa443dd1413acf461277d2b558b8a1cdbfcb79a7d2452a"
+    },
+    "frontend-receipt.json": {
+      "bytes": 6818,
+      "sha256": "e3b9bdcf63682ded8038ec2ac15b0da9aab1099f66b1b6b105d32b4f9a5c0d0a"
+    },
+    "integration.log": {
+      "bytes": 985,
+      "sha256": "5a19aab264e92e4503ff32910addba053cf22d71ca8bd3d3b5fadac163a56cd2"
+    },
+    "recorded-browser.json": {
+      "bytes": 14046,
+      "sha256": "81b5d6be2f5abe80df87ab42fff2a93c0c4219c037fef7c06dec53f88db86605"
+    }
+  },
+  "real_registry_cli_integration": {
+    "command": "python3 -m pytest -q tests/test_unresolved_integration010.py",
+    "database": "Isolated native PostgreSQL18",
+    "failed": 0,
+    "passed": 3,
+    "provider": "Explicit prewritten mechanical software fixture; no model inference",
+    "verifier": "Original pinned image sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e"
+  },
+  "recorded_at": "2026-10-15T11:19:29.680246+00:00",
+  "software_acceptance_passed": true,
+  "version": "repair010-local-acceptance-v1"
+}

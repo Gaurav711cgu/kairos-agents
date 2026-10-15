@@ -39,7 +39,7 @@ Captured from the tested build007 interface. Source, candidate, checks and recor
 
 ## Measured results
 
-Latest delivery acceptance: **428 backend tests passed, six explicit skips**, plus **24 browser journeys**: eight evidence-viewer, eleven fault-fixture, four real-OIDC and one separately executed real-model journey. Frontend unit checks, lint, types and both builds passed. [Current acceptance and handoff](docs/showcase/FINAL_REPORT.md).
+Showcase008 delivery acceptance: **428 backend tests passed, six explicit skips**, plus **24 browser journeys**: eight evidence-viewer, eleven fault-fixture, four real-OIDC and one separately executed real-model journey. Frontend unit checks, lint, types and both builds passed. [Current acceptance and handoff](docs/showcase/FINAL_REPORT.md).
 
 Each number links to a receipt and retains its measurement scope.
 
@@ -51,11 +51,29 @@ Each number links to a receipt and retains its measurement scope.
 | **Build007: 23 browser journeys passed** | [Recorded](evidence/build007/checks/recorded-browser.json) · [Fault fixtures](evidence/build007/checks/fixture-browser.json) · [Real OIDC](evidence/build007/checks/fullstack-browser.json) | Eight recorded, eleven isolated interaction-fault and four actual-OIDC journeys. |
 | **110 tests, one upstream skip**, saved Django patch reproduced | [Reproduction receipt](evidence/build007/repair-reproduction.json) | Original model-generated Django10914 patch, fresh source and disclosed rebuilt-image difference; no new inference. |
 | **122 recorded investigations; 1,243 original artifact blobs** | [Evidence inventory](evidence/build007/presentation.json) | Includes preserved successes, failures and interrupted/unsuccessful development attempts. |
-| **Fresh repair study: 0/10 verified** | [Study results](dashboard/public/advancement/results.json) · [Qualification](evidence/build007/qualification.json) | Five qualified Django/pytest cases; baseline 0/5 and loop 0/5. One development repair is separate. |
+| **Frozen local-model study: 0/10 verified** | [Study results](dashboard/public/advancement/results.json) · [Qualification](evidence/build007/qualification.json) | Five qualified Django/pytest cases; baseline 0/5 and loop 0/5. One development repair is separate. |
 
 The capacity workload used closed-loop clients with 50 ms pacing between command cycles. The successful quiet repeat retained the earlier failed and interrupted runs. It measures one finite local configuration, not maximum saturation throughput or production scale.
 
 A separate clean checkout in a path containing spaces passed locked installation, builds and 19 recorded/fixture browser journeys: **277 backend tests passed, 122 environment/opt-in skips**. This is a separate invocation from full-stack acceptance. [Clean-checkout receipt](evidence/build007/checks/clean-acceptance.json).
+
+## Repair workflow follow-up
+
+Repair010 local acceptance: **695 backend tests passed, six explicit skips; three real PostgreSQL/Docker journeys; 22 frontend unit checks and ten recorded browser journeys**. Lint, types, production build and dependency audit passed. [Current acceptance receipt](evidence/repair010/acceptance.json).
+
+A separate optional workflow now supports **reviewed unresolved Python tasks without a known reference fix**, retains exact rejected edits, and requests **GPT-6.1-Sol through an existing local ChatGPT login**. It preserves the released browser/API provider defaults and enables no API billing.
+
+Two previously captured model-generated development candidates passed **22 pytest tests and four Django tests** after a response-adapter correction. These are independently checked saved candidates, not a new fresh-validation score. The original failed attempts and dated local-model 0/10 remain inspectable. The website's **Repair workflow follow-up** shows their changes, checks and downloads.
+
+```bash
+python3 -m scripts.study010 doctor
+python3 -m scripts.study010 validate-task --manifest /path/to/reviewed/registry.json --case-root /path/to/prepared/runtime --task-id reviewed-defect
+python3 -m scripts.study010 run --manifest /path/to/reviewed/registry.json --case-root /path/to/prepared/runtime --task-id reviewed-defect --runtime .runtime/study010/reviewed-defect
+```
+
+We own the response-adapter defects: startup warnings were misclassified, and explanatory metadata rejected valid proposals. Both are fixed and covered by regression tests.
+
+New live inference stopped at the existing account's usage limit. No GPU purchase is needed for this provider. Next measurement: complete a newly registered unresolved task after normal quota returns, then freeze a fresh comparison before model execution. Uncertain attempts are not resent. [Causes, mitigations, resources and exact closure criteria](docs/showcase/REPAIR_010.md#owned-gaps-and-closure-plan) · [Complete attempt ledger](evidence/repair010/attempts.json) · [Candidate check receipts](evidence/repair010/posthoc-summary.json).
 
 ## What the project demonstrates
 
@@ -146,7 +164,7 @@ Checks use disposable, non-root containers without runtime network or Docker soc
 
 A verified repair requires a reproduced baseline regression, regression success after the model patch and passing relevant existing tests. Outcomes also include rejected patches, failed checks, environment failures, timeouts, cancellation and unknown dispatches. Replay only reads saved steps; a fork starts a fresh linked attempt.
 
-Fresh v7 validation earned **zero verified repairs across ten attempts**. The six-case qualification target was also missed; five cases qualified within declared limits. Earlier **0/36** and **0/10** studies remain visible. Public historical cases may be contaminated, source entry files were human-localized and the successful development issue supplies a repair hint. These results support evaluation infrastructure and limited repair demonstrations, not broad coding competence or loop superiority.
+Fresh v7 validation earned **zero verified repairs across ten attempts**. The six-case qualification target was also missed; five cases qualified within declared limits. Earlier **0/36** and **0/10** studies remain visible. Public historical cases may be contaminated, benchmark entry files were seeded from reference-patch file headers (replacement text stayed outside model tools) and the successful development issue supplies a repair hint. These results support evaluation infrastructure and limited repair demonstrations, not broad coding competence or loop superiority.
 
 The optional free API development pilot produced no proposal: a corrected Gemini request returned HTTP 503, and its uncertain dispatch was not resent. It is separate from the frozen local study. [Pilot receipt](evidence/free-model-pilot/result.json).
 
@@ -172,10 +190,10 @@ The active implementation is in `kairos_api/investigations/`, `kairos_api/migrat
 Build007 software and model evidence remain frozen. This delivery adds clearer presentation, the recruiter documentation and an opt-in live-session bootstrap. Its receipt binds these changes to the preserved release. Verify the active checkout with:
 
 ```bash
-python3 -m scripts.verify_ci009
+python3 -m scripts.verify_repair010
 ```
 
-The verifier checks the original008 archive, preserved API/worker source and the explicitly declared CI portability correction. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
+The verifier checks the original008 archive, preserved historical receipts and the declared CI009/repair010 source overlays. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
 
 Hashes establish byte consistency against stored references, not signed or administrator-proof history. Candidate Python shares the registered test environment, so adversarial test-forgery resistance is not established. Measurements cover local operation; public hosting, production scale, customer adoption, model research and staff-level impact are not claimed. [Pull request checks](https://github.com/Gaurav711cgu/kairos-agents/pull/1/checks) report hosted CI outcomes separately from the original Mac acceptance.
 

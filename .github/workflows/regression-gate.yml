@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   api-postgres:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     services:
       postgres:
         image: postgres:18@sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336
@@ -27,6 +27,7 @@ jobs:
           --health-retries 10
     env:
       TEST_DATABASE_URL: postgresql://kairos:ci-test-only-password@127.0.0.1:5432/kairos_test
+      KAIROS_REPAIR010_DATABASE_URL: postgresql://kairos:ci-test-only-password@127.0.0.1:5432/kairos_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -43,7 +44,7 @@ jobs:
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
       - name: Verify current source and preserved delivery
-        run: .venv/bin/python -m scripts.verify_ci009
+        run: .venv/bin/python -m scripts.verify_repair010
       - name: Prepare isolated test database configuration
         run: |
           .venv/bin/python - <<'PYTHON'
@@ -67,6 +68,18 @@ jobs:
         run: PYTHONPATH=. .venv/bin/python scripts/setup_identity.py
         env:
           DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+      - name: Expose native PostgreSQL lifecycle tools
+        run: |
+          kairos_native_pg_bin=$(pg_config --bindir)
+          test -x "$kairos_native_pg_bin/initdb"
+          test -x "$kairos_native_pg_bin/pg_ctl"
+          printf '%s\n' "$kairos_native_pg_bin" >> "$GITHUB_PATH"
+          "$kairos_native_pg_bin/initdb" --version
+      - name: Prepare pinned reference-free software verifier
+        run: |
+          docker pull python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+          kairos_fixture_image_id=$(docker image inspect --format '{{.Id}}' python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1)
+          printf 'KAIROS_REPAIR010_IMAGE=%s\n' "$kairos_fixture_image_id" >> "$GITHUB_ENV"
       - name: Backend, real PostgreSQL, and actual OIDC flows
         run: .venv/bin/python -m scripts.acceptance007 backend
         env:
@@ -90,7 +103,7 @@ jobs:
         run: .venv/bin/python -m scripts.ci_diagnostics009 --runtime .runtime/ci007
 
   website:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -110,7 +123,7 @@ jobs:
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
       - name: Verify current source and preserved delivery
-        run: .venv/bin/python -m scripts.verify_ci009
+        run: .venv/bin/python -m scripts.verify_repair010
       - run: npx playwright install --with-deps chromium
         working-directory: dashboard
       - run: npm run test:browser
