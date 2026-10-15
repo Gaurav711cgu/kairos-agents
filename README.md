@@ -75,6 +75,12 @@ We own the response-adapter defects: startup warnings were misclassified, and ex
 
 New live inference stopped at the existing account's usage limit. No GPU purchase is needed for this provider. Next measurement: complete a newly registered unresolved task after normal quota returns, then freeze a fresh comparison before model execution. Uncertain attempts are not resent. [Causes, mitigations, resources and exact closure criteria](docs/showcase/REPAIR_010.md#owned-gaps-and-closure-plan) · [Complete attempt ledger](evidence/repair010/attempts.json) · [Candidate check receipts](evidence/repair010/posthoc-summary.json).
 
+## Source retrieval — Phase 1
+
+Added revision-bound source retrieval with a pinned 137M code encoder, lexical search, hybrid fusion and exact local FAISS. On one exposed pytest issue, dense retrieval found the maintainer-changed file at rank five; AST and lexical controls missed it in their tested returned regions. All methods missed under the same four-region cap. This is a localization diagnostic; repair effectiveness remains separately measured.
+
+The index covered 55 source files and 1,652 regions, built in 145.557 seconds on the 8 GiB M2 Mac. Original-source handles, encoding omissions, backend agreement, memory and exact receipts are inspectable. [Implementation and reproduction](docs/RETRIEVAL_011.md) · [All phases and resource decisions](docs/AI_ADVANCEMENT_PLAN_011.md).
+
 ## What the project demonstrates
 
 | Engineering area | Implemented behavior |
@@ -190,10 +196,10 @@ The active implementation is in `kairos_api/investigations/`, `kairos_api/migrat
 Build007 software and model evidence remain frozen. This delivery adds clearer presentation, the recruiter documentation and an opt-in live-session bootstrap. Its receipt binds these changes to the preserved release. Verify the active checkout with:
 
 ```bash
-python3 -m scripts.verify_repair010
+python3 -m scripts.verify_retrieval011
 ```
 
-The verifier checks the original008 archive, preserved historical receipts and the declared CI009/repair010 source overlays. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
+The verifier checks the original008 archive, preserved historical receipts and the declared CI009, repair010 and retrieval011 source overlays. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
 
 Hashes establish byte consistency against stored references, not signed or administrator-proof history. Candidate Python shares the registered test environment, so adversarial test-forgery resistance is not established. Measurements cover local operation; public hosting, production scale, customer adoption, model research and staff-level impact are not claimed. [Pull request checks](https://github.com/Gaurav711cgu/kairos-agents/pull/1/checks) report hosted CI outcomes separately from the original Mac acceptance.
 

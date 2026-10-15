@@ -30,6 +30,8 @@ jobs:
       KAIROS_REPAIR010_DATABASE_URL: postgresql://kairos:ci-test-only-password@127.0.0.1:5432/kairos_test
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version-file: ingest/go.mod
@@ -43,8 +45,13 @@ jobs:
             requirements-reviewer.lock
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
-      - name: Verify current source and preserved delivery
-        run: .venv/bin/python -m scripts.verify_repair010
+      - name: Verify preserved repair010 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-repair010"
+          git archive 69432bd468e2d8ccefcf522d89365cbe32970d31 | tar -xf - -C "$RUNNER_TEMP/kairos-repair010"
+          .venv/bin/python -m scripts.verify_repair010 --root "$RUNNER_TEMP/kairos-repair010"
+      - name: Verify current retrieval phase and inherited source inventory
+        run: .venv/bin/python -m scripts.verify_retrieval011
       - name: Prepare isolated test database configuration
         run: |
           .venv/bin/python - <<'PYTHON'
@@ -106,6 +113,8 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version-file: ingest/go.mod
@@ -122,8 +131,13 @@ jobs:
           python-version: '3.12'
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
-      - name: Verify current source and preserved delivery
-        run: .venv/bin/python -m scripts.verify_repair010
+      - name: Verify preserved repair010 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-repair010"
+          git archive 69432bd468e2d8ccefcf522d89365cbe32970d31 | tar -xf - -C "$RUNNER_TEMP/kairos-repair010"
+          .venv/bin/python -m scripts.verify_repair010 --root "$RUNNER_TEMP/kairos-repair010"
+      - name: Verify current retrieval phase and inherited source inventory
+        run: .venv/bin/python -m scripts.verify_retrieval011
       - run: npx playwright install --with-deps chromium
         working-directory: dashboard
       - run: npm run test:browser

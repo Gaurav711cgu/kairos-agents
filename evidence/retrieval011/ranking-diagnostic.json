@@ -1,0 +1,3981 @@
+{
+  "dependencies": {
+    "einops": "0.8.1",
+    "numpy": "2.5.3",
+    "safetensors": "0.8.0",
+    "tokenizers": "0.22.2",
+    "torch": "2.10.0",
+    "transformers": "4.57.6"
+  },
+  "docker_started": false,
+  "index": {
+    "action": "build",
+    "chunks": 1652,
+    "encoder_identity": {
+      "conversion": "FP16 storage, expanded to FP32 for CPU inference; evaluated as this explicit derived profile",
+      "dimension": 768,
+      "files": {
+        "1_Pooling/config.json": {
+          "bytes": 296,
+          "sha256": "d02ebf56344d20f773449b15d0c10ee9a86a9178f3b3c9bfecb8b87d4350ce38"
+        },
+        "README.md": {
+          "bytes": 3096,
+          "sha256": "69a6d76a2b533dd0f293b5d1b33a5b433201af38cf48c887b8ec795b641849a0"
+        },
+        "config.json": {
+          "bytes": 1525,
+          "sha256": "5ff856a41d0f53ef2d74520627d464bd75c2efd8f26f381bd528654895c29b6c"
+        },
+        "configuration_hf_nomic_bert.py": {
+          "bytes": 1955,
+          "sha256": "8632792e922e62ab1a6feaab15baf406e223c0547a21de23ab4f520b2b36d674"
+        },
+        "model.fp16.safetensors": {
+          "bytes": 273475064,
+          "sha256": "fb7a004a7098dbbaebfb85b207f8400a1da8b0e98cf9d769c458a1edbb3458a5"
+        },
+        "modeling_hf_nomic_bert.py": {
+          "bytes": 52571,
+          "sha256": "502ccfb9c2d5dac976109ac2f04dc3125d8540329e5d4af92bc587d6dc65edcd"
+        },
+        "special_tokens_map.json": {
+          "bytes": 695,
+          "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+        },
+        "tokenizer.json": {
+          "bytes": 711649,
+          "sha256": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854"
+        },
+        "tokenizer_config.json": {
+          "bytes": 1417,
+          "sha256": "7809f768ee3614618b3f1b91dcbfab4f6a9d4b79fb1ad5d17feb65a7c1bb5b7a"
+        },
+        "vocab.txt": {
+          "bytes": 231508,
+          "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+        }
+      },
+      "inference_dtype": "float32",
+      "max_tokens": 512,
+      "model": "nomic-ai/CodeRankEmbed",
+      "original_weights": {
+        "bytes": 546938168,
+        "sha256": "827529bcd58aef0d9082e66eeff7e7d53a02f62bd005f841a26b3d3e2fb17ebe"
+      },
+      "pooling": "cls",
+      "query_prefix": "Represent this query for searching relevant code: ",
+      "revision": "3c4b60807d71f79b43f3c4363786d9493691f8b1",
+      "runtime": {
+        "attention": "reviewed non-fused implementation",
+        "batch_size": 2,
+        "device": "cpu",
+        "normalization": "L2",
+        "threads": 2,
+        "torch": "2.10.0"
+      },
+      "storage_dtype": "float16",
+      "version": "coderank-encoder011-v1"
+    },
+    "exact_backend": "numpy",
+    "files": 55,
+    "index_id": "3bc720acfa21fa85241d6465784d4f5a9070ae651a0ced0a04ad819f551f8618",
+    "revision": "e856638ba086fcf5bebf1bebea32d5cf78de87b4",
+    "seconds": 145.557,
+    "source_omissions": [],
+    "source_snapshot_digest": "d69cfddab93f00162a74a846a2c3b1d29ad4ee225f3623155ad8d5961aa0c6d5",
+    "storage_after": {
+      "budget_bytes": 6442450944,
+      "free_bytes": 17539104768,
+      "owned_bytes": 6202203801,
+      "projected_bytes": 0,
+      "reserve_bytes": 4294967296,
+      "scope": "Caller-declared owned experiment roots, de-duplicated; machine paths are private"
+    },
+    "storage_before": {
+      "budget_bytes": 6442450944,
+      "free_bytes": 18614087680,
+      "owned_bytes": 6195138601,
+      "projected_bytes": 100663296,
+      "reserve_bytes": 4294967296,
+      "scope": "Caller-declared owned experiment roots, de-duplicated; machine paths are private"
+    }
+  },
+  "localization_proxy_metrics": {
+    "dense": {
+      "file_hit_at_1": 0.0,
+      "file_hit_at_10": 1.0,
+      "file_hit_at_5": 1.0,
+      "file_recall_at_1": 0.0,
+      "file_recall_at_10": 1.0,
+      "file_recall_at_5": 1.0,
+      "mrr": 0.2,
+      "whole_changed_region_hit_at_1": 0.0,
+      "whole_changed_region_hit_at_10": 1.0,
+      "whole_changed_region_hit_at_5": 1.0,
+      "whole_changed_region_recall_at_1": 0.0,
+      "whole_changed_region_recall_at_10": 0.25,
+      "whole_changed_region_recall_at_5": 0.25
+    },
+    "hybrid": {
+      "file_hit_at_1": 0.0,
+      "file_hit_at_10": 1.0,
+      "file_hit_at_5": 0.0,
+      "file_recall_at_1": 0.0,
+      "file_recall_at_10": 1.0,
+      "file_recall_at_5": 0.0,
+      "mrr": 0.16666666666666666,
+      "whole_changed_region_hit_at_1": 0.0,
+      "whole_changed_region_hit_at_10": 1.0,
+      "whole_changed_region_hit_at_5": 0.0,
+      "whole_changed_region_recall_at_1": 0.0,
+      "whole_changed_region_recall_at_10": 0.25,
+      "whole_changed_region_recall_at_5": 0.0
+    },
+    "lexical": {
+      "file_hit_at_1": 0.0,
+      "file_hit_at_10": 0.0,
+      "file_hit_at_5": 0.0,
+      "file_recall_at_1": 0.0,
+      "file_recall_at_10": 0.0,
+      "file_recall_at_5": 0.0,
+      "mrr": 0.0,
+      "whole_changed_region_hit_at_1": 0.0,
+      "whole_changed_region_hit_at_10": 0.0,
+      "whole_changed_region_hit_at_5": 0.0,
+      "whole_changed_region_recall_at_1": 0.0,
+      "whole_changed_region_recall_at_10": 0.0,
+      "whole_changed_region_recall_at_5": 0.0
+    }
+  },
+  "model_calls": 0,
+  "peak_rss_bytes": 992329728,
+  "peak_rss_platform": "macOS ru_maxrss is bytes",
+  "ranking": {
+    "dense": {
+      "audit": {
+        "corpus_chunks": 1652,
+        "dense_backend": "numpy",
+        "document_encoding_metadata": [
+          {
+            "chunk_ids": [
+              "Caa28542ed326a39827243151",
+              "Cd8469f5b3e92a5916b7fec3c",
+              "Cafcf63d79d4501163c9fd54c",
+              "C89055f99f85d1b254a43fef9",
+              "C29627a23821fb504f75b71ba",
+              "C3fb7992667da1143b33d0af7",
+              "C3adf51cb2861002ccee6a6d4",
+              "C35deaa1e531e25b9bad70268",
+              "C5f3667c2c4a9e1941133a25a",
+              "C0d99d89aed8abf483c7945b7",
+              "Ce1f31a921a9400e1df9d195e",
+              "Cb1f1f77a200775a363d3fee3",
+              "C1dde38185e4c3d0a294cfd7b",
+              "C1d08481042fe3dbfd6fe0f40",
+              "C246645b27d9cf6cf08da8580",
+              "C464f1c067ca040a489b6f968"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 83,
+                  "included_character_end": 263,
+                  "input_sha256": "221c1b0614c4442afaa2985b046703b6c6706b9e542c981e9a4e494b860f7f4c",
+                  "input_tokens_with_special_and_prefix": 83,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 512,
+                  "included_character_end": 1853,
+                  "input_sha256": "aadbc05c13d85698b5c6bf7e69d379310bed33934a2510efce39bb7e82fc8000",
+                  "input_tokens_with_special_and_prefix": 671,
+                  "omitted_bytes": 576,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": true
+                },
+                {
+                  "encoded_tokens": 54,
+                  "included_character_end": 136,
+                  "input_sha256": "c375cae8b1688c7bdc95ae37360989f0f7075b903735d7ef7d796d85598cab6e",
+                  "input_tokens_with_special_and_prefix": 54,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 250,
+                  "included_character_end": 848,
+                  "input_sha256": "fd68befda364bccfa848dc4bcd7b116f0fdb749df8b1fd0d2cb6f62050aa6588",
+                  "input_tokens_with_special_and_prefix": 250,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 84,
+                  "included_character_end": 237,
+                  "input_sha256": "e234dabea145c8c70aa9ced532f59ad2eea286717f75511c349324b1684751bd",
+                  "input_tokens_with_special_and_prefix": 84,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 57,
+                  "included_character_end": 148,
+                  "input_sha256": "8673421185a510a879f859880de58b8df6883b285ff1cfd09946e574d02fb307",
+                  "input_tokens_with_special_and_prefix": 57,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 20,
+                  "included_character_end": 36,
+                  "input_sha256": "89314b037349360e8543835253aa16cf4493a5ce1a8467133ee31fb0863a7bea",
+                  "input_tokens_with_special_and_prefix": 20,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 37,
+                  "included_character_end": 89,
+                  "input_sha256": "6c5dd3a116aa5004bf24e641835ce4ecbb774ebd20d990a6d224177512c2a5ec",
+                  "input_tokens_with_special_and_prefix": 37,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 24,
+                  "included_character_end": 55,
+                  "input_sha256": "15f316719ef230def0aec202b2c2e2d133f7b734828303bc499978871aedcf75",
+                  "input_tokens_with_special_and_prefix": 24,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 123,
+                  "included_character_end": 418,
+                  "input_sha256": "87f176d6f47bd6e5990d3c76e55099f9e4274fd9e6a23893aaf615cea5fa3874",
+                  "input_tokens_with_special_and_prefix": 123,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 189,
+                  "included_character_end": 805,
+                  "input_sha256": "a598d152b6098005a88b48c904292fcb081383d86735a718f1b3b8c4f746650a",
+                  "input_tokens_with_special_and_prefix": 189,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 149,
+                  "included_character_end": 476,
+                  "input_sha256": "f4359d1fefcf9559571d0f0d7c5afe90865126fff7a5abc91d14d2a5580bc128",
+                  "input_tokens_with_special_and_prefix": 149,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 47,
+                  "included_character_end": 103,
+                  "input_sha256": "f2e8815fa06f83093222d1c0651992f5d65ee504026af9c1e83f114b3c30ef92",
+                  "input_tokens_with_special_and_prefix": 47,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 53,
+                  "included_character_end": 136,
+                  "input_sha256": "6027273499069ddd149e8990a21ac8fa979f380e020fa3a11feef4134d8ff5ba",
+                  "input_tokens_with_special_and_prefix": 53,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 42,
+                  "included_character_end": 99,
+                  "input_sha256": "5353c85562c531edd22fa0010e3c796d950479a0e0bcec640de32ebdfd11ee75",
+                  "input_tokens_with_special_and_prefix": 42,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 151,
+                  "included_character_end": 592,
+                  "input_sha256": "f0fc2287f4492b85240773878af4ef62fb653a3d30b57a670523ea15acdd74f4",
+                  "input_tokens_with_special_and_prefix": 151,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "Cf7cde9414e3c4edf9cdd2043",
+              "C8c7a61fcbacc2ea16533f8c0",
+              "C5dcbac5365c78653eb8ab1ad",
+              "C8b538e068426dbd915e28049",
+              "C8c20a19872f2c07823636d22",
+              "C8f02a8dee3245f7649d2e3ec",
+              "C8ced8beb85812577d72b8c78",
+              "C8b076f5d2ffb1070fd7bb887",
+              "Cd4f6810d005825e690ad309a",
+              "C08ec42c1e27b26fe3dbaffd8",
+              "Cd0aa76c82ca89630f48fcda8",
+              "C6316c09515668922c476aeab",
+              "C03341b9b07c53ce93fac2bf6",
+              "C12a37ae3b53e34ba61c1de3e",
+              "C3d716bb21fcef76ef495e95f",
+              "C7e9597d4d4eff1379352750c"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 127,
+                  "included_character_end": 355,
+                  "input_sha256": "579f9eb28e2f70b047b5a9a6784061d981589108fc414d9925e774cee5df18c6",
+                  "input_tokens_with_special_and_prefix": 127,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 29,
+                  "included_character_end": 59,
+                  "input_sha256": "68667759d9b3e820d26bc277ccf2c85bf7eb2215acd1aa63f8d7e65a35713bc0",
+                  "input_tokens_with_special_and_prefix": 29,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 75,
+                  "included_character_end": 153,
+                  "input_sha256": "4cead77d972dcd658fcce54b80ad008670d9fe52bbf72dc63a2792bda0b8ebc1",
+                  "input_tokens_with_special_and_prefix": 75,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 51,
+                  "included_character_end": 118,
+                  "input_sha256": "97807039188d5390e16130ebae92b9e76d0b709092952e6675741576042a5fd3",
+                  "input_tokens_with_special_and_prefix": 51,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 63,
+                  "included_character_end": 203,
+                  "input_sha256": "c5d95baf9cf2c69ae03bc6f73c169d436aa73ec7ec40290c16e963efdaac704e",
+                  "input_tokens_with_special_and_prefix": 63,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 100,
+                  "included_character_end": 337,
+                  "input_sha256": "8e5c928375125ad48c7b190b192704b0dcad1ba682dc7a8439d6190fcd6e8f0a",
+                  "input_tokens_with_special_and_prefix": 100,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 39,
+                  "included_character_end": 77,
+                  "input_sha256": "b1c1c97b3b97ea9d2adfb90789a0af3e8bac1d91866b86cfaefe64cd56ac1f02",
+                  "input_tokens_with_special_and_prefix": 39,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 34,
+                  "included_character_end": 82,
+                  "input_sha256": "dbe5c78bed443f73619f934dea28451b197e54bf7a99a502de18f954edd63dec",
+                  "input_tokens_with_special_and_prefix": 34,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 73,
+                  "included_character_end": 136,
+                  "input_sha256": "4ccaabfdf7ccf2b1243cfa2b4de7d464576dc4d56c2fcc27d5478f28ab180bb6",
+                  "input_tokens_with_special_and_prefix": 73,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 361,
+                  "included_character_end": 1354,
+                  "input_sha256": "107b0a6f7ebcfb7ef7fb8cd49660ef20a47764c4cdb10e2d81ec9a134a128197",
+                  "input_tokens_with_special_and_prefix": 361,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 103,
+                  "included_character_end": 262,
+                  "input_sha256": "19b9b4f22b82dd6033a809cd0c34ca72105b77dc25750cb6ae4743c203dfaa10",
+                  "input_tokens_with_special_and_prefix": 103,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 423,
+                  "included_character_end": 1451,
+                  "input_sha256": "7dcd9836d3c71ca235329309f9118d229d1c0f1b9399c511c1e6a2386cda0ef7",
+                  "input_tokens_with_special_and_prefix": 423,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 41,
+                  "included_character_end": 105,
+                  "input_sha256": "481d66d1b211b6611d28322411e5167cfb56e2f635391d577ed5f2772605c5f0",
+                  "input_tokens_with_special_and_prefix": 41,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 116,
+                  "included_character_end": 329,
+                  "input_sha256": "01404d34f42b3035f0d5cbdab0993a8d9bf0d964c7b4c8a8784700b9d2948edb",
+                  "input_tokens_with_special_and_prefix": 116,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 112,
+                  "included_character_end": 337,
+                  "input_sha256": "e323f8b25f01484f3a8db8021ecb7e56cf93599e776723a940739b7d16891f51",
+                  "input_tokens_with_special_and_prefix": 112,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 248,
+                  "included_character_end": 736,
+                  "input_sha256": "dcb8dc606e75a1f0c57ae517e7a72879094472fd809e0fd745b8026999bc990e",
+                  "input_tokens_with_special_and_prefix": 248,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C96a82c20476361831352c548",
+              "C751214198f9044eaea04c225",
+              "Cdce4c72592842d9945479fe0",
+              "C7489b05e635b138b8ec93cd7",
+              "Cb893b5c2a797e8f357136485",
+              "Cf0ae4ca8bbb29b4a81c329c1",
+              "C5d248851e73a12fcd37ab1f0",
+              "C3281695e50d0710a7994d7c8",
+              "Ca340c6652fa2ffcb48372e81",
+              "C2da50660b5dd20a8a1a8eca7",
+              "C9d8680de1c3f695fdbed1ccc",
+              "C2e6b58283f6d96280677c310",
+              "Ccffe9965b76bf09fa3df2d3d",
+              "C977a8e2e47c260b04969e1d4",
+              "Ca1ba8de282ee9eceeda7b94e",
+              "C9ced7ce3b91c6ffcbf8e5501"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 182,
+                  "included_character_end": 565,
+                  "input_sha256": "1a8334547a92ad56650df51c2cd636921a02a5692c95bf67d4ea20d443769364",
+                  "input_tokens_with_special_and_prefix": 182,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 123,
+                  "included_character_end": 374,
+                  "input_sha256": "a907d467e37723714e8a83e09445a98f4631c9855d49643a98dca31a98be35a5",
+                  "input_tokens_with_special_and_prefix": 123,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 299,
+                  "included_character_end": 922,
+                  "input_sha256": "d616c61508ae58199dabf3c70dd18bdc2286e2233a95e0bc9742ea1c61b26107",
+                  "input_tokens_with_special_and_prefix": 299,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 235,
+                  "included_character_end": 646,
+                  "input_sha256": "a8c8ddd084ef57a000cfc69cbd412c0af4d2e77b9d6168251815658f26de33e0",
+                  "input_tokens_with_special_and_prefix": 235,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 140,
+                  "included_character_end": 406,
+                  "input_sha256": "94904a6b23771bf992332caf1382b8faf389a48d6599ca82fa0dbdb6c630a5bc",
+                  "input_tokens_with_special_and_prefix": 140,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 421,
+                  "included_character_end": 1365,
+                  "input_sha256": "54c43569907d9244e24c9f6732355e71d1956d3b4ae2a9ba189770c783739fe7",
+                  "input_tokens_with_special_and_prefix": 421,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 365,
+                  "included_character_end": 1226,
+                  "input_sha256": "9f50c82a3610d1ce75be69ad76f0dffac1654267780f4e072c1375bc2895624b",
+                  "input_tokens_with_special_and_prefix": 365,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 248,
+                  "included_character_end": 805,
+                  "input_sha256": "cff7854e3234c630778260a42a853e05dc30e220775bc9d17e65951b415a9a2c",
+                  "input_tokens_with_special_and_prefix": 248,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 200,
+                  "included_character_end": 800,
+                  "input_sha256": "e91651a41ee7a2ede233b0c6aff59119ace179bae2f99c72f098bc224c3f89e6",
+                  "input_tokens_with_special_and_prefix": 200,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 77,
+                  "included_character_end": 200,
+                  "input_sha256": "1a38d686e0e33762a16718cd589d8db3351aec8c9ba74e55c4e1053fd51473e5",
+                  "input_tokens_with_special_and_prefix": 77,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 80,
+                  "included_character_end": 209,
+                  "input_sha256": "dff46069b56253a47bb550b71131e12f31a6ed8e87853c43a33399e0b58fd76a",
+                  "input_tokens_with_special_and_prefix": 80,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 195,
+                  "included_character_end": 704,
+                  "input_sha256": "6f2c7c57999059c4d7dcc6746bfe08bfe3e988f56f16675456e1d3ff0e753f28",
+                  "input_tokens_with_special_and_prefix": 195,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 36,
+                  "included_character_end": 98,
+                  "input_sha256": "9006f1d01ffa871b145b00cdb7810f0d7eab2438e1cec6b04570326e964f815b",
+                  "input_tokens_with_special_and_prefix": 36,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 344,
+                  "included_character_end": 1317,
+                  "input_sha256": "40813e922b18fc243b7ce2ba6c4a999ba99daaaab9b2780a35672126daa8db20",
+                  "input_tokens_with_special_and_prefix": 344,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 127,
+                  "included_character_end": 357,
+                  "input_sha256": "8cd57a8365348be69035bb7cd12f7daf0d3b3e36353098449689ef2621a32bfc",
+                  "input_tokens_with_special_and_prefix": 127,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 262,
+                  "included_character_end": 919,
+                  "input_sha256": "a2ca339eaa9d9f536fa8ea7955582541d8553e406bf9e790960c823f9a6efb76",
+                  "input_tokens_with_special_and_prefix": 262,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "Cacb4580b92e6ba83c5898e42",
+              "C90411b2197af1b83d7cb1743",
+              "C9ef4f81e36108284524b8402",
+              "C9e3c74669d54c57618ee5c5f",
+              "C4b9d7febdf31a04136a8e008",
+              "Ca4967036ef01067c4b2c5ede",
+              "C7ebd3624aeda74cdd5efd25d",
+              "C145cad23f3531ff03dc05117",
+              "C0802ff5afc773d0226589413",
+              "C0d212bb7c333a06905b3f0cb",
+              "Ce1deab3ca661626a6840ec6f",
+              "C11a4c79b8c1df01e26e4aa28",
+              "Ce539b93b1608e89b9976eb4b",
+              "Cfee91e43d6a2642be304c369",
+              "Ca39bdcc46320faba6271f477",
+              "C0750d96d47149e49abbec0ba"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 501,
+                  "included_character_end": 1704,
+                  "input_sha256": "be17eaea12c9f666ce99b3aa9ea01eb4875d1c54cf6bdbd1ef9109e40882bbb4",
+                  "input_tokens_with_special_and_prefix": 501,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 493,
+                  "included_character_end": 1874,
+                  "input_sha256": "dd35a78e5211659778f70353d791cce9643f01f10bd2111a50ee346ea61bdb2c",
+                  "input_tokens_with_special_and_prefix": 493,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 51,
+                  "included_character_end": 111,
+                  "input_sha256": "b346898d393d3e1e0c42cb3734eb84bff9894b050da2c3278441e2b67f9dca36",
+                  "input_tokens_with_special_and_prefix": 51,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 118,
+                  "included_character_end": 407,
+                  "input_sha256": "e57861157cf92d8c2871f126522556441c4ebd3d878e770780a678b006a23c9b",
+                  "input_tokens_with_special_and_prefix": 118,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 37,
+                  "included_character_end": 106,
+                  "input_sha256": "c2d030d2c489f897d0400b804c8e7d41ced854bb784d56b5ab4d1373df9dc267",
+                  "input_tokens_with_special_and_prefix": 37,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 199,
+                  "included_character_end": 703,
+                  "input_sha256": "6740c8947649a1333a5d1e22a3db3a970408777c3a7f137bfab405446ddb3bfe",
+                  "input_tokens_with_special_and_prefix": 199,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 169,
+                  "included_character_end": 559,
+                  "input_sha256": "910a4ebf42a2c57ccebca2425acdc7bad386cef9d0efbed607f62e6920afcabf",
+                  "input_tokens_with_special_and_prefix": 169,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 341,
+                  "included_character_end": 939,
+                  "input_sha256": "3ea10b7cb9ccf5d14e520bd3824ee663f92f15921e1e6d1490e43d7faa734d0c",
+                  "input_tokens_with_special_and_prefix": 341,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 164,
+                  "included_character_end": 529,
+                  "input_sha256": "342797f9cd4fd8948d793d4162eeb9d8a701b8a26b0b3d9a73b91c100f27ed53",
+                  "input_tokens_with_special_and_prefix": 164,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 21,
+                  "included_character_end": 41,
+                  "input_sha256": "6600ab538d40b39fa120ab17962713de44112ff870c1fb9d25b0eed562de7193",
+                  "input_tokens_with_special_and_prefix": 21,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 73,
+                  "included_character_end": 178,
+                  "input_sha256": "573e8dc68bc77403396ace0d13f2a0e8deb8414e7a030468813f9d0b61d43683",
+                  "input_tokens_with_special_and_prefix": 73,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 82,
+                  "included_character_end": 203,
+                  "input_sha256": "789e530bc71cab8ba55dff2766abde06188299787e5c04a6da7bf234df1670d4",
+                  "input_tokens_with_special_and_prefix": 82,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 119,
+                  "included_character_end": 373,
+                  "input_sha256": "edafa5bac1d8b2de5161ed920cc709f9f0a1c2d4988f08a5deed612698d97e54",
+                  "input_tokens_with_special_and_prefix": 119,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 58,
+                  "included_character_end": 163,
+                  "input_sha256": "507732796a7a5408a387a8c47c6454ec75c36213f38d3c1aff6d21e924905789",
+                  "input_tokens_with_special_and_prefix": 58,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 31,
+                  "included_character_end": 106,
+                  "input_sha256": "90159b31c070ef642f7c3b13ec2906ddd3222a7242276b32b4eee07bde9aeafb",
+                  "input_tokens_with_special_and_prefix": 31,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 278,
+                  "included_character_end": 862,
+                  "input_sha256": "16be5fad864b377460e1ed6db49ae4284e77d79ce2f1bc159b256e40b3a28940",
+                  "input_tokens_with_special_and_prefix": 278,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C872e1ec1fa783d36575830d7",
+              "C0aea8c71f83e5513f53ff6d8",
+              "C01eae01d6d7c6bb90c816454",
+              "C5380c06dd39fbccb3b98282a",
+              "C05a3d8ce8225a7479b5a103f",
+              "C18b2283733559eae3b787532",
+              "C7c0e09e938193618a2ca34a9",
+              "C09a369f8976b104c7d31afc8",
+              "C09e4fbf87677fea900bbddf3",
+              "Cb3b85d8f2eea448fcdf18c0c",
+              "C5d78c394328dc6b1ae5823ed",
+              "C26f7ee683434965ec95fc5ef",
+              "C89e76a6f89a3dbed29101388",
+              "Cefb83d0cccd9e30ca17ff520",
+              "C2978a618eab68feb420f411e",
+              "C79fa54d6cbae6387dc2b34d9"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 227,
+                  "included_character_end": 706,
+                  "input_sha256": "6346824f6bb1fd851459edc4ed509608b19b8511e66cbbdf27c9cb8dabc2c068",
+                  "input_tokens_with_special_and_prefix": 227,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 129,
+                  "included_character_end": 427,
+                  "input_sha256": "ed830542d3658421db8696f09e4b294e76d6087eb3c1758a968f9b63f246330b",
+                  "input_tokens_with_special_and_prefix": 129,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 378,
+                  "included_character_end": 1686,
+                  "input_sha256": "f51e47a02aedac5fe926110079f2560f6021dde17d7c42f82eca7fc25f8c034b",
+                  "input_tokens_with_special_and_prefix": 378,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 141,
+                  "included_character_end": 510,
+                  "input_sha256": "8a063c5bd73e3cebb69883667c357cb1efb3ccdde48a77e50d86ce10e37c95d0",
+                  "input_tokens_with_special_and_prefix": 141,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 154,
+                  "included_character_end": 562,
+                  "input_sha256": "9f31932e8143c0d469915baf957f05f3d02084aaddaa608a62ca1feaea704e4f",
+                  "input_tokens_with_special_and_prefix": 154,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 240,
+                  "included_character_end": 752,
+                  "input_sha256": "111ef6b6203ce4fdb452cc2dc1fb23d1e7440d7a259c2937eb443c393d598d6d",
+                  "input_tokens_with_special_and_prefix": 240,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 423,
+                  "included_character_end": 1600,
+                  "input_sha256": "b662448249f82c4433525903dd21c253d45a9848e9e3f06d1596cb0cd01f3859",
+                  "input_tokens_with_special_and_prefix": 423,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 202,
+                  "included_character_end": 557,
+                  "input_sha256": "4ecdfa246599f9fa3f5f1683cd60cda6262a9f38e1713f5304283c1aaa40112f",
+                  "input_tokens_with_special_and_prefix": 202,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 65,
+                  "included_character_end": 152,
+                  "input_sha256": "f99ba07941f975a311f9fc0f94121f50ebe8d01d47d3a194d2d5a603b0d5ba32",
+                  "input_tokens_with_special_and_prefix": 65,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 242,
+                  "included_character_end": 774,
+                  "input_sha256": "d6979afefb42cdb1dceb2026c237964121061f55867dc306c1de103418bb0db2",
+                  "input_tokens_with_special_and_prefix": 242,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 139,
+                  "included_character_end": 450,
+                  "input_sha256": "315c028561f8b175b6aceb070ca1b72550dce3180d52f00bdde5dd160a190222",
+                  "input_tokens_with_special_and_prefix": 139,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 77,
+                  "included_character_end": 183,
+                  "input_sha256": "94f2a7e7921872a8d80b2470d9f13967da0cdd196942987529e4f12bfd42d1f0",
+                  "input_tokens_with_special_and_prefix": 77,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 179,
+                  "included_character_end": 486,
+                  "input_sha256": "56f371d0b09c576c1f814835e003812eb01f8c946342790d4ef61443ba84e7f5",
+                  "input_tokens_with_special_and_prefix": 179,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 76,
+                  "included_character_end": 144,
+                  "input_sha256": "5f74ca85d735391adfdc2155c709d12dd9602da6a47e131fd4dd06a47cd75a5b",
+                  "input_tokens_with_special_and_prefix": 76,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 40,
+                  "included_character_end": 148,
+                  "input_sha256": "c543b57143ef67f9187f010bf1eb42963fcc252c334f79bc1d7e708642f81493",
+                  "input_tokens_with_special_and_prefix": 40,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 146,
+                  "included_character_end": 379,
+                  "input_sha256": "072b2d8caf9361733dc755040d9de7856e9def3b145893a930118747f8a58d66",
+                  "input_tokens_with_special_and_prefix": 146,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C58651e66922dadfab2058699",
+              "C38150b117cda9c48f74068ee",
+              "Cdf62cb52176c6d287340c72b",
+              "Cedec98b23b17c70228aade6c",
+              "Cfd44f41d22f80a4f67043141",
+              "C9761069a67fad0f3f1cac4ab",
+              "C3aade68bb394daeb49278ba0",
+              "C0b06083bbf2e2705455e60df",
+              "C90b5e0748a4dce2ad70a685f",
+              "C6cba2149f77ba3052d2e91e3",
+              "C3e3fba74fdaf840f2280dd61",
+              "C8de62e4f80ec40d249a2af78",
+              "C04963db623bac002fff0c7c2",
+              "Ceeac388c5e946be75634aa9c",
+              "Cbcc39da412595befbdddb580",
+              "C0c022b4c12eb2f84eb870cfc"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 83,
+                  "included_character_end": 277,
+                  "input_sha256": "c66b15d8531dde9961d1b18f75cf23cbd263502a441fd248d64784495057dc1d",
+                  "input_tokens_with_special_and_prefix": 83,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 355,
+                  "included_character_end": 1028,
+                  "input_sha256": "bac2c594618f94042345747b08c77b54ee6f15d0e53011e25e032de8a2eb7328",
+                  "input_tokens_with_special_and_prefix": 355,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 30,
+                  "included_character_end": 65,
+                  "input_sha256": "6f5f700a740b5330c27a5d8bca2830922ea318188548252d88d62997630989e1",
+                  "input_tokens_with_special_and_prefix": 30,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 84,
+                  "included_character_end": 272,
+                  "input_sha256": "2a845c38ae1d7deab8c31f9d04f82887b310e512d67452d2dcb4ff21a42f9759",
+                  "input_tokens_with_special_and_prefix": 84,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 22,
+                  "included_character_end": 43,
+                  "input_sha256": "733dd89a1bedb9c2b0bdf566b477a1215e18790362b91a643a2fea49cd6bb4ab",
+                  "input_tokens_with_special_and_prefix": 22,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 45,
+                  "included_character_end": 106,
+                  "input_sha256": "25f14d068c35cc372a555df9a99955e47d0e8a29a455acb32562a2ffb8c34a13",
+                  "input_tokens_with_special_and_prefix": 45,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 78,
+                  "included_character_end": 225,
+                  "input_sha256": "453245eab103198abbb57465d45f78d4c48824a93b57e878c251cf9dcb502fc7",
+                  "input_tokens_with_special_and_prefix": 78,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 70,
+                  "included_character_end": 195,
+                  "input_sha256": "308c47d19b15f6893be253494345b6cf10415a78bb2f47ea9caaef709a73d1b6",
+                  "input_tokens_with_special_and_prefix": 70,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 22,
+                  "included_character_end": 44,
+                  "input_sha256": "5e983a6ac7a8bce5ce6b5a9c774b3b565bf924b859f5acd2f419750d4949d189",
+                  "input_tokens_with_special_and_prefix": 22,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 65,
+                  "included_character_end": 144,
+                  "input_sha256": "7e094b6ebdc502c47322fa8476e64a63412efabad27057d4fca851555d18744f",
+                  "input_tokens_with_special_and_prefix": 65,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 91,
+                  "included_character_end": 188,
+                  "input_sha256": "a8154d94fa12f00161be1b47079b6e69d2e333695c9b5fa1d7d15121f3c13b24",
+                  "input_tokens_with_special_and_prefix": 91,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 61,
+                  "included_character_end": 226,
+                  "input_sha256": "252830af90df646e28373e4fc4891e377c3fcf17e77e5bcff1dece90348b4b6d",
+                  "input_tokens_with_special_and_prefix": 61,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 143,
+                  "included_character_end": 426,
+                  "input_sha256": "a9f158d9d86c301eba8a4ca3db6840ce2c05096868be13009707b6bab0c3313c",
+                  "input_tokens_with_special_and_prefix": 143,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 67,
+                  "included_character_end": 164,
+                  "input_sha256": "3b55f4d2afd1ebd83b715345fa076db41fb4df13e25d2e886fd7d4b6a4ebd617",
+                  "input_tokens_with_special_and_prefix": 67,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 49,
+                  "included_character_end": 127,
+                  "input_sha256": "38f8875274347df4f0d95d852fcfef73d4987f25068d0806c38b35476ff2be34",
+                  "input_tokens_with_special_and_prefix": 49,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 40,
+                  "included_character_end": 115,
+                  "input_sha256": "2892a54c417f03eb31075dedd95a721b409f1f9eb8873e496660a770bd76d675",
+                  "input_tokens_with_special_and_prefix": 40,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C25e377bb0cb2aeed86f44896",
+              "C2cd499e63bf88da2c3bc3211",
+              "Cd35777195fd7976db8389a60",
+              "C3533e0e21f4a68d892c3c123",
+              "C2ccd352f3156dfdbc6185c89",
+              "Cdc2b1234833d7494768d8207",
+              "C82e9962b916fad0a050f7446",
+              "Ca531051167f88ed5a4536f9b",
+              "Cb72f94c35df4c17d62dfeab4",
+              "C0092d439416bb854c5269ba3",
+              "C1aa42ffcba41a2545bf51d18",
+              "C65a3dccdc1d374fb379ba11b",
+              "Cf970ae950fadd77f442e247e",
+              "C2bd85674d6dc36ba93b4de07",
+              "Cd1894d317a4345b2a0f83f33",
+              "Cc131b842ed657f9b168dc1ff"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 235,
+                  "included_character_end": 824,
+                  "input_sha256": "f786b65e18ecf4de6eb4000adaafe498bf90efcc6e0584a2793ebecbf754a99b",
+                  "input_tokens_with_special_and_prefix": 235,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 467,
+                  "included_character_end": 1338,
+                  "input_sha256": "2dba918bca10c8de1f9436dc0982a5e1c77198c1db58f90c6a9e2bd6c8a4d196",
+                  "input_tokens_with_special_and_prefix": 467,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 59,
+                  "included_character_end": 116,
+                  "input_sha256": "1a7fd969d9ac7a031cd1a1a7e3a903c5e856b6029df1bfcd697e8194c5f4ac7d",
+                  "input_tokens_with_special_and_prefix": 59,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 48,
+                  "included_character_end": 94,
+                  "input_sha256": "3bc2810dd0977acb5e509a717be6866d486f4e260683aa18f5523c81be254986",
+                  "input_tokens_with_special_and_prefix": 48,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 126,
+                  "included_character_end": 492,
+                  "input_sha256": "62d51c6dc95a21cadfe8509c512cf24cc1181637f11f37f619fb3df36c6dcbf3",
+                  "input_tokens_with_special_and_prefix": 126,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 120,
+                  "included_character_end": 427,
+                  "input_sha256": "98dcba8ef15394b03e9739d8e6d5ddb39d3c9c808eb166041ee98b3fb67cc45f",
+                  "input_tokens_with_special_and_prefix": 120,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 54,
+                  "included_character_end": 153,
+                  "input_sha256": "ba7e8071945d3a46c558cb8da9b73f90acebf6d2b2d5031ebfc8e2f2fdfeccef",
+                  "input_tokens_with_special_and_prefix": 54,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 112,
+                  "included_character_end": 321,
+                  "input_sha256": "b1590f025f37944dc70b4ab36c299525fd833b752da1a07da3d16d7a878eae8a",
+                  "input_tokens_with_special_and_prefix": 112,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 63,
+                  "included_character_end": 199,
+                  "input_sha256": "030bbd3df04eb8c2e4b355b089cd7e83d61bdc19bef89c6626486fd5ea6750d9",
+                  "input_tokens_with_special_and_prefix": 63,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 255,
+                  "included_character_end": 803,
+                  "input_sha256": "1899a36e7e9bd16280837be61d659a05cb8b366b11511b1ba439aee29313ee21",
+                  "input_tokens_with_special_and_prefix": 255,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 59,
+                  "included_character_end": 147,
+                  "input_sha256": "41e521646b32f805c9b88f937300060c0c0977255f694648a23fc403c96ddfd5",
+                  "input_tokens_with_special_and_prefix": 59,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 265,
+                  "included_character_end": 851,
+                  "input_sha256": "e99a5420861a6aa45db5c07cf04580a5d0560063f13e1bb992ca9bf3bb671cfa",
+                  "input_tokens_with_special_and_prefix": 265,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 69,
+                  "included_character_end": 193,
+                  "input_sha256": "71c7099a62f453ee8971c66240b1bc4dd176c38bc8843906dee6a3d1f089e784",
+                  "input_tokens_with_special_and_prefix": 69,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 70,
+                  "included_character_end": 181,
+                  "input_sha256": "bdb3bc5d2710b1d7c74f0fc7f1c8acb2ad97efe9652f03ca78df453d79fc23fc",
+                  "input_tokens_with_special_and_prefix": 70,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 93,
+                  "included_character_end": 228,
+                  "input_sha256": "f9d0920cb90d7c10274ac1e17aa9795219e86058cd74c3b350031e748b018856",
+                  "input_tokens_with_special_and_prefix": 93,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 86,
+                  "included_character_end": 197,
+                  "input_sha256": "d970c91ed9f5dc7ceea97e9e1562b24b9db63cf54897f7a71d77aff83019623c",
+                  "input_tokens_with_special_and_prefix": 86,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C4c403d2ff89559244f8f2772",
+              "C2142d5cff0ec528ced9c679e",
+              "C1381be02b6f526f6fb855bac",
+              "Cf09f821c784472ba0871c60d",
+              "Ce45e6a993ffccbec88d54869",
+              "C5ead3175c3f5880b8997db19",
+              "Cb58e2336384819bcb8720082",
+              "C4e11cebfe709c61fbeeb4b3f",
+              "C6fd01198e5c41ce7ccfbb57c",
+              "C7daa2d1dcc06832ddbc24b8f",
+              "Cc89d4fc7d153c3f7eb5158b2",
+              "Cc0b5b4c0a5ec3a7ded611801",
+              "Cb6f416403f85ce1034b21e60",
+              "Ce0d473e873244616e5533b30",
+              "C9b5e3f116294ba6c9e2157b0",
+              "C08805697eafc7babd60fc654"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 487,
+                  "included_character_end": 1782,
+                  "input_sha256": "c7dd79f629a6fd15afda2411eb7999e049e2290b3f2515693bd25f7c44ac29c1",
+                  "input_tokens_with_special_and_prefix": 487,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 41,
+                  "included_character_end": 117,
+                  "input_sha256": "7a559d1780f538d2aa7e0547e49eccc047b59fb62b25be5d231a7c4efc55a303",
+                  "input_tokens_with_special_and_prefix": 41,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 127,
+                  "included_character_end": 341,
+                  "input_sha256": "91f867fa55e538598ab0893519e62146a7c60cccad49a318d4e44d04c39ccdd0",
+                  "input_tokens_with_special_and_prefix": 127,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 40,
+                  "included_character_end": 99,
+                  "input_sha256": "85b9f602c154bc167886acd76b72ba478fcf8ebb13debb117223dde6955b4ab6",
+                  "input_tokens_with_special_and_prefix": 40,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 73,
+                  "included_character_end": 240,
+                  "input_sha256": "b0be36d19e3ddc8ab98d937ffcab43b68982fdccd5b7d075c95a22f5d088bb83",
+                  "input_tokens_with_special_and_prefix": 73,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 308,
+                  "included_character_end": 1165,
+                  "input_sha256": "341cee6a2957844c571e9935224a2598eba30f700498773cf0b21ee616fefa36",
+                  "input_tokens_with_special_and_prefix": 308,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 118,
+                  "included_character_end": 445,
+                  "input_sha256": "5d123ea60cef30ee7d3b25590611b2a8344fbf0dcb7457d4a3bf56a6e32fb363",
+                  "input_tokens_with_special_and_prefix": 118,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 325,
+                  "included_character_end": 1366,
+                  "input_sha256": "50c6f5b31701c1fd331f83064511d3b64b8f545576195534d90b9ac94fc30ce0",
+                  "input_tokens_with_special_and_prefix": 325,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 150,
+                  "included_character_end": 676,
+                  "input_sha256": "e4f4bfaa16f18e904caaa78e840474d926bff72700c80d8b8bada3409cbac387",
+                  "input_tokens_with_special_and_prefix": 150,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 512,
+                  "included_character_end": 1942,
+                  "input_sha256": "83388a17db3bd55c5cb6c1715d57e290bc4f5e3adcdd5989188a39221c6fc4eb",
+                  "input_tokens_with_special_and_prefix": 597,
+                  "omitted_bytes": 324,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": true
+                },
+                {
+                  "encoded_tokens": 20,
+                  "included_character_end": 47,
+                  "input_sha256": "dc4012bd2ea58bde6eafba1bcc70e6145e8033b33edee2e8eb92e7447119a7f9",
+                  "input_tokens_with_special_and_prefix": 20,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 148,
+                  "included_character_end": 449,
+                  "input_sha256": "007659b5d0da3736db2082752623081eb58a2c9e2bcfea7dd4a6c33a588bb56a",
+                  "input_tokens_with_special_and_prefix": 148,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 193,
+                  "included_character_end": 701,
+                  "input_sha256": "9fdce8b39baa1cca6d66a4d6391d1ab3327765447d1ccf820502e8613985a67f",
+                  "input_tokens_with_special_and_prefix": 193,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 168,
+                  "included_character_end": 533,
+                  "input_sha256": "bf05b17a2d862c94a800b6e414ce40c1336ca141f8759ed8b5bdd05a7dae3d75",
+                  "input_tokens_with_special_and_prefix": 168,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 191,
+                  "included_character_end": 635,
+                  "input_sha256": "93bdded073863244f6a32ebb6557e9bbee30cb887cc9124cae2b741d6049c739",
+                  "input_tokens_with_special_and_prefix": 191,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 289,
+                  "included_character_end": 955,
+                  "input_sha256": "11ee6b58ba7708c31875ed2c9ef088deca11d81a04f8ad9268611c61f3212db8",
+                  "input_tokens_with_special_and_prefix": 289,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "Cb942456c51436ffe7ca21f8d",
+              "C4aff9c31b3d27fbde8f6c46f",
+              "Ccea4d7bf5704aa727fbc679a",
+              "C7882d8598728154c8016b79c",
+              "Cd08158df6faaaf69b28bd160",
+              "Cf78b2425190ab101f24e9cc1",
+              "Ca044865bef2e3098a2b06fe7",
+              "Ccb313e8d06497c834dae3bd3",
+              "Cc6ce6623a6ca70b6cafe4af6",
+              "Cfb009fd81816ce82f9300fb1",
+              "Ca1bc8db3cc3112340dec392e",
+              "Cbceb0591c3106b5f5feed603",
+              "C3d242f11aa6d9e68d61a735c",
+              "Cd3a780eb7b9c311e702a00cf",
+              "C6b6510ca44ff91b3de977abc",
+              "Cc5eee63db20189586f046ef3"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 42,
+                  "included_character_end": 122,
+                  "input_sha256": "cf4f0b4d94015fa40572a0462b9ad4642aa41fdc24f62ec270631c275c421336",
+                  "input_tokens_with_special_and_prefix": 42,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 370,
+                  "included_character_end": 1245,
+                  "input_sha256": "f03ee8d04911b4714c52093a332ac8a07f01cb9ff0d46c8488c9dc60df8591fa",
+                  "input_tokens_with_special_and_prefix": 370,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 122,
+                  "included_character_end": 383,
+                  "input_sha256": "501cf1389bbe62b912fb941a680b44753253395794225ce01048d8573250ec1f",
+                  "input_tokens_with_special_and_prefix": 122,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 131,
+                  "included_character_end": 436,
+                  "input_sha256": "b4e51771c5d2714596c02a87c459d75bbe28e4b78ece5360ee93014fc95fff3f",
+                  "input_tokens_with_special_and_prefix": 131,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 35,
+                  "included_character_end": 90,
+                  "input_sha256": "ce033778260b1d58986887b0841f55136b4ad17d6d7297860adb4893093b0ddf",
+                  "input_tokens_with_special_and_prefix": 35,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 243,
+                  "included_character_end": 942,
+                  "input_sha256": "fba8152b574f54f6021e05850ac1851ab6b229b2ccdc9873e1b4bb980471c0a0",
+                  "input_tokens_with_special_and_prefix": 243,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 309,
+                  "included_character_end": 1115,
+                  "input_sha256": "cf9ee323c508f42112d9fd857ed537ae0acc37f2a8ef8e3d4f988d43f56e3a7b",
+                  "input_tokens_with_special_and_prefix": 309,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 143,
+                  "included_character_end": 498,
+                  "input_sha256": "fd568e638159c477c7e883c04d4315a782a54845059f3b11320278f8ce6d56b2",
+                  "input_tokens_with_special_and_prefix": 143,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 315,
+                  "included_character_end": 1194,
+                  "input_sha256": "014f067886d0eb7b58caf6c2ff3ce9cb0aa8f65035aa5b4309e186c3fcd4a13c",
+                  "input_tokens_with_special_and_prefix": 315,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 149,
+                  "included_character_end": 564,
+                  "input_sha256": "3ed252f8158db2013f3a91df7ca4ebc4ea72424d1da61194bfdb03a0667b5bfe",
+                  "input_tokens_with_special_and_prefix": 149,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 65,
+                  "included_character_end": 280,
+                  "input_sha256": "e226f928d258663e4cf86a75338c566e914f4e1351a405eb3b33300f750ca216",
+                  "input_tokens_with_special_and_prefix": 65,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 38,
+                  "included_character_end": 94,
+                  "input_sha256": "f873465885273e915b858e933bb342abe5e97773a40f14612a04cdc9ac9ab6dc",
+                  "input_tokens_with_special_and_prefix": 38,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 47,
+                  "included_character_end": 152,
+                  "input_sha256": "4e66496119c234fffe58eeb135bc2692e4f9148f857f86e36912376f5f35fd15",
+                  "input_tokens_with_special_and_prefix": 47,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 45,
+                  "included_character_end": 127,
+                  "input_sha256": "18eb62a690f3d1f808b02ba77c78b02a5631e66f4fc030931d30afc7a683179c",
+                  "input_tokens_with_special_and_prefix": 45,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 44,
+                  "included_character_end": 126,
+                  "input_sha256": "ce322ee9df0d4b11c4aa392b31b1b81fad7e964bdbaebaeae7fd629066e51f57",
+                  "input_tokens_with_special_and_prefix": 44,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 72,
+                  "included_character_end": 238,
+                  "input_sha256": "74996d06f924908c94ebd8383e11b8494aad80ca9381415e70f768b4e3efe2fe",
+                  "input_tokens_with_special_and_prefix": 72,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          }
+        ],
+        "encoder_identity": {
+          "conversion": "FP16 storage, expanded to FP32 for CPU inference; evaluated as this explicit derived profile",
+          "dimension": 768,
+          "files": {
+            "1_Pooling/config.json": {
+              "bytes": 296,
+              "sha256": "d02ebf56344d20f773449b15d0c10ee9a86a9178f3b3c9bfecb8b87d4350ce38"
+            },
+            "README.md": {
+              "bytes": 3096,
+              "sha256": "69a6d76a2b533dd0f293b5d1b33a5b433201af38cf48c887b8ec795b641849a0"
+            },
+            "config.json": {
+              "bytes": 1525,
+              "sha256": "5ff856a41d0f53ef2d74520627d464bd75c2efd8f26f381bd528654895c29b6c"
+            },
+            "configuration_hf_nomic_bert.py": {
+              "bytes": 1955,
+              "sha256": "8632792e922e62ab1a6feaab15baf406e223c0547a21de23ab4f520b2b36d674"
+            },
+            "model.fp16.safetensors": {
+              "bytes": 273475064,
+              "sha256": "fb7a004a7098dbbaebfb85b207f8400a1da8b0e98cf9d769c458a1edbb3458a5"
+            },
+            "modeling_hf_nomic_bert.py": {
+              "bytes": 52571,
+              "sha256": "502ccfb9c2d5dac976109ac2f04dc3125d8540329e5d4af92bc587d6dc65edcd"
+            },
+            "special_tokens_map.json": {
+              "bytes": 695,
+              "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+            },
+            "tokenizer.json": {
+              "bytes": 711649,
+              "sha256": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854"
+            },
+            "tokenizer_config.json": {
+              "bytes": 1417,
+              "sha256": "7809f768ee3614618b3f1b91dcbfab4f6a9d4b79fb1ad5d17feb65a7c1bb5b7a"
+            },
+            "vocab.txt": {
+              "bytes": 231508,
+              "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+            }
+          },
+          "inference_dtype": "float32",
+          "max_tokens": 512,
+          "model": "nomic-ai/CodeRankEmbed",
+          "original_weights": {
+            "bytes": 546938168,
+            "sha256": "827529bcd58aef0d9082e66eeff7e7d53a02f62bd005f841a26b3d3e2fb17ebe"
+          },
+          "pooling": "cls",
+          "query_prefix": "Represent this query for searching relevant code: ",
+          "revision": "3c4b60807d71f79b43f3c4363786d9493691f8b1",
+          "runtime": {
+            "attention": "reviewed non-fused implementation",
+            "batch_size": 2,
+            "device": "cpu",
+            "normalization": "L2",
+            "threads": 2,
+            "torch": "2.10.0"
+          },
+          "storage_dtype": "float16",
+          "version": "coderank-encoder011-v1"
+        },
+        "index_id": "3bc720acfa21fa85241d6465784d4f5a9070ae651a0ced0a04ad819f551f8618",
+        "mode": "dense",
+        "omissions": [
+          {
+            "count": 1642,
+            "reason": "Lower-ranked chunks outside requested retrieval limit"
+          }
+        ],
+        "query_bytes": 2773,
+        "query_encoding_metadata": {
+          "metadata": {
+            "inputs": [
+              {
+                "encoded_tokens": 512,
+                "included_character_end": 1107,
+                "input_sha256": "ca576fd3db872eac6366a70f11be67886795dbb95d5719f2f9e8ff617c698371",
+                "input_tokens_with_special_and_prefix": 1446,
+                "omitted_bytes": 1642,
+                "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                "truncated": true
+              }
+            ],
+            "max_tokens": 512,
+            "query_prefix_applied": true
+          },
+          "method": "encode_queries"
+        },
+        "query_sha256": "ca576fd3db872eac6366a70f11be67886795dbb95d5719f2f9e8ff617c698371",
+        "ranking": [
+          {
+            "chunk_id": "Caa28542ed326a39827243151",
+            "dense_cosine": 0.4346366822719574,
+            "dense_rank": 1,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.4346366822719574
+          },
+          {
+            "chunk_id": "C09e4fbf87677fea900bbddf3",
+            "dense_cosine": 0.4198375940322876,
+            "dense_rank": 2,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.4198375940322876
+          },
+          {
+            "chunk_id": "C08ec42c1e27b26fe3dbaffd8",
+            "dense_cosine": 0.40178629755973816,
+            "dense_rank": 3,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.40178629755973816
+          },
+          {
+            "chunk_id": "Cdf62cb52176c6d287340c72b",
+            "dense_cosine": 0.3988511264324188,
+            "dense_rank": 4,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.3988511264324188
+          },
+          {
+            "chunk_id": "C4aff9c31b3d27fbde8f6c46f",
+            "dense_cosine": 0.39728662371635437,
+            "dense_rank": 5,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.39728662371635437
+          },
+          {
+            "chunk_id": "C0750d96d47149e49abbec0ba",
+            "dense_cosine": 0.3939250707626343,
+            "dense_rank": 6,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.3939250707626343
+          },
+          {
+            "chunk_id": "C2cd499e63bf88da2c3bc3211",
+            "dense_cosine": 0.39138031005859375,
+            "dense_rank": 7,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.39138031005859375
+          },
+          {
+            "chunk_id": "C1381be02b6f526f6fb855bac",
+            "dense_cosine": 0.38184571266174316,
+            "dense_rank": 8,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.38184571266174316
+          },
+          {
+            "chunk_id": "Ca1ba8de282ee9eceeda7b94e",
+            "dense_cosine": 0.3762131929397583,
+            "dense_rank": 9,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.3762131929397583
+          },
+          {
+            "chunk_id": "Cacb4580b92e6ba83c5898e42",
+            "dense_cosine": 0.3726518750190735,
+            "dense_rank": 10,
+            "lexical_rank": null,
+            "lexical_score": null,
+            "score": 0.3726518750190735
+          }
+        ],
+        "requested": 10,
+        "returned": 10,
+        "revision": "e856638ba086fcf5bebf1bebea32d5cf78de87b4",
+        "rrf_k": null,
+        "scope": "Issue query and original source only; no reference repairs, evaluation labels or entry-file hints",
+        "source_omissions": {
+          "count": 0,
+          "location": "content-addressed index.json/omissions",
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "source_snapshot_digest": "d69cfddab93f00162a74a846a2c3b1d29ad4ee225f3623155ad8d5961aa0c6d5",
+        "version": "original-source-retrieval011-v1"
+      },
+      "instance_id": "pytest-dev__pytest-6197",
+      "regions": [
+        {
+          "end_line": 8,
+          "id": "Caa28542ed326a39827243151",
+          "path": "src/_pytest/__init__.py",
+          "start_line": 1,
+          "symbol": "",
+          "text_sha256": "e857f9bfff4264aa72d65f3b013e5c20739f300f64753b73865d86dd08d80bd4"
+        },
+        {
+          "end_line": 97,
+          "id": "C09e4fbf87677fea900bbddf3",
+          "path": "src/_pytest/mark/__init__.py",
+          "start_line": 92,
+          "symbol": "",
+          "text_sha256": "e37c0e57cddfd1d62f6ab5ec57b28fa558b9320a3aacf26f65c74bc3185632da"
+        },
+        {
+          "end_line": 52,
+          "id": "C08ec42c1e27b26fe3dbaffd8",
+          "path": "src/_pytest/config/__init__.py",
+          "start_line": 1,
+          "symbol": "",
+          "text_sha256": "92a7338e5bc7bc0b4bc833973770116639b01b6ca414a9ceec34e330b1186755"
+        },
+        {
+          "end_line": 142,
+          "id": "Cdf62cb52176c6d287340c72b",
+          "path": "src/_pytest/pytester.py",
+          "start_line": 138,
+          "symbol": "",
+          "text_sha256": "2b686522d02b32f63dacafc7a52d6aa05883582766d081692580083ab9320111"
+        },
+        {
+          "end_line": 670,
+          "id": "C4aff9c31b3d27fbde8f6c46f",
+          "path": "src/_pytest/python.py",
+          "start_line": 641,
+          "symbol": "Package.collect",
+          "text_sha256": "f46b9710da2630d222fdb4bcb8d6cb9437dec22b6d90c4e053bee6ae908334ef"
+        },
+        {
+          "end_line": 387,
+          "id": "C0750d96d47149e49abbec0ba",
+          "path": "src/_pytest/main.py",
+          "start_line": 369,
+          "symbol": "Session.__init__",
+          "text_sha256": "b667ca7820f46b31c2c20ca36f8623f6485a6915eb52be1faa671ae39e0f14b7"
+        },
+        {
+          "end_line": 498,
+          "id": "C2cd499e63bf88da2c3bc3211",
+          "path": "src/_pytest/pytester.py",
+          "start_line": 471,
+          "symbol": "Testdir.__init__",
+          "text_sha256": "a0d4dac8ba7a85b987187ae155ec0d236ba87d950ec8933588673f6fc44cfdbe"
+        },
+        {
+          "end_line": 441,
+          "id": "C1381be02b6f526f6fb855bac",
+          "path": "src/_pytest/python.py",
+          "start_line": 435,
+          "symbol": "Module.__init__",
+          "text_sha256": "f0660efe4ca58459e160966a9ac8afa1f8bbb60b632bbc49fda54e2abb2011a1"
+        },
+        {
+          "end_line": 408,
+          "id": "Ca1ba8de282ee9eceeda7b94e",
+          "path": "src/_pytest/config/__init__.py",
+          "start_line": 402,
+          "symbol": "PytestPluginManager._try_load_conftest",
+          "text_sha256": "27d714a42de36ee2abe673c33082b7c3ddd5c2fd21300ff2b2097bdbebcfc9ed"
+        },
+        {
+          "end_line": 179,
+          "id": "Cacb4580b92e6ba83c5898e42",
+          "path": "src/_pytest/main.py",
+          "start_line": 124,
+          "symbol": "pytest_addoption",
+          "text_sha256": "2b3914d8af562da47812f11ab636cb9ee34fcd84e0d5deee57409b1e0c5b5756"
+        }
+      ],
+      "seconds": 0.378939,
+      "status": "completed"
+    },
+    "hybrid": {
+      "audit": {
+        "corpus_chunks": 1652,
+        "dense_backend": "numpy",
+        "document_encoding_metadata": [
+          {
+            "chunk_ids": [
+              "Caa28542ed326a39827243151",
+              "Cd8469f5b3e92a5916b7fec3c",
+              "Cafcf63d79d4501163c9fd54c",
+              "C89055f99f85d1b254a43fef9",
+              "C29627a23821fb504f75b71ba",
+              "C3fb7992667da1143b33d0af7",
+              "C3adf51cb2861002ccee6a6d4",
+              "C35deaa1e531e25b9bad70268",
+              "C5f3667c2c4a9e1941133a25a",
+              "C0d99d89aed8abf483c7945b7",
+              "Ce1f31a921a9400e1df9d195e",
+              "Cb1f1f77a200775a363d3fee3",
+              "C1dde38185e4c3d0a294cfd7b",
+              "C1d08481042fe3dbfd6fe0f40",
+              "C246645b27d9cf6cf08da8580",
+              "C464f1c067ca040a489b6f968"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 83,
+                  "included_character_end": 263,
+                  "input_sha256": "221c1b0614c4442afaa2985b046703b6c6706b9e542c981e9a4e494b860f7f4c",
+                  "input_tokens_with_special_and_prefix": 83,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 512,
+                  "included_character_end": 1853,
+                  "input_sha256": "aadbc05c13d85698b5c6bf7e69d379310bed33934a2510efce39bb7e82fc8000",
+                  "input_tokens_with_special_and_prefix": 671,
+                  "omitted_bytes": 576,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": true
+                },
+                {
+                  "encoded_tokens": 54,
+                  "included_character_end": 136,
+                  "input_sha256": "c375cae8b1688c7bdc95ae37360989f0f7075b903735d7ef7d796d85598cab6e",
+                  "input_tokens_with_special_and_prefix": 54,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 250,
+                  "included_character_end": 848,
+                  "input_sha256": "fd68befda364bccfa848dc4bcd7b116f0fdb749df8b1fd0d2cb6f62050aa6588",
+                  "input_tokens_with_special_and_prefix": 250,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 84,
+                  "included_character_end": 237,
+                  "input_sha256": "e234dabea145c8c70aa9ced532f59ad2eea286717f75511c349324b1684751bd",
+                  "input_tokens_with_special_and_prefix": 84,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 57,
+                  "included_character_end": 148,
+                  "input_sha256": "8673421185a510a879f859880de58b8df6883b285ff1cfd09946e574d02fb307",
+                  "input_tokens_with_special_and_prefix": 57,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 20,
+                  "included_character_end": 36,
+                  "input_sha256": "89314b037349360e8543835253aa16cf4493a5ce1a8467133ee31fb0863a7bea",
+                  "input_tokens_with_special_and_prefix": 20,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 37,
+                  "included_character_end": 89,
+                  "input_sha256": "6c5dd3a116aa5004bf24e641835ce4ecbb774ebd20d990a6d224177512c2a5ec",
+                  "input_tokens_with_special_and_prefix": 37,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 24,
+                  "included_character_end": 55,
+                  "input_sha256": "15f316719ef230def0aec202b2c2e2d133f7b734828303bc499978871aedcf75",
+                  "input_tokens_with_special_and_prefix": 24,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 123,
+                  "included_character_end": 418,
+                  "input_sha256": "87f176d6f47bd6e5990d3c76e55099f9e4274fd9e6a23893aaf615cea5fa3874",
+                  "input_tokens_with_special_and_prefix": 123,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 189,
+                  "included_character_end": 805,
+                  "input_sha256": "a598d152b6098005a88b48c904292fcb081383d86735a718f1b3b8c4f746650a",
+                  "input_tokens_with_special_and_prefix": 189,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 149,
+                  "included_character_end": 476,
+                  "input_sha256": "f4359d1fefcf9559571d0f0d7c5afe90865126fff7a5abc91d14d2a5580bc128",
+                  "input_tokens_with_special_and_prefix": 149,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 47,
+                  "included_character_end": 103,
+                  "input_sha256": "f2e8815fa06f83093222d1c0651992f5d65ee504026af9c1e83f114b3c30ef92",
+                  "input_tokens_with_special_and_prefix": 47,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 53,
+                  "included_character_end": 136,
+                  "input_sha256": "6027273499069ddd149e8990a21ac8fa979f380e020fa3a11feef4134d8ff5ba",
+                  "input_tokens_with_special_and_prefix": 53,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 42,
+                  "included_character_end": 99,
+                  "input_sha256": "5353c85562c531edd22fa0010e3c796d950479a0e0bcec640de32ebdfd11ee75",
+                  "input_tokens_with_special_and_prefix": 42,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 151,
+                  "included_character_end": 592,
+                  "input_sha256": "f0fc2287f4492b85240773878af4ef62fb653a3d30b57a670523ea15acdd74f4",
+                  "input_tokens_with_special_and_prefix": 151,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "Cf7cde9414e3c4edf9cdd2043",
+              "C8c7a61fcbacc2ea16533f8c0",
+              "C5dcbac5365c78653eb8ab1ad",
+              "C8b538e068426dbd915e28049",
+              "C8c20a19872f2c07823636d22",
+              "C8f02a8dee3245f7649d2e3ec",
+              "C8ced8beb85812577d72b8c78",
+              "C8b076f5d2ffb1070fd7bb887",
+              "Cd4f6810d005825e690ad309a",
+              "C08ec42c1e27b26fe3dbaffd8",
+              "Cd0aa76c82ca89630f48fcda8",
+              "C6316c09515668922c476aeab",
+              "C03341b9b07c53ce93fac2bf6",
+              "C12a37ae3b53e34ba61c1de3e",
+              "C3d716bb21fcef76ef495e95f",
+              "C7e9597d4d4eff1379352750c"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 127,
+                  "included_character_end": 355,
+                  "input_sha256": "579f9eb28e2f70b047b5a9a6784061d981589108fc414d9925e774cee5df18c6",
+                  "input_tokens_with_special_and_prefix": 127,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 29,
+                  "included_character_end": 59,
+                  "input_sha256": "68667759d9b3e820d26bc277ccf2c85bf7eb2215acd1aa63f8d7e65a35713bc0",
+                  "input_tokens_with_special_and_prefix": 29,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 75,
+                  "included_character_end": 153,
+                  "input_sha256": "4cead77d972dcd658fcce54b80ad008670d9fe52bbf72dc63a2792bda0b8ebc1",
+                  "input_tokens_with_special_and_prefix": 75,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 51,
+                  "included_character_end": 118,
+                  "input_sha256": "97807039188d5390e16130ebae92b9e76d0b709092952e6675741576042a5fd3",
+                  "input_tokens_with_special_and_prefix": 51,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 63,
+                  "included_character_end": 203,
+                  "input_sha256": "c5d95baf9cf2c69ae03bc6f73c169d436aa73ec7ec40290c16e963efdaac704e",
+                  "input_tokens_with_special_and_prefix": 63,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 100,
+                  "included_character_end": 337,
+                  "input_sha256": "8e5c928375125ad48c7b190b192704b0dcad1ba682dc7a8439d6190fcd6e8f0a",
+                  "input_tokens_with_special_and_prefix": 100,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 39,
+                  "included_character_end": 77,
+                  "input_sha256": "b1c1c97b3b97ea9d2adfb90789a0af3e8bac1d91866b86cfaefe64cd56ac1f02",
+                  "input_tokens_with_special_and_prefix": 39,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 34,
+                  "included_character_end": 82,
+                  "input_sha256": "dbe5c78bed443f73619f934dea28451b197e54bf7a99a502de18f954edd63dec",
+                  "input_tokens_with_special_and_prefix": 34,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 73,
+                  "included_character_end": 136,
+                  "input_sha256": "4ccaabfdf7ccf2b1243cfa2b4de7d464576dc4d56c2fcc27d5478f28ab180bb6",
+                  "input_tokens_with_special_and_prefix": 73,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 361,
+                  "included_character_end": 1354,
+                  "input_sha256": "107b0a6f7ebcfb7ef7fb8cd49660ef20a47764c4cdb10e2d81ec9a134a128197",
+                  "input_tokens_with_special_and_prefix": 361,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 103,
+                  "included_character_end": 262,
+                  "input_sha256": "19b9b4f22b82dd6033a809cd0c34ca72105b77dc25750cb6ae4743c203dfaa10",
+                  "input_tokens_with_special_and_prefix": 103,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 423,
+                  "included_character_end": 1451,
+                  "input_sha256": "7dcd9836d3c71ca235329309f9118d229d1c0f1b9399c511c1e6a2386cda0ef7",
+                  "input_tokens_with_special_and_prefix": 423,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 41,
+                  "included_character_end": 105,
+                  "input_sha256": "481d66d1b211b6611d28322411e5167cfb56e2f635391d577ed5f2772605c5f0",
+                  "input_tokens_with_special_and_prefix": 41,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 116,
+                  "included_character_end": 329,
+                  "input_sha256": "01404d34f42b3035f0d5cbdab0993a8d9bf0d964c7b4c8a8784700b9d2948edb",
+                  "input_tokens_with_special_and_prefix": 116,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 112,
+                  "included_character_end": 337,
+                  "input_sha256": "e323f8b25f01484f3a8db8021ecb7e56cf93599e776723a940739b7d16891f51",
+                  "input_tokens_with_special_and_prefix": 112,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 248,
+                  "included_character_end": 736,
+                  "input_sha256": "dcb8dc606e75a1f0c57ae517e7a72879094472fd809e0fd745b8026999bc990e",
+                  "input_tokens_with_special_and_prefix": 248,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C603606efadacb8cd17c67ce1",
+              "C29e08a9ab802d4b12e991d0d",
+              "C088e17f794e8e11b04a56915",
+              "C6cd6792e7e639aad874f181f",
+              "C316a76f0bd0202c54d013f38",
+              "C39f278b62e15a0d13a9e7de9",
+              "Cc2d331553e046762e2dc68a3",
+              "C6d1aa5cdbd8951569d9ab7ae",
+              "C9c803474871822ac5e186a8e",
+              "C4052d6a3e49f74a343a5d870",
+              "C57752b6fc093d4d222ce5577",
+              "Cfb49cfcd73c1a158c291cbae",
+              "Cf3f44f5adda2d82be5188875",
+              "C96f8a69ea860458d9ef37cc1",
+              "C4bfb2a882067207366ee36af",
+              "C85473dd3d876aac58b211bdd"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 52,
+                  "included_character_end": 128,
+                  "input_sha256": "25a7189278293edb315d9962d1e1ff947a1a4d6914ac8a17c3beb39f80f89df2",
+                  "input_tokens_with_special_and_prefix": 52,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 48,
+                  "included_character_end": 132,
+                  "input_sha256": "1b1a7a7004645248b6e98fde988b6ae812ef57449a1432ffd13efcebcc4c70d8",
+                  "input_tokens_with_special_and_prefix": 48,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 84,
+                  "included_character_end": 323,
+                  "input_sha256": "cee3dd07c00c9fc90480369afc16c2e80421d56f50d9ce61c274618cf7c8f7dd",
+                  "input_tokens_with_special_and_prefix": 84,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 121,
+                  "included_character_end": 330,
+                  "input_sha256": "a75e90bc17f8cdd08fb60de3ccdc43c086d1164d2674298d5c10b6a522d76fe1",
+                  "input_tokens_with_special_and_prefix": 121,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 132,
+                  "included_character_end": 370,
+                  "input_sha256": "abb17cfb9cb57a5990b59a6260ff2154bd1c6f4cf880b394c0592d13b28c9055",
+                  "input_tokens_with_special_and_prefix": 132,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 512,
+                  "included_character_end": 1344,
+                  "input_sha256": "ea118289aa83cf97db55637ffcd41072fb6e0126c32ec66d9c07d99dbd6bc3e7",
+                  "input_tokens_with_special_and_prefix": 516,
+                  "omitted_bytes": 7,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": true
+                },
+                {
+                  "encoded_tokens": 116,
+                  "included_character_end": 290,
+                  "input_sha256": "b58863a65255cf8c3a5313721615c7a1f5a9a734ca939af089fad941e3447b2c",
+                  "input_tokens_with_special_and_prefix": 116,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 77,
+                  "included_character_end": 201,
+                  "input_sha256": "893ad06b91cdb7e8f5fa061706f06fda02ba5e9334a8b9dd4e9014fa5fc89648",
+                  "input_tokens_with_special_and_prefix": 77,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 98,
+                  "included_character_end": 292,
+                  "input_sha256": "a461f8e67c210bd0925d7776b1ef09f7d0fd2c6405ac13f022205c1ca19e76e5",
+                  "input_tokens_with_special_and_prefix": 98,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 168,
+                  "included_character_end": 409,
+                  "input_sha256": "f1d65615d0db15d26693b74b55b7e77660f4d699825f2566e7df0aaecde38298",
+                  "input_tokens_with_special_and_prefix": 168,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 109,
+                  "included_character_end": 345,
+                  "input_sha256": "cdbc0afa8237e3791342316dca435f047359a0a8b2863c33fe087e648a6af6bd",
+                  "input_tokens_with_special_and_prefix": 109,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 62,
+                  "included_character_end": 152,
+                  "input_sha256": "4d7fadfd4837b0498605bb9a7ccea0406567a5275c1a4fde7006ccef260681bc",
+                  "input_tokens_with_special_and_prefix": 62,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 62,
+                  "included_character_end": 158,
+                  "input_sha256": "4bf5964c5ffdc509ed1c6675148e7cdd38dd4c1281e571fb277ed202b46ab43a",
+                  "input_tokens_with_special_and_prefix": 62,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 59,
+                  "included_character_end": 147,
+                  "input_sha256": "d4c42e7f22bb42e17c7cadc97cfc47bcec0944629d23cbf267962203c033125c",
+                  "input_tokens_with_special_and_prefix": 59,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 94,
+                  "included_character_end": 422,
+                  "input_sha256": "0ab63b759a97f92fe1f0ebebbbad87b0207db7dbfd2b5bab5a479c031b089690",
+                  "input_tokens_with_special_and_prefix": 94,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 359,
+                  "included_character_end": 1227,
+                  "input_sha256": "4776433837f839d9ab8475a05c545ff25b67bdea9c5e7567a65a88e79fc6752c",
+                  "input_tokens_with_special_and_prefix": 359,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "Cf46ae4c6f24f5c4b87cb975c",
+              "C87452a1e9c59c3e210a61d06",
+              "Cc001cb56d3cbab78fa7b9ebb",
+              "Ced7e361d448f644d31954c5a",
+              "C4f495e0798ade8c6e24bdb8e",
+              "C5538d1b658a55e59702e1ee6",
+              "C0e9bb646b653328f8397b48e",
+              "C7e85e17f6d52c6727b355b99",
+              "C4f9cfcfe313a95c6501c171a",
+              "C6c0d2c3d70d75b976816493c",
+              "Ce67b24efefd9e23b0c0409e9",
+              "C89520c94006c845f9586328f",
+              "C068e6a61f000703af65dcac0",
+              "Ccc8d17fe995073dae8b90327",
+              "C2175a4b73213f78692fc884f",
+              "Ca25fa3d67890322214635559"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 75,
+                  "included_character_end": 203,
+                  "input_sha256": "3912afa1d2788d0ffce2825998c74423311d5b58300d59b307ba49798faac8c5",
+                  "input_tokens_with_special_and_prefix": 75,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 75,
+                  "included_character_end": 200,
+                  "input_sha256": "9e2d3a83cd964c694e6daa6bd01e7d531a14e3b3a354ab22c119b982dcbd017a",
+                  "input_tokens_with_special_and_prefix": 75,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 78,
+                  "included_character_end": 212,
+                  "input_sha256": "3a54b0f8cb3d395ed7d780918146163e9bfaa735d477bf677b7ba11df069a160",
+                  "input_tokens_with_special_and_prefix": 78,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 99,
+                  "included_character_end": 277,
+                  "input_sha256": "294a56dc00730dcfc839953f73c58a68cdbd0955d799d86ad377b0477aa92c7e",
+                  "input_tokens_with_special_and_prefix": 99,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 77,
+                  "included_character_end": 206,
+                  "input_sha256": "a16cc87aeb94f6a9199e82c8f3b0b4957a71b34be519ba6e4706791c5b3f9f93",
+                  "input_tokens_with_special_and_prefix": 77,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 79,
+                  "included_character_end": 209,
+                  "input_sha256": "8b47bc79fc02482eabe7358910394d76ab54c9c04c7101191ff26d93905221c9",
+                  "input_tokens_with_special_and_prefix": 79,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 179,
+                  "included_character_end": 765,
+                  "input_sha256": "ac337405ff83d05fe0f714908510af3b1cdd3316cb42741016c7fe44ca8cb843",
+                  "input_tokens_with_special_and_prefix": 179,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 140,
+                  "included_character_end": 485,
+                  "input_sha256": "3b8c2d0beeb6b23ab2acfaa9e2a570c12dfbd357dc2c05df2563e8affb05f977",
+                  "input_tokens_with_special_and_prefix": 140,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 204,
+                  "included_character_end": 754,
+                  "input_sha256": "1d43663d169818cfd34f4ddc7a7faf385bc703382d341902d720612e0c4589ab",
+                  "input_tokens_with_special_and_prefix": 204,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 93,
+                  "included_character_end": 377,
+                  "input_sha256": "c52b961d3145a14a75412f233f0f8a927cd4ddfe1b5b1b8a14a6b96268370bad",
+                  "input_tokens_with_special_and_prefix": 93,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 141,
+                  "included_character_end": 482,
+                  "input_sha256": "65f99e9d1f5ce18b36b2f8d90a44a4b7995f7e2a93ec392d54b34a8dcb427627",
+                  "input_tokens_with_special_and_prefix": 141,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 58,
+                  "included_character_end": 198,
+                  "input_sha256": "ef5414eda3565ce088955a16256d9b6a4b019fdf106b334dc30ad76c9fcda1a1",
+                  "input_tokens_with_special_and_prefix": 58,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 89,
+                  "included_character_end": 299,
+                  "input_sha256": "906d12b864f8529f76ebbbf14dcac3a65cc20bf69c8a070c9f53d88bb3b123c0",
+                  "input_tokens_with_special_and_prefix": 89,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 220,
+                  "included_character_end": 855,
+                  "input_sha256": "fee3a4f8a5af7e00cbf55ad4a0176b622ed29c8b3fecb71bed218ba0a2be591e",
+                  "input_tokens_with_special_and_prefix": 220,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 261,
+                  "included_character_end": 925,
+                  "input_sha256": "12d79bce5a8da156a273d428038a963d8cbd8649b2d14e7074e4e16f41d15ab0",
+                  "input_tokens_with_special_and_prefix": 261,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 512,
+                  "included_character_end": 1790,
+                  "input_sha256": "a1299b6e6cb1be89cb89afcf55a20f832e628da657fa9cdee3974a0786b82102",
+                  "input_tokens_with_special_and_prefix": 717,
+                  "omitted_bytes": 697,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": true
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "Cacb4580b92e6ba83c5898e42",
+              "C90411b2197af1b83d7cb1743",
+              "C9ef4f81e36108284524b8402",
+              "C9e3c74669d54c57618ee5c5f",
+              "C4b9d7febdf31a04136a8e008",
+              "Ca4967036ef01067c4b2c5ede",
+              "C7ebd3624aeda74cdd5efd25d",
+              "C145cad23f3531ff03dc05117",
+              "C0802ff5afc773d0226589413",
+              "C0d212bb7c333a06905b3f0cb",
+              "Ce1deab3ca661626a6840ec6f",
+              "C11a4c79b8c1df01e26e4aa28",
+              "Ce539b93b1608e89b9976eb4b",
+              "Cfee91e43d6a2642be304c369",
+              "Ca39bdcc46320faba6271f477",
+              "C0750d96d47149e49abbec0ba"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 501,
+                  "included_character_end": 1704,
+                  "input_sha256": "be17eaea12c9f666ce99b3aa9ea01eb4875d1c54cf6bdbd1ef9109e40882bbb4",
+                  "input_tokens_with_special_and_prefix": 501,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 493,
+                  "included_character_end": 1874,
+                  "input_sha256": "dd35a78e5211659778f70353d791cce9643f01f10bd2111a50ee346ea61bdb2c",
+                  "input_tokens_with_special_and_prefix": 493,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 51,
+                  "included_character_end": 111,
+                  "input_sha256": "b346898d393d3e1e0c42cb3734eb84bff9894b050da2c3278441e2b67f9dca36",
+                  "input_tokens_with_special_and_prefix": 51,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 118,
+                  "included_character_end": 407,
+                  "input_sha256": "e57861157cf92d8c2871f126522556441c4ebd3d878e770780a678b006a23c9b",
+                  "input_tokens_with_special_and_prefix": 118,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 37,
+                  "included_character_end": 106,
+                  "input_sha256": "c2d030d2c489f897d0400b804c8e7d41ced854bb784d56b5ab4d1373df9dc267",
+                  "input_tokens_with_special_and_prefix": 37,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 199,
+                  "included_character_end": 703,
+                  "input_sha256": "6740c8947649a1333a5d1e22a3db3a970408777c3a7f137bfab405446ddb3bfe",
+                  "input_tokens_with_special_and_prefix": 199,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 169,
+                  "included_character_end": 559,
+                  "input_sha256": "910a4ebf42a2c57ccebca2425acdc7bad386cef9d0efbed607f62e6920afcabf",
+                  "input_tokens_with_special_and_prefix": 169,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 341,
+                  "included_character_end": 939,
+                  "input_sha256": "3ea10b7cb9ccf5d14e520bd3824ee663f92f15921e1e6d1490e43d7faa734d0c",
+                  "input_tokens_with_special_and_prefix": 341,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 164,
+                  "included_character_end": 529,
+                  "input_sha256": "342797f9cd4fd8948d793d4162eeb9d8a701b8a26b0b3d9a73b91c100f27ed53",
+                  "input_tokens_with_special_and_prefix": 164,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 21,
+                  "included_character_end": 41,
+                  "input_sha256": "6600ab538d40b39fa120ab17962713de44112ff870c1fb9d25b0eed562de7193",
+                  "input_tokens_with_special_and_prefix": 21,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 73,
+                  "included_character_end": 178,
+                  "input_sha256": "573e8dc68bc77403396ace0d13f2a0e8deb8414e7a030468813f9d0b61d43683",
+                  "input_tokens_with_special_and_prefix": 73,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 82,
+                  "included_character_end": 203,
+                  "input_sha256": "789e530bc71cab8ba55dff2766abde06188299787e5c04a6da7bf234df1670d4",
+                  "input_tokens_with_special_and_prefix": 82,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 119,
+                  "included_character_end": 373,
+                  "input_sha256": "edafa5bac1d8b2de5161ed920cc709f9f0a1c2d4988f08a5deed612698d97e54",
+                  "input_tokens_with_special_and_prefix": 119,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 58,
+                  "included_character_end": 163,
+                  "input_sha256": "507732796a7a5408a387a8c47c6454ec75c36213f38d3c1aff6d21e924905789",
+                  "input_tokens_with_special_and_prefix": 58,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 31,
+                  "included_character_end": 106,
+                  "input_sha256": "90159b31c070ef642f7c3b13ec2906ddd3222a7242276b32b4eee07bde9aeafb",
+                  "input_tokens_with_special_and_prefix": 31,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 278,
+                  "included_character_end": 862,
+                  "input_sha256": "16be5fad864b377460e1ed6db49ae4284e77d79ce2f1bc159b256e40b3a28940",
+                  "input_tokens_with_special_and_prefix": 278,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C2939adee110c160357cf8621",
+              "Cf9c3605216c11a112806e6e4",
+              "Ca24e95f83cb244100cc252c5",
+              "C0ecb3af6339f6e91765e9f7a",
+              "C04972e0cfefefcc528ac38cc",
+              "C25d758f865a6f722fd59001a",
+              "C1675ad7e547408b62b3889f8",
+              "C4c7b49e913fd3be8d5befc8f",
+              "C9ad991406d2c2c1da6d7c0e3",
+              "Ccec1967c432aa3aae0fc7254",
+              "Ca342ee46a2df0ff0775a5056",
+              "Cc99ecd050aef73fe8858f3e5",
+              "C9f2339a996aba3bd260a6e93",
+              "C728fc7f9d6ae16de4a9a7949",
+              "C1452f1282f582b283a5df61b",
+              "C13e65791fcdea1c2183b88b7"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 115,
+                  "included_character_end": 321,
+                  "input_sha256": "b95b8fae3979a817598bd373fad22e042e1f35dd915c9d6b3f35fd0a16b6ba12",
+                  "input_tokens_with_special_and_prefix": 115,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 68,
+                  "included_character_end": 201,
+                  "input_sha256": "d039b86ff440244dce2148391eca416951bdc15dec72cb3226b9448d78b1137a",
+                  "input_tokens_with_special_and_prefix": 68,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 82,
+                  "included_character_end": 266,
+                  "input_sha256": "9b42ece6eba2649cf732372dbe089cbd82f1e3575782c7c977c4bd21f50b6479",
+                  "input_tokens_with_special_and_prefix": 82,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 139,
+                  "included_character_end": 419,
+                  "input_sha256": "37ee930f6845743b4a0313260c367385f727a41f9314effa16fc76d43f1e9de9",
+                  "input_tokens_with_special_and_prefix": 139,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 32,
+                  "included_character_end": 73,
+                  "input_sha256": "1386d81788399030c242aa03adc0d3b9e8aa27a2e17142e3bf9a7998de45ee59",
+                  "input_tokens_with_special_and_prefix": 32,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 40,
+                  "included_character_end": 112,
+                  "input_sha256": "a639fc7d61f05d32cacbf12761aceb311b295996685544f8af0ec6253833a393",
+                  "input_tokens_with_special_and_prefix": 40,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 184,
+                  "included_character_end": 618,
+                  "input_sha256": "a81cc51789772c82b73b5a9e8c7ef26aad2b23ea20ae1ebafaa97ddf09a61ec2",
+                  "input_tokens_with_special_and_prefix": 184,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 140,
+                  "included_character_end": 516,
+                  "input_sha256": "3f1b815e7f06db531f3f0264e5b7c60109246c602631c9b22213f33894a33a8a",
+                  "input_tokens_with_special_and_prefix": 140,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 345,
+                  "included_character_end": 1222,
+                  "input_sha256": "5c6df26118ddb96d75c2dcf1bd033029e53be4738eaf7dc189defff9e93269b9",
+                  "input_tokens_with_special_and_prefix": 345,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 151,
+                  "included_character_end": 561,
+                  "input_sha256": "cd57758059d85ec70a17e1f14e70ff85204c87773344db769278b3d6ddf9b227",
+                  "input_tokens_with_special_and_prefix": 151,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 512,
+                  "included_character_end": 1976,
+                  "input_sha256": "4921c4c77658d9d77bbae3649264b964ab42ff63f66aa22a8c9b1f9a8cc3e591",
+                  "input_tokens_with_special_and_prefix": 887,
+                  "omitted_bytes": 1741,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": true
+                },
+                {
+                  "encoded_tokens": 21,
+                  "included_character_end": 61,
+                  "input_sha256": "d869490a8b515cfc0664ef0ca6367a4f1a7c057bcf6f76d8cfa2e0ec337090fc",
+                  "input_tokens_with_special_and_prefix": 21,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 265,
+                  "included_character_end": 879,
+                  "input_sha256": "86ee62c04f9c11cc856425047f41bbea5a9de6667a3ec9be0904e4805324943d",
+                  "input_tokens_with_special_and_prefix": 265,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 169,
+                  "included_character_end": 537,
+                  "input_sha256": "c5d729060e0db59fa5c4325cffdc2d2019695f5bb355e91b76f6842454767e2f",
+                  "input_tokens_with_special_and_prefix": 169,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 43,
+                  "included_character_end": 116,
+                  "input_sha256": "0be4b20b1942881d69e4112610b85972acdad5f8adc4c3937b8bb8ee3f21c073",
+                  "input_tokens_with_special_and_prefix": 43,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 167,
+                  "included_character_end": 653,
+                  "input_sha256": "6664b90c538f81d402bd682a9c1162562e3ce5dbe88cfcb7478e31650d289725",
+                  "input_tokens_with_special_and_prefix": 167,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C58651e66922dadfab2058699",
+              "C38150b117cda9c48f74068ee",
+              "Cdf62cb52176c6d287340c72b",
+              "Cedec98b23b17c70228aade6c",
+              "Cfd44f41d22f80a4f67043141",
+              "C9761069a67fad0f3f1cac4ab",
+              "C3aade68bb394daeb49278ba0",
+              "C0b06083bbf2e2705455e60df",
+              "C90b5e0748a4dce2ad70a685f",
+              "C6cba2149f77ba3052d2e91e3",
+              "C3e3fba74fdaf840f2280dd61",
+              "C8de62e4f80ec40d249a2af78",
+              "C04963db623bac002fff0c7c2",
+              "Ceeac388c5e946be75634aa9c",
+              "Cbcc39da412595befbdddb580",
+              "C0c022b4c12eb2f84eb870cfc"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 83,
+                  "included_character_end": 277,
+                  "input_sha256": "c66b15d8531dde9961d1b18f75cf23cbd263502a441fd248d64784495057dc1d",
+                  "input_tokens_with_special_and_prefix": 83,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 355,
+                  "included_character_end": 1028,
+                  "input_sha256": "bac2c594618f94042345747b08c77b54ee6f15d0e53011e25e032de8a2eb7328",
+                  "input_tokens_with_special_and_prefix": 355,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 30,
+                  "included_character_end": 65,
+                  "input_sha256": "6f5f700a740b5330c27a5d8bca2830922ea318188548252d88d62997630989e1",
+                  "input_tokens_with_special_and_prefix": 30,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 84,
+                  "included_character_end": 272,
+                  "input_sha256": "2a845c38ae1d7deab8c31f9d04f82887b310e512d67452d2dcb4ff21a42f9759",
+                  "input_tokens_with_special_and_prefix": 84,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 22,
+                  "included_character_end": 43,
+                  "input_sha256": "733dd89a1bedb9c2b0bdf566b477a1215e18790362b91a643a2fea49cd6bb4ab",
+                  "input_tokens_with_special_and_prefix": 22,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 45,
+                  "included_character_end": 106,
+                  "input_sha256": "25f14d068c35cc372a555df9a99955e47d0e8a29a455acb32562a2ffb8c34a13",
+                  "input_tokens_with_special_and_prefix": 45,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 78,
+                  "included_character_end": 225,
+                  "input_sha256": "453245eab103198abbb57465d45f78d4c48824a93b57e878c251cf9dcb502fc7",
+                  "input_tokens_with_special_and_prefix": 78,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 70,
+                  "included_character_end": 195,
+                  "input_sha256": "308c47d19b15f6893be253494345b6cf10415a78bb2f47ea9caaef709a73d1b6",
+                  "input_tokens_with_special_and_prefix": 70,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 22,
+                  "included_character_end": 44,
+                  "input_sha256": "5e983a6ac7a8bce5ce6b5a9c774b3b565bf924b859f5acd2f419750d4949d189",
+                  "input_tokens_with_special_and_prefix": 22,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 65,
+                  "included_character_end": 144,
+                  "input_sha256": "7e094b6ebdc502c47322fa8476e64a63412efabad27057d4fca851555d18744f",
+                  "input_tokens_with_special_and_prefix": 65,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 91,
+                  "included_character_end": 188,
+                  "input_sha256": "a8154d94fa12f00161be1b47079b6e69d2e333695c9b5fa1d7d15121f3c13b24",
+                  "input_tokens_with_special_and_prefix": 91,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 61,
+                  "included_character_end": 226,
+                  "input_sha256": "252830af90df646e28373e4fc4891e377c3fcf17e77e5bcff1dece90348b4b6d",
+                  "input_tokens_with_special_and_prefix": 61,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 143,
+                  "included_character_end": 426,
+                  "input_sha256": "a9f158d9d86c301eba8a4ca3db6840ce2c05096868be13009707b6bab0c3313c",
+                  "input_tokens_with_special_and_prefix": 143,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 67,
+                  "included_character_end": 164,
+                  "input_sha256": "3b55f4d2afd1ebd83b715345fa076db41fb4df13e25d2e886fd7d4b6a4ebd617",
+                  "input_tokens_with_special_and_prefix": 67,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 49,
+                  "included_character_end": 127,
+                  "input_sha256": "38f8875274347df4f0d95d852fcfef73d4987f25068d0806c38b35476ff2be34",
+                  "input_tokens_with_special_and_prefix": 49,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 40,
+                  "included_character_end": 115,
+                  "input_sha256": "2892a54c417f03eb31075dedd95a721b409f1f9eb8873e496660a770bd76d675",
+                  "input_tokens_with_special_and_prefix": 40,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "Cb942456c51436ffe7ca21f8d",
+              "C4aff9c31b3d27fbde8f6c46f",
+              "Ccea4d7bf5704aa727fbc679a",
+              "C7882d8598728154c8016b79c",
+              "Cd08158df6faaaf69b28bd160",
+              "Cf78b2425190ab101f24e9cc1",
+              "Ca044865bef2e3098a2b06fe7",
+              "Ccb313e8d06497c834dae3bd3",
+              "Cc6ce6623a6ca70b6cafe4af6",
+              "Cfb009fd81816ce82f9300fb1",
+              "Ca1bc8db3cc3112340dec392e",
+              "Cbceb0591c3106b5f5feed603",
+              "C3d242f11aa6d9e68d61a735c",
+              "Cd3a780eb7b9c311e702a00cf",
+              "C6b6510ca44ff91b3de977abc",
+              "Cc5eee63db20189586f046ef3"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 42,
+                  "included_character_end": 122,
+                  "input_sha256": "cf4f0b4d94015fa40572a0462b9ad4642aa41fdc24f62ec270631c275c421336",
+                  "input_tokens_with_special_and_prefix": 42,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 370,
+                  "included_character_end": 1245,
+                  "input_sha256": "f03ee8d04911b4714c52093a332ac8a07f01cb9ff0d46c8488c9dc60df8591fa",
+                  "input_tokens_with_special_and_prefix": 370,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 122,
+                  "included_character_end": 383,
+                  "input_sha256": "501cf1389bbe62b912fb941a680b44753253395794225ce01048d8573250ec1f",
+                  "input_tokens_with_special_and_prefix": 122,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 131,
+                  "included_character_end": 436,
+                  "input_sha256": "b4e51771c5d2714596c02a87c459d75bbe28e4b78ece5360ee93014fc95fff3f",
+                  "input_tokens_with_special_and_prefix": 131,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 35,
+                  "included_character_end": 90,
+                  "input_sha256": "ce033778260b1d58986887b0841f55136b4ad17d6d7297860adb4893093b0ddf",
+                  "input_tokens_with_special_and_prefix": 35,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 243,
+                  "included_character_end": 942,
+                  "input_sha256": "fba8152b574f54f6021e05850ac1851ab6b229b2ccdc9873e1b4bb980471c0a0",
+                  "input_tokens_with_special_and_prefix": 243,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 309,
+                  "included_character_end": 1115,
+                  "input_sha256": "cf9ee323c508f42112d9fd857ed537ae0acc37f2a8ef8e3d4f988d43f56e3a7b",
+                  "input_tokens_with_special_and_prefix": 309,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 143,
+                  "included_character_end": 498,
+                  "input_sha256": "fd568e638159c477c7e883c04d4315a782a54845059f3b11320278f8ce6d56b2",
+                  "input_tokens_with_special_and_prefix": 143,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 315,
+                  "included_character_end": 1194,
+                  "input_sha256": "014f067886d0eb7b58caf6c2ff3ce9cb0aa8f65035aa5b4309e186c3fcd4a13c",
+                  "input_tokens_with_special_and_prefix": 315,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 149,
+                  "included_character_end": 564,
+                  "input_sha256": "3ed252f8158db2013f3a91df7ca4ebc4ea72424d1da61194bfdb03a0667b5bfe",
+                  "input_tokens_with_special_and_prefix": 149,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 65,
+                  "included_character_end": 280,
+                  "input_sha256": "e226f928d258663e4cf86a75338c566e914f4e1351a405eb3b33300f750ca216",
+                  "input_tokens_with_special_and_prefix": 65,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 38,
+                  "included_character_end": 94,
+                  "input_sha256": "f873465885273e915b858e933bb342abe5e97773a40f14612a04cdc9ac9ab6dc",
+                  "input_tokens_with_special_and_prefix": 38,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 47,
+                  "included_character_end": 152,
+                  "input_sha256": "4e66496119c234fffe58eeb135bc2692e4f9148f857f86e36912376f5f35fd15",
+                  "input_tokens_with_special_and_prefix": 47,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 45,
+                  "included_character_end": 127,
+                  "input_sha256": "18eb62a690f3d1f808b02ba77c78b02a5631e66f4fc030931d30afc7a683179c",
+                  "input_tokens_with_special_and_prefix": 45,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 44,
+                  "included_character_end": 126,
+                  "input_sha256": "ce322ee9df0d4b11c4aa392b31b1b81fad7e964bdbaebaeae7fd629066e51f57",
+                  "input_tokens_with_special_and_prefix": 44,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 72,
+                  "included_character_end": 238,
+                  "input_sha256": "74996d06f924908c94ebd8383e11b8494aad80ca9381415e70f768b4e3efe2fe",
+                  "input_tokens_with_special_and_prefix": 72,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          },
+          {
+            "chunk_ids": [
+              "C25a21c0399e97eaded37e6ca",
+              "Ce0b31a8a92f421db7578c198",
+              "C82edc203ea40fee3f1fc5f5e",
+              "C50e2d86349716a9fb9362f61",
+              "C158ef8f6b5ce917f1634888c",
+              "Cd02bebbbad3491758c7a5343",
+              "C147fe5ca69029d889b0c5fd3",
+              "C34ea060cda1f552327e6a25a",
+              "C50b62922070519232749aefc",
+              "C15459d6b98ac6dec27a34f1b",
+              "Cc52c5480cbadaf0207783d0b",
+              "Ce04aa526f8a50c3525113f18",
+              "Cc403c1ccc0490790da7c7fc0",
+              "Cb94b9a247840955471425d29",
+              "Ca8c5d3095c7383ff0afa9fcf",
+              "C69f2813a5b0b4616582d3d98"
+            ],
+            "metadata": {
+              "inputs": [
+                {
+                  "encoded_tokens": 63,
+                  "included_character_end": 160,
+                  "input_sha256": "5600417e0cf1a90ad7a8752bf1b68fde4f3053e507f72b36ded6abbb2635fa8b",
+                  "input_tokens_with_special_and_prefix": 63,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 144,
+                  "included_character_end": 476,
+                  "input_sha256": "59b3d4457d0753376d92086769baf1931654195c9a572c0920d6f603fb10fe30",
+                  "input_tokens_with_special_and_prefix": 144,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 512,
+                  "included_character_end": 1972,
+                  "input_sha256": "cac4f871e27e9c009d2722e499c350bcb1bf4072bb188417d778837db510b980",
+                  "input_tokens_with_special_and_prefix": 549,
+                  "omitted_bytes": 132,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": true
+                },
+                {
+                  "encoded_tokens": 287,
+                  "included_character_end": 1013,
+                  "input_sha256": "1f1319352b1c3988c6660c836e4757d44911defe9d4e41a34170c444a456ea46",
+                  "input_tokens_with_special_and_prefix": 287,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 205,
+                  "included_character_end": 782,
+                  "input_sha256": "89fe990000458cf94fb952c8c9d7be2d9934356a65fcdced51eb926cf36b6d86",
+                  "input_tokens_with_special_and_prefix": 205,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 105,
+                  "included_character_end": 323,
+                  "input_sha256": "f965e0643f706470813a16d21da1bc01ef2aa1465f14b61841ad102a4e054905",
+                  "input_tokens_with_special_and_prefix": 105,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 113,
+                  "included_character_end": 391,
+                  "input_sha256": "f3d39e3408fa92e599c8d8f7e66f2cb119c30e6b37bbc5e520fe7f85dea46243",
+                  "input_tokens_with_special_and_prefix": 113,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 117,
+                  "included_character_end": 381,
+                  "input_sha256": "d1fe819f8e5c3ca0b1f25c68a16c146c06fd1f925c570812f2ddacb0c77836d5",
+                  "input_tokens_with_special_and_prefix": 117,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 146,
+                  "included_character_end": 458,
+                  "input_sha256": "5e788c76c952df115334da00b668ef353389a4c5d2dae98566c0635d2bd3e88c",
+                  "input_tokens_with_special_and_prefix": 146,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 371,
+                  "included_character_end": 1444,
+                  "input_sha256": "64c97bf8a9cf010a2481997275e2f537b4676580d70f63b8aa190aa167c42889",
+                  "input_tokens_with_special_and_prefix": 371,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 406,
+                  "included_character_end": 1170,
+                  "input_sha256": "6667adb2e001e9b974bf82799d23ce8b1228c0014dada9331a42fad499f8bb05",
+                  "input_tokens_with_special_and_prefix": 406,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 67,
+                  "included_character_end": 219,
+                  "input_sha256": "a3f4f7c0626b3eb5817a93d14dfacfa9bcf46c359e37cdfcb608abe312328dc8",
+                  "input_tokens_with_special_and_prefix": 67,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 260,
+                  "included_character_end": 721,
+                  "input_sha256": "caf34c9aa137ee934676ce43562e9f1ad676160c41090e9487690a9a24dd0b35",
+                  "input_tokens_with_special_and_prefix": 260,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 215,
+                  "included_character_end": 700,
+                  "input_sha256": "6001ad84cb7b0fd1f4bd35a625611d1b1d944a70b14d3cb1f3652ca209e1ad65",
+                  "input_tokens_with_special_and_prefix": 215,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 427,
+                  "included_character_end": 1630,
+                  "input_sha256": "9197503197cd10880a913e6e22b24ea440bc98a990299f82c38be22f8f29b0d3",
+                  "input_tokens_with_special_and_prefix": 427,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                },
+                {
+                  "encoded_tokens": 213,
+                  "included_character_end": 797,
+                  "input_sha256": "1103b45da996f702ab3c1cd3d556d3df763bcbabc7f8e55f5eb292879e19be39",
+                  "input_tokens_with_special_and_prefix": 213,
+                  "omitted_bytes": 0,
+                  "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                  "truncated": false
+                }
+              ],
+              "max_tokens": 512,
+              "query_prefix_applied": false
+            }
+          }
+        ],
+        "encoder_identity": {
+          "conversion": "FP16 storage, expanded to FP32 for CPU inference; evaluated as this explicit derived profile",
+          "dimension": 768,
+          "files": {
+            "1_Pooling/config.json": {
+              "bytes": 296,
+              "sha256": "d02ebf56344d20f773449b15d0c10ee9a86a9178f3b3c9bfecb8b87d4350ce38"
+            },
+            "README.md": {
+              "bytes": 3096,
+              "sha256": "69a6d76a2b533dd0f293b5d1b33a5b433201af38cf48c887b8ec795b641849a0"
+            },
+            "config.json": {
+              "bytes": 1525,
+              "sha256": "5ff856a41d0f53ef2d74520627d464bd75c2efd8f26f381bd528654895c29b6c"
+            },
+            "configuration_hf_nomic_bert.py": {
+              "bytes": 1955,
+              "sha256": "8632792e922e62ab1a6feaab15baf406e223c0547a21de23ab4f520b2b36d674"
+            },
+            "model.fp16.safetensors": {
+              "bytes": 273475064,
+              "sha256": "fb7a004a7098dbbaebfb85b207f8400a1da8b0e98cf9d769c458a1edbb3458a5"
+            },
+            "modeling_hf_nomic_bert.py": {
+              "bytes": 52571,
+              "sha256": "502ccfb9c2d5dac976109ac2f04dc3125d8540329e5d4af92bc587d6dc65edcd"
+            },
+            "special_tokens_map.json": {
+              "bytes": 695,
+              "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+            },
+            "tokenizer.json": {
+              "bytes": 711649,
+              "sha256": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854"
+            },
+            "tokenizer_config.json": {
+              "bytes": 1417,
+              "sha256": "7809f768ee3614618b3f1b91dcbfab4f6a9d4b79fb1ad5d17feb65a7c1bb5b7a"
+            },
+            "vocab.txt": {
+              "bytes": 231508,
+              "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+            }
+          },
+          "inference_dtype": "float32",
+          "max_tokens": 512,
+          "model": "nomic-ai/CodeRankEmbed",
+          "original_weights": {
+            "bytes": 546938168,
+            "sha256": "827529bcd58aef0d9082e66eeff7e7d53a02f62bd005f841a26b3d3e2fb17ebe"
+          },
+          "pooling": "cls",
+          "query_prefix": "Represent this query for searching relevant code: ",
+          "revision": "3c4b60807d71f79b43f3c4363786d9493691f8b1",
+          "runtime": {
+            "attention": "reviewed non-fused implementation",
+            "batch_size": 2,
+            "device": "cpu",
+            "normalization": "L2",
+            "threads": 2,
+            "torch": "2.10.0"
+          },
+          "storage_dtype": "float16",
+          "version": "coderank-encoder011-v1"
+        },
+        "index_id": "3bc720acfa21fa85241d6465784d4f5a9070ae651a0ced0a04ad819f551f8618",
+        "mode": "hybrid",
+        "omissions": [
+          {
+            "count": 1642,
+            "reason": "Lower-ranked chunks outside requested retrieval limit"
+          }
+        ],
+        "query_bytes": 2773,
+        "query_encoding_metadata": {
+          "metadata": {
+            "inputs": [
+              {
+                "encoded_tokens": 512,
+                "included_character_end": 1107,
+                "input_sha256": "ca576fd3db872eac6366a70f11be67886795dbb95d5719f2f9e8ff617c698371",
+                "input_tokens_with_special_and_prefix": 1446,
+                "omitted_bytes": 1642,
+                "scope": "Encoding may omit trailing tokens; original source remains exact in the index",
+                "truncated": true
+              }
+            ],
+            "max_tokens": 512,
+            "query_prefix_applied": true
+          },
+          "method": "encode_queries"
+        },
+        "query_sha256": "ca576fd3db872eac6366a70f11be67886795dbb95d5719f2f9e8ff617c698371",
+        "ranking": [
+          {
+            "chunk_id": "C2175a4b73213f78692fc884f",
+            "dense_cosine": 0.34294992685317993,
+            "dense_rank": 32,
+            "lexical_rank": 3,
+            "lexical_score": 300.62417611307046,
+            "score": 0.026742581090407176
+          },
+          {
+            "chunk_id": "C0750d96d47149e49abbec0ba",
+            "dense_cosine": 0.3939250707626343,
+            "dense_rank": 6,
+            "lexical_rank": 32,
+            "lexical_score": 191.7188120860966,
+            "score": 0.026021080368906456
+          },
+          {
+            "chunk_id": "Ca342ee46a2df0ff0775a5056",
+            "dense_cosine": 0.3519565165042877,
+            "dense_rank": 24,
+            "lexical_rank": 20,
+            "lexical_score": 214.3047287056416,
+            "score": 0.024404761904761905
+          },
+          {
+            "chunk_id": "C38150b117cda9c48f74068ee",
+            "dense_cosine": 0.30037444829940796,
+            "dense_rank": 111,
+            "lexical_rank": 5,
+            "lexical_score": 254.16886178576425,
+            "score": 0.021232568600989654
+          },
+          {
+            "chunk_id": "C39f278b62e15a0d13a9e7de9",
+            "dense_cosine": 0.3052898347377777,
+            "dense_rank": 101,
+            "lexical_rank": 8,
+            "lexical_score": 238.95144140295483,
+            "score": 0.02091706247716478
+          },
+          {
+            "chunk_id": "C4aff9c31b3d27fbde8f6c46f",
+            "dense_cosine": 0.39728662371635437,
+            "dense_rank": 5,
+            "lexical_rank": 146,
+            "lexical_score": 130.64600642881885,
+            "score": 0.020238984316654218
+          },
+          {
+            "chunk_id": "Cc52c5480cbadaf0207783d0b",
+            "dense_cosine": 0.34684908390045166,
+            "dense_rank": 26,
+            "lexical_rank": 63,
+            "lexical_score": 166.64571787290498,
+            "score": 0.019757988277557197
+          },
+          {
+            "chunk_id": "C8ced8beb85812577d72b8c78",
+            "dense_cosine": 0.3226562738418579,
+            "dense_rank": 62,
+            "lexical_rank": 28,
+            "lexical_score": 197.49036051157836,
+            "score": 0.019560357675111772
+          },
+          {
+            "chunk_id": "C08ec42c1e27b26fe3dbaffd8",
+            "dense_cosine": 0.40178629755973816,
+            "dense_rank": 3,
+            "lexical_rank": 350,
+            "lexical_score": 79.6350679573855,
+            "score": 0.018312040263259773
+          },
+          {
+            "chunk_id": "Caa28542ed326a39827243151",
+            "dense_cosine": 0.4346366822719574,
+            "dense_rank": 1,
+            "lexical_rank": 561,
+            "lexical_score": 48.252879031223436,
+            "score": 0.018003748581082866
+          }
+        ],
+        "requested": 10,
+        "returned": 10,
+        "revision": "e856638ba086fcf5bebf1bebea32d5cf78de87b4",
+        "rrf_k": 60,
+        "scope": "Issue query and original source only; no reference repairs, evaluation labels or entry-file hints",
+        "source_omissions": {
+          "count": 0,
+          "location": "content-addressed index.json/omissions",
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "source_snapshot_digest": "d69cfddab93f00162a74a846a2c3b1d29ad4ee225f3623155ad8d5961aa0c6d5",
+        "version": "original-source-retrieval011-v1"
+      },
+      "instance_id": "pytest-dev__pytest-6197",
+      "regions": [
+        {
+          "end_line": 43,
+          "id": "C2175a4b73213f78692fc884f",
+          "path": "src/_pytest/main.py",
+          "start_line": 1,
+          "symbol": "",
+          "text_sha256": "7c7a2948af12f9ff72950eda8ca0d3af0635137a7cfae867596c67e06894c42b"
+        },
+        {
+          "end_line": 387,
+          "id": "C0750d96d47149e49abbec0ba",
+          "path": "src/_pytest/main.py",
+          "start_line": 369,
+          "symbol": "Session.__init__",
+          "text_sha256": "b667ca7820f46b31c2c20ca36f8623f6485a6915eb52be1faa671ae39e0f14b7"
+        },
+        {
+          "end_line": 574,
+          "id": "Ca342ee46a2df0ff0775a5056",
+          "path": "src/_pytest/main.py",
+          "start_line": 495,
+          "symbol": "Session._collect",
+          "text_sha256": "4002ece13faa83a23693c412bcbcb266cf62b646f27e923f9af8ea1311948dbb"
+        },
+        {
+          "end_line": 137,
+          "id": "C38150b117cda9c48f74068ee",
+          "path": "src/_pytest/pytester.py",
+          "start_line": 116,
+          "symbol": "LsofFdLeakChecker.pytest_runtest_protocol",
+          "text_sha256": "0076e08fab0c58bca40645f50aef5fb72b83b7f93fae163de178ab9412e25d55"
+        },
+        {
+          "end_line": 50,
+          "id": "C39f278b62e15a0d13a9e7de9",
+          "path": "src/_pytest/junitxml.py",
+          "start_line": 1,
+          "symbol": "",
+          "text_sha256": "19977ce92ca2280bcade471a25ef2349bd414337868f9ef63421250af62da76c"
+        },
+        {
+          "end_line": 670,
+          "id": "C4aff9c31b3d27fbde8f6c46f",
+          "path": "src/_pytest/python.py",
+          "start_line": 641,
+          "symbol": "Package.collect",
+          "text_sha256": "f46b9710da2630d222fdb4bcb8d6cb9437dec22b6d90c4e053bee6ae908334ef"
+        },
+        {
+          "end_line": 571,
+          "id": "Cc52c5480cbadaf0207783d0b",
+          "path": "src/_pytest/terminal.py",
+          "start_line": 546,
+          "symbol": "TerminalReporter.pytest_sessionstart",
+          "text_sha256": "7965dca124c7ff9996135600b5b96fa01216fa7eff6e5747870ae48cc330fe32"
+        },
+        {
+          "end_line": 354,
+          "id": "C8ced8beb85812577d72b8c78",
+          "path": "src/_pytest/compat.py",
+          "start_line": 351,
+          "symbol": "",
+          "text_sha256": "47f1b20fbaf1bcc641ca59466356270e186c11bf189b682de91e1c3e5cbd1243"
+        },
+        {
+          "end_line": 52,
+          "id": "C08ec42c1e27b26fe3dbaffd8",
+          "path": "src/_pytest/config/__init__.py",
+          "start_line": 1,
+          "symbol": "",
+          "text_sha256": "92a7338e5bc7bc0b4bc833973770116639b01b6ca414a9ceec34e330b1186755"
+        },
+        {
+          "end_line": 8,
+          "id": "Caa28542ed326a39827243151",
+          "path": "src/_pytest/__init__.py",
+          "start_line": 1,
+          "symbol": "",
+          "text_sha256": "e857f9bfff4264aa72d65f3b013e5c20739f300f64753b73865d86dd08d80bd4"
+        }
+      ],
+      "seconds": 0.431931,
+      "status": "completed"
+    },
+    "lexical": {
+      "audit": {
+        "corpus_chunks": 1652,
+        "dense_backend": null,
+        "document_encoding_metadata": [],
+        "encoder_identity": null,
+        "index_id": "3bc720acfa21fa85241d6465784d4f5a9070ae651a0ced0a04ad819f551f8618",
+        "mode": "lexical",
+        "omissions": [
+          {
+            "count": 1642,
+            "reason": "Lower-ranked chunks outside requested retrieval limit"
+          }
+        ],
+        "query_bytes": 2773,
+        "query_encoding_metadata": null,
+        "query_sha256": "ca576fd3db872eac6366a70f11be67886795dbb95d5719f2f9e8ff617c698371",
+        "ranking": [
+          {
+            "chunk_id": "Cd42d476272ceae308488d204",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 1,
+            "lexical_score": 407.22557832930454,
+            "score": 407.22557832930454
+          },
+          {
+            "chunk_id": "C80c1bac7b52a94db3032cc58",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 2,
+            "lexical_score": 343.59654238677996,
+            "score": 343.59654238677996
+          },
+          {
+            "chunk_id": "C2175a4b73213f78692fc884f",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 3,
+            "lexical_score": 300.62417611307046,
+            "score": 300.62417611307046
+          },
+          {
+            "chunk_id": "Cb463daf6cd8e37d33b4c661c",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 4,
+            "lexical_score": 259.75766814328625,
+            "score": 259.75766814328625
+          },
+          {
+            "chunk_id": "C38150b117cda9c48f74068ee",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 5,
+            "lexical_score": 254.16886178576425,
+            "score": 254.16886178576425
+          },
+          {
+            "chunk_id": "C4c7dd766223bcd987815f0ce",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 6,
+            "lexical_score": 246.23030551584236,
+            "score": 246.23030551584236
+          },
+          {
+            "chunk_id": "Cda7a4288e9cf69474ff6f25c",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 7,
+            "lexical_score": 240.44600932814149,
+            "score": 240.44600932814149
+          },
+          {
+            "chunk_id": "C39f278b62e15a0d13a9e7de9",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 8,
+            "lexical_score": 238.95144140295483,
+            "score": 238.95144140295483
+          },
+          {
+            "chunk_id": "C81331dd7c14b9fdf895578c2",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 9,
+            "lexical_score": 238.19389378611862,
+            "score": 238.19389378611862
+          },
+          {
+            "chunk_id": "Cfbc97553b9c2be7d5f5c68d0",
+            "dense_cosine": null,
+            "dense_rank": null,
+            "lexical_rank": 10,
+            "lexical_score": 234.32286777906438,
+            "score": 234.32286777906438
+          }
+        ],
+        "requested": 10,
+        "returned": 10,
+        "revision": "e856638ba086fcf5bebf1bebea32d5cf78de87b4",
+        "rrf_k": null,
+        "scope": "Issue query and original source only; no reference repairs, evaluation labels or entry-file hints",
+        "source_omissions": {
+          "count": 0,
+          "location": "content-addressed index.json/omissions",
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "source_snapshot_digest": "d69cfddab93f00162a74a846a2c3b1d29ad4ee225f3623155ad8d5961aa0c6d5",
+        "version": "original-source-retrieval011-v1"
+      },
+      "instance_id": "pytest-dev__pytest-6197",
+      "regions": [
+        {
+          "end_line": 418,
+          "id": "Cd42d476272ceae308488d204",
+          "path": "src/_pytest/python_api.py",
+          "start_line": 339,
+          "symbol": "approx",
+          "text_sha256": "9879c92eab251579dc6d3de269f3dc0208b79ae6abb828e763ffba63b76bb6fc"
+        },
+        {
+          "end_line": 498,
+          "id": "C80c1bac7b52a94db3032cc58",
+          "path": "src/_pytest/python_api.py",
+          "start_line": 419,
+          "symbol": "approx",
+          "text_sha256": "c423c0297043fc7cf8d53118cf35ea0060d8d8d79dab76eea542949f03ae7b8c"
+        },
+        {
+          "end_line": 43,
+          "id": "C2175a4b73213f78692fc884f",
+          "path": "src/_pytest/main.py",
+          "start_line": 1,
+          "symbol": "",
+          "text_sha256": "7c7a2948af12f9ff72950eda8ca0d3af0635137a7cfae867596c67e06894c42b"
+        },
+        {
+          "end_line": 21,
+          "id": "Cb463daf6cd8e37d33b4c661c",
+          "path": "src/_pytest/_io/saferepr.py",
+          "start_line": 16,
+          "symbol": "_ellipsize",
+          "text_sha256": "7727234475679f07a0a1c822dcaad865309f44c1026afb3372501df901b0177c"
+        },
+        {
+          "end_line": 137,
+          "id": "C38150b117cda9c48f74068ee",
+          "path": "src/_pytest/pytester.py",
+          "start_line": 116,
+          "symbol": "LsofFdLeakChecker.pytest_runtest_protocol",
+          "text_sha256": "0076e08fab0c58bca40645f50aef5fb72b83b7f93fae163de178ab9412e25d55"
+        },
+        {
+          "end_line": 1235,
+          "id": "C4c7dd766223bcd987815f0ce",
+          "path": "src/_pytest/pytester.py",
+          "start_line": 1224,
+          "symbol": "LineComp.assert_contains_lines",
+          "text_sha256": "8bd448a6e2d52ee5b69eb73a8375237b6054e5944995776a2d8d2ee9294684f9"
+        },
+        {
+          "end_line": 1146,
+          "id": "Cda7a4288e9cf69474ff6f25c",
+          "path": "src/_pytest/config/__init__.py",
+          "start_line": 1131,
+          "symbol": "_strtobool",
+          "text_sha256": "26ad442691c856572b22d95bfd7901ab65a522e8342b900391c519df4c594f5d"
+        },
+        {
+          "end_line": 50,
+          "id": "C39f278b62e15a0d13a9e7de9",
+          "path": "src/_pytest/junitxml.py",
+          "start_line": 1,
+          "symbol": "",
+          "text_sha256": "19977ce92ca2280bcade471a25ef2349bd414337868f9ef63421250af62da76c"
+        },
+        {
+          "end_line": 210,
+          "id": "C81331dd7c14b9fdf895578c2",
+          "path": "src/_pytest/compat.py",
+          "start_line": 188,
+          "symbol": "ascii_escaped",
+          "text_sha256": "becfd8e2c31eb412b26fa158c8752aaaa53553a599415c9b3d4a4d8321281a48"
+        },
+        {
+          "end_line": 245,
+          "id": "Cfbc97553b9c2be7d5f5c68d0",
+          "path": "src/_pytest/python_api.py",
+          "start_line": 223,
+          "symbol": "ApproxScalar.__repr__",
+          "text_sha256": "2f7320cfd918061ec769f9ed68ccbd9413c551d58041c120073e0382ec956898"
+        }
+      ],
+      "seconds": 0.217454,
+      "status": "completed"
+    }
+  },
+  "repair_checks": 0,
+  "revision": "e856638ba086fcf5bebf1bebea32d5cf78de87b4",
+  "scope": "One previously exposed pytest issue at its original source revision; source-only ranking. Reference changed-source labels used offline after ranking. Not held-out repair validation.",
+  "task_id": "pytest-dev__pytest-6197",
+  "version": "retrieval011-retrospective-diagnostic-v1"
+}

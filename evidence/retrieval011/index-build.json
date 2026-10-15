@@ -1,0 +1,93 @@
+{
+  "action": "build",
+  "chunks": 1652,
+  "encoder_identity": {
+    "conversion": "FP16 storage, expanded to FP32 for CPU inference; evaluated as this explicit derived profile",
+    "dimension": 768,
+    "files": {
+      "1_Pooling/config.json": {
+        "bytes": 296,
+        "sha256": "d02ebf56344d20f773449b15d0c10ee9a86a9178f3b3c9bfecb8b87d4350ce38"
+      },
+      "README.md": {
+        "bytes": 3096,
+        "sha256": "69a6d76a2b533dd0f293b5d1b33a5b433201af38cf48c887b8ec795b641849a0"
+      },
+      "config.json": {
+        "bytes": 1525,
+        "sha256": "5ff856a41d0f53ef2d74520627d464bd75c2efd8f26f381bd528654895c29b6c"
+      },
+      "configuration_hf_nomic_bert.py": {
+        "bytes": 1955,
+        "sha256": "8632792e922e62ab1a6feaab15baf406e223c0547a21de23ab4f520b2b36d674"
+      },
+      "model.fp16.safetensors": {
+        "bytes": 273475064,
+        "sha256": "fb7a004a7098dbbaebfb85b207f8400a1da8b0e98cf9d769c458a1edbb3458a5"
+      },
+      "modeling_hf_nomic_bert.py": {
+        "bytes": 52571,
+        "sha256": "502ccfb9c2d5dac976109ac2f04dc3125d8540329e5d4af92bc587d6dc65edcd"
+      },
+      "special_tokens_map.json": {
+        "bytes": 695,
+        "sha256": "5d5b662e421ea9fac075174bb0688ee0d9431699900b90662acd44b2a350503a"
+      },
+      "tokenizer.json": {
+        "bytes": 711649,
+        "sha256": "91f1def9b9391fdabe028cd3f3fcc4efd34e5d1f08c3bf2de513ebb5911a1854"
+      },
+      "tokenizer_config.json": {
+        "bytes": 1417,
+        "sha256": "7809f768ee3614618b3f1b91dcbfab4f6a9d4b79fb1ad5d17feb65a7c1bb5b7a"
+      },
+      "vocab.txt": {
+        "bytes": 231508,
+        "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+      }
+    },
+    "inference_dtype": "float32",
+    "max_tokens": 512,
+    "model": "nomic-ai/CodeRankEmbed",
+    "original_weights": {
+      "bytes": 546938168,
+      "sha256": "827529bcd58aef0d9082e66eeff7e7d53a02f62bd005f841a26b3d3e2fb17ebe"
+    },
+    "pooling": "cls",
+    "query_prefix": "Represent this query for searching relevant code: ",
+    "revision": "3c4b60807d71f79b43f3c4363786d9493691f8b1",
+    "runtime": {
+      "attention": "reviewed non-fused implementation",
+      "batch_size": 2,
+      "device": "cpu",
+      "normalization": "L2",
+      "threads": 2,
+      "torch": "2.10.0"
+    },
+    "storage_dtype": "float16",
+    "version": "coderank-encoder011-v1"
+  },
+  "exact_backend": "numpy",
+  "files": 55,
+  "index_id": "3bc720acfa21fa85241d6465784d4f5a9070ae651a0ced0a04ad819f551f8618",
+  "revision": "e856638ba086fcf5bebf1bebea32d5cf78de87b4",
+  "seconds": 145.557,
+  "source_omissions": [],
+  "source_snapshot_digest": "d69cfddab93f00162a74a846a2c3b1d29ad4ee225f3623155ad8d5961aa0c6d5",
+  "storage_after": {
+    "budget_bytes": 6442450944,
+    "free_bytes": 17539104768,
+    "owned_bytes": 6202203801,
+    "projected_bytes": 0,
+    "reserve_bytes": 4294967296,
+    "scope": "Caller-declared owned experiment roots, de-duplicated; machine paths are private"
+  },
+  "storage_before": {
+    "budget_bytes": 6442450944,
+    "free_bytes": 18614087680,
+    "owned_bytes": 6195138601,
+    "projected_bytes": 100663296,
+    "reserve_bytes": 4294967296,
+    "scope": "Caller-declared owned experiment roots, de-duplicated; machine paths are private"
+  }
+}

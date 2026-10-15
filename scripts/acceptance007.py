@@ -19,7 +19,9 @@ def backend_files(root=ROOT):
               'tests/test_package_release007.py','tests/test_check_capture007.py','tests/test_free_model_pilot.py',
               'tests/test_feedback010.py','tests/test_codex_context010.py','tests/test_codex_transport010.py',
               'tests/test_unresolved_registry010.py','tests/test_unresolved_integration010.py',
-              'tests/test_study010.py','tests/test_verify_repair010.py'}
+              'tests/test_study010.py','tests/test_verify_repair010.py',
+              'tests/test_retrieval011.py','tests/test_retrieval_study011.py',
+              'tests/test_encoder011.py','tests/test_verify_retrieval011.py','tests/test_faiss_worker011.py','tests/test_retrieval_cli011.py'}
     if not required.issubset(files): raise RuntimeError('Required release tests are missing')
     return files
 

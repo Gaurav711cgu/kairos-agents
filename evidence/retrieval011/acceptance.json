@@ -1,0 +1,117 @@
+{
+  "backend": {
+    "command": "python -m scripts.acceptance007 backend",
+    "failed": 0,
+    "passed": 656,
+    "scope": "Current source; no database, Docker, identity provider or autoregressive repair model enabled. Environment-dependent opt-ins are skips, not passes.",
+    "seconds": 5.989,
+    "skipped": 125
+  },
+  "backend_log": {
+    "bytes": 1770,
+    "sha256": "ce4aa6f85b805216e4a2879ed5c77c55cea3b78b13bff1d314867f27a3b4710e"
+  },
+  "frontend": "No website source, frontend dependencies or browser contracts changed in Phase 1; prior hosted browser evidence retained",
+  "functional_source": {
+    "profiles/coderank011-header.json": {
+      "bytes": 15821,
+      "sha256": "522485c35daece4f3d4ed3efcd155d94b11c6638907811d2b2a138b3a7d7c291"
+    },
+    "profiles/coderank011.json": {
+      "bytes": 1998,
+      "sha256": "ee937c755791edebfb817967e5d52d258ce22e67febc799d2577541a0febe9a0"
+    },
+    "scripts/acceptance007.py": {
+      "bytes": 2407,
+      "sha256": "fdc437386d623a6bf10aca80491e6c57fb5f9e7583808388c814ef4cf561b86f"
+    },
+    "scripts/prepare_retrieval011.py": {
+      "bytes": 5742,
+      "sha256": "41ff341f546d5ce7cce1a2113d9994c458624536f34410ed0eec397b45ec7993"
+    },
+    "scripts/retrieval011/__init__.py": {
+      "bytes": 440,
+      "sha256": "8ffd352dd5ab660c5e677df3c8b116b73827c7b25771f2561f3df86eda3f3f6a"
+    },
+    "scripts/retrieval011/__main__.py": {
+      "bytes": 6135,
+      "sha256": "f9e62bebe9187bdbced0df847ca5ca9fdbf4e316228cf113377a4bd2c83e3ce2"
+    },
+    "scripts/retrieval011/core.py": {
+      "bytes": 37456,
+      "sha256": "9aaf841cc1ae79dabbcb06d33aa316e6de7ed45b0c9ef6b63bb3c2b4b60370de"
+    },
+    "scripts/retrieval011/encoder.py": {
+      "bytes": 7345,
+      "sha256": "bbbab2569dda7d3ab6a3cdacaa9e51adf106cae538d86652e47d5d37dcb30a66"
+    },
+    "scripts/retrieval011/faiss_worker.py": {
+      "bytes": 2301,
+      "sha256": "a7548ccd8c95932f7dfd44b112641f71110960e0b0d0025e95368062cbce7fff"
+    },
+    "scripts/retrieval_study011.py": {
+      "bytes": 28624,
+      "sha256": "52eb37d8afdfa822433e788da80b755bd0be43594279ccd2cf526e6a4c381ead"
+    },
+    "scripts/verify_retrieval011.py": {
+      "bytes": 3544,
+      "sha256": "f7bbab16df7d81d78ea111e43c3951df5d279e7fec72766954d5bea752b306b2"
+    },
+    "tests/test_encoder011.py": {
+      "bytes": 3820,
+      "sha256": "1dd3e2b0c11d687b4567def2d1dc255414b0283a4017171df4b38f5ae54d1a84"
+    },
+    "tests/test_faiss_worker011.py": {
+      "bytes": 1289,
+      "sha256": "c2f6df5042c0f3f10c3b7d556c6a34e6ddd536a63e0cc8ae929b589576683536"
+    },
+    "tests/test_retrieval011.py": {
+      "bytes": 14972,
+      "sha256": "aaf3f77fbd2b79ccd68b7a906abcccb12e0e16325f049995e5f6a33f98c9116e"
+    },
+    "tests/test_retrieval_cli011.py": {
+      "bytes": 2194,
+      "sha256": "eb2196c09576846de93691ccb4cc2e0c4a0f61ff7a6609352f5c883d7375bf62"
+    },
+    "tests/test_retrieval_study011.py": {
+      "bytes": 12615,
+      "sha256": "5fe9a37ca8d9a31f9e8a14e02d66ef7edbc217f66279de439a672b75c3d6c478"
+    },
+    "tests/test_verify_retrieval011.py": {
+      "bytes": 1060,
+      "sha256": "0596539ea2ac9e9792e4333a98eb39abeb7379c4d707b4fdd897538690e92982"
+    }
+  },
+  "hosted_ci": "Pending Phase 1 push; prior repair010 run38726663747 passed both jobs",
+  "passed": true,
+  "preserved_parent_snapshot_verification": {
+    "command": "python -m scripts.verify_repair010 --root EXACT_GIT_SNAPSHOT",
+    "commit": "69432bd468e2d8ccefcf522d89365cbe32970d31",
+    "passed": true
+  },
+  "real_embedding_and_faiss": {
+    "case_id": "pytest-dev__pytest-6197",
+    "cases": 1,
+    "completed": true,
+    "controls": {
+      "bytes": 90870,
+      "sha256": "843e114c2a1f721c02b6bb2ead1b328be9bc3c5ecec1e932cea71cac91642db2"
+    },
+    "final_native_worker_control": {
+      "bytes": 192,
+      "sha256": "390f54ca3b27424fa9a34f2ea14e2bc494d5bfa212aac8a8ad1dfd6e35b3e011"
+    },
+    "fresh_repair_score": null,
+    "raw_rankings": {
+      "bytes": 186539,
+      "sha256": "dbcdd663e59ebd161b6ddabb7153ada42571bbff922eea9c5e747553dfdab59d"
+    },
+    "split": "retrospective/exposed"
+  },
+  "services_started": {
+    "database": false,
+    "docker": false,
+    "repair_model": false
+  },
+  "version": "retrieval011-phase1-acceptance-v1"
+}
