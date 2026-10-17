@@ -1,0 +1,80 @@
+{
+  "artifacts": [],
+  "cancel_requested": false,
+  "check_count": 0,
+  "claims": 1,
+  "config_digest": "60bb5a80d07386408e1b3a2c1e5beeade8f5854e930e489229a8713369c4e5c2",
+  "config_snapshot": {
+    "budgets": {
+      "max_calls": 10,
+      "max_checks": 4,
+      "max_patches": 4,
+      "seconds": 900
+    },
+    "experiment_version": "retrieval-loop-cli012-v1",
+    "generation": {
+      "harness_automatic_redispatch": false,
+      "internal_provider_retries": "CLI-controlled; invocation count is not network request count",
+      "local_4096_1024_profile_applies": false,
+      "max_dispatch_seconds": 120,
+      "max_harness_dispatches": 10,
+      "max_prompt_bytes": 65536,
+      "model_selection": "Explicit requested model; remote weight bytes are not attested",
+      "output_tokens_limit": null,
+      "provider": "codex-cli-chatgpt",
+      "reported_completion_token_ceiling": 8192,
+      "reported_prompt_token_ceiling": 64000,
+      "requested_model": "gpt-6.1-sol",
+      "thinking_setting": "CLI default",
+      "token_ceiling_scope": "Stops subsequent calls from captured usage; a final call may overshoot and internal CLI retries are opaque",
+      "usage": "Existing signed-in ChatGPT/Codex subscription; no API-key billing fallback"
+    },
+    "model_manifest_digest": "d6106fcb4d63e7a74078235b08d3995d1cfc84b30b2bebb46b91c0cbc1e91534",
+    "version": "loop-v8"
+  },
+  "configuration": "loop-v8",
+  "created_at": "2026-10-16T11:52:33.739461+00:00",
+  "deadline_at": "2026-10-16T12:07:33.751617+00:00",
+  "id": "8396da21-60c1-43f2-95dd-12b99138c8c8",
+  "integrity": {
+    "scope": "Stored snapshots and content-addressed captures; not immutable history",
+    "verified": true
+  },
+  "model_calls": 0,
+  "outcome": "no_patch",
+  "parent_id": null,
+  "patch_count": 0,
+  "published": false,
+  "registry_version": "repository-cases-v1",
+  "started_at": "2026-10-16T11:52:33.751617+00:00",
+  "status": "completed",
+  "steps": [],
+  "summary": "Issue-only AST localization returned no source regions; no entry-file fallback or model dispatch",
+  "task_digest": "d594fb987c15de9728e37825b418a483b59d27a3e71350235bd8fb849e3b3be0",
+  "task_id": "pytest-dev__pytest-5221",
+  "task_snapshot": {
+    "approved_prefix": "src/_pytest/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "src/_pytest/python.py"
+    ],
+    "id": "pytest-dev__pytest-5221",
+    "image": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+    "issue": "Display fixture scope with `pytest --fixtures`\nIt would be useful to show fixture scopes with `pytest --fixtures`; currently the only way to learn the scope of a fixture is look at the docs (when that is documented) or at the source code.\n",
+    "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.",
+    "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+    "qualified": true,
+    "reference_digest": "be5549ceff2ee5643ad3743e8919241e16ebf9549c79c68cd56a0ee3aaaf666b",
+    "repository": "pytest-dev/pytest",
+    "revision": "4a2fdce62b73944030cff9b3e52862868ca9584d",
+    "source_digest": "8fa380150b00e692065a375aacc1d95f2bc039c6080519783bbce9009e0e4137",
+    "source_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/4a2fdce62b73944030cff9b3e52862868ca9584d",
+    "split": "holdout",
+    "title": "Display fixture scope with `pytest --fixtures`",
+    "verification_digest": "a7aeaf9e707594b3849fc28095f5005ae72fa12cc6566aacfb33442b4ad716eb"
+  },
+  "updated_at": "2026-10-16T11:52:34.328986+00:00"
+}

@@ -1,0 +1,58 @@
+{
+  "evaluation_issue_text_read": false,
+  "family_review_status": "pending",
+  "finding": "Nearest lexical neighbors share bug-report boilerplate and miss exact-component references. Symbol scanning found additional MONAI tasks mentioning RandSpatialCropSamples or set_random_state. These need explicit family review before split admission; symbol overlap alone is not proof of duplication.",
+  "model_calls": 0,
+  "patterns": {
+    "Project-MONAI/MONAI": "RandSpatialCropSamples|set_random_state",
+    "getmoto/moto": "resourceRequirements|register_job_definition|_get_resource_requirement"
+  },
+  "records": [
+    {
+      "instance_id": "Project-MONAI__MONAI-1086",
+      "issue_sha256": "bde9b542501b112ebc7334671678f52f1e3d0f5f1fc4d27acc0ab581ab4d37a1",
+      "repository": "Project-MONAI/MONAI",
+      "title": "RandSpatialCropSamples should support `set_random_state`"
+    },
+    {
+      "instance_id": "Project-MONAI__MONAI-2010",
+      "issue_sha256": "08af688237cd02e51d3a7ec46d196564299972b8d4f6086cf61aab54f94db685",
+      "repository": "Project-MONAI/MONAI",
+      "title": "Duplicated records of `RandSpatialCropSamplesd` in `key_transforms` in case of preceding transforms"
+    },
+    {
+      "instance_id": "Project-MONAI__MONAI-2104",
+      "issue_sha256": "8aa47fbacdba3c31704ea7db5be96565bc1affb5aa85ea85292287f4d4748fa0",
+      "repository": "Project-MONAI/MONAI",
+      "title": "Need to deepcopy data in RandCropByPosNegLabeld transform"
+    },
+    {
+      "instance_id": "Project-MONAI__MONAI-3530",
+      "issue_sha256": "9cea1c654837b826b32450cf51e8fa28df651487331fb4a89ecea7f3a0b602c9",
+      "repository": "Project-MONAI/MONAI",
+      "title": "`OneOf` Compose can't support non-invertible transforms"
+    },
+    {
+      "instance_id": "Project-MONAI__MONAI-4479",
+      "issue_sha256": "4fb1a8b1d0b600888d4b2bc08c649070277fcf29b416ace7b6c3d23a80e6faf9",
+      "repository": "Project-MONAI/MONAI",
+      "title": "shufflebuffer is not compatible with the dataloader"
+    },
+    {
+      "instance_id": "Project-MONAI__MONAI-865",
+      "issue_sha256": "fd58202d98aefc9d972197a5111fade5d123e6b4e85e4c845beeaa3a00d1ca0f",
+      "repository": "Project-MONAI/MONAI",
+      "title": "Error with tensor size using ArrayDataset, but not with CacheDataset?"
+    },
+    {
+      "instance_id": "getmoto__moto-4809",
+      "issue_sha256": "7d8a076a1f76fdf249295181de408e607e524404a4cffbed75aaf01b39f13988",
+      "repository": "getmoto/moto",
+      "title": "AWS Batch using resourceRequirements raises TypeError"
+    }
+  ],
+  "rights_review_status": "pending",
+  "training_approved": false,
+  "training_candidates_scanned": 500,
+  "version": "coding-review-symbol-audit014-v1"
+}

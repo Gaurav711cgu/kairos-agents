@@ -1,0 +1,81 @@
+{
+  "base_commit": "1aefb24b37c30fba8fd79a744829ca16e252f340",
+  "baseline_regression_reproduced": true,
+  "baseline_summary": {
+    "collected": 93,
+    "collection_errors": [],
+    "complete": false,
+    "execution_complete": true,
+    "failed": [
+      "testing/test_assertion.py::TestAssert_reprcompare::test_bytes_diff_normal",
+      "testing/test_assertion.py::TestAssert_reprcompare::test_bytes_diff_verbose",
+      "testing/test_assertion.py::TestAssert_reprcompare_attrsclass::test_attrs",
+      "testing/test_assertion.py::TestAssert_reprcompare_attrsclass::test_attrs_verbose",
+      "testing/test_assertion.py::TestAssert_reprcompare_attrsclass::test_attrs_with_attribute_comparison_off",
+      "testing/test_assertion.py::TestImportHookInstallation::test_installed_plugin_rewrite[plain]",
+      "testing/test_assertion.py::TestImportHookInstallation::test_installed_plugin_rewrite[rewrite]",
+      "testing/test_assertion.py::TestImportHookInstallation::test_rewrite_assertions_pytester_plugin",
+      "testing/test_assertion.py::test_raise_assertion_error_raisin_repr",
+      "testing/test_assertion.py::test_warn_missing"
+    ],
+    "regression_failed": [
+      "testing/test_assertion.py::TestAssert_reprcompare::test_bytes_diff_normal",
+      "testing/test_assertion.py::TestAssert_reprcompare::test_bytes_diff_verbose"
+    ],
+    "regression_passed": false,
+    "tests_run": 93
+  },
+  "binding": "195fde99c8e7ee7763c5626a470a5cdb0e95929ec2d42f54f74cd5be6983432e",
+  "ephemeral_tree": {
+    "cleanup_authorized": true,
+    "ownership_sha256": "cc34489e7ffee73c96749c64c229a8725dc5b31b9c2dec1338cd6613d754dc43",
+    "path": "[Private machine location omitted; original bytes are retained locally.]"
+  },
+  "evidence_sha256": {
+    "baseline.json": "2cdbc8187a50410bccde3c05f023b2a696e15a0e2708bed6a36d901213b67410",
+    "case-definition.json": "c6592244d13db6c8bb104124b1ad958fd7209554e5f3e14270b0807f2b8eff18",
+    "material-manifest.json": "0fe69f9c3ed7e9cbb09fcf45a8bd2f68fea48a7dc58926d261e8fc4f5be60a16",
+    "reference.json": "d8e5ac7dcdc4cec53db12e60bbac7ba875ac42344793803064f0e3cc008ac68b",
+    "source.json": "dcb5c7b095172db296395c4ac78cb764be5da09b30b6657e9698dc9df315d6fc",
+    "test-scope.json": "d81069c36be17473f149f858295c3cb56a13043381b2a9864948ca1fe83ef37d"
+  },
+  "instance_id": "pytest-dev__pytest-5495",
+  "model_calls": 0,
+  "order": 23,
+  "qualified": false,
+  "raw_outputs_complete": true,
+  "reason": "Complete baseline regression failure and complete reference pass were not both reproduced",
+  "reference_complete_pass": false,
+  "reference_summary": {
+    "collected": 93,
+    "collection_errors": [],
+    "complete": false,
+    "execution_complete": true,
+    "failed": [
+      "testing/test_assertion.py::TestAssert_reprcompare_attrsclass::test_attrs",
+      "testing/test_assertion.py::TestAssert_reprcompare_attrsclass::test_attrs_verbose",
+      "testing/test_assertion.py::TestAssert_reprcompare_attrsclass::test_attrs_with_attribute_comparison_off",
+      "testing/test_assertion.py::TestImportHookInstallation::test_installed_plugin_rewrite[plain]",
+      "testing/test_assertion.py::TestImportHookInstallation::test_installed_plugin_rewrite[rewrite]",
+      "testing/test_assertion.py::TestImportHookInstallation::test_rewrite_assertions_pytester_plugin",
+      "testing/test_assertion.py::test_raise_assertion_error_raisin_repr",
+      "testing/test_assertion.py::test_warn_missing"
+    ],
+    "regression_failed": [],
+    "regression_passed": true,
+    "tests_run": 93
+  },
+  "repository": "pytest-dev/pytest",
+  "source_scope": {
+    "approved_prefix": "src/_pytest/",
+    "changed_lines": 25,
+    "entry_files": [
+      "src/_pytest/assertion/util.py"
+    ],
+    "maximum_changed_lines": 40,
+    "maximum_files": 2
+  },
+  "split": "holdout",
+  "status": "behavioral_mismatch",
+  "version": "qualification014-case-v1"
+}

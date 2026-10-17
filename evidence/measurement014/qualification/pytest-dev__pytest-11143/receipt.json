@@ -1,0 +1,67 @@
+{
+  "base_commit": "6995257cf470d2143ad1683824962de4071c0eb7",
+  "baseline_regression_reproduced": true,
+  "baseline_summary": {
+    "collected": 116,
+    "collection_errors": [],
+    "complete": false,
+    "execution_complete": true,
+    "failed": [
+      "testing/test_assertrewrite.py::TestIssue11140::test_constant_not_picked_as_module_docstring",
+      "testing/test_assertrewrite.py::TestRewriteOnImport::test_cached_pyc_includes_pytest_version",
+      "testing/test_assertrewrite.py::TestRewriteOnImport::test_pyc_vs_pyo"
+    ],
+    "regression_failed": [
+      "testing/test_assertrewrite.py::TestIssue11140::test_constant_not_picked_as_module_docstring"
+    ],
+    "regression_passed": false,
+    "tests_run": 116
+  },
+  "binding": "b24559242606664881672d141fc353ed5d11f541c781d76afe82c3a972c8043b",
+  "ephemeral_tree": {
+    "cleanup_authorized": true,
+    "ownership_sha256": "6f85200080b31f967892c66099fcc8d35e688c0ce4f7adf1a6d7fef3dfbffb14",
+    "path": "[Private machine location omitted; original bytes are retained locally.]"
+  },
+  "evidence_sha256": {
+    "baseline.json": "510f7ff7a9944fc42b76fa0b982042f3c9795bcc1ae32e229ee4288127a0138c",
+    "case-definition.json": "75aa6d8bdc70c5d1534093a39366350d74360fe95c7e0cb781a7087c43f7a205",
+    "material-manifest.json": "c574f6fb15cf20f91bc01add0972cf379f2cda2925c82682c2119bda3760f4bf",
+    "reference.json": "e2853128cce2aa0f19461e6749fff8c8aa3fd6678441efd3b36afe7f189aad9d",
+    "source.json": "bf1856eeb9f423f20f40016400e08199af0dfff3c41f61e61e97400b9b297d40",
+    "test-scope.json": "29acf10d711f3e851cdb2796577a09bfd4667ae6926872db59896fad73e0fde4"
+  },
+  "instance_id": "pytest-dev__pytest-11143",
+  "model_calls": 0,
+  "order": 16,
+  "qualified": false,
+  "raw_outputs_complete": true,
+  "reason": "Complete baseline regression failure and complete reference pass were not both reproduced",
+  "reference_complete_pass": false,
+  "reference_summary": {
+    "collected": 116,
+    "collection_errors": [],
+    "complete": false,
+    "execution_complete": true,
+    "failed": [
+      "testing/test_assertrewrite.py::TestRewriteOnImport::test_cached_pyc_includes_pytest_version",
+      "testing/test_assertrewrite.py::TestRewriteOnImport::test_pyc_vs_pyo"
+    ],
+    "regression_failed": [],
+    "regression_passed": true,
+    "tests_run": 116
+  },
+  "repository": "pytest-dev/pytest",
+  "source_scope": {
+    "approved_prefix": "src/_pytest/",
+    "changed_lines": 1,
+    "entry_files": [
+      "src/_pytest/assertion/rewrite.py"
+    ],
+    "maximum_changed_lines": 40,
+    "maximum_files": 2
+  },
+  "split": "holdout",
+  "status": "behavioral_mismatch",
+  "version": "qualification014-case-v1"
+}

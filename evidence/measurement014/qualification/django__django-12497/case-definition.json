@@ -1,0 +1,24 @@
+{
+  "approved_prefix": "django/",
+  "command": [
+    "python",
+    "/verification/verify.py"
+  ],
+  "entry_files": [
+    "django/db/models/fields/related.py"
+  ],
+  "id": "django__django-12497",
+  "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+  "issue": "Wrong hint about recursive relationship.\nDescription\n\t \n\t\t(last modified by Matheus Cunha Motta)\n\t \nWhen there's more than 2 ForeignKeys in an intermediary model of a m2m field and no through_fields have been set, Django will show an error with the following hint:\nhint=(\n\t'If you want to create a recursive relationship, '\n\t'use ForeignKey(\"%s\", symmetrical=False, through=\"%s\").'\nBut 'symmetrical' and 'through' are m2m keyword arguments, not ForeignKey.\nThis was probably a small mistake where the developer thought ManyToManyField but typed ForeignKey instead. And the symmetrical=False is an outdated requirement to recursive relationships with intermediary model to self, not required since 3.0. I'll provide a PR with a proposed correction shortly after.\nEdit: fixed description.\n",
+  "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.",
+  "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+  "qualified": false,
+  "reference_digest": "b075f26f45c68a0cd26078918adf8921ff3e15eaeadafbf80123376781fbe5f7",
+  "repository": "django/django",
+  "revision": "a4881f5e5d7ee38b7e83301331a0b4962845ef8a",
+  "source_digest": "8503e26f948a0e72388fa46810635981ae7219ed76e542090fcc068bfc7afb7d",
+  "source_url": "https://codeload.github.com/django/django/tar.gz/a4881f5e5d7ee38b7e83301331a0b4962845ef8a",
+  "split": "development",
+  "title": "Wrong hint about recursive relationship.",
+  "verification_digest": "02a658cd9b5c736496e74bc441e09d62e3b9614c773f3655ae2afdff4ae0620e"
+}

@@ -1,0 +1,18 @@
+{
+  "architecture": "linux/arm64",
+  "base_image": "sha256:31a4fcaee2790ba4dd906fd29c082523b10bb6d19d6c397322244e78cea2e5ab",
+  "dockerfile_sha256": "968833449ecc5dc0757d26da6bc260e27537a43b7d8a9f5aba6a9e186a3ae323",
+  "parent_tag": "kairos-coding-monai:014-itk-v2",
+  "python": "3.10",
+  "registry": "https://pypi.org/simple",
+  "repository_version": "MONAI0.3",
+  "requirements_portable_sha256": "f315463a13cbb96defd275966605d1fc09a32b9bd50e678bba5971b671bcf984",
+  "review": "MONAI0.3 requirements-dev.txt explicitly pins pytorch-ignite0.4.2. Change only that pure Python package in the preserved CPU/ITK image, retain its existing pinned Torch/NumPy and verify all installed dependencies. Registered crop regression tests do not require torchvision; a missing optional import remains a captured environment failure, never a test omission. No repository code enters the image.",
+  "runtime_cpus": 2,
+  "runtime_memory_bytes": 1073741824,
+  "runtime_network": false,
+  "runtime_timeout_seconds": 120,
+  "source_requirements_sha256": "7310e6601eecffd77f96f9b2aad3b903c16c123bc8237ca46f79bff4b2863e5c",
+  "tag": "kairos-coding-monai:014-03-v1",
+  "version": "coding-dependencies014-v3"
+}

@@ -1,0 +1,40 @@
+{
+  "binding": "b24559242606664881672d141fc353ed5d11f541c781d76afe82c3a972c8043b",
+  "result": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_limit_exceeded": false,
+    "output_truncated": false,
+    "passed": false,
+    "raw_output": {
+      "complete": true,
+      "encoding": "base64",
+      "maximum_bytes": 1048576,
+      "observed_bytes": 1120,
+      "scope": "Exact captured stream bytes; a quota failure retains bounded prefixes",
+      "stderr": {
+        "bytes": 0,
+        "data": "",
+        "observed_bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "truncated": false
+      },
+      "stdout": {
+        "bytes": 1120,
+        "data": "Li4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi5GLiAgICAgICAgICAgICAgICAgIFsxMDAlXQo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSBGQUlMVVJFUyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXyB0ZXN0X2RlY29yYXRvciBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwoKICAgIGRlZiB0ZXN0X2RlY29yYXRvcigpIC0+IE5vbmU6CiAgICAgICAgcyA9ICIiIlwKICAgIGRlZiBmb28oZik6CiAgICAgICAgcGFzcwogICAgCiAgICBAZm9vCiAgICBkZWYgYmFyKCk6CiAgICAgICAgcGFzcwogICAgICAgICIiIgogICAgICAgIHNvdXJjZSA9IGdldHN0YXRlbWVudCgzLCBzKQo+ICAgICAgIGFzc2VydCAiQGZvbyIgaW4gc3RyKHNvdXJjZSkKRSAgICAgICBBc3NlcnRpb25FcnJvcjogYXNzZXJ0ICdAZm9vJyBpbiAnICAgIHBhc3MnCkUgICAgICAgICsgIHdoZXJlICcgICAgcGFzcycgPSBzdHIoPF9weXRlc3QuX2NvZGUuc291cmNlLlNvdXJjZSBvYmplY3QgYXQgMHhmZmZmYmE5ODg3MDA+KQoKdGVzdGluZy9jb2RlL3Rlc3Rfc291cmNlLnB5OjYzMTogQXNzZXJ0aW9uRXJyb3IKPT09PT09PT09PT09PT09PT09PT09PT09PT09IHNob3J0IHRlc3Qgc3VtbWFyeSBpbmZvID09PT09PT09PT09PT09PT09PT09PT09PT09PT0KRkFJTEVEIHRlc3RpbmcvY29kZS90ZXN0X3NvdXJjZS5weTo6dGVzdF9kZWNvcmF0b3IgLSBBc3NlcnRpb25FcnJvcjogYXNzZXJ0ICcuLi4KMSBmYWlsZWQsIDU0IHBhc3NlZCBpbiAwLjA5cwpLQUlST1NfVkVSSUZJRVJfUkVTVUxUIHsidGVzdHNfcnVuIjogNTUsICJjb2xsZWN0ZWQiOiA1NSwgImV4ZWN1dGlvbl9jb21wbGV0ZSI6IHRydWUsICJjb21wbGV0ZSI6IGZhbHNlLCAicmVncmVzc2lvbl9mYWlsZWQiOiBbInRlc3RpbmcvY29kZS90ZXN0X3NvdXJjZS5weTo6dGVzdF9kZWNvcmF0b3IiXSwgInJlZ3Jlc3Npb25fcGFzc2VkIjogZmFsc2UsICJmYWlsZWQiOiBbInRlc3RpbmcvY29kZS90ZXN0X3NvdXJjZS5weTo6dGVzdF9kZWNvcmF0b3IiXSwgImNvbGxlY3Rpb25fZXJyb3JzIjogW119Cg==",
+        "observed_bytes": 1120,
+        "sha256": "9501d5a6553a88374edd71d041b800e53837ae60c7c6046e42589e20d60f4df8",
+        "truncated": false
+      }
+    },
+    "returncode": 1,
+    "seconds": 0.805,
+    "stderr": "",
+    "stdout": ".....................................................F.                  [100%]\n=================================== FAILURES ===================================\n________________________________ test_decorator ________________________________\n\n    def test_decorator() -> None:\n        s = \"\"\"\\\n    def foo(f):\n        pass\n    \n    @foo\n    def bar():\n        pass\n        \"\"\"\n        source = getstatement(3, s)\n>       assert \"@foo\" in str(source)\nE       AssertionError: assert '@foo' in '    pass'\nE        +  where '    pass' = str(<_pytest._code.source.Source object at 0xffffba988700>)\n\ntesting/code/test_source.py:631: AssertionError\n=========================== short test summary info ============================\nFAILED testing/code/test_source.py::test_decorator - AssertionError: assert '...\n1 failed, 54 passed in 0.09s\nKAIROS_VERIFIER_RESULT {\"tests_run\": 55, \"collected\": 55, \"execution_complete\": true, \"complete\": false, \"regression_failed\": [\"testing/code/test_source.py::test_decorator\"], \"regression_passed\": false, \"failed\": [\"testing/code/test_source.py::test_decorator\"], \"collection_errors\": []}\n",
+    "stop_reason": "check_completed",
+    "tests_run": 55,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "stage": "baseline"
+}

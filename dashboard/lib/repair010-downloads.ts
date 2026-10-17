@@ -4,7 +4,7 @@ import { Buffer } from "node:buffer";
 const MAX_BYTES = 1024 * 1024;
 const MAX_BASE64 = 4 * Math.ceil(MAX_BYTES / 3);
 const FILES = new Set(["candidate.patch", "checks.json", "original-model-response.json"]);
-const ROOT_FILES = new Set(["attempts.json", "candidate.patch", "checks.json", "bundle.json", "receipt.json", "retrieval.json"]);
+const ROOT_FILES = new Set(["attempts.json", "candidate.patch", "checks.json", "bundle.json", "receipt.json", "retrieval.json", "adapter.json"]);
 const MEDIA_TYPES = new Set(["application/json", "text/x-diff", "text/plain"]);
 
 function error(status: number, message: string): Response {

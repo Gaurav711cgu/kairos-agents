@@ -1,0 +1,50 @@
+{
+  "additional_revisions_exhausted": true,
+  "heldout_metrics_read": false,
+  "profiles": [
+    {
+      "checkpoint_manifest_sha256": "ad077e4bb173a894a1055e637a3c16035aab6663d0204eae9ce51859489ae29b",
+      "mrr": 0.8841975308641975,
+      "recall@5": 1.0,
+      "report_sha256": "7482adaa0394a093578b515a9e21920e124b82a8659e28434d9e471adf9bb6ae",
+      "run": "training014-full",
+      "selected_step": 0
+    },
+    {
+      "checkpoint_manifest_sha256": "3f4e2a952005e25c1df23e9ed4b59a31e909d12c962de66bdf011c18a7037fbe",
+      "mrr": 0.8903703703703704,
+      "recall@5": 1.0,
+      "report_sha256": "298744cf71eea4245ab4b53a190c7ee803d86a5df54f7c60e211110ddef212ad",
+      "run": "training014-hard8-lr0003",
+      "selected_step": 100
+    },
+    {
+      "checkpoint_manifest_sha256": "dd59f1da2fe7c2e56b98dd64b27b4ac105ad61104135c3c1f1909f9937fc1580",
+      "mrr": 0.8879012345679012,
+      "recall@5": 1.0,
+      "report_sha256": "eba0f77e9345b8217cef787574a64869f952d0273ab7d6f370f4dbf9b2efd99a",
+      "run": "training014-hard8-lr001",
+      "selected_step": 40
+    }
+  ],
+  "promotion_rule": "Retain base if held-out MRR or Recall@1 decreases; report paired uncertainty and make no general superiority claim",
+  "selected": {
+    "checkpoint_manifest_sha256": "3f4e2a952005e25c1df23e9ed4b59a31e909d12c962de66bdf011c18a7037fbe",
+    "mrr": 0.8903703703703704,
+    "recall@5": 1.0,
+    "report_sha256": "298744cf71eea4245ab4b53a190c7ee803d86a5df54f7c60e211110ddef212ad",
+    "run": "training014-hard8-lr0003",
+    "selected_step": 100
+  },
+  "selection": "Development MRR, then Recall@5, then earliest predeclared profile order",
+  "source_sha256": {
+    "profiles/coderank011.json": "ee937c755791edebfb817967e5d52d258ce22e67febc799d2577541a0febe9a0",
+    "scripts/build_functions014.py": "89c509af73a033d77905dcc812060f674fac89f7aebcc57860d5d014612b3d79",
+    "scripts/encode_training014.py": "0c52c2b49de37d44e87e75c328dc71e23c3775b1f1ed65d80307d8f0a687f8d9",
+    "scripts/evaluate_functions014.py": "e172aac5c1069607bb91ecde29515f57596c6307e5b166385e1d000ba67b4d1b",
+    "scripts/evaluate_source014.py": "609ff326ee3a38918e30bd50cb8c571071d3e0aab4d39f3261e43c67df560550",
+    "scripts/retrieval_adapter014.py": "65468bddaaef4324d38e91e6cc53f9ed6339b5392769b5386e6918e7f8f8e086",
+    "scripts/source_variants014.py": "5af6d6a43954f86be7fbf8285fbfcd3ba8af9e9cc230603efc2a00cbad291f71"
+  },
+  "version": "source014-selection-v1"
+}

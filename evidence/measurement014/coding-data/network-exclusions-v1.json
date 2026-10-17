@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "baseline_executed": false,
+      "incompatible_required_tests": [
+        "tests/test_core/test_decorator_calls.py::test_context_manager",
+        "tests/test_core/test_decorator_calls.py::test_decorator_start_and_stop"
+      ],
+      "instance_id": "getmoto__moto-4799",
+      "model_calls": 0,
+      "reason": "Selected existing tests invoke real EC2 describe_addresses outside a mock and require AWS AuthFailure. The network-free verifier cannot produce that provider response. Do not drop tests, fabricate AWS responses, enable credentials or attach network.",
+      "reference_executed": false,
+      "reviewed_test_file_sha256": "5f90c3b81673b5c0e23f6a6c0a60b801903d45aabdbd367feecc86c583aa9388",
+      "source_digest": "4c779cea07b4a9e9fda73ee7779be856ef4dee4adf380b2f70e5fba3af486637",
+      "status": "excluded_runtime_network_requirement",
+      "training_admitted": false,
+      "version": "coding-resource-disposition014-v1"
+    }
+  ],
+  "scope": "Static source review before baseline/reference execution; no tests omitted or AWS responses fabricated.",
+  "version": "coding-static-exclusions014-v1"
+}

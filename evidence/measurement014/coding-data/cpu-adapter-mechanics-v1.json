@@ -1,0 +1,43 @@
+{
+  "binding": {
+    "configuration": {
+      "attention_dropout": 0.0,
+      "hidden_size": 32,
+      "intermediate_size": 64,
+      "max_position_embeddings": 32,
+      "num_attention_heads": 4,
+      "num_hidden_layers": 2,
+      "num_key_value_heads": 2,
+      "use_cache": false,
+      "vocab_size": 32
+    },
+    "device": "cpu",
+    "pretrained_weights": false,
+    "runner_sha256": "0685fb499a98e0a9e06557e80d17b58c8c2384813eeb5a544293e39403ccda53",
+    "seed": 42,
+    "steps": 20,
+    "version": "tiny-random-qwen-fixture014-v1"
+  },
+  "checks": {
+    "adapter_equal": true,
+    "adapter_weights_changed": true,
+    "base_weights_unchanged": true,
+    "finite_loss_and_gradient": true,
+    "full_twenty_steps": true,
+    "interrupted_at_ten": true,
+    "nonzero_gradient": true,
+    "optimizer_equal": true,
+    "resumed_twenty_steps": true,
+    "scheduler_equal": true,
+    "torch_rng_equal": true
+  },
+  "passed": true,
+  "runtime": {
+    "accelerate": "1.15.0",
+    "peft": "0.21.2",
+    "torch": "2.10.0",
+    "transformers": "4.57.6"
+  },
+  "scope": "Isolated random-weight tiny Qwen2 CPU fixture. Real adapter gradients and resume mechanics only; no pretrained7B/14B weights, NF4 GPU fit, coding-model training corpus or repair effectiveness claim.",
+  "version": "coding-adapter-cpu-fixture014-v1"
+}

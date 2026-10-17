@@ -28,7 +28,7 @@ export default function PilotInvestigation() {
         <span className="eyebrow">Inspect the work</span>
         <a href="#problem">The problem</a><a href="#source">Selected source</a>
         <a href="#change">The change</a><a href="#checks">Independent checks</a>
-        <a href="#sequence">Execution timeline</a><a href="#meaning">Results and scope</a>
+        <a href="#sequence">Execution timeline</a><a href="#meaning">Results and scope</a><Link href="/retrieval-training">Retrieval training</Link>
       </aside>
       <article className="prose">
         <section id="problem">
@@ -77,6 +77,7 @@ export default function PilotInvestigation() {
           </details>)}
         </section>
         <section id="meaning">
+          <p><Link className="text-link" href="/retrieval-training">Inspect retrieval training and held-out results</Link></p>
           <h2>One completed development repair.</h2>
           <p>This run completed end to end: five model calls, one applied patch and one independent check with 22 passing tests. It used a previously exposed development issue whose public text contains repair hints. It is separate from fresh validation and the earlier post-hoc candidate checks.</p>
           <p>Earlier 0/10 and 0/36 studies remain visible. This pilot establishes that the new path can complete this investigation; it does not establish loop superiority or broad repair effectiveness.</p>

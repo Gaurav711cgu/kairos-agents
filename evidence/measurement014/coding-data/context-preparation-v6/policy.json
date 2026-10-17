@@ -1,0 +1,31 @@
+{
+  "planning": "compact",
+  "context_depth": "dependency",
+  "verification_depth": "impact",
+  "delegation": "none",
+  "reason_codes": [
+    "observed-four-hunk-limit",
+    "exact-byte-coalescing",
+    "second-bounded-round"
+  ],
+  "allowed_write_scope": [
+    "scripts/coding_context_v5_014.py",
+    "scripts/coding_actions014.py",
+    "tests/test_coding_context_v5_014.py",
+    "scripts/acceptance007.py",
+    "evidence/measurement014/coding-data/context-preparation-v5",
+    "docs/CODING_DATA_014.md",
+    "DECISIONS.md",
+    "BRAIN.md",
+    "tests/test_coding_conversion_v6_014.py",
+    "evidence/measurement014/coding-data/context-preparation-v6"
+  ],
+  "decision": "Preserve failed v5 conversion and unchanged v5 context. V6 only coalesces nonoverlapping edits within an already captured handle, copying unchanged original bridge lines. Existing three-edit ActionV7 and byte-equality replay remain mandatory. No context expansion.",
+  "acceptance": [
+    "Citation plus direct callee retains original edit authority",
+    "Hidden material and entry hints remain unread",
+    "1536 prompt/512 target reservation and four80-line bounds remain",
+    "Focused tests pass and actual fixed-candidate conversion outcome preserved"
+  ],
+  "prior_actions_sha256": "3b3aa039d51183c75f45b2c171aa821946bba578ee50463e9f0a29e942c76443"
+}

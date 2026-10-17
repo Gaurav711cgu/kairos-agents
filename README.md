@@ -37,6 +37,16 @@ Captured from the tested build007 interface. Source, candidate, checks and recor
 
 </details>
 
+## Latest backend and training evidence — measurement014
+
+This working branch adds a complete frozen three-strategy study: **19 qualified cases, 57 attempts**, preserving all 24 original candidate dispositions. On 12 held-out Django/pytest issues, the bounded loop verified **7/12 repairs**, versus **1/12** for single-call and **1/12** for independent drafts. The loop used 35 model calls versus 9 for baseline; actual costs, exclusions and paired descriptive uncertainty are retained. All arms fixed AST retrieval. This is a small curated study, not an official full SWE-bench score or a learned-retrieval repair gain. [Complete outcomes](evidence/measurement014/comparison/report.json).
+
+A separate retrieval experiment trained **24,576 parameters** on 166 source functions, selected on 135 development functions and evaluated once on 113 held-out functions. MRR changed from 0.920823 to 0.922526; the paired 95% difference interval includes zero. Checkpoint continuation and packaged reproduction were bitwise identical. This is trained retrieval adaptation; coding-model adapter training has not started. [Training evidence](evidence/measurement014/training/summary.json) · [Coding-adapter plan](docs/CODING_ADAPTER_014.md).
+
+Real-service backend acceptance passed **1,014 tests and 16 subtests**, with four explicit skips. A separate optional CPU ML suite passed **39 tests and six subtests**, without skips. Fresh-source reproduction of the captured Django14752 patch passed all 19 tests, with no new inference. These are separate invocations, not additive test totals. [Backend receipt](evidence/measurement014/acceptance/backend-real014.json) · [ML checks](evidence/measurement014/acceptance/ml-mechanics014.json) · [Repair reproduction](evidence/measurement014/acceptance/repair-reproduction014.json).
+
+New comparison website integration is paused while backend and coding-model training take priority. Historical results below remain attributed to their original releases. Measurement014 is not yet sealed or hosted-CI verified.
+
 ## Measured results
 
 Showcase008 delivery acceptance: **428 backend tests passed, six explicit skips**, plus **24 browser journeys**: eight evidence-viewer, eleven fault-fixture, four real-OIDC and one separately executed real-model journey. Frontend unit checks, lint, types and both builds passed. [Current acceptance and handoff](docs/showcase/FINAL_REPORT.md).
@@ -95,7 +105,7 @@ Open **`/repair-investigation`** in the reviewer website for retrieved-source in
 
 Current local software acceptance: **803 backend passes, 138 explicit environment/opt-in skips and eleven passing subtests; 12 recorded browser journeys, eleven interaction-fault journeys and 23 frontend unit checks**. Lint, types and the production build passed. Real database/OIDC checks run separately in hosted CI. [Acceptance scope and corrections](evidence/evaluation013/acceptance.json).
 
-New tooling freezes an exposure-aware **24-candidate** Django/pytest cohort, validates complete comparison ledgers and prepares deduplicated, provenance-bound training exports. **Zero new cases are qualified; no new multi-arm evaluation or cloud training has run.** The audited 123 records contain only three distinct verified tasks. The training-data gate remains closed until independent reviewed examples satisfy the frozen protocol. [Ordered gates and completion plan](docs/DELIVERY_PLAN_013.md).
+New tooling freezes an exposure-aware **24-candidate** Django/pytest cohort, validates complete comparison ledgers and prepares deduplicated, provenance-bound training exports. **At the013 freeze, zero new cases were qualified and no new multi-arm evaluation or cloud training had run.** Its123-record audit contained three distinct verified tasks. Measurement014 now provides the separately reported qualification, comparison and retrieval-head results above. The training-data gate remains closed until independent reviewed examples satisfy the frozen protocol. [Ordered gates and completion plan](docs/DELIVERY_PLAN_013.md).
 
 ## What the project demonstrates
 

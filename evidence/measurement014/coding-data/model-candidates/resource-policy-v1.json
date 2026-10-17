@@ -1,0 +1,64 @@
+{
+  "candidate_order": [
+    {
+      "gpu_fit_verified": false,
+      "metadata_sha256": "3029e914760c453da789394c684d92d6143780d21b7dcee4e82726070f2ac9d8",
+      "model": "unsloth/Qwen2.5-Coder-7B-Instruct-bnb-4bit",
+      "profile": "7B",
+      "revision": "4858886f896bd05db823557fc5cbc4ac28342af7",
+      "weight_bytes": 5547254632,
+      "weights_downloaded": false
+    },
+    {
+      "gpu_fit_verified": false,
+      "metadata_sha256": "11f194c35ef4d7612d7923525f384833c2344571cfdc095977b21557f80ce40c",
+      "model": "unsloth/Qwen2.5-Coder-14B-Instruct-bnb-4bit",
+      "profile": "14B",
+      "revision": "ecfc63c083900ce4f19daad695e711f38ab98fcf",
+      "weight_bytes": 9932337343,
+      "weights_downloaded": false
+    }
+  ],
+  "cleanup": "Disconnect/delete owned cloud runtimes after artifacts are safely captured, sign out and remove remembered chooser account; do not claim provider-log erasure.",
+  "fit_gate": {
+    "actual_optimizer_steps": 20,
+    "checkpoint_resume_required": true,
+    "compatible_frozen_environment_required": true,
+    "complete_verified_data_required": true,
+    "context_tokens": 2048,
+    "finite_loss_and_nonzero_adapter_gradients_required": true,
+    "minimum_vram_headroom_fraction": 0.15
+  },
+  "limits": [
+    "Free GPU availability and type are not guaranteed.",
+    "Multiple GPUs do not automatically provide a single pooled memory space; any distributed configuration needs separate review and measurement.",
+    "Four-bit weights on disk do not establish training VRAM, CPU RAM or resume correctness.",
+    "No notebook upload, GPU session, model download or training occurred during this metadata update."
+  ],
+  "mac_large_model_training": false,
+  "maximum_primary_model_pilots": 2,
+  "maximum_selected_model_training_profiles": 2,
+  "new_spend_allowed": false,
+  "provider_order": [
+    "Google Colab free capacity",
+    "Kaggle free capacity if an eligible GPU is actually available"
+  ],
+  "recovery": "No automatic provider/model change within an investigation or uncertain generation. A restarted training attempt resumes only a verified compatible checkpoint.",
+  "requested_date": "2026-10-16",
+  "selection": "Among candidates passing resource gates, select using development verified repairs, then fewer invalid edits, then lower elapsed time; do not select by parameter count or untouched outcomes.",
+  "small_profile": "1.5B remains a historical baseline/resource smoke only",
+  "sources": [
+    "https://research.google.com/colaboratory/faq.html",
+    "https://www.kaggle.com/docs/notebooks",
+    "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct",
+    "https://huggingface.co/unsloth/Qwen2.5-Coder-14B-Instruct-bnb-4bit"
+  ],
+  "storage": {
+    "cloud_scratch_admitted": false,
+    "mac_existing_guard_bytes": 6442450944,
+    "mac_minimum_free_bytes": 4294967296,
+    "proposed_temporary_cloud_scratch_ceiling_bytes": 21474836480,
+    "scope": "The cloud value is a proposed bounded allocation, not an admitted download or a change to the existing Mac guard. Count weights, caches, checkpoints and duplicate copies before execution."
+  },
+  "version": "coding-resource-selection014-v1"
+}

@@ -1,0 +1,24 @@
+{
+  "approved_prefix": "src/_pytest/",
+  "command": [
+    "python",
+    "/verification/verify.py"
+  ],
+  "entry_files": [
+    "src/_pytest/junitxml.py"
+  ],
+  "id": "pytest-dev__pytest-5692",
+  "image": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+  "issue": "Hostname and timestamp properties in generated JUnit XML reports\nPytest enables generating JUnit XML reports of the tests.\r\n\r\nHowever, there are some properties missing, specifically `hostname` and `timestamp` from the `testsuite` XML element. Is there an option to include them?\r\n\r\nExample of a pytest XML report:\r\n```xml\r\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<testsuite errors=\"0\" failures=\"2\" name=\"check\" skipped=\"0\" tests=\"4\" time=\"0.049\">\r\n\t<testcase classname=\"test_sample.TestClass\" file=\"test_sample.py\" line=\"3\" name=\"test_addOne_normal\" time=\"0.001\"></testcase>\r\n\t<testcase classname=\"test_sample.TestClass\" file=\"test_sample.py\" line=\"6\" name=\"test_addOne_edge\" time=\"0.001\"></testcase>\r\n</testsuite>\r\n```\r\n\r\nExample of a junit XML report:\r\n```xml\r\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testsuite name=\"location.GeoLocationTest\" tests=\"2\" skipped=\"0\" failures=\"0\" errors=\"0\" timestamp=\"2019-04-22T10:32:27\" hostname=\"Anass-MacBook-Pro.local\" time=\"0.048\">\r\n  <properties/>\r\n  <testcase name=\"testIoException()\" classname=\"location.GeoLocationTest\" time=\"0.044\"/>\r\n  <testcase name=\"testJsonDeserialization()\" classname=\"location.GeoLocationTest\" time=\"0.003\"/>\r\n  <system-out><![CDATA[]]></system-out>\r\n  <system-err><![CDATA[]]></system-err>\r\n</testsuite>\r\n```\n",
+  "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.",
+  "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+  "qualified": false,
+  "reference_digest": "b5c39d27ceb0f43490a3942bd256305511ee80f6719ea1e3e7ec1cda49560b2b",
+  "repository": "pytest-dev/pytest",
+  "revision": "29e336bd9bf87eaef8e2683196ee1975f1ad4088",
+  "source_digest": "d960293b3baed93c0473b60313460bca1dc1c09036d0f663959defc74bbb0063",
+  "source_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/29e336bd9bf87eaef8e2683196ee1975f1ad4088",
+  "split": "holdout",
+  "title": "Hostname and timestamp properties in generated JUnit XML reports",
+  "verification_digest": "03e08b9199158340c705149c2da526177147796098b91552948084e983868686"
+}

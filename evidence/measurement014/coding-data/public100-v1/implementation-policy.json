@@ -1,0 +1,33 @@
+{
+  "planning": "compact",
+  "context_depth": "dependency",
+  "verification_depth": "impact",
+  "delegation": "none",
+  "reason_codes": [
+    "user-approved-100-example-study",
+    "preserve-legacy-admission",
+    "fail-before-model-allocation"
+  ],
+  "allowed_write_scope": [
+    "scripts/coding_public100014.py",
+    "scripts/coding_train014.py",
+    "tests/test_coding_public100014.py",
+    "scripts/acceptance007.py",
+    "docs/CODING_PUBLIC100_014.md",
+    "BRAIN.md",
+    "DECISIONS.md",
+    "evidence/measurement014/coding-data/public100-v1",
+    "scripts/coding_resource014.py",
+    "tests/test_coding_resource014.py",
+    "notebooks/coding-14b-real-resource014.ipynb"
+  ],
+  "acceptance": [
+    "100/10/20 counts and split isolation",
+    "seed-bound ten-family training audit",
+    "hash-bound public supervision and independent captures",
+    "legacy 200-case contract unchanged",
+    "missing or changed evidence fails before CUDA import"
+  ],
+  "environment": "local development; Docker and inference off",
+  "max_revision_rounds": 2
+}

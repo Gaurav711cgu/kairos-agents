@@ -1,0 +1,165 @@
+{
+  "dataset_sha256": "60569cea74bb281f7a5579467436a2bc1932c6e0c5f2f7fa0d084392abd9ad97",
+  "qualified_repairs": 0,
+  "repositories": [
+    {
+      "baseline_reference_checks_complete": false,
+      "dependency_lock_verified": false,
+      "environment_verified": false,
+      "files": {
+        "build_helpers/build_helpers.py": {
+          "bytes": 5837,
+          "origin": "https://raw.githubusercontent.com/facebookresearch/hydra/94bbaaad028678166896cf139f778240e02d0a69/build_helpers/build_helpers.py",
+          "sha256": "5f16fa5e22178caf1d201dfc767c5acdc8cec9656b27f481ae4424cd684892f0"
+        },
+        "requirements/dev.txt": {
+          "bytes": 229,
+          "origin": "https://raw.githubusercontent.com/facebookresearch/hydra/94bbaaad028678166896cf139f778240e02d0a69/requirements/dev.txt",
+          "sha256": "4403691b8a1aa6d89627e7f1e2b547db5fc23070c49ca85114e6a189c6ade518"
+        },
+        "requirements/requirements.txt": {
+          "bytes": 86,
+          "origin": "https://raw.githubusercontent.com/facebookresearch/hydra/94bbaaad028678166896cf139f778240e02d0a69/requirements/requirements.txt",
+          "sha256": "350c35d4fb6da56e1b625671853f5f81f815db683a9263291240426ef48fbcbb"
+        }
+      },
+      "parent_receipt_sha256": "516616590bdfce171be80b80b388f9d91186a6e7536d78783f61adf0bcff45a8",
+      "repository": "facebookresearch/hydra",
+      "required_test_identifiers": 51,
+      "review_decision": "setup.py custom build/develop hooks invoke Java ANTLR. Inspect committed generated grammar and pytest plugin registration before choosing source-only import or a pinned reviewed build. Old OmegaConf metadata and pytest compatibility require an explicit dependency lock.",
+      "revision": "94bbaaad028678166896cf139f778240e02d0a69",
+      "source_execution": false,
+      "task_id": "facebookresearch__hydra-1006",
+      "test_files": [
+        "tests/test_utils.py"
+      ],
+      "unavailable": []
+    },
+    {
+      "baseline_reference_checks_complete": false,
+      "dependency_lock_verified": false,
+      "environment_verified": false,
+      "files": {
+        "conans/requirements.txt": {
+          "bytes": 299,
+          "origin": "https://raw.githubusercontent.com/conan-io/conan/106e54c96118a1345899317bf3bebaf393c41574/conans/requirements.txt",
+          "sha256": "f30ee4008aeeca2b08d4d55a26fb36d0213b9a8df560d7b0a58a8d7e392a4fc5"
+        },
+        "conans/requirements_dev.txt": {
+          "bytes": 209,
+          "origin": "https://raw.githubusercontent.com/conan-io/conan/106e54c96118a1345899317bf3bebaf393c41574/conans/requirements_dev.txt",
+          "sha256": "cf2060c28b54f88cd9e84866eef4f5149106ea59b32aadfe46765f6ffae19e18"
+        },
+        "conans/requirements_server.txt": {
+          "bytes": 48,
+          "origin": "https://raw.githubusercontent.com/conan-io/conan/106e54c96118a1345899317bf3bebaf393c41574/conans/requirements_server.txt",
+          "sha256": "bacfa51ccc81997e9e4bd8798d015a9b39b12ead71b284db1006a7dcad63d4fb"
+        }
+      },
+      "parent_receipt_sha256": "69dba1180f8a09cd6913dc7b48893569dbf9d3049975f8dbca1bbf2165e3036b",
+      "repository": "conan-io/conan",
+      "required_test_identifiers": 21,
+      "review_decision": "Pin legacy PyYAML<6 and pytest<7 compatibility. Registered CMake integration checks require an explicit reviewed CMake toolchain. Do not omit those checks to obtain a passing result.",
+      "revision": "106e54c96118a1345899317bf3bebaf393c41574",
+      "source_execution": false,
+      "task_id": "conan-io__conan-10213",
+      "test_files": [
+        "conans/test/integration/toolchains/cmake/test_cmaketoolchain_blocks.py",
+        "conans/test/unittests/tools/cmake/test_cmaketoolchain.py"
+      ],
+      "unavailable": []
+    },
+    {
+      "baseline_reference_checks_complete": false,
+      "dependency_lock_verified": false,
+      "environment_verified": false,
+      "files": {
+        "requirements-tests.txt": {
+          "bytes": 53,
+          "origin": "https://raw.githubusercontent.com/getmoto/moto/05f5bbc568b3e1b9de402d194b3e93a39b6b2c27/requirements-tests.txt",
+          "sha256": "f9fc518e612345fbec1c8808d487c09f76eb7e154533927092d5aa08c541407e"
+        }
+      },
+      "parent_receipt_sha256": "fcf4aa0719ad0e213cdfde98916b8d995fdfcdf2980d53d984d4a103d9df52ec",
+      "repository": "getmoto/moto",
+      "required_test_identifiers": 14,
+      "review_decision": "Scope dependencies to registered CloudFront checks, including boto3/botocore and test helpers. Preserve all14 identifiers. Verify actual collection; broad service extras are not evidence of a working environment.",
+      "revision": "05f5bbc568b3e1b9de402d194b3e93a39b6b2c27",
+      "source_execution": false,
+      "task_id": "getmoto__moto-4792",
+      "test_files": [
+        "tests/test_cloudfront/test_cloudfront_distributions.py"
+      ],
+      "unavailable": []
+    },
+    {
+      "baseline_reference_checks_complete": false,
+      "dependency_lock_verified": false,
+      "environment_verified": false,
+      "files": {
+        "continuous_integration/environment-3.10.yaml": {
+          "bytes": 1410,
+          "origin": "https://raw.githubusercontent.com/dask/dask/c9a9edef0c7e996ef72cb474bf030778189fd737/continuous_integration/environment-3.10.yaml",
+          "sha256": "578f41df1170e51eefc3d2de678bf7441d1c54a25079a9da92a71891a206736a"
+        }
+      },
+      "parent_receipt_sha256": "a61fd3dcc61b8e10a24af56b01582a8b0af7ac259ba494671d91f433611366ca",
+      "repository": "dask/dask",
+      "required_test_identifiers": 560,
+      "review_decision": "Use a separately locked array-test recipe derived from Python3.10/NumPy1.23 CI metadata. Reject the upstream unpinned git+distributed install. Retain all560 required identifiers and record resource-limit failure if120seconds/1GiB is insufficient.",
+      "revision": "c9a9edef0c7e996ef72cb474bf030778189fd737",
+      "source_execution": false,
+      "task_id": "dask__dask-10027",
+      "test_files": [
+        "dask/array/tests/test_array_core.py",
+        "dask/array/tests/test_rechunk.py"
+      ],
+      "unavailable": []
+    },
+    {
+      "baseline_reference_checks_complete": false,
+      "dependency_lock_verified": false,
+      "environment_verified": false,
+      "files": {},
+      "parent_receipt_sha256": "fdfa44154733b3f5901551c7968976285f02c90f121e19636eb2b7c64255f83c",
+      "repository": "bokeh/bokeh",
+      "required_test_identifiers": 67,
+      "resolved_dependency_receipt": {
+        "environment_verified": false,
+        "files": {
+          "environment-test-3.10.yml": {
+            "bytes": 1306,
+            "origin": "https://raw.githubusercontent.com/bokeh/bokeh/78dc3e238194302b5daadf11d47bdd69bd07a2b8/conda/environment-test-3.10.yml",
+            "sha256": "c50706b82868d440fb445012d5d4fc1788256b73d318b6a2a06d01f7c59bef96"
+          },
+          "environment-test-minimal-deps.yml": {
+            "bytes": 1123,
+            "origin": "https://raw.githubusercontent.com/bokeh/bokeh/78dc3e238194302b5daadf11d47bdd69bd07a2b8/conda/environment-test-minimal-deps.yml",
+            "sha256": "c14fb299147a623fb3f83e3fd8e5dcbd5d925d4098bb394f00a3e1bd047cebd4"
+          }
+        },
+        "prior_404_preserved": true,
+        "source_execution": false
+      },
+      "review_decision": "Review Python-only serialization test imports and conftest before building a minimal pinned image. Full upstream CI includes browsers, Node and documentation packages unrelated to these registered tests; do not run that environment blindly.",
+      "revision": "78dc3e238194302b5daadf11d47bdd69bd07a2b8",
+      "source_execution": false,
+      "task_id": "bokeh__bokeh-12841",
+      "test_files": [
+        "tests/unit/bokeh/core/test_serialization.py",
+        "tests/unit/bokeh/util/test_util__serialization.py"
+      ],
+      "unavailable": [
+        {
+          "path": "conda/environment-test.yml",
+          "status": 404
+        }
+      ]
+    }
+  ],
+  "screen_sha256": "bc05666f94289ea3ed407e3847e2a2a72c259823c74ada585e65ffb8f053aec9",
+  "source_execution": false,
+  "status": "static_dependency_review_complete_execution_pending",
+  "training_examples_admitted": 0,
+  "version": "coding-dependency-review014-v1"
+}

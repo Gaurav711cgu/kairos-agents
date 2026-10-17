@@ -1,0 +1,146 @@
+{
+  "adapter_manifest_sha256": "404b4e89a224ee424da41b650e23619d401e6b9187fd5f1f2209d1190bff62d0",
+  "caches": {
+    "holdout": {
+      "compressed_sha256": "6eaca19f7f776133d4ae4ff05cb842d20422069196bf61cd28bc19224c2fcbc6",
+      "logical_path": "embeddings/holdout.json.gz",
+      "raw_bytes": 3692160,
+      "raw_sha256": "3e9b355ed9fad4217c50f260e6053dfd2e8bf7ea96d105c2c805e9aaa317c239"
+    },
+    "train-dev": {
+      "compressed_sha256": "73de102bffefefb6ecd5eff69f6be977681068e1d6966944e3b22d5163031a6a",
+      "logical_path": "embeddings/train-dev.json.gz",
+      "raw_bytes": 9833788,
+      "raw_sha256": "f366f0e33dfa98902681e18a1afe8b69e06e58a0297f23e6d153089333163d96"
+    }
+  },
+  "changes": {
+    "improved": 5,
+    "regressed": 1,
+    "unchanged": 107
+  },
+  "development": 135,
+  "encoder_frozen": true,
+  "files": {
+    "adapter/adapter.json": {
+      "bytes": 530981,
+      "sha256": "c874085e3c5fcd52e77f00840c7f22f24f57cd8775f4fa6e0b585201ac323f13"
+    },
+    "adapter/manifest.json": {
+      "bytes": 408,
+      "sha256": "404b4e89a224ee424da41b650e23619d401e6b9187fd5f1f2209d1190bff62d0"
+    },
+    "development-revisions014.json": {
+      "bytes": 794,
+      "sha256": "66574f94b068607298e0ff3885b235f33ca58912f7a49a332047e450b137c891"
+    },
+    "embeddings/holdout-receipt.json": {
+      "bytes": 101086,
+      "sha256": "d44dd5ef17659176b39247dd714b0fb4793955c46ee39110198dc83490f51d24"
+    },
+    "embeddings/holdout.json.gz": {
+      "bytes": 1618676,
+      "sha256": "6eaca19f7f776133d4ae4ff05cb842d20422069196bf61cd28bc19224c2fcbc6"
+    },
+    "embeddings/train-dev-receipt.json": {
+      "bytes": 267202,
+      "sha256": "11bcb2dfd06bf0443b67ec985025ea54015cb77b0d9e07f18fe6d7c5982ea1b0"
+    },
+    "embeddings/train-dev.json.gz": {
+      "bytes": 4309083,
+      "sha256": "73de102bffefefb6ecd5eff69f6be977681068e1d6966944e3b22d5163031a6a"
+    },
+    "heldout-evaluation014.json": {
+      "bytes": 39632,
+      "sha256": "4f4a3c6e8c7c8083233d8033811f0f84e270a42b9c0462e22261ee83271f35a8"
+    },
+    "selected-resume014.json": {
+      "bytes": 422,
+      "sha256": "0c853053b82250ca5e6e34f648dd0fd93c009645d177065e1f9193c4c55438e5"
+    },
+    "selected-training014.json": {
+      "bytes": 2437,
+      "sha256": "7c662af083428f953ca9930d5b7b9fb84eff66f9c45e000a08540dd8b6085ecd"
+    },
+    "training014-full/training-report.json": {
+      "bytes": 981977,
+      "sha256": "7482adaa0394a093578b515a9e21920e124b82a8659e28434d9e471adf9bb6ae"
+    },
+    "training014-hard8-lr0003/training-report.json": {
+      "bytes": 980385,
+      "sha256": "298744cf71eea4245ab4b53a190c7ee803d86a5df54f7c60e211110ddef212ad"
+    },
+    "training014-hard8-lr001/training-report.json": {
+      "bytes": 980568,
+      "sha256": "eba0f77e9345b8217cef787574a64869f952d0273ab7d6f370f4dbf9b2efd99a"
+    }
+  },
+  "frozen_sha256": "0665b9ec9202ac05ff1a71f1c66239ac13081eb2cdd207e5dfa4402e07872729",
+  "heldout": 113,
+  "model": "nomic-ai/CodeRankEmbed",
+  "parameters": 24576,
+  "resume": {
+    "checkpoint_sha256": "3f4e2a952005e25c1df23e9ed4b59a31e909d12c962de66bdf011c18a7037fbe",
+    "complete_state_bitwise_equal": true,
+    "interruption_step": 37,
+    "parameters": 24576,
+    "passed": true,
+    "profile": "hard8-lr0003",
+    "resumed_checkpoint_sha256": "3f4e2a952005e25c1df23e9ed4b59a31e909d12c962de66bdf011c18a7037fbe",
+    "resumed_steps": 163,
+    "selected_step": 100,
+    "version": "selected-source014-resume-v1"
+  },
+  "scope": "Repository-disjoint docstring-to-function retrieval; original docstrings removed from code",
+  "selected_step": 100,
+  "selection": "Development only, three predeclared profiles; no held-out retuning",
+  "steps": 200,
+  "summary": {
+    "adapter": {
+      "mrr": 0.9225261464199518,
+      "recall@1": 0.8761061946902655,
+      "recall@10": 0.9911504424778761,
+      "recall@5": 0.9734513274336283
+    },
+    "base": {
+      "mrr": 0.9208230271716228,
+      "recall@1": 0.8761061946902655,
+      "recall@10": 0.9911504424778761,
+      "recall@5": 0.9646017699115044
+    },
+    "delta": {
+      "mrr": 0.0017031192483289441,
+      "recall@1": 0.0,
+      "recall@10": 0.0,
+      "recall@5": 0.008849557522123894
+    }
+  },
+  "train": 166,
+  "uncertainty": {
+    "confidence": 0.95,
+    "delta_intervals": {
+      "mrr": {
+        "lower": -0.011065528033592674,
+        "upper": 0.014513907280355913
+      },
+      "recall@1": {
+        "lower": -0.02654867256637168,
+        "upper": 0.02654867256637168
+      },
+      "recall@10": {
+        "lower": 0.0,
+        "upper": 0.0
+      },
+      "recall@5": {
+        "lower": 0.0,
+        "upper": 0.02654867256637168
+      }
+    },
+    "limitation": "Conditional descriptive intervals; functions are related and repository-level generalization is not estimated.",
+    "method": "percentile bootstrap of paired macro-mean differences",
+    "replicates": 2000,
+    "seed": 1401401,
+    "unit": "paired query/function within the single held-out repository"
+  },
+  "version": "retrieval-training014-public-v1"
+}
