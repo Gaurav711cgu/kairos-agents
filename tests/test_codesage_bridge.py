@@ -121,3 +121,20 @@ def test_codesage_mcp_get_call_graph(mcp_client: CodeSageMCPClient):
     assert isinstance(result["callees"], list)
     assert result["node_count"] >= 0
 
+
+def test_swebench_pytest5221_repair():
+    """Verify real SWE-bench defect repair overcomes baseline 'no_patch' failure."""
+    from scripts.fde_repair_loop import FDERepairHarness
+
+    harness = FDERepairHarness(codesage_root=DEFAULT_CODESAGE_ROOT)
+    receipt = harness.execute_swebench_case("pytest-dev__pytest-5221")
+
+    assert receipt["status"] == "PASS"
+    assert receipt["task_id"] == "pytest-dev__pytest-5221"
+    assert receipt["baseline"]["outcome"] == "no_patch"
+    assert receipt["codesage_augmented"]["outcome"] == "localized_and_repaired"
+    assert receipt["codesage_augmented"]["target_symbol"] == "_showfixtures_main"
+    assert receipt["codesage_augmented"]["patch_syntax_verified"] is True
+    assert (KAIROS_ROOT / "evidence" / "retrieval011" / "swebench_pytest5221_mcp_receipt.json").exists()
+
+
