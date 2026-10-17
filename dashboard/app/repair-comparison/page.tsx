@@ -77,7 +77,7 @@ export default function RepairComparisonPage() {
               independent drafts. Loop used 35 model calls and 12 checks; baseline used 9 calls and 1 check.
             </p>
             <div className="pair-table-scroll" role="region" aria-label="Strategy summary table">
-              <table className="pair-table" style={{ minWidth: 0 }}>
+              <table className="pair-table" aria-label="Strategy summary table" style={{ minWidth: 0 }}>
                 <caption>Held-out split (12 cases) versus Development split (7 cases)</caption>
                 <thead>
                   <tr>
@@ -126,7 +126,7 @@ export default function RepairComparisonPage() {
               model patch diff, test suite output, and token counts.
             </p>
             <div className="pair-table-scroll" role="region" aria-label="19 cases comparison matrix">
-              <table className="pair-table" style={{ minWidth: 0 }}>
+              <table className="pair-table" aria-label="19 cases comparison matrix" style={{ minWidth: 0 }}>
                 <thead>
                   <tr>
                     <th scope="col">Instance ID</th>
