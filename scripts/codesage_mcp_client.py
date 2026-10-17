@@ -51,6 +51,7 @@ class CodeSageMCPClient:
             stderr=subprocess.PIPE,
             text=True,
             bufsize=1,
+            cwd=str(self.codesage_root),
         )
 
     def close(self) -> None:

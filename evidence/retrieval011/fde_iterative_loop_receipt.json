@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-10-18T03:41:30Z",
+  "harness": "Kairos FDE Iterative Repair Loop (scripts/fde_repair_loop.py)",
+  "codesage_root": "/Users/gauravkumarnayak/Desktop/Codesage",
+  "repo_id": "eval_repo",
+  "failure_trace": {
+    "test_name": "test_circuit_breaker_transitions",
+    "failing_file": "/app/services/resilience.py",
+    "failing_line": 142,
+    "error_type": "AssertionError",
+    "error_message": "Expected OPEN, but got HALF_OPEN in CircuitBreaker",
+    "target_symbol": "CircuitBreaker"
+  },
+  "target_symbol": "CircuitBreaker",
+  "context_retrieval_ms": 2352.52,
+  "total_repair_ms": 2366.79,
+  "chunks_retrieved": 7,
+  "context_word_count": 455,
+  "status": "PASS",
+  "gravitas_invariants_satisfied": [
+    "INV-1: Target callers and callees read before patch generation",
+    "INV-2: Writes stay strictly inside declared task scope",
+    "INV-3: Fresh test execution verified after AST resolution",
+    "INV-4: Non-identical iterative diagnostic strategy"
+  ]
+}

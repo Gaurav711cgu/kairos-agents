@@ -87,3 +87,24 @@ def test_codesage_mcp_export_kairos_context(mcp_client: CodeSageMCPClient):
         json.dump(receipt_data, f, indent=2)
 
     assert RECEIPT_PATH.exists()
+
+
+def test_fde_iterative_repair_loop():
+    """Verify autonomous FDE repair loop captures traceback and queries CodeSage MCP."""
+    from scripts.fde_repair_loop import FDERepairHarness
+
+    sample_traceback = """
+    Traceback (most recent call last):
+      File "/app/services/resilience.py", line 142, in test_circuit_breaker_transitions
+        assert breaker.state == CircuitState.OPEN
+    AssertionError: Expected OPEN, but got HALF_OPEN in CircuitBreaker
+    """
+    harness = FDERepairHarness(codesage_root=DEFAULT_CODESAGE_ROOT)
+    receipt = harness.execute_loop(sample_traceback)
+
+    assert receipt["status"] == "PASS"
+    assert receipt["chunks_retrieved"] > 0
+    assert receipt["target_symbol"] == "CircuitBreaker"
+    assert receipt["context_word_count"] > 20
+    assert (KAIROS_ROOT / "evidence" / "retrieval011" / "fde_iterative_loop_receipt.json").exists()
+
