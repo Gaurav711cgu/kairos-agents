@@ -21,12 +21,12 @@ Open **[http://127.0.0.1:3310](http://127.0.0.1:3310)**. Installation time depen
 | Step | What to do | What the website shows |
 | --- | --- | --- |
 | 1. Understand the product | Open **Start here** | A walkthrough of your actions, system behavior and expected results. |
-| 2. Inspect an attempt | Choose **Inspect the development repair** in the guide | A real Django development case, pinned revision, recorded outcome and inference counters. |
+| 2. Inspect an attempt | Choose **Inspect the completed repair investigation** on the homepage | A real pytest development case, pinned revision, selected source and inference counters. |
 | 3. Review the change | Read **The proposed patch**; expand source/context | Highlighted before/after lines and the exact source selected for the model. |
 | 4. Check the evidence | Open the check result and strategy comparison | Test output, observed verdict, model calls, captured tokens and elapsed time. |
 | 5. Keep the result | Download the patch and evidence bundle; open **Repair results** | Original captured evidence plus the complete fresh comparison, including unsuccessful attempts. |
 
-**The visitor receives an inspectable result and a proposed patch for human review.** The recorded website does not run a new investigation or modify a repository. The featured development repair passed its registered checks; fresh validation remains **0/10**. A [DOM-verified visitor walkthrough](docs/showcase/VISITOR_WORKFLOW.md) records the exact visible results.
+**The visitor receives an inspectable result and a proposed patch for human review.** The recorded website does not run a new investigation or modify a repository. The new retrieval-assisted development investigation passed **22 tests** in five model calls. Historical fresh local-model validation remains **0/10**, measured separately. A [current visitor walkthrough and receipts](docs/EVALUATION_013.md#what-a-website-visitor-does) records the exact visible results.
 
 <details>
 <summary>See the investigation interface</summary>
@@ -36,6 +36,16 @@ Open **[http://127.0.0.1:3310](http://127.0.0.1:3310)**. Installation time depen
 Captured from the tested build007 interface. Source, candidate, checks and recorded context remain separately inspectable. [Mobile walkthrough screenshot](evidence/build007/screenshots/first-investigation-mobile.png).
 
 </details>
+
+## Latest backend and training evidence — measurement014
+
+This working branch adds a complete frozen three-strategy study: **19 qualified cases, 57 attempts**, preserving all 24 original candidate dispositions. On 12 held-out Django/pytest issues, the bounded loop verified **7/12 repairs**, versus **1/12** for single-call and **1/12** for independent drafts. The loop used 35 model calls versus 9 for baseline; actual costs, exclusions and paired descriptive uncertainty are retained. All arms fixed AST retrieval. This is a small curated study, not an official full SWE-bench score or a learned-retrieval repair gain. [Complete outcomes](evidence/measurement014/comparison/report.json).
+
+A separate retrieval experiment trained **24,576 parameters** on 166 source functions, selected on 135 development functions and evaluated once on 113 held-out functions. MRR changed from 0.920823 to 0.922526; the paired 95% difference interval includes zero. Checkpoint continuation and packaged reproduction were bitwise identical. This is trained retrieval adaptation; coding-model adapter training has not started. [Training evidence](evidence/measurement014/training/summary.json) · [Coding-adapter plan](docs/CODING_ADAPTER_014.md).
+
+Real-service backend acceptance passed **1,014 tests and 16 subtests**, with four explicit skips. A separate optional CPU ML suite passed **39 tests and six subtests**, without skips. Fresh-source reproduction of the captured Django14752 patch passed all 19 tests, with no new inference. These are separate invocations, not additive test totals. [Backend receipt](evidence/measurement014/acceptance/backend-real014.json) · [ML checks](evidence/measurement014/acceptance/ml-mechanics014.json) · [Repair reproduction](evidence/measurement014/acceptance/repair-reproduction014.json).
+
+New comparison website integration is paused while backend and coding-model training take priority. Historical results below remain attributed to their original releases. Measurement014 is not yet sealed or hosted-CI verified.
 
 ## Measured results
 
@@ -73,7 +83,29 @@ python3 -m scripts.study010 run --manifest /path/to/reviewed/registry.json --cas
 
 We own the response-adapter defects: startup warnings were misclassified, and explanatory metadata rejected valid proposals. Both are fixed and covered by regression tests.
 
-New live inference stopped at the existing account's usage limit. No GPU purchase is needed for this provider. Next measurement: complete a newly registered unresolved task after normal quota returns, then freeze a fresh comparison before model execution. Uncertain attempts are not resent. [Causes, mitigations, resources and exact closure criteria](docs/showcase/REPAIR_010.md#owned-gaps-and-closure-plan) · [Complete attempt ledger](evidence/repair010/attempts.json) · [Candidate check receipts](evidence/repair010/posthoc-summary.json).
+The repair010 attempt stopped at the existing account's usage limit. A later retrieval-assisted013 development investigation completed successfully, reported below. No GPU purchase or API billing fallback was needed. Uncertain earlier attempts were not resent. [Causes, mitigations, resources and exact closure criteria](docs/showcase/REPAIR_010.md#owned-gaps-and-closure-plan) · [Complete attempt ledger](evidence/repair010/attempts.json) · [Candidate check receipts](evidence/repair010/posthoc-summary.json).
+
+## Source retrieval — Phase 1
+
+Added revision-bound source retrieval with a pinned 137M code encoder, lexical search, hybrid fusion and exact local FAISS. On one exposed pytest issue, dense retrieval found the maintainer-changed file at rank five; AST and lexical controls missed it in their tested returned regions. All methods missed under the same four-region cap. This is a localization diagnostic; repair effectiveness remains separately measured.
+
+The index covered 55 source files and 1,652 regions, built in 145.557 seconds on the 8 GiB M2 Mac. Original-source handles, encoding omissions, backend agreement, memory and exact receipts are inspectable. [Implementation and reproduction](docs/RETRIEVAL_011.md) · [All phases and resource decisions](docs/AI_ADVANCEMENT_PLAN_011.md).
+
+## Iterative repair — Phase 2
+
+A new optional workflow connects the pinned source index to `loop-v8`: **ten model calls, four applied candidates, four checks and 900 seconds**. `baseline-v8` permits one call/candidate/check. Original-source handles, immediate feedback, duplicate-check reuse, durable recovery and explicit unknown dispatch remain enforced. The existing website and worker defaults are preserved.
+
+Retrieval selection is captured before dispatch; replay performs no execution. Query embeddings exit their own CPU process before model generation or container checks. Empty retrieval stops without silently adding registered file hints. A broader frozen study remains the next measurement; passing software fixtures does not create a repair score. [Workflow, commands and owned fixes](docs/LOOP_012.md) · [Acceptance receipts](evidence/loop012/acceptance.json).
+
+## Retrieval-assisted investigation — Phase 3
+
+**A real end-to-end development repair passed 22 pytest tests:** five model calls, one proposed patch, one independent check and **79.809237 seconds**. Captured usage was **66,744 input tokens and 402 output tokens**. The original source remained unchanged; owned heavy services stopped cleanly. [Inspect the source, patch and checks](docs/EVALUATION_013.md) · [Original result and provenance](evidence/evaluation013/pilot/receipt.json).
+
+Open **`/repair-investigation`** in the reviewer website for retrieved-source inspection, highlighted changes, timeline, test output and exact evidence downloads. The run explicitly requested `gpt-6.1-sol` through existing ChatGPT login; a resolved model ID is unavailable. This exposed development case contains public repair hints and is not a fresh benchmark result or proof that the loop outperforms a baseline.
+
+Current local software acceptance: **803 backend passes, 138 explicit environment/opt-in skips and eleven passing subtests; 12 recorded browser journeys, eleven interaction-fault journeys and 23 frontend unit checks**. Lint, types and the production build passed. Real database/OIDC checks run separately in hosted CI. [Acceptance scope and corrections](evidence/evaluation013/acceptance.json).
+
+New tooling freezes an exposure-aware **24-candidate** Django/pytest cohort, validates complete comparison ledgers and prepares deduplicated, provenance-bound training exports. **At the013 freeze, zero new cases were qualified and no new multi-arm evaluation or cloud training had run.** Its123-record audit contained three distinct verified tasks. Measurement014 now provides the separately reported qualification, comparison and retrieval-head results above. The training-data gate remains closed until independent reviewed examples satisfy the frozen protocol. [Ordered gates and completion plan](docs/DELIVERY_PLAN_013.md).
 
 ## What the project demonstrates
 
@@ -89,7 +121,7 @@ New live inference stopped at the existing account's usage limit. No GPU purchas
 
 ## Architecture
 
-The active investigation path uses **Next.js/React/TypeScript, FastAPI/Python, PostgreSQL/psycopg, Keycloak OIDC, local llama.cpp inference and disposable Docker verification**. Recorded inspection runs directly from validated public captures.
+The active investigation path uses **Next.js/React/TypeScript, FastAPI/Python, PostgreSQL/psycopg, Keycloak OIDC, local llama.cpp inference, an explicit optional signed-in CLI provider and disposable Docker verification**. Recorded inspection runs directly from validated public captures.
 
 ```mermaid
 flowchart LR
@@ -101,7 +133,7 @@ flowchart LR
     API --> DB[(PostgreSQL receipts and ordered steps)]
     Worker[Python investigation worker] --> DB
     Worker --> Context[Original source and context selection]
-    Context --> Model[Pinned local model]
+    Context --> Model[Configured local model or explicit optional CLI provider]
     Model --> Worker
     Worker --> Verify[Disposable Docker checks]
     Worker --> Blobs[(Local digest-addressed artifact store)]
@@ -175,6 +207,7 @@ The optional free API development pilot produced no proposal: a corrected Gemini
 | [Visitor workflow and DOM evidence](docs/showcase/VISITOR_WORKFLOW.md) | Exact clicks, visible results, downloads, error states and the difference between inspection and a new repair |
 | [Architecture](docs/showcase/ARCHITECTURE.md) | Component boundaries, data model, request/dispatch sequence, trust and durability trade-offs |
 | [API, setup and operations](docs/showcase/OPERATIONS.md) | Authenticated/public endpoints, configuration, migrations, limits and troubleshooting |
+| [Current development result and visitor flow](docs/EVALUATION_013.md) | Retrieval-assisted repair, cost, original captures, current acceptance and remaining measurement gates |
 | [Claims and résumé bullets](docs/showcase/CLAIMS.md) | Claim-to-receipt map and interview wording |
 | [Capacity methodology](docs/CAPACITY_004.md) | Raw measurements, pacing, error denominators, failed runs and scope |
 | [Final software report](docs/FINAL_REPORT_007.md) | Acceptance, reproduction, operational evidence and separate failed repair target |
@@ -190,10 +223,10 @@ The active implementation is in `kairos_api/investigations/`, `kairos_api/migrat
 Build007 software and model evidence remain frozen. This delivery adds clearer presentation, the recruiter documentation and an opt-in live-session bootstrap. Its receipt binds these changes to the preserved release. Verify the active checkout with:
 
 ```bash
-python3 -m scripts.verify_repair010
+python3 -m scripts.verify_evaluation013
 ```
 
-The verifier checks the original008 archive, preserved historical receipts and the declared CI009/repair010 source overlays. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
+The verifier checks the original008 archive, preserved historical receipts and the declared CI009, repair010, retrieval011 loop012 and evaluation013 source overlays. Acceptance and live execution have their own receipts; verification checks their byte bindings. [Documentation provenance](docs/showcase/PROVENANCE.md) and [hosted CI correction](docs/showcase/CI_009.md).
 
 Hashes establish byte consistency against stored references, not signed or administrator-proof history. Candidate Python shares the registered test environment, so adversarial test-forgery resistance is not established. Measurements cover local operation; public hosting, production scale, customer adoption, model research and staff-level impact are not claimed. [Pull request checks](https://github.com/Gaurav711cgu/kairos-agents/pull/1/checks) report hosted CI outcomes separately from the original Mac acceptance.
 

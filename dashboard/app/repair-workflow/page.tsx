@@ -27,6 +27,7 @@ export default function RepairWorkflow() {
       <h1>A captured patch.<br /><em>Checked independently.</em></h1>
       <p>Two model-generated development candidates passed subsequent independent checks. Inspect the actual changes, test output and original attempt outcomes.</p>
     </header>
+    <p className="evidence-explainer">A later investigation completed end to end with 22 passing tests. <Link href="/repair-investigation">Inspect the new repair investigation</Link>.</p>
     <div className="article-layout">
       <aside className="article-index">
         <span className="eyebrow">Follow the evidence</span>

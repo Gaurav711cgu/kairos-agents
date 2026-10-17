@@ -1,0 +1,387 @@
+{
+  "files": {
+    "context-pytest014/Dockerfile": {
+      "bytes": 617,
+      "original_text": "# Parent tag identity must match the recorded original build006 image before and after build.\nFROM kairos-investigation-pytest:build006\nUSER root\nCOPY wheels/ /wheels/\nCOPY requirements.lock /tmp/dependencies.lock\nRUN python -m pip --isolated install --disable-pip-version-check --no-cache-dir --no-index --no-deps --require-hashes -r /tmp/dependencies.lock \\\n    && python -c \"import importlib_metadata, zipp; assert importlib_metadata.version('importlib-metadata') == '6.7.0'; assert importlib_metadata.version('zipp') == '3.15.0'\" \\\n    && rm -rf /wheels /tmp/dependencies.lock\nUSER 10001:10001\nWORKDIR /workspace\n",
+      "sha256": "007f9fda6fd623fedab7e1a555eca02073b448aea1aa6d5dc06d41d3daa08015"
+    },
+    "context-pytest014/requirements.lock": {
+      "bytes": 287,
+      "original_text": "importlib-metadata @ file:///wheels/importlib_metadata-6.7.0-py3-none-any.whl --hash=sha256:cb52082e659e97afc5dac71e79de97d8681de3aa07ff18578330904a9d18e5b5\nzipp @ file:///wheels/zipp-3.15.0-py3-none-any.whl --hash=sha256:48904fc76a60e542af151aded95726c1a5c34ed43ab4134b597665c86d7ad556\n",
+      "sha256": "5be7f523ad2f42bcbcd48f931c1a1513850f454fd8ff3cfcb907ffda8db6f801"
+    },
+    "context-pytest014/wheels/importlib_metadata-6.7.0-py3-none-any.whl": {
+      "bytes": 22934,
+      "sha256": "cb52082e659e97afc5dac71e79de97d8681de3aa07ff18578330904a9d18e5b5",
+      "wheel_not_bundled": true
+    },
+    "context-pytest014/wheels/zipp-3.15.0-py3-none-any.whl": {
+      "bytes": 6758,
+      "sha256": "48904fc76a60e542af151aded95726c1a5c34ed43ab4134b597665c86d7ad556",
+      "wheel_not_bundled": true
+    },
+    "context-v2/Dockerfile.django-py312-014": {
+      "bytes": 1022,
+      "original_text": "# Reuse the official Python image digest already reviewed in Dockerfile.api.\nFROM python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1\nCOPY requirements-django-py312-014.lock /tmp/kairos014.lock\nRUN python -m pip --isolated install --disable-pip-version-check --no-cache-dir --no-deps --only-binary=:all: --require-hashes -r /tmp/kairos014.lock \\\n    && python -c \"import sys, asgiref, sqlparse, tzdata; from asgiref.sync import ThreadSensitiveContext; from zoneinfo import ZoneInfo; assert sys.version_info[:2] == (3, 12); assert asgiref.__version__ == '3.7.2'; assert sqlparse.__version__ == '0.4.4'; assert tzdata.__version__ == '2024.2'; assert ZoneInfo('UTC').key == 'UTC'\" \\\n    && rm /tmp/kairos014.lock \\\n    && useradd --uid 10001 --create-home investigator\nLABEL org.kairos.profile=\"qualification014.2-django-py312-asgiref372\" org.kairos.runtime-network=\"none-required\"\nUSER 10001:10001\nWORKDIR /workspace\nCMD [\"python\", \"-V\"]\n",
+      "sha256": "3b76e7f26b3359a11948f4119d61afc5ece152707148ccae7e6b997271b56ee9"
+    },
+    "context-v2/Dockerfile.django-py38-asgiref014": {
+      "bytes": 868,
+      "original_text": "# Additive local image only. The base is the preserved build003 config/image ID,\n# Build wrapper verifies that local tag against this exact config ID before and after; --pull=false.\nFROM kairos-investigation-django:build003\nUSER root\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1\nCOPY requirements-django-py38-asgiref014.lock /tmp/kairos014.lock\nRUN python -m pip --isolated install --disable-pip-version-check --no-cache-dir --no-deps --only-binary=:all: --require-hashes -r /tmp/kairos014.lock \\\n    && python -c \"import sys, asgiref; from asgiref.sync import ThreadSensitiveContext; assert sys.version_info[:2] == (3, 8); assert asgiref.__version__ == '3.6.0'\" \\\n    && rm /tmp/kairos014.lock\nLABEL org.kairos.profile=\"qualification014.2-django-py38-asgiref360\" org.kairos.runtime-network=\"none-required\"\nUSER 10001:10001\nWORKDIR /workspace\nCMD [\"python\", \"-V\"]\n",
+      "sha256": "99e7faa64f0d5a975bbbfeb959b57bde8e61f31865733616d5796fe2a0b84c17"
+    },
+    "context-v2/requirements-django-py312-014.lock": {
+      "bytes": 765,
+      "original_text": "# Official PyPI wheels only; no source distributions or transitive resolution.\nasgiref @ https://files.pythonhosted.org/packages/9b/80/b9051a4a07ad231558fcd8ffc89232711b4e618c15cb7a392a17384bbeef/asgiref-3.7.2-py3-none-any.whl --hash=sha256:89b2ef2247e3b562a16eef663bc0e2e703ec6468e2fa8a5cd61cd449786d4f6e\nsqlparse @ https://files.pythonhosted.org/packages/98/5a/66d7c9305baa9f11857f247d4ba761402cea75db6058ff850ed7128957b7/sqlparse-0.4.4-py3-none-any.whl --hash=sha256:5430a4fe2ac7d0f93e66f1efc6e1338a41884b7ddf2a350cedd20ccc4d9d28f3\ntzdata @ https://files.pythonhosted.org/packages/a6/ab/7e5f53c3b9d14972843a647d8d7a853969a58aecc7559cb3267302c94774/tzdata-2024.2-py2.py3-none-any.whl --hash=sha256:a48093786cdcde33cad18c2555e8532f34422074448fbc874186f0abd79565cd\n",
+      "sha256": "476169370c3394576657e736e2877504a9df11172b7f9c75174e33f3c6e6be15"
+    },
+    "context-v2/requirements-django-py38-asgiref014.lock": {
+      "bytes": 309,
+      "original_text": "# Official PyPI wheel bytes; metadata and archive hashes reviewed without import.\nasgiref @ https://files.pythonhosted.org/packages/8f/29/38d10a47b322a77b2d12c2b79c789f52956f733cb701d4d5157c76b5f238/asgiref-3.6.0-py3-none-any.whl --hash=sha256:71e68008da809b957b7ee4b43dbccff33d1b23519fb8344e33f049897077afac\n",
+      "sha256": "1b516e6fa3546186fd5a5b876beb48181db3991d357e081c9802b6f0e206b387"
+    },
+    "context-v5/Dockerfile.django-modern014": {
+      "bytes": 1087,
+      "original_text": "# Official Python 3.10 supports standard-library zoneinfo and retained distutils for Django 4.x.\nFROM python:3.10-slim@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d\nENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1\nCOPY wheels/ /wheels/\nCOPY requirements-django-modern014.lock /tmp/kairos014.lock\nRUN python -m pip --isolated install --disable-pip-version-check --no-cache-dir --no-index --no-deps --only-binary=:all: --require-hashes -r /tmp/kairos014.lock \\\n    && python -c \"import sys, asgiref, sqlparse, tzdata; from asgiref.sync import ThreadSensitiveContext; from zoneinfo import ZoneInfo; assert sys.version_info[:2] == (3, 10); assert asgiref.__version__ == '3.7.2'; assert sqlparse.__version__ == '0.4.4'; assert tzdata.__version__ == '2024.2'; assert ZoneInfo('UTC').key == 'UTC'\" \\\n    && rm -rf /tmp/kairos014.lock /wheels \\\n    && useradd --uid 10001 --create-home investigator\nLABEL org.kairos.profile=\"qualification014.3-django-py310-asgiref372\" org.kairos.runtime-network=\"none-required\"\nUSER 10001:10001\nWORKDIR /workspace\nCMD [\"python\", \"-V\"]\n",
+      "sha256": "ceb7393677e3e29d82f1b1c2827798a3bc772cf3856154d8eaf4e905c6b40a30"
+    },
+    "context-v5/requirements-django-modern014.lock": {
+      "bytes": 489,
+      "original_text": "# Official PyPI wheels only; no source distributions or transitive resolution.\nasgiref @ file:///wheels/asgiref-3.7.2-py3-none-any.whl --hash=sha256:89b2ef2247e3b562a16eef663bc0e2e703ec6468e2fa8a5cd61cd449786d4f6e\nsqlparse @ file:///wheels/sqlparse-0.4.4-py3-none-any.whl --hash=sha256:5430a4fe2ac7d0f93e66f1efc6e1338a41884b7ddf2a350cedd20ccc4d9d28f3\ntzdata @ file:///wheels/tzdata-2024.2-py2.py3-none-any.whl --hash=sha256:a48093786cdcde33cad18c2555e8532f34422074448fbc874186f0abd79565cd\n",
+      "sha256": "c847857020ed9047789c227098699e3d8c27b36b008a8148eddc60aea34fd655"
+    },
+    "context-v5/review.json": {
+      "bytes": 437,
+      "derived_body": {
+        "network": "Build and runtime network none; hash-locked local wheels",
+        "parent_digest": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+        "prior_failed_recipe_sha256": "1f0ff2c2de5cd7dfc6f0109d515d97d62f3564a7533b9df9f0e43a8a68d0111b",
+        "purpose": "Python3.10 stdlib zoneinfo and retained distutils for Django4.x",
+        "recipe_sha256": "20a955ef95b4452201a88ebd7b6a75db45352060cc2b4fad8eb4b4387720f464"
+      },
+      "redacted_json_pointers": [],
+      "sha256": "c568f48a5626a2951d062fad62cb55269c3b2674c2f385917250e4fa1066856a"
+    },
+    "context-v5/wheels/asgiref-3.7.2-py3-none-any.whl": {
+      "bytes": 24140,
+      "sha256": "89b2ef2247e3b562a16eef663bc0e2e703ec6468e2fa8a5cd61cd449786d4f6e",
+      "wheel_not_bundled": true
+    },
+    "context-v5/wheels/sqlparse-0.4.4-py3-none-any.whl": {
+      "bytes": 41183,
+      "sha256": "5430a4fe2ac7d0f93e66f1efc6e1338a41884b7ddf2a350cedd20ccc4d9d28f3",
+      "wheel_not_bundled": true
+    },
+    "context-v5/wheels/tzdata-2024.2-py2.py3-none-any.whl": {
+      "bytes": 346586,
+      "sha256": "a48093786cdcde33cad18c2555e8532f34422074448fbc874186f0abd79565cd",
+      "wheel_not_bundled": true
+    }
+  },
+  "policy": {
+    "environment_chain_sha256": "deab32ea271e65953040590eebbd33daa0f05d3f5270a9c3fe05f9756551a099",
+    "pytest_dependency_revision": {
+      "image": {
+        "id": "sha256:8f1d217cfa699ae63c1c8c467b3acd71d80fafb0bb1daf8b4486f832a3eed4c8",
+        "tag": "kairos-investigation-pytest:metadata014"
+      },
+      "packages": {
+        "importlib-metadata": "6.7.0",
+        "zipp": "3.15.0"
+      },
+      "parent": {
+        "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+        "tag": "kairos-investigation-pytest:build006"
+      }
+    },
+    "repositories": {
+      "django/django": {
+        "3.1": {
+          "id": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+          "tag": "kairos-investigation-django:build003"
+        },
+        "3.2": {
+          "id": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+          "tag": "kairos-investigation-django:build003"
+        },
+        "4.0": {
+          "id": "sha256:a24932d0f41cbeff260ac1de686d14602fbf8cd2f85f188b22ca01447680065a",
+          "tag": "kairos-investigation-django:modern014"
+        },
+        "4.1": {
+          "id": "sha256:a24932d0f41cbeff260ac1de686d14602fbf8cd2f85f188b22ca01447680065a",
+          "tag": "kairos-investigation-django:modern014"
+        },
+        "4.2": {
+          "id": "sha256:a24932d0f41cbeff260ac1de686d14602fbf8cd2f85f188b22ca01447680065a",
+          "tag": "kairos-investigation-django:modern014"
+        },
+        "5.0": {
+          "id": "sha256:6bc56b8165ad9fbcd1cc74dbc400b8eadd6839abf5deef17f02c7fb1f21fefbc",
+          "tag": "kairos-investigation-django:py312-014"
+        }
+      },
+      "pytest-dev/pytest": {
+        "*": {
+          "id": "sha256:8f1d217cfa699ae63c1c8c467b3acd71d80fafb0bb1daf8b4486f832a3eed4c8",
+          "tag": "kairos-investigation-pytest:metadata014"
+        }
+      }
+    },
+    "retained_environment_cases": {
+      "pytest-dev__pytest-7168": {
+        "image": {
+          "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+          "tag": "kairos-investigation-pytest:build006"
+        },
+        "reason": "Baseline triggers pytest internal reporting crash before all selected tests complete. Adding a missing import backport cannot establish complete baseline execution; retain the original unsupported-verifier outcome without identical rerun.",
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "88cfce32c929677a6ee4f4260c6ae23b65a28da98175c44f8dff9824803498d3"
+      }
+    },
+    "retained_qualified_cases": {
+      "django__django-12497": {
+        "image": {
+          "id": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+          "tag": "kairos-investigation-django:build003"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "c319dc77ef71e598a957643a5075144dafecc9a5a06291ab6d45b9ce2432a330"
+      },
+      "django__django-12589": {
+        "image": {
+          "id": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+          "tag": "kairos-investigation-django:build003"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "7618909a35ce22f563f8fa9f7e2fb5278460917c300d408836f378d1b5c0606d"
+      },
+      "django__django-12983": {
+        "image": {
+          "id": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+          "tag": "kairos-investigation-django:build003"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "354e9c9f14e2da8d79a9c1ab3cc08f6e69c50bdd4c4914032a9e40bbaf68363b"
+      },
+      "django__django-13158": {
+        "image": {
+          "id": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+          "tag": "kairos-investigation-django:build003"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "c531758b584987feb245ddff1003e2c576d42871bbc873f2cb6ddf48445b8d37"
+      },
+      "django__django-13768": {
+        "image": {
+          "id": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+          "tag": "kairos-investigation-django:build003"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "7232a41cdeae39854672f1b0709f8d11dd9edc4dadd0c226e318a1ee8781c265"
+      },
+      "django__django-14752": {
+        "image": {
+          "id": "sha256:b68ddda88c5b0be61ec529633371d67fe57fa07856a0cf743155e88346d1a17c",
+          "tag": "kairos-investigation-django:py38-asgiref014"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "a38c026838f4a97c5060b5fc8da50a6b42297ee6cc16e977d18bedcd155a9024"
+      },
+      "django__django-15388": {
+        "image": {
+          "id": "sha256:a24932d0f41cbeff260ac1de686d14602fbf8cd2f85f188b22ca01447680065a",
+          "tag": "kairos-investigation-django:modern014"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "2c73d72e80acd9d5f6db3de8a6e7e17fde5aa318e63b4040fa06af238c757702"
+      },
+      "django__django-16255": {
+        "image": {
+          "id": "sha256:a24932d0f41cbeff260ac1de686d14602fbf8cd2f85f188b22ca01447680065a",
+          "tag": "kairos-investigation-django:modern014"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "7fc5a832cae45c09710ede551db7c587dfda98f5a540c85b1b6be1abf156ec48"
+      },
+      "django__django-17051": {
+        "image": {
+          "id": "sha256:6bc56b8165ad9fbcd1cc74dbc400b8eadd6839abf5deef17f02c7fb1f21fefbc",
+          "tag": "kairos-investigation-django:py312-014"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "20dee894984f3b97d4d7c8fa33eb51dcce712836ef711ec0614b575c2143618c"
+      },
+      "pytest-dev__pytest-11148": {
+        "image": {
+          "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+          "tag": "kairos-investigation-pytest:build006"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "f7a38f2bf05435b8a34e12b34a62995b2bfdb12ca3584341650df888264e9df9"
+      },
+      "pytest-dev__pytest-5221": {
+        "image": {
+          "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+          "tag": "kairos-investigation-pytest:build006"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "d93b85242a19dfd21f7aecd3b921094e743a9625e296fa44ddb816a5c62c92cd"
+      },
+      "pytest-dev__pytest-5413": {
+        "image": {
+          "id": "sha256:8f1d217cfa699ae63c1c8c467b3acd71d80fafb0bb1daf8b4486f832a3eed4c8",
+          "tag": "kairos-investigation-pytest:metadata014"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "35033db29cd30ff50ae7c98b7b2b099898d2be3e1e1e6b4c054b31a3d02754c9"
+      },
+      "pytest-dev__pytest-5692": {
+        "image": {
+          "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+          "tag": "kairos-investigation-pytest:build006"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "a8e1d67bfa5414fd7f7b58aa085be68fb2dc12bb429b4b83556c9279051a1447"
+      },
+      "pytest-dev__pytest-6116": {
+        "image": {
+          "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+          "tag": "kairos-investigation-pytest:build006"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "5751c380013490548a7803b0e6d77190e6a9a1a5814d2cb8be9d12cb39a2badc"
+      },
+      "pytest-dev__pytest-7373": {
+        "image": {
+          "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+          "tag": "kairos-investigation-pytest:build006"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "acf10a33f0b751aa3413b48d80a309d276362556b690d9e7076d9704699a234e"
+      },
+      "pytest-dev__pytest-8365": {
+        "image": {
+          "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+          "tag": "kairos-investigation-pytest:build006"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "e2704ed7accabc826900d839a073a06573e0d05452ababa2c8399ab610bd08d2"
+      },
+      "pytest-dev__pytest-9359": {
+        "image": {
+          "id": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+          "tag": "kairos-investigation-pytest:build006"
+        },
+        "receipt": "[Private machine location omitted; original bytes are retained locally.]",
+        "sha256": "eb53df623ecc928ff658ffff10f47ae532bc891c0f17688dc1c2bccd4a3a69cb"
+      }
+    },
+    "reviewed": true,
+    "reviewed_recipes": {
+      ".dockerignore": {
+        "bytes": 226,
+        "sha256": "6b0aaa6512b72e7b4a14612acde1872805bfe53339ca768b948d71e023d1e522"
+      },
+      "Dockerfile.django-py312-014": {
+        "bytes": 1022,
+        "sha256": "3b76e7f26b3359a11948f4119d61afc5ece152707148ccae7e6b997271b56ee9"
+      },
+      "Dockerfile.django-py38-asgiref014": {
+        "bytes": 868,
+        "sha256": "99e7faa64f0d5a975bbbfeb959b57bde8e61f31865733616d5796fe2a0b84c17"
+      },
+      "context-pytest014/.dockerignore": {
+        "bytes": 57,
+        "sha256": "40123a996f29e98bb4888a809213eafb93d282828c8fd92cfe8e4f1a43ecce6c"
+      },
+      "context-pytest014/Dockerfile": {
+        "bytes": 617,
+        "sha256": "007f9fda6fd623fedab7e1a555eca02073b448aea1aa6d5dc06d41d3daa08015"
+      },
+      "context-pytest014/requirements.lock": {
+        "bytes": 287,
+        "sha256": "5be7f523ad2f42bcbcd48f931c1a1513850f454fd8ff3cfcb907ffda8db6f801"
+      },
+      "context-pytest014/wheels/importlib_metadata-6.7.0-py3-none-any.whl": {
+        "bytes": 22934,
+        "sha256": "cb52082e659e97afc5dac71e79de97d8681de3aa07ff18578330904a9d18e5b5"
+      },
+      "context-pytest014/wheels/zipp-3.15.0-py3-none-any.whl": {
+        "bytes": 6758,
+        "sha256": "48904fc76a60e542af151aded95726c1a5c34ed43ab4134b597665c86d7ad556"
+      },
+      "context-v5/.dockerignore": {
+        "bytes": 91,
+        "sha256": "caa51b04d0285d83fdc8afec5eee8cf2ea3e3c24fbfef164cf2382886d8f1c6f"
+      },
+      "context-v5/Dockerfile.django-modern014": {
+        "bytes": 1087,
+        "sha256": "ceb7393677e3e29d82f1b1c2827798a3bc772cf3856154d8eaf4e905c6b40a30"
+      },
+      "context-v5/requirements-django-modern014.lock": {
+        "bytes": 489,
+        "sha256": "c847857020ed9047789c227098699e3d8c27b36b008a8148eddc60aea34fd655"
+      },
+      "context-v5/review.json": {
+        "bytes": 437,
+        "sha256": "c568f48a5626a2951d062fad62cb55269c3b2674c2f385917250e4fa1066856a"
+      },
+      "context-v5/wheels/asgiref-3.7.2-py3-none-any.whl": {
+        "bytes": 24140,
+        "sha256": "89b2ef2247e3b562a16eef663bc0e2e703ec6468e2fa8a5cd61cd449786d4f6e"
+      },
+      "context-v5/wheels/sqlparse-0.4.4-py3-none-any.whl": {
+        "bytes": 41183,
+        "sha256": "5430a4fe2ac7d0f93e66f1efc6e1338a41884b7ddf2a350cedd20ccc4d9d28f3"
+      },
+      "context-v5/wheels/tzdata-2024.2-py2.py3-none-any.whl": {
+        "bytes": 346586,
+        "sha256": "a48093786cdcde33cad18c2555e8532f34422074448fbc874186f0abd79565cd"
+      },
+      "requirements-django-py312-014.lock": {
+        "bytes": 765,
+        "sha256": "476169370c3394576657e736e2877504a9df11172b7f9c75174e33f3c6e6be15"
+      },
+      "requirements-django-py38-asgiref014.lock": {
+        "bytes": 309,
+        "sha256": "1b516e6fa3546186fd5a5b876beb48181db3991d357e081c9802b6f0e206b387"
+      }
+    },
+    "scope": "Version-specific dependency admission before any fresh repair-model dispatch; no changes to cases, source limits or registered tests",
+    "verifier_revision": {
+      "candidate_ids": [
+        "django__django-15347",
+        "django__django-13658"
+      ],
+      "generator_sha256": "efd3e1c0e9ac74015e0ba494f49db04132482c95422b84d2162b07e7e09ff083",
+      "implementation_sha256": "d851351da57f510b5c97ec520717ce36a0515d425772d94a755e65c4f0432fbf",
+      "protocol": "structured-unittest014-v1",
+      "reason": "Observed wrapped descriptions and multiline status formatting in complete unittest output; capture lifecycle events directly before inference"
+    },
+    "version": "qualification014-image-policy-v1"
+  },
+  "redacted_policy_pointers": [
+    "/retained_environment_cases/pytest-dev__pytest-7168/receipt",
+    "/retained_qualified_cases/django__django-12497/receipt",
+    "/retained_qualified_cases/django__django-12589/receipt",
+    "/retained_qualified_cases/django__django-12983/receipt",
+    "/retained_qualified_cases/django__django-13158/receipt",
+    "/retained_qualified_cases/django__django-13768/receipt",
+    "/retained_qualified_cases/django__django-14752/receipt",
+    "/retained_qualified_cases/django__django-15388/receipt",
+    "/retained_qualified_cases/django__django-16255/receipt",
+    "/retained_qualified_cases/django__django-17051/receipt",
+    "/retained_qualified_cases/pytest-dev__pytest-11148/receipt",
+    "/retained_qualified_cases/pytest-dev__pytest-5221/receipt",
+    "/retained_qualified_cases/pytest-dev__pytest-5413/receipt",
+    "/retained_qualified_cases/pytest-dev__pytest-5692/receipt",
+    "/retained_qualified_cases/pytest-dev__pytest-6116/receipt",
+    "/retained_qualified_cases/pytest-dev__pytest-7373/receipt",
+    "/retained_qualified_cases/pytest-dev__pytest-8365/receipt",
+    "/retained_qualified_cases/pytest-dev__pytest-9359/receipt"
+  ],
+  "scope": "Captured reviewed recipes and local image IDs; rebuilt image identity must be recorded separately. Wheels are identified by hashes and reviewed origin metadata, not installed dependencies bundled into this release.",
+  "source_plan_sha256": "322f4a7622d7806a7d5e0b1aa46760a8040f044ea244df04a8091a6601ab631f",
+  "version": "qualification014-environment-export-v1"
+}

@@ -39,6 +39,7 @@ export default function RootLayout({
           <nav aria-label="Main navigation">
             <Link href="/how-it-works">Start here</Link>
             <Link href="/investigations">Investigations</Link>
+            <Link href="/repair-comparison">Comparison</Link>
             <Link href="/engineering">Engineering</Link>
             <Link href="/advancement">Repair results</Link>
             <Link href="/capacity">Capacity</Link>

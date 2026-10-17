@@ -1,0 +1,76 @@
+{
+  "base_commit": "10ca84ffc56c2dd2d9dc4bd71b7b898e083500cd",
+  "baseline_regression_reproduced": true,
+  "baseline_summary": {
+    "collected": 72,
+    "collection_errors": [],
+    "complete": false,
+    "execution_complete": true,
+    "failed": [
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_expression",
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_generator",
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_list_comprehension",
+      "testing/test_assertrewrite.py::TestAssertionRewriteHookDetails::test_resources_provider_for_loader",
+      "testing/test_assertrewrite.py::TestRewriteOnImport::test_pyc_vs_pyo"
+    ],
+    "regression_failed": [
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_expression",
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_generator",
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_list_comprehension"
+    ],
+    "regression_passed": false,
+    "tests_run": 72
+  },
+  "binding": "b24559242606664881672d141fc353ed5d11f541c781d76afe82c3a972c8043b",
+  "ephemeral_tree": {
+    "cleanup_authorized": true,
+    "ownership_sha256": "0c854535fb77ca2652319a2e43392a8cfccd96eb8597b2032245173e7bade3bf",
+    "path": "[Private machine location omitted; original bytes are retained locally.]"
+  },
+  "evidence_sha256": {
+    "baseline.json": "b19a312405b65297fb9a644b4a3b1e414628f66387d96a2ec08682ce7f769b12",
+    "case-definition.json": "212d77dbdf028b0ffa7b6b52019eeb2e60b6dec710d830b4c32f82044730db5b",
+    "material-manifest.json": "90010c99bf6ad4a9eba6fec0d389029287a0a455ae899a8755aee01f78604f6b",
+    "reference.json": "c13f43953e2828c0499653e2cce143b53912eb5875b1cb8917009969c7ba3aeb",
+    "source.json": "0ed4a572a922258358405917ac4b8fbba4617899adf71f47147ad215b933319c",
+    "test-scope.json": "9468598d566dc4962a92566ce7aa65c6a55aebb814c23e4ae9117a04a01777c3"
+  },
+  "instance_id": "pytest-dev__pytest-5103",
+  "model_calls": 0,
+  "order": 12,
+  "qualified": false,
+  "raw_outputs_complete": true,
+  "reason": "Complete baseline regression failure and complete reference pass were not both reproduced",
+  "reference_complete_pass": false,
+  "reference_summary": {
+    "collected": 72,
+    "collection_errors": [],
+    "complete": false,
+    "execution_complete": true,
+    "failed": [
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_generator",
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_list_comprehension",
+      "testing/test_assertrewrite.py::TestAssertionRewriteHookDetails::test_resources_provider_for_loader",
+      "testing/test_assertrewrite.py::TestRewriteOnImport::test_pyc_vs_pyo"
+    ],
+    "regression_failed": [
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_generator",
+      "testing/test_assertrewrite.py::TestAssertionRewrite::test_unroll_list_comprehension"
+    ],
+    "regression_passed": false,
+    "tests_run": 72
+  },
+  "repository": "pytest-dev/pytest",
+  "source_scope": {
+    "approved_prefix": "src/_pytest/",
+    "changed_lines": 25,
+    "entry_files": [
+      "src/_pytest/assertion/rewrite.py"
+    ],
+    "maximum_changed_lines": 40,
+    "maximum_files": 2
+  },
+  "split": "development",
+  "status": "behavioral_mismatch",
+  "version": "qualification014-case-v1"
+}

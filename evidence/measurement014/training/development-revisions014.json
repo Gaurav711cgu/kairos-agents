@@ -1,0 +1,21 @@
+{
+  "heldout_opened": false,
+  "maximum_additional_revisions": 2,
+  "original_training_receipt_sha256": "7482adaa0394a093578b515a9e21920e124b82a8659e28434d9e471adf9bb6ae",
+  "profiles": [
+    {
+      "learning_rate": 0.0003,
+      "name": "hard8-lr0003",
+      "negative_top_k": 8
+    },
+    {
+      "learning_rate": 0.001,
+      "name": "hard8-lr001",
+      "negative_top_k": 8
+    }
+  ],
+  "reason": "Initial uniform-negative profile lowered development MRR; focus on frozen-base hard candidates with lower rates before held-out access",
+  "selection": "Highest development MRR, Recall@5, then original/profile listed order; no held-out tuning",
+  "variant_source_sha256": "5af6d6a43954f86be7fbf8285fbfcd3ba8af9e9cc230603efc2a00cbad291f71",
+  "version": "source014-development-revisions-v1"
+}

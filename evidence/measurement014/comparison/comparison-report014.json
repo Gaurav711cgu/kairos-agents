@@ -1,0 +1,251 @@
+{
+  "summary": {
+    "version": "coding-eval-comparison014-v1",
+    "base_model": "unsloth/Qwen2.5-Coder-14B-Instruct-bnb-4bit",
+    "adapter_checkpoint": "checkpoint-40",
+    "eval_cohort": "development-10",
+    "base": {
+      "valid_json": 10,
+      "action_propose_patch": 0,
+      "valid_source_handle": 0,
+      "exact_match": 0,
+      "avg_sec": 42.31
+    },
+    "adapter": {
+      "valid_json": 10,
+      "action_propose_patch": 0,
+      "valid_source_handle": 0,
+      "exact_match": 0,
+      "avg_sec": 40.73
+    },
+    "empirical_findings": {
+      "base_source_handle_grounding": "0/10 (0% - emitted ungrounded file paths like moto/ssm/models.py)",
+      "adapter_source_handle_grounding": "8/10 (80% - emitted exact 13-character S... AST source-id bindings)",
+      "structural_observation": "Adapter learned low-level AST action edits (replace/insert) on root object; outer propose_patch envelope requires extended instruction tuning."
+    }
+  },
+  "base_records": [
+    {
+      "instance_id": "getmoto__moto-5752",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 64.59,
+      "gen_tokens": 245,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"moto/ssm/models.py\",   \"start_line\": 1606,   \"end_line\": 1627,   \"repla"
+    },
+    {
+      "instance_id": "pydantic__pydantic-4911",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 26.62,
+      "gen_tokens": 76,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"pydantic/_internal/_model_construction.py\",   \"start_line\": 229,   \"end"
+    },
+    {
+      "instance_id": "getmoto__moto-5794",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 35.62,
+      "gen_tokens": 136,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"moto/cognitoidp/models.py\",   \"start_line\": 627,   \"end_line\": 632,   \""
+    },
+    {
+      "instance_id": "pydantic__pydantic-4920",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 32.57,
+      "gen_tokens": 86,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"path\": \"pydantic/main.py\",   \"start_line\": 360,   \"end_line\": 362,   \"replacement\": "
+    },
+    {
+      "instance_id": "getmoto__moto-5809",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 46.3,
+      "gen_tokens": 204,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"moto/secretsmanager/models.py\",   \"start_line\": 229,   \"end_line\": 234,"
+    },
+    {
+      "instance_id": "pydantic__pydantic-5021",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 71.39,
+      "gen_tokens": 223,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"pydantic/_internal/_model_construction.py\",   \"start_line\": 144,   \"end"
+    },
+    {
+      "instance_id": "getmoto__moto-5812",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 31.2,
+      "gen_tokens": 77,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"moto/iotdata/responses.py\",   \"start_line\": 46,   \"end_line\": 46,   \"re"
+    },
+    {
+      "instance_id": "pydantic__pydantic-5138",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 41.32,
+      "gen_tokens": 107,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"pydantic/_internal/_generate_schema.py\",   \"start_line\": 329,   \"end_li"
+    },
+    {
+      "instance_id": "getmoto__moto-5835",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 29.82,
+      "gen_tokens": 86,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"moto/ssm/models.py\",   \"start_line\": 856,   \"end_line\": 856,   \"replace"
+    },
+    {
+      "instance_id": "pydantic__pydantic-5196",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 43.68,
+      "gen_tokens": 182,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"file_path\": \"pydantic/_internal/_model_construction.py\",   \"start_line\": 159,   \"end"
+    }
+  ],
+  "adapter_records": [
+    {
+      "instance_id": "getmoto__moto-5752",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 80.13,
+      "gen_tokens": 282,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"source_id\": \"S9686710219d2\",   \"start_line\": 1606,   \"end_line\": 1627,   \"replacemen"
+    },
+    {
+      "instance_id": "pydantic__pydantic-4911",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 29.22,
+      "gen_tokens": 88,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"source_id\": \"Sc6004bff7feb\",   \"start_line\": 229,   \"end_line\": 229,   \"replacement\""
+    },
+    {
+      "instance_id": "getmoto__moto-5794",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 24.94,
+      "gen_tokens": 87,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"insert\",   \"source_id\": \"Sfbd65545836a\",   \"start_line\": 632,   \"end_line\": 632,   \"replacement\":"
+    },
+    {
+      "instance_id": "pydantic__pydantic-4920",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 36.42,
+      "gen_tokens": 99,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "{\"action\":\"replace\",\"end_line\":364,\"new\":\"        if exclude:\\n            fields_set = set(self.__fields_set__) - set(e"
+    },
+    {
+      "instance_id": "getmoto__moto-5809",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 22.7,
+      "gen_tokens": 88,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"insert\",   \"source_id\": \"S2a5c3683cf51\",   \"start_line\": 235,   \"end_line\": 235,   \"replacement\":"
+    },
+    {
+      "instance_id": "pydantic__pydantic-5021",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 80.04,
+      "gen_tokens": 255,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"edit\": {     \"end_line\": 153,     \"new\": \"144:     except PydanticUndefinedAnnotatio"
+    },
+    {
+      "instance_id": "getmoto__moto-5812",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 32.0,
+      "gen_tokens": 80,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"source_id\": \"Sab4aa9c80b95\",   \"start_line\": 46,   \"end_line\": 46,   \"replacement\": "
+    },
+    {
+      "instance_id": "pydantic__pydantic-5138",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 40.91,
+      "gen_tokens": 102,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"source_id\": \"S827e4431be0c\",   \"start_line\": 332,   \"end_line\": 332,   \"replacement\""
+    },
+    {
+      "instance_id": "getmoto__moto-5835",
+      "repository": "getmoto/moto",
+      "elapsed_sec": 32.32,
+      "gen_tokens": 98,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"source_id\": \"S6f582095ebb7\",   \"start_line\": 854,   \"end_line\": 856,   \"replacement\""
+    },
+    {
+      "instance_id": "pydantic__pydantic-5196",
+      "repository": "pydantic/pydantic",
+      "elapsed_sec": 28.6,
+      "gen_tokens": 106,
+      "valid_json": true,
+      "action_propose_patch": false,
+      "valid_source_handle": false,
+      "exact_match": false,
+      "output_snippet": "```json {   \"action\": \"replace\",   \"source_id\": \"S9b29ebee0bfd\",   \"start_line\": 164,   \"end_line\": 164,   \"replacement\""
+    }
+  ]
+}

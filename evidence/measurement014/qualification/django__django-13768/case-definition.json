@@ -1,0 +1,24 @@
+{
+  "approved_prefix": "django/",
+  "command": [
+    "python",
+    "/verification/verify.py"
+  ],
+  "entry_files": [
+    "django/dispatch/dispatcher.py"
+  ],
+  "id": "django__django-13768",
+  "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+  "issue": "Log exceptions handled in Signal.send_robust()\nDescription\n\t\nAs pointed out by \u200bHaki Benita on Twitter, by default Signal.send_robust() doesn't have any log messages for exceptions raised in receivers. Since Django logs exceptions in other similar situations, such as missing template variables, I think it would be worth adding a logger.exception() call in the except clause of send_robust() . Users would then see such exceptions in their error handling tools, e.g. Sentry, and be able to figure out what action to take from there. Ultimately any *expected* exception should be caught with a try in the receiver function.\n",
+  "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.",
+  "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+  "qualified": false,
+  "reference_digest": "d0e765aea3be1713c4cc997770cb26dcf87a5b0088663c011ce8fd4910457031",
+  "repository": "django/django",
+  "revision": "965d2d95c630939b53eb60d9c169f5dfc77ee0c6",
+  "source_digest": "a766b7a73062ce9acd95347dda60cc6f29c50cc18025d690e7d6bff755d07916",
+  "source_url": "https://codeload.github.com/django/django/tar.gz/965d2d95c630939b53eb60d9c169f5dfc77ee0c6",
+  "split": "development",
+  "title": "Log exceptions handled in Signal.send_robust()",
+  "verification_digest": "64f0f70abc12f3d7858ea3259a037e4fc9da942e992f5e49f9780611725e3e35"
+}

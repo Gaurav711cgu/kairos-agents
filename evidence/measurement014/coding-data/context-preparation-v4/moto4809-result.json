@@ -1,0 +1,53 @@
+{
+  "context_selection": {
+    "maximum_prompt_tokens": 1536,
+    "maximum_regions": 4,
+    "omissions": [
+      {
+        "end_line": 255,
+        "path": "moto/batch/models.py",
+        "reason": "Leading declaration and long documentation omitted; only captured implementation lines remain editable",
+        "start_line": 234
+      },
+      {
+        "end_line": 301,
+        "path": "moto/batch/models.py",
+        "reason": "Lower-priority whole source region exceeds fixed prompt-token budget",
+        "start_line": 256
+      },
+      {
+        "end_line": 240,
+        "path": "moto/batch/models.py",
+        "reason": "Lower-priority whole source region exceeds fixed prompt-token budget",
+        "start_line": 190
+      }
+    ],
+    "parent_omissions": [
+      {
+        "end_line": 360,
+        "path": "moto/batch/models.py",
+        "reason": "Four-region context budget exhausted",
+        "start_line": 295
+      },
+      {
+        "end_line": 379,
+        "path": "moto/batch/models.py",
+        "reason": "Four-region context budget exhausted",
+        "start_line": 354
+      }
+    ],
+    "parent_policy": "issue-linked-source-and-imports014-v3",
+    "prompt_tokens": 1464,
+    "reserved_target_tokens": 512,
+    "source": "Public issue, original source and pinned tokenizer only; target not read",
+    "version": "issue-linked-source-token-packing014-v4"
+  },
+  "context_source_sha256": "fb30ae0203afb3a28ff2f8ebe38aeaebe4dfecdf52a24ee0ccedb7fb0216dbd7",
+  "instance_id": "getmoto__moto-4809",
+  "model_calls": 0,
+  "original_receipt_sha256": "5f0e05cf3c6e314cf2de981ae6e14d747edc23ccc16a207e76cdb1b9c937d3c8",
+  "preparation_source_sha256": "3b3aa039d51183c75f45b2c171aa821946bba578ee50463e9f0a29e942c76443",
+  "reason": "Required edit was omitted from issue-only context; original rejection retained privately.",
+  "status": "conversion_rejected",
+  "training_admitted": false
+}

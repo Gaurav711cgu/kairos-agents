@@ -1,0 +1,5 @@
+-- Validate all expanded constraints in the separate transactional revision.
+ALTER TABLE kairos_investigations VALIDATE CONSTRAINT kairos_investigations_configuration_check;
+ALTER TABLE kairos_investigations VALIDATE CONSTRAINT kairos_investigations_model_calls_check;
+ALTER TABLE kairos_investigations VALIDATE CONSTRAINT kairos_investigations_patch_count_check;
+ALTER TABLE kairos_investigations VALIDATE CONSTRAINT kairos_investigations_check_count_check;

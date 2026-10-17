@@ -1,0 +1,28 @@
+{
+  "planning": "compact",
+  "context_depth": "dependency",
+  "verification_depth": "impact",
+  "delegation": "none",
+  "reason_codes": [
+    "training-admission",
+    "evidence-integrity",
+    "shared-module"
+  ],
+  "allowed_write_scope": [
+    "scripts/coding_admission014.py",
+    "scripts/coding_train014.py",
+    "tests/test_coding_admission014.py",
+    "tests/test_coding_train014.py",
+    "scripts/acceptance007.py",
+    "docs/CODING_DATA_014.md",
+    "DECISIONS.md",
+    "BRAIN.md",
+    "evidence/measurement014/coding-data/admission-hardening-v1"
+  ],
+  "acceptance": [
+    "Hash-bound receipt graph validates captured checks and task/source/issue/target identities",
+    "Missing or corrupt evidence rejects before model/framework loading and output creation",
+    "Focused backend tests pass; no Docker or inference dispatch"
+  ],
+  "prior_runner_sha256": "804fa7a021d01cc1717fa21076b7d5f66b8122f7bcce8f0a5b47a2b35b65315d"
+}

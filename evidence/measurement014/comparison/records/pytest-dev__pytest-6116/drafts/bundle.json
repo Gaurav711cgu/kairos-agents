@@ -1,0 +1,80 @@
+{
+  "artifacts": [],
+  "cancel_requested": false,
+  "check_count": 0,
+  "claims": 1,
+  "config_digest": "1417478cdebb481559c3509b6df903c84102819f5f4f02f05764895377050421",
+  "config_snapshot": {
+    "budgets": {
+      "max_calls": 10,
+      "max_checks": 4,
+      "max_patches": 4,
+      "seconds": 900
+    },
+    "experiment_version": "retrieval-loop-cli012-v1",
+    "generation": {
+      "harness_automatic_redispatch": false,
+      "internal_provider_retries": "CLI-controlled; invocation count is not network request count",
+      "local_4096_1024_profile_applies": false,
+      "max_dispatch_seconds": 120,
+      "max_harness_dispatches": 10,
+      "max_prompt_bytes": 65536,
+      "model_selection": "Explicit requested model; remote weight bytes are not attested",
+      "output_tokens_limit": null,
+      "provider": "codex-cli-chatgpt",
+      "reported_completion_token_ceiling": 8192,
+      "reported_prompt_token_ceiling": 64000,
+      "requested_model": "gpt-6.1-sol",
+      "thinking_setting": "CLI default",
+      "token_ceiling_scope": "Stops subsequent calls from captured usage; a final call may overshoot and internal CLI retries are opaque",
+      "usage": "Existing signed-in ChatGPT/Codex subscription; no API-key billing fallback"
+    },
+    "model_manifest_digest": "c2813855652b1e92205c8c6f8f0e37ed0e27edc61afecf725f2a87a5ecf9d5bb",
+    "version": "loop-v8"
+  },
+  "configuration": "loop-v8",
+  "created_at": "2026-10-16T11:53:40.304657+00:00",
+  "deadline_at": "2026-10-16T12:08:40.316727+00:00",
+  "id": "05705ad2-020e-4fd2-8edf-418898098d70",
+  "integrity": {
+    "scope": "Stored snapshots and content-addressed captures; not immutable history",
+    "verified": true
+  },
+  "model_calls": 0,
+  "outcome": "no_patch",
+  "parent_id": null,
+  "patch_count": 0,
+  "published": false,
+  "registry_version": "repository-cases-v1",
+  "started_at": "2026-10-16T11:53:40.316727+00:00",
+  "status": "completed",
+  "steps": [],
+  "summary": "Issue-only AST localization returned no source regions; no entry-file fallback or model dispatch",
+  "task_digest": "39d83b98cf0079364f53dcf9502dd8c0253bad61ce20cd2abad4e0cc3578adb0",
+  "task_id": "pytest-dev__pytest-6116",
+  "task_snapshot": {
+    "approved_prefix": "src/_pytest/",
+    "command": [
+      "python",
+      "/verification/verify.py"
+    ],
+    "entry_files": [
+      "src/_pytest/main.py"
+    ],
+    "id": "pytest-dev__pytest-6116",
+    "image": "sha256:3407ec26f4cb3a0a626c5c8412b9e644e319b935a7a5f42ecfc867a9c18192f2",
+    "issue": "pytest --collect-only needs a one char shortcut command\nI find myself needing to run `--collect-only` very often and that cli argument is a very long to type one. \r\n\r\nI do think that it would be great to allocate a character for it, not sure which one yet. Please use up/down thumbs to vote if you would find it useful or not and eventually proposing which char should be used. \r\n\r\nClearly this is a change very easy to implement but first I want to see if others would find it useful or not.\npytest --collect-only needs a one char shortcut command\nI find myself needing to run `--collect-only` very often and that cli argument is a very long to type one. \r\n\r\nI do think that it would be great to allocate a character for it, not sure which one yet. Please use up/down thumbs to vote if you would find it useful or not and eventually proposing which char should be used. \r\n\r\nClearly this is a change very easy to implement but first I want to see if others would find it useful or not.\n",
+    "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.",
+    "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+    "qualified": true,
+    "reference_digest": "2d80109efb3ae83bdebc1338be3407baebef89458fe00d4553397359d41ce611",
+    "repository": "pytest-dev/pytest",
+    "revision": "e670ff76cbad80108bde9bab616b66771b8653cf",
+    "source_digest": "c571d9a4163f001159041d58432ac502044fa8a1e2b49dfa17fd2137e12bf13a",
+    "source_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/e670ff76cbad80108bde9bab616b66771b8653cf",
+    "split": "holdout",
+    "title": "pytest --collect-only needs a one char shortcut command",
+    "verification_digest": "20d373a0d92be29a10bb06da33000b17ecfc68dbe4db7dc2ab8aef3fdbc8f189"
+  },
+  "updated_at": "2026-10-16T11:53:40.982950+00:00"
+}

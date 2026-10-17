@@ -1,0 +1,18 @@
+{
+  "architecture": "linux/arm64",
+  "base_image": "python@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "dockerfile_sha256": "9e7facfe6176d07fb65a451fd2f531ef97eade95baaaff9c1e76f2923075a0ab",
+  "python": "3.10",
+  "repository_version": "Moto3.0",
+  "requirements_portable_sha256": "15da53609d55dcfbbc71f02ccdc13947c09afa09189e6dc9885e5a85301ec519",
+  "review": "Selected CloudFront suite imports require Moto core boto3/botocore, request stubs, XML/Jinja and sure. Reviewed exact pinned wheel closure and sure2.0.1 source exception. Its captured setup.py only reads package version/README and invokes setuptools; dependencies mock/six are pinned. Source build occurs only in Docker with no network and pinned setuptools/wheel. No Moto installation, upstream setup or test mutation enters image. Full14 registered test IDs remain mandatory. AWS instance metadata network access disabled; the tests construct mock AWS credentials in Moto.",
+  "runtime_cpus": 2,
+  "runtime_memory_bytes": 1073741824,
+  "runtime_network": false,
+  "runtime_timeout_seconds": 120,
+  "source_setup_sha256": "78e269cd04970e951fe6adcd8e65f977e9adf83905b5086cabcbf30e6ae72efd",
+  "source_test_imports_sha256": "0a40da4b79389426ceafb94a4c5cbe4bcc45090633c13b9ab72aac29bec747b8",
+  "tag": "kairos-coding-moto:014-30-v1",
+  "version": "coding-dependencies014-moto-v1",
+  "wheel_review_sha256": "6e4cf136f74a53f7a488148ca0dabd91773f60d0305a2a774bcba762858c43f3"
+}

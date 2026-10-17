@@ -32,8 +32,8 @@ class InvestigationWorker:
                 raise ValueError('Registered case changed after enqueue')
             if job['config_snapshot']['model_manifest_digest']!=self.repository._model_digest():
                 raise ValueError('Pinned model manifest changed after enqueue')
-            if job['configuration'].endswith(('-v4','-v5','-v6','-v7')) and hasattr(self.provider,'verify_profile'):
-                if isinstance(self.provider,LocalInvestigator) and job['configuration'].endswith(('-v5','-v6','-v7')):
+            if job['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')) and hasattr(self.provider,'verify_profile'):
+                if isinstance(self.provider,LocalInvestigator) and job['configuration'].endswith(('-v5','-v6','-v7','-v8')):
                     self.provider.verify_profile(job['configuration'])
                 else:self.provider.verify_profile()
             workspace=self.workspace_factory(self.repository.registry,case)
@@ -56,35 +56,37 @@ class InvestigationWorker:
     def _state(self,job,workspace):
         record=self.repository.read(str(job['id']),job['tenant_id'])
         if not record['integrity']['verified']: raise ValueError('Captured step integrity mismatch')
-        if job['configuration'].endswith(('-v5','-v6','-v7')) and not any(
+        if job['configuration'].endswith(('-v5','-v6','-v7','-v8')) and not any(
                 step['kind']=='tool' and step['name'] in {'initial_source','read_file'} and
                 step['state']=='captured' and step['result']['body'].get('reference')
                 for step in record['steps']):
-            if job['configuration'].endswith('-v7'):
+            if job['configuration'].endswith(('-v7','-v8')):
                 from kairos_api.investigations.context_v7 import initial_sources
             else:
                 from kairos_api.investigations.context_v5 import initial_sources
             # Localization is persisted before any dispatch. Recovery consumes the
             # captured source rather than selecting new, unrecorded case hints.
-            for result in initial_sources(workspace):
+            sources = (workspace.initial_sources012() if job['configuration'].endswith('-v8')
+                       and hasattr(workspace, 'initial_sources012') else initial_sources(workspace))
+            for result in sources:
                 self._record(job,'tool','initial_source',{'origin':'public-issue-symbol-ast-v1'},result)
             record=self.repository.read(str(job['id']),job['tenant_id'])
         observations=[];patch='';verification=None;invalid=False
         for step in record['steps']:
             if step['kind']!='tool' or step['state']!='captured': continue
             request=step['request']['body'];result=step['result']['body']
-            if job['configuration'].endswith(('-v4','-v5','-v6','-v7')) and step['name'] in {'read_file','initial_source'} and 'error' not in result: workspace.restore_reference(result)
+            if job['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')) and step['name'] in {'read_file','initial_source'} and 'error' not in result: workspace.restore_reference(result)
             if step['name']=='propose_patch':
                 invalid='error' in result
                 if not invalid: patch=result.get('patch',request.get('patch',''));verification=None
             if step['name']=='run_checks' and result.get('patch_digest')==digest(patch): verification=result
             observations.append({'action':step['name'],'result':result})
-        if job['configuration'].endswith(('-v4','-v5','-v6','-v7')):
+        if job['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')):
             for step in record['steps']:
                 if step['kind']=='context' and step['result']:
                     for observation in step['result']['body'].get('selection',{}).get('observations',[]):
                         if isinstance(observation.get('result'),dict): workspace.restore_reference(observation['result'])
-                    if job['configuration'].endswith(('-v5','-v6','-v7')):
+                    if job['configuration'].endswith(('-v5','-v6','-v7','-v8')):
                         for result in step['result']['body'].get('source_catalog',[]):
                             workspace.restore_reference(result)
         if patch: workspace.propose(patch)
@@ -170,13 +172,13 @@ class InvestigationWorker:
         while True:
             if self.repository.remaining(job)<=0: raise TimeoutError()
             record,observations,patch,verification,invalid=self._state(job,workspace)
-            if job['configuration'].endswith(('-v4','-v5','-v6','-v7')) and patch and verification is None and record['check_count']<job['config_snapshot']['budgets']['max_checks']:
+            if job['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')) and patch and verification is None and record['check_count']<job['config_snapshot']['budgets']['max_checks']:
                 self._verify(job,workspace,patch);continue
-            if job['configuration'].endswith(('-v4','-v5','-v6','-v7')) and verification and verification.get('passed'):
+            if job['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')) and verification and verification.get('passed'):
                 return self._outcome(job,workspace,patch,verification,invalid,'Independent checks passed')
-            if job['configuration'].endswith(('-v5','-v6','-v7')) and verification and verification.get('environment_error'):
+            if job['configuration'].endswith(('-v5','-v6','-v7','-v8')) and verification and verification.get('environment_error'):
                 return self._outcome(job,workspace,patch,verification,invalid,'Verification environment failed; no additional inference dispatched')
-            if job['configuration'].endswith(('-v5','-v6','-v7')) and verification and (
+            if job['configuration'].endswith(('-v5','-v6','-v7','-v8')) and verification and (
                     record['check_count']>=job['config_snapshot']['budgets']['max_checks'] or
                     record['patch_count']>=job['config_snapshot']['budgets']['max_patches']):
                 return self._outcome(job,workspace,patch,verification,invalid,'Candidate verification budget reached')
@@ -188,7 +190,7 @@ class InvestigationWorker:
             else:
                 if record['model_calls']>=job['config_snapshot']['budgets']['max_calls']:
                     return self._outcome(job,workspace,patch,verification,invalid,'Model call budget reached')
-                pinned = {'generation_snapshot':job['config_snapshot']['generation']} if job['configuration'].endswith(('-v5','-v6','-v7')) and isinstance(self.provider,LocalInvestigator) and 'generation' in job['config_snapshot'] else {}
+                pinned = {'generation_snapshot':job['config_snapshot']['generation']} if job['configuration'].endswith(('-v5','-v6','-v7','-v8')) and isinstance(self.provider,LocalInvestigator) and 'generation' in job['config_snapshot'] else {}
                 request,context=self.provider.prepare(workspace.case,job['configuration'],observations,
                     {'calls_remaining':job['config_snapshot']['budgets']['max_calls']-record['model_calls'],
                      'patches_remaining':job['config_snapshot']['budgets']['max_patches']-record['patch_count'],
@@ -205,13 +207,13 @@ class InvestigationWorker:
                 choice=response['choices'][0]
                 if choice['finish_reason']!='stop': raise ValueError('Model response truncated or interrupted')
                 parsed=strict_json(choice['message']['content'])
-                adapter=ActionV7 if job['configuration'].endswith('-v7') else (ActionV5 if job['configuration'].endswith(('-v5','-v6')) else (ActionV4 if job['configuration'].endswith('-v4') else Action))
+                adapter=ActionV7 if job['configuration'].endswith(('-v7','-v8')) else (ActionV5 if job['configuration'].endswith(('-v5','-v6')) else (ActionV4 if job['configuration'].endswith('-v4') else Action))
                 action=adapter.validate_python(parsed).model_dump()
             except (ValueError,ValidationError,KeyError,IndexError,TypeError) as error:
                 return self.repository.finish(job,'invalid_response',str(error)[:500])
             name=action['action']
             dispatch_context=None
-            if job['configuration'].endswith(('-v5','-v6','-v7')):
+            if job['configuration'].endswith(('-v5','-v6','-v7','-v8')):
                 captured=self.repository.read(str(job['id']),job['tenant_id'])
                 contexts=[step for step in captured['steps'] if step['kind']=='context' and
                           step['state']=='captured' and step['seq']<model['seq']]
@@ -232,11 +234,11 @@ class InvestigationWorker:
             except ValueError:
                 return self._outcome(job,workspace,patch,verification,invalid,'Tool budget exhausted')
             try:
-                if name=='search': result=(workspace.search_original if job['configuration'].endswith(('-v4','-v5','-v6','-v7')) else workspace.search)(action['query'])
-                elif name=='read_file': result=(workspace.read_original if job['configuration'].endswith(('-v4','-v5','-v6','-v7')) else workspace.read)(action['path'],action['start_line'])
-                elif job['configuration'].endswith(('-v5','-v6','-v7')):
+                if name=='search': result=(workspace.search_original if job['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')) else workspace.search)(action['query'])
+                elif name=='read_file': result=(workspace.read_original if job['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')) else workspace.read)(action['path'],action['start_line'])
+                elif job['configuration'].endswith(('-v5','-v6','-v7','-v8')):
                     if record['patch_count']>=job['config_snapshot']['budgets']['max_patches']: raise ValueError('Applied patch budget exhausted')
-                    if job['configuration'].endswith('-v7'):
+                    if job['configuration'].endswith(('-v7','-v8')):
                         result=workspace.propose_line_edits(action['edits'],dispatch_context.get('reference_bindings',{}))
                         previous=[s for s in record['steps'] if s['kind']=='tool' and s['name']=='run_checks' and s['state']=='captured' and s['result']['body'].get('patch_digest')==digest(result['patch'])]
                         if previous:
@@ -249,7 +251,7 @@ class InvestigationWorker:
                 else: result=workspace.propose_edits(action['edits'])
             except (ValueError,OSError) as error: result={'error':str(error)[:1000]}
             self.repository.capture(job,seq,result)
-            if job['configuration'].endswith('-v7') and name=='propose_patch' and 'error' in result:
+            if job['configuration'].endswith(('-v7','-v8')) and name=='propose_patch' and 'error' in result:
                 fingerprint=digest({'edits':action['edits'],'error':result['error']})
                 rejected=[s for s in record['steps'] if s['kind']=='tool' and s['name']=='propose_patch' and s['state']=='captured' and 'error' in s['result']['body']]
                 repeated=sum(digest({'edits':s['request']['body'].get('edits',[]),'error':s['result']['body']['error']})==fingerprint for s in rejected)

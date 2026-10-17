@@ -1,0 +1,24 @@
+{
+  "approved_prefix": "django/",
+  "command": [
+    "python",
+    "/verification/verify.py"
+  ],
+  "entry_files": [
+    "django/db/models/sql/query.py"
+  ],
+  "id": "django__django-13158",
+  "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+  "issue": "QuerySet.none() on combined queries returns all results.\nDescription\n\t\nI came across this issue on Stack Overflow. I'm not 100% sure it's a bug, but it does seem strange. With this code (excuse the bizarre example filtering):\nclass Publication(models.Model):\n\tpass\nclass Article(models.Model):\n\tpublications = models.ManyToManyField(to=Publication, blank=True, null=True)\nclass ArticleForm(forms.ModelForm):\n\tpublications = forms.ModelMultipleChoiceField(\n\t\tPublication.objects.filter(id__lt=2) | Publication.objects.filter(id__gt=5),\n\t\trequired=False,\n\t)\n\tclass Meta:\n\t\tmodel = Article\n\t\tfields = [\"publications\"]\nclass ArticleAdmin(admin.ModelAdmin):\n\tform = ArticleForm\nThis works well. However, changing the ModelMultipleChoiceField queryset to use union() breaks things.\npublications = forms.ModelMultipleChoiceField(\n\tPublication.objects.filter(id__lt=2).union(\n\t\tPublication.objects.filter(id__gt=5)\n\t),\n\trequired=False,\n)\nThe form correctly shows only the matching objects. However, if you submit this form while empty (i.e. you didn't select any publications), ALL objects matching the queryset will be added. Using the OR query, NO objects are added, as I'd expect.\n",
+  "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.",
+  "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+  "qualified": false,
+  "reference_digest": "50f03b9d6988fb94bce8f9d7086bdd116853c448d9cfa2543e9735ebc7b12d00",
+  "repository": "django/django",
+  "revision": "7af8f4127397279d19ef7c7899e93018274e2f9b",
+  "source_digest": "fd3a5857e48f2b3e3bd8bf74611a6da724c5e1e09e8d7035bb0728a852df89e7",
+  "source_url": "https://codeload.github.com/django/django/tar.gz/7af8f4127397279d19ef7c7899e93018274e2f9b",
+  "split": "holdout",
+  "title": "QuerySet.none() on combined queries returns all results.",
+  "verification_digest": "9e68168ccbe737ccbb167a7f26fc3b8c5c0ad435493656a4374dee2a7230cf93"
+}

@@ -1,0 +1,29 @@
+{
+  "planning": "compact",
+  "context_depth": "dependency",
+  "verification_depth": "impact",
+  "delegation": "none",
+  "reason_codes": [
+    "observed-localization-omission",
+    "public-source-citations",
+    "additive-version"
+  ],
+  "allowed_write_scope": [
+    "scripts/coding_context_v5_014.py",
+    "scripts/coding_actions014.py",
+    "tests/test_coding_context_v5_014.py",
+    "scripts/acceptance007.py",
+    "evidence/measurement014/coding-data/context-preparation-v5",
+    "docs/CODING_DATA_014.md",
+    "DECISIONS.md",
+    "BRAIN.md"
+  ],
+  "decision": "Prioritize line citations already present in public issues, then bounded same-file direct callees using original source. Never read answers to select context. Preserve v1-v4 sources and receipts. No held-out evaluation execution.",
+  "acceptance": [
+    "Citation plus direct callee retains original edit authority",
+    "Hidden material and entry hints remain unread",
+    "1536 prompt/512 target reservation and four80-line bounds remain",
+    "Focused tests pass and actual fixed-candidate conversion outcome preserved"
+  ],
+  "prior_actions_sha256": "3b3aa039d51183c75f45b2c171aa821946bba578ee50463e9f0a29e942c76443"
+}

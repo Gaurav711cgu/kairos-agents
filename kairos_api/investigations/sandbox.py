@@ -7,7 +7,7 @@ import hashlib
 import base64
 from kairos_api.model_runtime import digest
 import difflib
-import resource
+import sys
 from pathlib import Path
 import shutil
 import subprocess
@@ -272,8 +272,9 @@ class Workspace:
                 with tempfile.TemporaryFile() as stdout,tempfile.TemporaryFile() as stderr:
                     timed_out=False
                     try:
-                        result=subprocess.run(argv,stdout=stdout,stderr=stderr,timeout=max(1,min(timeout,120)),
-                                              preexec_fn=lambda: resource.setrlimit(resource.RLIMIT_FSIZE,(RAW_OUTPUT_LIMIT,RAW_OUTPUT_LIMIT)))
+                        output_supervisor=Path(__file__).with_name('output_supervisor.py')
+                        guarded=[sys.executable,str(output_supervisor),str(RAW_OUTPUT_LIMIT),'--',*argv]
+                        result=subprocess.run(guarded,stdout=stdout,stderr=stderr,timeout=max(1,min(timeout,120)))
                         returncode=result.returncode
                     except subprocess.TimeoutExpired:
                         timed_out=True

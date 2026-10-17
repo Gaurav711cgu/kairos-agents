@@ -1,0 +1,20 @@
+{
+  "architecture": "linux/arm64",
+  "base_image": "sha256:3ee5a2c3a2599ffd457f37dd58470c8ec174c74d7a419b13a251c11034ead121",
+  "base_image_receipt_sha256": "a808e032e30f7d093cc6bb8883284bfd8c29f4b983efb646182bf01e341e24ba",
+  "dockerfile_sha256": "c69dd64197937663784e0ab563022e471a0b3cff9d0dba61781639e0b393e024",
+  "lazy_docker_client_source_sha256": "41d14a55eea5b1f0fba4c4f008e21eff5fcde3ed2fbef102ee9e714a4218a38c",
+  "python": "3.10",
+  "repository_version": "Moto3.0",
+  "requirements_portable_sha256": "dfeed9abfd34fce0c315c88ef78bb6fbd6380f2def32821838df383bd6d5b27b",
+  "review": "Additional docker5.0.3/websocket-client1.3.3 pure Python wheels satisfy the original Moto Batch import without source execution. Reviewed selected tests and setup only register/describe/deregister mocked AWS task definitions. They do not execute jobs or access DockerModel.docker_client. Runtime keeps no Docker socket, credentials or network. All11declared test IDs remain mandatory. Build is offline with pip check and existing hash-pinned base; no Moto source is installed.",
+  "runtime_cpus": 2,
+  "runtime_memory_bytes": 1073741824,
+  "runtime_network": false,
+  "runtime_timeout_seconds": 120,
+  "source_setup_helpers_sha256": "f988efced91c094b7c01f7ec375468a9410fb1e87bb51771167710317c58cf83",
+  "source_test_imports_sha256": "e97fb0f1525c1cb5cb696d03a45508f8a0c7284b1341eed9799acb02df6ded49",
+  "tag": "kairos-coding-moto:014-30-batch-v1",
+  "version": "coding-dependencies014-moto-batch-v1",
+  "wheel_review_sha256": "1529c586a3ca89ccb0833fbfab323abf51b34667586c8580e8cbab055c42493b"
+}

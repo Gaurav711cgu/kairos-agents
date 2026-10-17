@@ -1,0 +1,190 @@
+{
+  "version": "coding-real-resource-memory014-v1",
+  "observed_at": "2026-10-16T23:03:21.632337+00:00",
+  "actual_v3_optimizer_updates": 0,
+  "actual_v3_outcome": "CUDA out of memory during first full-vocabulary causal cross-entropy calculation",
+  "requested_allocation_gib": 1.16,
+  "gpu_total_gib": 14.56,
+  "observed_free_mib": 689.81,
+  "archive_bytes": 763539,
+  "archive_sha256": "6c417151da18af2c40cc5a65ece38a43fe13e1682150c0e14e6671c0f10b35b8",
+  "all_archive_members_verified": 9,
+  "failure_evidence_safe_locally": true,
+  "verification_receipt_sha256": "1ff4272c76e8d806aee8d02fc60489ee03e36ba62059fb3ba9ed71bda48f268c",
+  "software_fix": "Use pinned Qwen2 logits_to_keep and explicit shift_labels for supervised causal targets only; preserve all2048 input tokens and original labels/token normalization.",
+  "new_loss_recipe": "supervised-causal-positions-v1",
+  "focused_checks_passed": 66,
+  "native_equivalence": {
+    "version": "supervised-causal-logits-equivalence014-v1",
+    "passed": true,
+    "native_model": "random tiny Qwen2 with PEFT q/v adapters",
+    "context_tokens": 32,
+    "objective_and_gradient_conditions": [
+      {
+        "amp_fp16": false,
+        "explicit_token_denominator": false,
+        "targets": 3,
+        "full_logits_shape": [
+          1,
+          32,
+          97
+        ],
+        "selected_logits_shape": [
+          1,
+          3,
+          97
+        ],
+        "loss_absolute_difference": 0.0,
+        "maximum_gradient_absolute_difference": 1.4901161193847656e-08,
+        "tolerance": 1e-05
+      },
+      {
+        "amp_fp16": false,
+        "explicit_token_denominator": false,
+        "targets": 5,
+        "full_logits_shape": [
+          1,
+          32,
+          97
+        ],
+        "selected_logits_shape": [
+          1,
+          5,
+          97
+        ],
+        "loss_absolute_difference": 0.0,
+        "maximum_gradient_absolute_difference": 1.4901161193847656e-08,
+        "tolerance": 1e-05
+      },
+      {
+        "amp_fp16": false,
+        "explicit_token_denominator": true,
+        "targets": 3,
+        "full_logits_shape": [
+          1,
+          32,
+          97
+        ],
+        "selected_logits_shape": [
+          1,
+          3,
+          97
+        ],
+        "loss_absolute_difference": 0.0,
+        "maximum_gradient_absolute_difference": 5.587935447692871e-09,
+        "tolerance": 1e-05
+      },
+      {
+        "amp_fp16": false,
+        "explicit_token_denominator": true,
+        "targets": 5,
+        "full_logits_shape": [
+          1,
+          32,
+          97
+        ],
+        "selected_logits_shape": [
+          1,
+          5,
+          97
+        ],
+        "loss_absolute_difference": 0.0,
+        "maximum_gradient_absolute_difference": 7.450580596923828e-09,
+        "tolerance": 1e-05
+      },
+      {
+        "amp_fp16": true,
+        "explicit_token_denominator": false,
+        "targets": 3,
+        "full_logits_shape": [
+          1,
+          32,
+          97
+        ],
+        "selected_logits_shape": [
+          1,
+          3,
+          97
+        ],
+        "loss_absolute_difference": 4.76837158203125e-07,
+        "maximum_gradient_absolute_difference": 0.0,
+        "tolerance": 0.002
+      },
+      {
+        "amp_fp16": true,
+        "explicit_token_denominator": false,
+        "targets": 5,
+        "full_logits_shape": [
+          1,
+          32,
+          97
+        ],
+        "selected_logits_shape": [
+          1,
+          5,
+          97
+        ],
+        "loss_absolute_difference": 4.76837158203125e-07,
+        "maximum_gradient_absolute_difference": 0.0,
+        "tolerance": 0.002
+      },
+      {
+        "amp_fp16": true,
+        "explicit_token_denominator": true,
+        "targets": 3,
+        "full_logits_shape": [
+          1,
+          32,
+          97
+        ],
+        "selected_logits_shape": [
+          1,
+          3,
+          97
+        ],
+        "loss_absolute_difference": 1.1920928955078125e-07,
+        "maximum_gradient_absolute_difference": 0.0,
+        "tolerance": 0.002
+      },
+      {
+        "amp_fp16": true,
+        "explicit_token_denominator": true,
+        "targets": 5,
+        "full_logits_shape": [
+          1,
+          32,
+          97
+        ],
+        "selected_logits_shape": [
+          1,
+          5,
+          97
+        ],
+        "loss_absolute_difference": 2.384185791015625e-07,
+        "maximum_gradient_absolute_difference": 0.0,
+        "tolerance": 0.002
+      }
+    ],
+    "actual_trainer_updates_each": 2,
+    "actual_trainer_adapter_max_difference": 1.862645149230957e-09,
+    "unexpected_batch_rejected": true,
+    "pretrained_weights_loaded": false,
+    "gpu_used": false,
+    "repair_effectiveness_verified": false
+  },
+  "native_log_sha256": "e0e3ec79e24275ba3f5a25b63618c4dddd197b1432c2b1cea442a12ee653546b",
+  "last_full_backend_before_memory_fix": {
+    "passed": 1031,
+    "skipped": 141,
+    "subtests_passed": 16
+  },
+  "full_backend_after_memory_fix_rerun": false,
+  "v4_package_prepared": false,
+  "v4_upload_authorized": false,
+  "new_gpu_dispatch_started": false,
+  "source_sha256": {
+    "scripts/coding_train014.py": "cf98aa3be57f7a4ebbde5ffba723e5f427eedcccd4bd46fedc36314684e3bcfd",
+    "scripts/coding_resource014.py": "6f6637c2e860436e473f9e82e668a36d7765dc282530816e2388712e65ee8fb7",
+    "tests/test_coding_resource014.py": "9d7846f42a9d3e404f0e1a9293264684728dda3effac22de45c781d6c8ced323"
+  }
+}

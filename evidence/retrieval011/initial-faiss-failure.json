@@ -1,0 +1,10 @@
+{
+  "cause": "PyTorch and the macOS FAISS wheel loaded separate OpenMP runtimes into the same process",
+  "exit_code": 134,
+  "fix": "Run exact FAISS search in a fresh bounded process after query encoding; retain no-fallback errors",
+  "observed_diagnostic": "OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.",
+  "outcome": "native_runtime_abort",
+  "provenance": "Observed local tool execution; no model repair inference or test outcome fabricated",
+  "unsafe_duplicate_runtime_override_enabled": false,
+  "verification": "Real FAISS top-ten ranks matched NumPy; malformed-array guards run before allocation"
+}

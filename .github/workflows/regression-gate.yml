@@ -30,6 +30,8 @@ jobs:
       KAIROS_REPAIR010_DATABASE_URL: postgresql://kairos:ci-test-only-password@127.0.0.1:5432/kairos_test
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version-file: ingest/go.mod
@@ -43,8 +45,28 @@ jobs:
             requirements-reviewer.lock
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
-      - name: Verify current source and preserved delivery
-        run: .venv/bin/python -m scripts.verify_repair010
+      - name: Verify preserved repair010 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-repair010"
+          git archive 69432bd468e2d8ccefcf522d89365cbe32970d31 | tar -xf - -C "$RUNNER_TEMP/kairos-repair010"
+          .venv/bin/python -m scripts.verify_repair010 --root "$RUNNER_TEMP/kairos-repair010"
+      - name: Verify preserved retrieval011 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-retrieval011"
+          git archive 78586f0e51ca8a42d632090bfe3c4fa877fa85f1 | tar -xf - -C "$RUNNER_TEMP/kairos-retrieval011"
+          .venv/bin/python -m scripts.verify_retrieval011 --root "$RUNNER_TEMP/kairos-retrieval011"
+      - name: Verify preserved loop012 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-loop012"
+          git archive 4f487000d5d6d92c10c4b08589d4dbf9644816ae | tar -xf - -C "$RUNNER_TEMP/kairos-loop012"
+          .venv/bin/python -m scripts.verify_loop012 --root "$RUNNER_TEMP/kairos-loop012"
+      - name: Verify preserved evaluation013 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-evaluation013"
+          git archive 32c21a9c189b46d755cf4cc9d8149a2ee41371fc | tar -xf - -C "$RUNNER_TEMP/kairos-evaluation013"
+          .venv/bin/python -m scripts.verify_evaluation013 --root "$RUNNER_TEMP/kairos-evaluation013"
+      - name: Verify measured training and fresh comparison source
+        run: .venv/bin/python -m scripts.verify_measurement014
       - name: Prepare isolated test database configuration
         run: |
           .venv/bin/python - <<'PYTHON'
@@ -84,6 +106,8 @@ jobs:
         run: .venv/bin/python -m scripts.acceptance007 backend
         env:
           KAIROS_TEST_IDENTITY_PROVIDER: '1'
+          KAIROS_TEST_INVESTIGATION_DOCKER: '1'
+          KAIROS_TEST_INVESTIGATION_IMAGE: ${{ env.KAIROS_REPAIR010_IMAGE }}
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -106,6 +130,8 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version-file: ingest/go.mod
@@ -122,8 +148,28 @@ jobs:
           python-version: '3.12'
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
-      - name: Verify current source and preserved delivery
-        run: .venv/bin/python -m scripts.verify_repair010
+      - name: Verify preserved repair010 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-repair010"
+          git archive 69432bd468e2d8ccefcf522d89365cbe32970d31 | tar -xf - -C "$RUNNER_TEMP/kairos-repair010"
+          .venv/bin/python -m scripts.verify_repair010 --root "$RUNNER_TEMP/kairos-repair010"
+      - name: Verify preserved retrieval011 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-retrieval011"
+          git archive 78586f0e51ca8a42d632090bfe3c4fa877fa85f1 | tar -xf - -C "$RUNNER_TEMP/kairos-retrieval011"
+          .venv/bin/python -m scripts.verify_retrieval011 --root "$RUNNER_TEMP/kairos-retrieval011"
+      - name: Verify preserved loop012 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-loop012"
+          git archive 4f487000d5d6d92c10c4b08589d4dbf9644816ae | tar -xf - -C "$RUNNER_TEMP/kairos-loop012"
+          .venv/bin/python -m scripts.verify_loop012 --root "$RUNNER_TEMP/kairos-loop012"
+      - name: Verify preserved evaluation013 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-evaluation013"
+          git archive 32c21a9c189b46d755cf4cc9d8149a2ee41371fc | tar -xf - -C "$RUNNER_TEMP/kairos-evaluation013"
+          .venv/bin/python -m scripts.verify_evaluation013 --root "$RUNNER_TEMP/kairos-evaluation013"
+      - name: Verify measured training and fresh comparison source
+        run: .venv/bin/python -m scripts.verify_measurement014
       - run: npx playwright install --with-deps chromium
         working-directory: dashboard
       - run: npm run test:browser
@@ -143,3 +189,24 @@ jobs:
       - name: Redacted reviewer failure details
         if: failure()
         run: .venv/bin/python -m scripts.ci_diagnostics009 --runtime .runtime/recorded-ci007
+
+  retrieval-training:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m venv .venv
+      - run: .venv/bin/python -m pip install -r requirements-reviewer.lock
+      - name: Install isolated CPU training dependencies
+        run: |
+          .venv/bin/python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+          .venv/bin/python -m pip install safetensors==0.8.0
+      - name: Require real ML imports and run training mechanics
+        env:
+          OMP_NUM_THREADS: '2'
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          .venv/bin/python -c "import torch, safetensors; assert torch.__version__.split('+')[0] == '2.10.0'"
+          .venv/bin/python -m pytest tests/test_retrieval_adapter014.py tests/test_source_variants014.py tests/test_encoding014.py tests/test_functions014.py tests/test_trained_encoder014.py -q

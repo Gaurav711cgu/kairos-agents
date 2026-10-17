@@ -12,7 +12,7 @@ from psycopg_pool import ConnectionPool
 from psycopg.types.json import Jsonb
 from kairos_api.jobs_repository import public_value
 from kairos_api.model_runtime import BlobStore, digest
-from kairos_api.investigations.contracts import CONFIGURATIONS, generation_for
+from kairos_api.investigations.contracts import CONFIGURATIONS, generation_for, execution_timeouts
 from kairos_api.investigations.registry import CaseRegistry
 
 
@@ -181,10 +181,11 @@ class InvestigationRepository:
             if connection.execute("SELECT 1 FROM kairos_investigations WHERE status='running'").fetchone(): return None
             row=connection.execute("SELECT * FROM kairos_investigations WHERE status='queued' ORDER BY created_at LIMIT 1 FOR UPDATE SKIP LOCKED").fetchone()
             if not row: return None
+            seconds, lease_seconds = execution_timeouts(row['configuration'])
             return connection.execute("""UPDATE kairos_investigations SET status='running',claims=claims+1,lease_token=lease_token+1,
-                    lease_owner=%s,lease_expires_at=clock_timestamp()+interval '660 seconds',started_at=coalesce(started_at,clock_timestamp()),
-                    deadline_at=coalesce(deadline_at,clock_timestamp()+interval '600 seconds'),updated_at=clock_timestamp()
-                    WHERE id=%s RETURNING *""",(owner,row['id'])).fetchone()
+                    lease_owner=%s,lease_expires_at=clock_timestamp()+(%s * interval '1 second'),started_at=coalesce(started_at,clock_timestamp()),
+                    deadline_at=coalesce(deadline_at,clock_timestamp()+(%s * interval '1 second')),updated_at=clock_timestamp()
+                    WHERE id=%s RETURNING *""",(owner,lease_seconds,seconds,row['id'])).fetchone()
 
     def fenced(self,connection,job):
         row=self._row(connection,job['id'],lock=True)
@@ -213,7 +214,7 @@ class InvestigationRepository:
                 if pending['kind']==kind and pending['name']==name and pending['request']['body']==request: return pending['seq']
                 raise RuntimeError('Pending step requires recovery')
             counter={'model':'model_calls','propose_patch':'patch_count','run_checks':'check_count'}.get(kind if kind=='model' else name)
-            if counter=='patch_count' and row['configuration'].endswith(('-v4','-v5','-v6','-v7')): counter=None
+            if counter=='patch_count' and row['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')): counter=None
             if counter:
                 limit={'model_calls':'max_calls','patch_count':'max_patches','check_count':'max_checks'}[counter]
                 if row[counter]>=row['config_snapshot']['budgets'][limit]: raise ValueError('Investigation '+limit+' exhausted')
@@ -228,7 +229,7 @@ class InvestigationRepository:
             connection.execute('SET LOCAL synchronous_commit=on');self.fenced(connection,job)
             row=self.fenced(connection,job)
             step=connection.execute('SELECT name FROM kairos_investigation_steps WHERE investigation_id=%s AND seq=%s',(job['id'],seq)).fetchone()
-            if row['configuration'].endswith(('-v4','-v5','-v6','-v7')) and step and step['name']=='propose_patch' and 'error' not in result:
+            if row['configuration'].endswith(('-v4','-v5','-v6','-v7','-v8')) and step and step['name']=='propose_patch' and 'error' not in result:
                 if row['patch_count']>=row['config_snapshot']['budgets']['max_patches']: raise ValueError('Applied patch budget exhausted')
                 connection.execute('UPDATE kairos_investigations SET patch_count=patch_count+1 WHERE id=%s',(job['id'],))
             capture=self._capture(connection,job,result)

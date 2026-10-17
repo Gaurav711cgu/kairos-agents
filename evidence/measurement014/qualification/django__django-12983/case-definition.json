@@ -1,0 +1,24 @@
+{
+  "approved_prefix": "django/",
+  "command": [
+    "python",
+    "/verification/verify.py"
+  ],
+  "entry_files": [
+    "django/utils/text.py"
+  ],
+  "id": "django__django-12983",
+  "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+  "issue": "Make django.utils.text.slugify() strip dashes and underscores\nDescription\n\t \n\t\t(last modified by Elinaldo do Nascimento Monteiro)\n\t \nBug generation slug\nExample:\nfrom django.utils import text\ntext.slugify(\"___This is a test ---\")\noutput: ___this-is-a-test-\nImprovement after correction\nfrom django.utils import text\ntext.slugify(\"___This is a test ---\")\noutput: this-is-a-test\n\u200bPR\n",
+  "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.",
+  "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+  "qualified": false,
+  "reference_digest": "2c44e68e6efe51fb623fd73adf2f36ca1cff3a5e64c62201ec4023f88e2deec3",
+  "repository": "django/django",
+  "revision": "3bc4240d979812bd11365ede04c028ea13fdc8c6",
+  "source_digest": "73adff160e23c6fb3c915cd5d1fc18e3280447ec13a5fde402d0870b0dc2f50d",
+  "source_url": "https://codeload.github.com/django/django/tar.gz/3bc4240d979812bd11365ede04c028ea13fdc8c6",
+  "split": "holdout",
+  "title": "Make django.utils.text.slugify() strip dashes and underscores",
+  "verification_digest": "865653e897e445faa2b249e77ed78423438603d52572b9c2403301f7d82cc5cf"
+}

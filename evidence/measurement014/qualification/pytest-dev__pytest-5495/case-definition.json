@@ -1,0 +1,24 @@
+{
+  "approved_prefix": "src/_pytest/",
+  "command": [
+    "python",
+    "/verification/verify.py"
+  ],
+  "entry_files": [
+    "src/_pytest/assertion/util.py"
+  ],
+  "id": "pytest-dev__pytest-5495",
+  "image": "sha256:8f1d217cfa699ae63c1c8c467b3acd71d80fafb0bb1daf8b4486f832a3eed4c8",
+  "issue": "Confusing assertion rewriting message with byte strings\nThe comparison with assertion rewriting for byte strings is confusing: \r\n```\r\n    def test_b():\r\n>       assert b\"\" == b\"42\"\r\nE       AssertionError: assert b'' == b'42'\r\nE         Right contains more items, first extra item: 52\r\nE         Full diff:\r\nE         - b''\r\nE         + b'42'\r\nE         ?   ++\r\n```\r\n\r\n52 is the ASCII ordinal of \"4\" here.\r\n\r\nIt became clear to me when using another example:\r\n\r\n```\r\n    def test_b():\r\n>       assert b\"\" == b\"1\"\r\nE       AssertionError: assert b'' == b'1'\r\nE         Right contains more items, first extra item: 49\r\nE         Full diff:\r\nE         - b''\r\nE         + b'1'\r\nE         ?   +\r\n```\r\n\r\nNot sure what should/could be done here.\n",
+  "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.",
+  "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+  "qualified": false,
+  "reference_digest": "4346eff024daf047d9dbb3c759eb53952edb7c57e613424f8f4fb98e999ca8b1",
+  "repository": "pytest-dev/pytest",
+  "revision": "1aefb24b37c30fba8fd79a744829ca16e252f340",
+  "source_digest": "ed9e5c3509d0ebb721fd50fbd3581993fdacecb42d2751db58a62f01f011efd0",
+  "source_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/1aefb24b37c30fba8fd79a744829ca16e252f340",
+  "split": "holdout",
+  "title": "Confusing assertion rewriting message with byte strings",
+  "verification_digest": "3f55cba29b6bf0dce630b7dd71619e97c713ede68806aa6220490d970edda70d"
+}

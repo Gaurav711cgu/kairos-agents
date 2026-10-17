@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { Buffer } from "node:buffer";
 import test from "node:test";
+import { URL } from "node:url";
 import { repair010Download } from "./repair010-downloads.ts";
 
 function captured(raw = Buffer.from("--- a/source.py\n+++ b/source.py\n+π\n")) {
@@ -77,4 +78,18 @@ test("untrusted filenames and media types cannot inject headers or active conten
     assert.equal(response.headers.get("content-type"), "application/json; charset=utf-8");
     assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   }
+});
+
+
+test("pilot capture catalogue returns only original hash-checked root artifacts", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const entries = JSON.parse(await readFile(new URL("./pilot013-downloads.json", import.meta.url), "utf8"));
+  for (const name of ["candidate.patch", "checks.json", "bundle.json", "receipt.json", "retrieval.json"]) {
+    const response = repair010Download(entries, [name]);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("content-disposition"), `attachment; filename="${name}"`);
+    assert.equal(createHash("sha256").update(Buffer.from(await response.arrayBuffer())).digest("hex"), entries[name].sha256);
+    assert.equal(repair010Download({ ...entries, [name]: { ...entries[name], sha256: "0".repeat(64) } }, [name]).status, 409);
+  }
+  assert.equal(repair010Download(entries, ["missing.json"]).status, 404);
 });
