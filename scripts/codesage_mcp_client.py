@@ -150,3 +150,20 @@ class CodeSageMCPClient:
             return []
         raw_text = content_items[0].get("text", "[]")
         return json.loads(raw_text)
+
+    def get_call_graph(
+        self,
+        repo_id: str,
+        symbol_name: str,
+    ) -> dict[str, Any]:
+        """Call 'get_call_graph' tool for callers, callees, and topology metadata."""
+        args = {
+            "repo_id": repo_id,
+            "symbol_name": symbol_name,
+        }
+        result = self._call_rpc("tools/call", {"name": "get_call_graph", "arguments": args})
+        content_items = result.get("content", [])
+        if not content_items:
+            return {}
+        raw_text = content_items[0].get("text", "{}")
+        return json.loads(raw_text)

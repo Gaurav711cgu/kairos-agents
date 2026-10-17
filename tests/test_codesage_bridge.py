@@ -108,3 +108,16 @@ def test_fde_iterative_repair_loop():
     assert receipt["context_word_count"] > 20
     assert (KAIROS_ROOT / "evidence" / "retrieval011" / "fde_iterative_loop_receipt.json").exists()
 
+
+def test_codesage_mcp_get_call_graph(mcp_client: CodeSageMCPClient):
+    """Verify get_call_graph stdio JSON-RPC tool returns topology structure."""
+    result = mcp_client.get_call_graph(repo_id="eval_repo", symbol_name="CircuitBreaker")
+
+    assert "repo_id" in result
+    assert result["symbol_name"] == "CircuitBreaker"
+    assert "callers" in result
+    assert "callees" in result
+    assert isinstance(result["callers"], list)
+    assert isinstance(result["callees"], list)
+    assert result["node_count"] >= 0
+
