@@ -76,6 +76,57 @@ def convert_action(workspace, reference_patch, regions, *, anchor_policy='preced
     return action,rendered
 
 
+def normalize_action_payload(raw):
+    """Normalize model action into canonical ActionV7 propose_patch payload.
+
+    Lifts collapsed root edits emitted by 14B QLoRA adapters (e.g. action='replace'
+    or 'insert' with source_id and replacement/new) into the outer propose_patch
+    envelope while preserving pass-through for already canonical envelopes.
+    """
+    if not isinstance(raw, dict):
+        raise ValueError('Action payload must be a JSON object')
+
+    if raw.get('action') == 'propose_patch' and 'edits' in raw:
+        validated = ActionV7.validate_python(raw)
+        return validated.model_dump()
+
+    source_dict = dict(raw)
+    if 'edit' in source_dict and isinstance(source_dict['edit'], dict):
+        nested = source_dict.pop('edit')
+        for k, v in nested.items():
+            if k not in source_dict:
+                source_dict[k] = v
+
+    if 'replacement' in source_dict and 'new' not in source_dict:
+        source_dict['new'] = source_dict.pop('replacement')
+
+    action_type = source_dict.get('action')
+    has_source = 'source_id' in source_dict
+    has_lines = 'start_line' in source_dict and 'end_line' in source_dict
+
+    if (action_type in {'replace', 'insert'} or action_type is None) and has_source and has_lines:
+        start_line = int(source_dict['start_line'])
+        end_line = int(source_dict['end_line'])
+        if start_line < 1 or end_line < 1 or start_line > end_line:
+            raise ValueError(f'Invalid line bounds: start_line={start_line}, end_line={end_line}')
+        new_text = str(source_dict.get('new', ''))
+        edit = {
+            'source_id': str(source_dict['source_id']),
+            'start_line': start_line,
+            'end_line': end_line,
+            'new': new_text,
+        }
+        envelope = {
+            'action': 'propose_patch',
+            'edits': [edit],
+        }
+        validated = ActionV7.validate_python(envelope)
+        return validated.model_dump()
+
+    validated = ActionV7.validate_python(raw)
+    return validated.model_dump()
+
+
 def verified_capture(folder,screen,identifier):
     """Check source, selected scope, full captures and original bindings offline."""
     output=q.no_symlinks(folder)

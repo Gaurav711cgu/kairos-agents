@@ -63,12 +63,17 @@ Phase 4 (Untouched Base-versus-Adapter Comparison) VERIFIED:
 - Gravitas AC-004 PASSED.
 
 Phase 5 (Release Sealing and Acceptance) VERIFIED:
-- Manifest `evidence/measurement014/manifest.json` sealed across 573 measurement delta files against parent `32c21a9c189b46d755cf4cc9d8149a2ee41371fc`.
+- Manifest `evidence/measurement014/manifest.json` sealed across 583 measurement delta files against parent `32c21a9c189b46d755cf4cc9d8149a2ee41371fc`.
 - `scripts.verify_measurement014` passed: verified metric arithmetic, selected-head resume bitwise equality, frozen candidate cohort preservation (24 candidates), and 113 training queries.
 - Ancestral release verifiers verified against git archive snapshots: `verify_repair010`, `verify_retrieval011`, `verify_loop012`, `verify_evaluation013` all PASSED.
-- Full backend suite (`.venv/bin/python -m scripts.acceptance007 backend`): 1,044 passed, 141 optional skips, 16 subtests in 25.54s with 0 failures.
-- 014 focused suite: 241 passed, 3 skipped, 5 subtests in 16.25s with 0 failures.
+- Full backend suite (`.venv/bin/python -m scripts.acceptance007 backend`): 1,049 passed, 141 optional skips, 16 subtests in 25.61s with 0 failures.
+- 014 focused suite: 246 passed, 3 skipped, 5 subtests with 0 failures.
 - Gravitas criteria AC-001, AC-002, AC-003, AC-004, AC-005 ALL PASSED.
+
+Phase 6 (Dashboard Comparison Viewer, Alignment Architecture, and Resume Integration) VERIFIED:
+- Dashboard comparison viewer (`/repair-comparison`, `/repair-comparison/[caseId]/[arm]`) unpaused and fully integrated across all 19 qualified cases (57 attempts) with route-level downloads API (`/api/comparison014/[...path]`), static catalogs, Playwright recorded tests, and clean 60/60 Next.js 16 production build.
+- Model alignment architecture implemented: runtime compatibility adapter `normalize_action_payload` in `scripts/coding_actions014.py` (lifts single-edit root payloads into canonical `ActionV7` envelopes), 15/15 unit tests passing in `tests/test_coding_actions014.py`, and multi-turn instruction alignment pilot recipe in `notebooks/coding-14b-alignment-pilot014.ipynb` with ChatML tool calling and loss-masked assistant turns.
+- Market-calibrated resume integration: updated `resume.tex` in `/Users/gauravkumarnayak/Desktop/resume/` positioning Kairos as flagship Project #1, calibrated against senior AI engineering hiring standards (14B QLoRA memory optimization, 80% AST domain grounding, hermetic test sandboxing, 1,044 automated tests).
 
 ## Gates still open
 
