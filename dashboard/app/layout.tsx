@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   },
   description:
     "Inspect captured context, investigate agent failures, and test repairs against an independent grader. A full-stack engineering project with inspectable evidence.",
+  openGraph: {
+    title: "Kairos — Autonomous Code-Repair & Graph-RAG Verification Dashboard",
+    description:
+      "Empirical verification dashboard for Kairos (14B QLoRA code repair) and CodeSage (2-hop Graph-RAG MCP engine on SWE-bench Lite). 100% topological recall, zero mock data.",
+    type: "website",
+    siteName: "Kairos",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kairos — Autonomous Code-Repair & Graph-RAG Verification Dashboard",
+    description:
+      "Empirical verification dashboard for Kairos (14B QLoRA code repair) and CodeSage (2-hop Graph-RAG MCP engine on SWE-bench Lite). 100% topological recall, zero mock data.",
+  },
 };
 export default function RootLayout({
   children,

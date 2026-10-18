@@ -6,7 +6,17 @@ Kairos turns a repository defect into an evidence trail: the original source, co
 
 The engineering focus is reliability around an uncertain model: accepted requests survive retries, stale workers cannot commit, interrupted inference is not silently repeated, and a plausible patch cannot approve itself.
 
-[Review the product](#review-in-five-minutes) · [Measured results](#measured-results) · [Architecture](#architecture) · [Run locally](#run-locally) · [Documentation](#documentation)
+[Review the product](#review-in-five-minutes) · [Measured results](#measured-results) · [Architecture](#architecture) · [Production & Hosting ($0/mo Guide)](DEPLOYMENT.md) · [Run locally](#run-locally) · [Documentation](#documentation)
+
+## Production Hosting & Live Verification ($0/month)
+
+Kairos and CodeSage run in production with **zero cloud spend**:
+- **Verification Dashboard:** 1-click deploy to [Vercel](https://vercel.com) ($0/mo Hobby) via `./dashboard`. 60 routes, dynamic patch viewer, and sealed JSON evidence bundles.
+- **Model Weights & Cards:** Public QLoRA adapter safetensors hosted on [Hugging Face Hub](https://huggingface.co) via `python scripts/upload_to_hf.py`.
+- **Hermetic Docker Sandbox:** SWE-bench container execution via free local [UTM Linux VM](https://mac.getutm.app) on Apple Silicon via `scripts/utm_swebench_runner.sh`.
+
+See the complete step-by-step walkthrough in **[DEPLOYMENT.md](DEPLOYMENT.md)**.
+
 
 ## Review in five minutes
 

@@ -21,14 +21,17 @@ from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_CODESAGE_ROOT = Path("/Users/gauravkumarnayak/Desktop/Codesage")
+ROOT = Path(__file__).resolve().parents[1]
+SIBLING_CODESAGE = (ROOT.parent / "Codesage").resolve()
+DEFAULT_CODESAGE_ROOT = SIBLING_CODESAGE if SIBLING_CODESAGE.exists() else Path("/Users/gauravkumarnayak/Desktop/Codesage")
 
 
 class CodeSageMCPClient:
     """Stdio JSON-RPC MCP client for interacting with CodeSage repository intelligence server."""
 
     def __init__(self, codesage_root: Optional[Path] = None, timeout: float = 30.0) -> None:
-        self.codesage_root = codesage_root or Path(os.environ.get("CODESAGE_PATH", str(DEFAULT_CODESAGE_ROOT)))
+        env_root = os.environ.get("CODESAGE_PATH") or os.environ.get("CODESAGE_DIR")
+        self.codesage_root = codesage_root or Path(env_root or str(DEFAULT_CODESAGE_ROOT))
         self.run_mcp_script = self.codesage_root / "bin" / "run-mcp"
         self.timeout = timeout
         self.process: Optional[subprocess.Popen] = None

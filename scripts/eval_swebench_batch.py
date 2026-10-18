@@ -14,8 +14,18 @@ import time
 from typing import Any
 import networkx as nx
 
+import os
+
 ROOT = Path(__file__).resolve().parents[1]
-CODESAGE_ROOT = Path("/Users/gauravkumarnayak/Desktop/Codesage")
+SIBLING_CODESAGE = (ROOT.parent / "Codesage").resolve()
+codesage_env = os.environ.get("CODESAGE_DIR") or os.environ.get("CODESAGE_PATH")
+if codesage_env:
+    CODESAGE_ROOT = Path(codesage_env).resolve()
+elif SIBLING_CODESAGE.exists():
+    CODESAGE_ROOT = SIBLING_CODESAGE
+else:
+    CODESAGE_ROOT = Path("/Users/gauravkumarnayak/Desktop/Codesage")
+
 DB_PATH = CODESAGE_ROOT / "app.db"
 MANIFESTS_DIR = CODESAGE_ROOT / ".chroma" / "manifests"
 
