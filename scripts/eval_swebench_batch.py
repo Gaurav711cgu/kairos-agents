@@ -294,14 +294,14 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
         arm_b_rank = 0
         call_chain = ""
 
-        for cid in candidate_ids:
+        # Priority: search expanded traversal candidates first, then seeds
+        ordered_candidates = list(expanded_ids) + [s for s in seed_nodes if s not in expanded_ids]
+
+        for cid in ordered_candidates:
             c = chunks_by_id.get(cid, {})
             c_name = c.get("name", "")
             base_name = clean_sym(c_name)
-            c_file = c.get("file", "")
-            if (base_name == gt_symbol or 
-                base_name.endswith(f".{gt_symbol}") or 
-                gt_symbol in base_name):
+            if base_name == gt_symbol or base_name.endswith(f".{gt_symbol}"):
                 arm_b_localized = True
                 arm_b_rank = 1
                 if caller_symbol:
