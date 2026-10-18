@@ -68,6 +68,9 @@ export default function RepairComparisonPage() {
           <Link href="/repair-comparison/codesage-mcp" style={{ fontWeight: 600, color: "var(--accent, #6366f1)" }}>
             ★ CodeSage MCP (pytest-5221)
           </Link>
+          <Link href="/repair-comparison/batch-eval" style={{ fontWeight: 600, color: "#10b981" }}>
+            ★ SWE-bench 15-Case Batch Eval
+          </Link>
           <Link href="/repair-investigation">Single investigation</Link>
           <Link href="/retrieval-training">Retrieval training</Link>
         </aside>
