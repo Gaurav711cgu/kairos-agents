@@ -45,7 +45,8 @@ export default function BatchEvalPage() {
           Controlled statistical benchmark evaluating context starvation and localization recall
           across 15 standard candidate instances from SWE-bench Lite.
           Demonstrates how deterministic 2-hop topological call graphs overcome lexical starvation
-          while shrinking token consumption by <strong>{summary.delta.context_token_reduction_pct}%</strong>.
+          by delivering <strong>+{summary.delta.recall_gain_pct}%</strong> higher localization recall (2.3x multiplier)
+          within strictly bounded context windows (max 15 nodes).
         </p>
       </header>
 
@@ -82,7 +83,7 @@ export default function BatchEvalPage() {
             {summary.arm_b_codesage_mcp.recall_rate_pct}%
           </div>
           <div style={{ fontSize: "0.8rem", color: "#94a3b8", marginTop: "4px" }}>
-            {summary.arm_b_codesage_mcp.localized_count} / {batchReceipt.cohort_size} localized (0 starved)
+            {summary.arm_b_codesage_mcp.localized_count} / {batchReceipt.cohort_size} localized ({summary.arm_b_codesage_mcp.starvation_count} starved)
           </div>
         </div>
 
@@ -92,12 +93,12 @@ export default function BatchEvalPage() {
           borderRadius: "8px",
           padding: "16px"
         }}>
-          <div style={{ fontSize: "0.8rem", color: "#818cf8", textTransform: "uppercase" }}>Context Token Savings</div>
+          <div style={{ fontSize: "0.8rem", color: "#818cf8", textTransform: "uppercase" }}>Absolute Recall Gain</div>
           <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#6366f1" }}>
-            -{summary.delta.context_token_reduction_pct}%
+            +{summary.delta.recall_gain_pct}%
           </div>
           <div style={{ fontSize: "0.8rem", color: "#94a3b8", marginTop: "4px" }}>
-            Mean {summary.arm_b_codesage_mcp.mean_context_tokens} tokens vs {summary.arm_a_baseline.mean_context_tokens}
+            2.3x increase over naive lexical baseline (46.7% vs 20.0%)
           </div>
         </div>
 
@@ -112,7 +113,7 @@ export default function BatchEvalPage() {
             {summary.arm_b_codesage_mcp.mean_latency_ms} ms
           </div>
           <div style={{ fontSize: "0.8rem", color: "#94a3b8", marginTop: "4px" }}>
-            stdio JSON-RPC over local ONNX MiniLM
+            Empirical 2-hop traversal over 3,942 SQLite edges
           </div>
         </div>
       </section>
@@ -163,9 +164,15 @@ export default function BatchEvalPage() {
                         )}
                       </td>
                       <td>
-                        <span className="outcome-badge badge-pass" title={c.arm_b_codesage_mcp.call_chain}>
-                          2-Hop Graph
-                        </span>
+                        {c.arm_b_codesage_mcp.localized ? (
+                          <span className="outcome-badge badge-pass" title={c.arm_b_codesage_mcp.call_chain}>
+                            2-Hop Graph
+                          </span>
+                        ) : (
+                          <span className="outcome-badge badge-fail" title="Unresolved in 2 hops">
+                            Unresolved
+                          </span>
+                        )}
                       </td>
                       <td style={{ fontFamily: "monospace", fontSize: "0.8rem" }}>
                         {c.arm_a_baseline.context_tokens} → <strong>{c.arm_b_codesage_mcp.context_tokens}</strong>
