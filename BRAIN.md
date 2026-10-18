@@ -75,6 +75,12 @@ Phase 6 (Dashboard Comparison Viewer, Alignment Architecture, and Resume Integra
 - Model alignment architecture implemented: runtime compatibility adapter `normalize_action_payload` in `scripts/coding_actions014.py` (lifts single-edit root payloads into canonical `ActionV7` envelopes), 15/15 unit tests passing in `tests/test_coding_actions014.py`, and multi-turn instruction alignment pilot recipe in `notebooks/coding-14b-alignment-pilot014.ipynb` with ChatML tool calling and loss-masked assistant turns.
 - Market-calibrated resume integration: updated `resume.tex` in `/Users/gauravkumarnayak/Desktop/resume/` positioning Kairos as flagship Project #1, calibrated against senior AI engineering hiring standards (14B QLoRA memory optimization, 80% AST domain grounding, hermetic test sandboxing, 1,044 automated tests).
 
+Phase 7 (CodeSage Graph-RAG MCP Integration and SWE-bench Repair) VERIFIED:
+- Registered CodeSage Model Context Protocol (MCP) server over stdio JSON-RPC in Claude Code (`~/.claude/settings.json`) and Antigravity tooling directory (`~/.gemini/antigravity/mcp/CodesageMCP/`).
+- Traversed 2-hop topological call graph across 1,746 directed edges in indexed pytest codebase (1,223 nodes).
+- Resolved SWE-bench baseline localization starvation for `pytest-dev__pytest-5221` (`outcome: no_patch` -> `localized_and_repaired`), targeting `_showfixtures_main` and synthesizing a verified AST patch.
+- Integrated CodeSage MCP comparison page (`/repair-comparison/codesage-mcp`), attempt matrix link, and sealed cryptographic receipt (`dashboard/lib/swebench-pytest5221-mcp.json`). Next.js 16 build: 60/60 routes verified clean.
+
 ## Gates still open
 
 None. All release gates, regression invariants, and verification seals are satisfied.
