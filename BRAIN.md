@@ -92,6 +92,14 @@ Phase 8 (Zero-Mock SWE-bench Lite Cohort Evaluation & Topological Recall Breakth
 - Dashboard batch route (`/repair-comparison/batch-eval`) and sealed receipts (`swebench_cohort15_receipt.json`, `dashboard/lib/swebench-cohort15-eval.json`). Next.js 16 build: 60/60 routes verified clean.
 - UTM Linux SWE-bench runner created at `scripts/utm_swebench_runner.sh` for zero-cloud-spend Docker container execution inside local UTM Linux VM.
 
+Phase 9 (Zero-Cost Production Hosting & Model Publishing Package) VERIFIED:
+- Vercel Deployment Hardened: added `dashboard/vercel.json`, Next.js security headers (nosniff, SAMEORIGIN, strict-origin-when-cross-origin, DNS-prefetch), OpenGraph and Twitter cards for LinkedIn social previews in `dashboard/app/layout.tsx`.
+- Auto-recorded evidence mode: `dashboard/lib/evidence-mode.ts` detects Vercel runtime (`process.env.VERCEL`) and automatically defaults to `"recorded"` mode with zero database dependencies.
+- Zero-cost Model Weight Hosting: created `scripts/prepare_hf_model.py` and `scripts/upload_to_hf.py` packaging verified `checkpoint-40` adapter weights (25 MB `adapter_model.safetensors`, `adapter_config.json`, Model Card `README.md`) for 1-command publishing to Hugging Face Hub.
+- Environment-portable evaluation scripts: updated `scripts/eval_swebench_batch.py` and `scripts/codesage_mcp_client.py` to support `CODESAGE_DIR` env var and relative sibling directory fallback.
+- Production hosting guide: documented in `DEPLOYMENT.md` and linked in `README.md`.
+- Next.js 16 build: 60/60 routes verified clean with Turbopack, 21/21 recorded tests pass with zero warnings.
+
 ## Gates still open
 
 None. All release gates, regression invariants, and verification seals are satisfied.
