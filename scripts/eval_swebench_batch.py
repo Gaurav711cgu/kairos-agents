@@ -52,6 +52,23 @@ def tokenize(text: str) -> list[str]:
     return [w.lower() for w in re.findall(r"[A-Za-z_][A-Za-z0-9_]*", text) if len(w) > 1]
 
 
+def subtokenize(text: str) -> set[str]:
+    """Tokenize text into lowercase keywords and snake/CamelCase subtokens."""
+    words = re.findall(r"[A-Za-z_][A-Za-z0-9_]*", text)
+    tokens: set[str] = set()
+    for w in words:
+        if len(w) > 1:
+            tokens.add(w.lower())
+        parts = re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?=[A-Z]|$)", w)
+        for p in parts:
+            if len(p) > 1:
+                tokens.add(p.lower())
+        for p in w.split("_"):
+            if len(p) > 1:
+                tokens.add(p.lower())
+    return tokens
+
+
 def compute_bm25_scores(query_tokens: list[str], chunks: list[dict[str, Any]]) -> list[tuple[float, dict[str, Any]]]:
     """Compute empirical BM25 scores for all chunks in the repository."""
     N = len(chunks)
@@ -156,7 +173,7 @@ def expand_two_hop(
     G: nx.DiGraph,
     node_ids: list[str],
     chunks_by_id: dict[str, dict[str, Any]],
-    query_tokens: list[str] | None = None,
+    query_tokens: set[str] | list[str] | None = None,
     max_degree: int = 15,
     max_total_nodes: int = 20,
 ) -> set[str]:
@@ -166,7 +183,7 @@ def expand_two_hop(
     if len(combined) > max_total_nodes:
         seed_files = {chunks_by_id[n].get("file", "") for n in node_ids if n in chunks_by_id}
 
-        def candidate_score(cid: str) -> tuple[int, float, int, int]:
+        def candidate_score(cid: str) -> tuple[int, int, float, int]:
             c = chunks_by_id.get(cid, {})
             c_file = c.get("file", "")
             affinity = 0
@@ -175,14 +192,19 @@ def expand_two_hop(
                     affinity = 2
                 elif any(Path(c_file).parent == Path(sf).parent for sf in seed_files if sf):
                     affinity = 1
+            is_one_hop = 1 if cid in one_hop else 0
             tf_score = 0.0
             if query_tokens:
                 doc_text = f"{c.get('name', '')} {c.get('file', '')} {c.get('docstring', '')}"
-                doc_tokens = set(tokenize(doc_text))
-                tf_score = sum(1.0 for t in query_tokens if t in doc_tokens)
-            is_one_hop = 1 if cid in one_hop else 0
+                doc_tokens = subtokenize(doc_text)
+                tf_score = sum(
+                    1.0
+                    for t in query_tokens
+                    if t in doc_tokens
+                    or any(t in dt or dt in t for dt in doc_tokens if len(t) >= 4 and len(dt) >= 4)
+                )
             degree = G.degree(cid) if cid in G else 0
-            return (affinity, tf_score, is_one_hop, degree)
+            return (affinity, is_one_hop, tf_score, degree)
 
         ranked = sorted(combined, key=candidate_score, reverse=True)[:max_total_nodes]
         return set(ranked)
@@ -213,6 +235,7 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
         gt_symbol = case["ground_truth_symbol"]
         caller_symbol = case.get("caller_symbol", "")
         q_tokens = tokenize(problem)
+        q_subtokens = subtokenize(problem)
 
         # ── 1. Arm A: Real BM25 Lexical Retrieval ──
         bm25_ranked = compute_bm25_scores(q_tokens, all_chunks)
@@ -253,7 +276,7 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
                 G,
                 seed_nodes,
                 chunks_by_id=chunks_by_id,
-                query_tokens=q_tokens,
+                query_tokens=q_subtokens,
                 max_degree=15,
                 max_total_nodes=20,
             )

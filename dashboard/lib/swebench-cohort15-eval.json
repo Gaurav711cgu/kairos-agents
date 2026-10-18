@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-18T15:24:51.865929+00:00",
+  "timestamp": "2026-10-18T16:40:01.361333+00:00",
   "benchmark": "SWE-bench Lite (15-Case Representative Evaluation Cohort)",
   "cohort_size": 15,
   "is_empirical": true,
@@ -23,16 +23,16 @@
     },
     "arm_b_codesage_mcp": {
       "name": "CodeSage 2-Hop Graph-RAG MCP (stdio JSON-RPC)",
-      "localized_count": 14,
-      "recall_rate_pct": 93.3,
-      "starvation_count": 1,
-      "mean_context_tokens": 5302.5,
-      "mean_latency_ms": 0.83
+      "localized_count": 15,
+      "recall_rate_pct": 100.0,
+      "starvation_count": 0,
+      "mean_context_tokens": 5401.9,
+      "mean_latency_ms": 2.51
     },
     "delta": {
-      "recall_gain_pct": 80.0,
-      "context_token_reduction_pct": -317.7,
-      "starvation_reduction_count": 12
+      "recall_gain_pct": 86.7,
+      "context_token_reduction_pct": -325.5,
+      "starvation_reduction_count": 13
     }
   },
   "gravitas_invariants_satisfied": [
@@ -56,7 +56,7 @@
         "localized": true,
         "rank": 1,
         "context_tokens": 647,
-        "latency_ms": 0.67,
+        "latency_ms": 0.64,
         "call_chain": "showfixtures -> _showfixtures_main",
         "outcome": "localized_and_repaired"
       }
@@ -75,7 +75,7 @@
         "localized": true,
         "rank": 1,
         "context_tokens": 1845,
-        "latency_ms": 1.14,
+        "latency_ms": 2.2,
         "call_chain": "assertrepr_compare -> _diff_text",
         "outcome": "localized_and_repaired"
       }
@@ -94,8 +94,8 @@
         "localized": true,
         "rank": 1,
         "context_tokens": 1616,
-        "latency_ms": 1.06,
-        "call_chain": "pytest_cmdline_main -> _console_main",
+        "latency_ms": 1.55,
+        "call_chain": "pytest_cmdline_main -> pytest_cmdline_main",
         "outcome": "localized_and_repaired"
       }
     },
@@ -112,8 +112,8 @@
       "arm_b_codesage_mcp": {
         "localized": true,
         "rank": 1,
-        "context_tokens": 2035,
-        "latency_ms": 0.98,
+        "context_tokens": 2024,
+        "latency_ms": 1.97,
         "call_chain": "runtestprotocol -> pytest_runtest_makereport",
         "outcome": "localized_and_repaired"
       }
@@ -131,8 +131,8 @@
       "arm_b_codesage_mcp": {
         "localized": true,
         "rank": 1,
-        "context_tokens": 3899,
-        "latency_ms": 0.34,
+        "context_tokens": 3315,
+        "latency_ms": 1.07,
         "call_chain": "iter_content -> Response.generate",
         "outcome": "localized_and_repaired"
       }
@@ -150,9 +150,9 @@
       "arm_b_codesage_mcp": {
         "localized": true,
         "rank": 1,
-        "context_tokens": 6379,
-        "latency_ms": 1.44,
-        "call_chain": "send -> HTTPAdapter.get_connection_with_tls_context",
+        "context_tokens": 9373,
+        "latency_ms": 6.28,
+        "call_chain": "send -> HTTPAdapter.get_connection",
         "outcome": "localized_and_repaired"
       }
     },
@@ -170,7 +170,7 @@
         "localized": true,
         "rank": 1,
         "context_tokens": 4504,
-        "latency_ms": 0.84,
+        "latency_ms": 3.58,
         "call_chain": "request -> Session.send",
         "outcome": "localized_and_repaired"
       }
@@ -186,12 +186,12 @@
         "outcome": "starvation_no_patch"
       },
       "arm_b_codesage_mcp": {
-        "localized": false,
-        "rank": 0,
-        "context_tokens": 8315,
-        "latency_ms": 1.42,
-        "call_chain": "none",
-        "outcome": "unresolved"
+        "localized": true,
+        "rank": 1,
+        "context_tokens": 9627,
+        "latency_ms": 5.96,
+        "call_chain": "send -> SessionRedirectMixin.resolve_redirects",
+        "outcome": "localized_and_repaired"
       }
     },
     {
@@ -207,8 +207,8 @@
       "arm_b_codesage_mcp": {
         "localized": true,
         "rank": 1,
-        "context_tokens": 6873,
-        "latency_ms": 0.95,
+        "context_tokens": 5770,
+        "latency_ms": 3.5,
         "call_chain": "register -> BlueprintSetupState.add_url_rule",
         "outcome": "localized_and_repaired"
       }
@@ -246,7 +246,7 @@
         "localized": true,
         "rank": 1,
         "context_tokens": 15215,
-        "latency_ms": 0.64,
+        "latency_ms": 2.77,
         "call_chain": "handle_url_build_error -> Flask.url_for",
         "outcome": "localized_and_repaired"
       }
@@ -264,8 +264,8 @@
       "arm_b_codesage_mcp": {
         "localized": true,
         "rank": 1,
-        "context_tokens": 6522,
-        "latency_ms": 0.91,
+        "context_tokens": 5419,
+        "latency_ms": 3.53,
         "call_chain": "register -> _endpoint_from_view_func",
         "outcome": "localized_and_repaired"
       }
@@ -284,8 +284,8 @@
         "localized": true,
         "rank": 1,
         "context_tokens": 6279,
-        "latency_ms": 0.76,
-        "call_chain": "_setup_scales -> Plotter._setup_figure",
+        "latency_ms": 1.92,
+        "call_chain": "_setup_scales -> Scale._setup",
         "outcome": "localized_and_repaired"
       }
     },
@@ -302,8 +302,8 @@
       "arm_b_codesage_mcp": {
         "localized": true,
         "rank": 1,
-        "context_tokens": 8033,
-        "latency_ms": 0.78,
+        "context_tokens": 8020,
+        "latency_ms": 2.1,
         "call_chain": "barplot -> _CategoricalPlotter.plot_bars",
         "outcome": "localized_and_repaired"
       }
