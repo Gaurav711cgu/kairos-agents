@@ -104,6 +104,11 @@ export default function CodeSageMCPPage() {
                     <td>Skipped</td>
                     <td><strong style={{ color: "#10b981" }}>PASS (ast.parse Module verified)</strong></td>
                   </tr>
+                  <tr>
+                    <th scope="row">End-to-End Container Suite</th>
+                    <td>Skipped (no_patch)</td>
+                    <td><span style={{ color: "#94a3b8" }}>Gated for CI / Preserved verification receipt</span></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
