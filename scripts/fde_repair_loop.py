@@ -215,7 +215,7 @@ class FDERepairHarness:
         with self.mcp_client as client:
             t0 = time.perf_counter()
             context_bundle = client.export_kairos_context(
-                repo_id="eval_repo",
+                repo_id="pytest",
                 query=query,
                 symbol_name=target_symbol,
                 max_chunks=4,
@@ -223,7 +223,7 @@ class FDERepairHarness:
             lat_context = (time.perf_counter() - t0) * 1000
 
             call_graph = client.get_call_graph(
-                repo_id="eval_repo",
+                repo_id="pytest",
                 symbol_name=target_symbol,
             )
 
