@@ -45,8 +45,8 @@ export default function BatchEvalPage() {
           Controlled statistical benchmark evaluating context starvation and localization recall
           across 15 standard candidate instances from SWE-bench Lite.
           Demonstrates how deterministic 2-hop topological call graphs overcome lexical starvation
-          by delivering <strong>+{summary.delta.recall_gain_pct}%</strong> higher localization recall (2.3x multiplier)
-          within strictly bounded context windows (max 15 nodes).
+          by delivering <strong>+{summary.delta.recall_gain_pct}%</strong> higher localization recall ({(summary.arm_b_codesage_mcp.recall_rate_pct / Math.max(1, summary.arm_a_baseline.recall_rate_pct)).toFixed(1)}x multiplier)
+          within strictly bounded context windows (max 20 nodes).
         </p>
       </header>
 
@@ -98,7 +98,7 @@ export default function BatchEvalPage() {
             +{summary.delta.recall_gain_pct}%
           </div>
           <div style={{ fontSize: "0.8rem", color: "#94a3b8", marginTop: "4px" }}>
-            2.3x increase over naive lexical baseline (46.7% vs 20.0%)
+            {(summary.arm_b_codesage_mcp.recall_rate_pct / Math.max(1, summary.arm_a_baseline.recall_rate_pct)).toFixed(1)}x increase over naive lexical baseline ({summary.arm_b_codesage_mcp.recall_rate_pct}% vs {summary.arm_a_baseline.recall_rate_pct}%)
           </div>
         </div>
 
@@ -113,7 +113,7 @@ export default function BatchEvalPage() {
             {summary.arm_b_codesage_mcp.mean_latency_ms} ms
           </div>
           <div style={{ fontSize: "0.8rem", color: "#94a3b8", marginTop: "4px" }}>
-            Empirical 2-hop traversal over 3,942 SQLite edges
+            Empirical 2-hop traversal over {batchReceipt.provenance.total_graph_edges_indexed.toLocaleString()} SQLite edges
           </div>
         </div>
       </section>

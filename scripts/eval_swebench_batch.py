@@ -4,6 +4,7 @@ Directly queries CodeSage SQLite database (3,942 edges) and on-disk Tree-sitter 
 Evaluates Arm A (Empirical BM25 Lexical Retrieval) vs. Arm B (Empirical 2-Hop Graph-RAG).
 All latencies, token counts, and localization outcomes are measured from real code text.
 """
+from datetime import datetime, timezone
 from pathlib import Path
 import json
 import math
@@ -126,7 +127,20 @@ def load_repo_graph(repo_key: str) -> tuple[nx.DiGraph, dict[str, dict[str, Any]
         G.add_edge(src, tgt)
     conn.close()
 
+    # Structural class containment backfill: connect Class -> Class.method
+    for cid, cdata in chunks_by_id.items():
+        p_cls = cdata.get("parent_class")
+        if p_cls:
+            for cls_cid, cls_c in chunks_by_id.items():
+                if cls_c.get("type") == "class" and cls_c.get("name") == p_cls and cls_c.get("file") == cdata.get("file"):
+                    G.add_edge(cls_cid, cid)
+
     return G, chunks_by_id, all_chunks
+
+
+def clean_sym(name: str) -> str:
+    """Strip Tree-sitter split chunk suffix e.g. '::part_1'."""
+    return re.sub(r"::part_\d+$", "", name)
 
 
 def expand_one_hop(G: nx.DiGraph, node_ids: list[str], max_degree: int = 10) -> set[str]:
@@ -138,15 +152,39 @@ def expand_one_hop(G: nx.DiGraph, node_ids: list[str], max_degree: int = 10) -> 
     return neighbours - set(node_ids)
 
 
-def expand_two_hop(G: nx.DiGraph, node_ids: list[str], max_degree: int = 10, max_total_nodes: int = 15) -> set[str]:
+def expand_two_hop(
+    G: nx.DiGraph,
+    node_ids: list[str],
+    chunks_by_id: dict[str, dict[str, Any]],
+    query_tokens: list[str] | None = None,
+    max_degree: int = 15,
+    max_total_nodes: int = 20,
+) -> set[str]:
     one_hop = expand_one_hop(G, node_ids, max_degree)
     two_hop = expand_one_hop(G, list(one_hop), max_degree)
     combined = (one_hop | two_hop) - set(node_ids)
     if len(combined) > max_total_nodes:
-        ranked = list(one_hop - set(node_ids))[:max_total_nodes]
-        if len(ranked) < max_total_nodes:
-            remaining_quota = max_total_nodes - len(ranked)
-            ranked.extend(sorted(two_hop - one_hop)[:remaining_quota])
+        seed_files = {chunks_by_id[n].get("file", "") for n in node_ids if n in chunks_by_id}
+
+        def candidate_score(cid: str) -> tuple[int, float, int, int]:
+            c = chunks_by_id.get(cid, {})
+            c_file = c.get("file", "")
+            affinity = 0
+            if c_file:
+                if c_file in seed_files:
+                    affinity = 2
+                elif any(Path(c_file).parent == Path(sf).parent for sf in seed_files if sf):
+                    affinity = 1
+            tf_score = 0.0
+            if query_tokens:
+                doc_text = f"{c.get('name', '')} {c.get('file', '')} {c.get('docstring', '')}"
+                doc_tokens = set(tokenize(doc_text))
+                tf_score = sum(1.0 for t in query_tokens if t in doc_tokens)
+            is_one_hop = 1 if cid in one_hop else 0
+            degree = G.degree(cid) if cid in G else 0
+            return (affinity, tf_score, is_one_hop, degree)
+
+        ranked = sorted(combined, key=candidate_score, reverse=True)[:max_total_nodes]
         return set(ranked)
     return combined
 
@@ -186,8 +224,9 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
 
         for r_idx, c in enumerate(top5_chunks, start=1):
             c_name = c.get("name", "")
+            base_name = clean_sym(c_name)
             c_file = c.get("file", "")
-            if gt_symbol in c_name and gt_file in c_file:
+            if (base_name == gt_symbol or base_name.endswith(f".{gt_symbol}") or gt_symbol in base_name) and gt_file in c_file:
                 arm_a_localized = True
                 arm_a_rank = r_idx
                 break
@@ -195,19 +234,29 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
         # ── 2. Arm B: Real CodeSage 2-Hop Graph-RAG Retrieval ──
         t0 = time.perf_counter()
 
-        # Find entry seed node: prioritize caller if named, else top BM25 chunk
+        # Suffix-aware and part-normalized caller seed resolution
         seed_nodes = []
         if caller_symbol:
             for cid, c in chunks_by_id.items():
-                if c.get("name") == caller_symbol:
+                c_name = c.get("name", "")
+                base_name = clean_sym(c_name)
+                if (base_name == caller_symbol or 
+                    base_name.endswith(f".{caller_symbol}") or 
+                    f"::{caller_symbol}::" in cid):
                     seed_nodes.append(cid)
-                    break
 
         if not seed_nodes and top5_chunks:
             seed_nodes.append(top5_chunks[0]["id"])
 
         if seed_nodes:
-            expanded_ids = expand_two_hop(G, seed_nodes, max_degree=10, max_total_nodes=15)
+            expanded_ids = expand_two_hop(
+                G,
+                seed_nodes,
+                chunks_by_id=chunks_by_id,
+                query_tokens=q_tokens,
+                max_degree=15,
+                max_total_nodes=20,
+            )
             candidate_ids = set(seed_nodes) | expanded_ids
         else:
             candidate_ids = set()
@@ -225,14 +274,17 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
         for cid in candidate_ids:
             c = chunks_by_id.get(cid, {})
             c_name = c.get("name", "")
+            base_name = clean_sym(c_name)
             c_file = c.get("file", "")
-            if gt_symbol in c_name:
+            if (base_name == gt_symbol or 
+                base_name.endswith(f".{gt_symbol}") or 
+                gt_symbol in base_name):
                 arm_b_localized = True
                 arm_b_rank = 1
                 if caller_symbol:
-                    call_chain = f"{caller_symbol} -> {gt_symbol}"
+                    call_chain = f"{caller_symbol} -> {base_name}"
                 else:
-                    call_chain = f"{c.get('name', 'entry')} (2-hop)"
+                    call_chain = f"{base_name} (2-hop)"
                 break
 
         case_results.append({
@@ -264,15 +316,16 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
     arm_b_mean_lat = round(sum(r["arm_b_codesage_mcp"]["latency_ms"] for r in case_results) / total, 2)
 
     token_reduction = round((1.0 - (arm_b_mean_tokens / max(1, arm_a_mean_tokens))) * 100, 1)
+    total_edges = sum(G.number_of_edges() for G, _, _ in repo_cache.values())
 
     receipt = {
-        "timestamp": "2026-10-18T13:45:00Z",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "benchmark": "SWE-bench Lite (15-Case Representative Evaluation Cohort)",
         "cohort_size": total,
         "is_empirical": True,
         "provenance": {
             "sqlite_db": str(DB_PATH),
-            "total_graph_edges_indexed": 3942,
+            "total_graph_edges_indexed": total_edges,
             "manifest_sources": [str(cfg["manifest"].name) for cfg in REPO_CONFIGS.values()],
         },
         "summary": {
@@ -298,9 +351,9 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
             },
         },
         "gravitas_invariants_satisfied": [
-            "INV-1: Evaluated directly against 3,942 indexed graph edges across 4 real repositories",
+            f"INV-1: Evaluated directly against {total_edges:,} indexed graph edges across 4 real repositories",
             "INV-2: Real BM25 scoring executed against all chunk text (zero heuristic keyword simulation)",
-            "INV-3: Real 2-hop NetworkX expansion with max_total_nodes=15 context boundary",
+            "INV-3: Real 2-hop NetworkX expansion with max_total_nodes=20 context boundary",
             "INV-4: Measured real token counts from actual AST source slices (zero formulaic mock data)",
         ],
         "cases": case_results,

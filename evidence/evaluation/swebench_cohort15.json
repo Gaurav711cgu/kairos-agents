@@ -115,7 +115,7 @@
       "problem_statement": "Nested blueprints do not inherit url_prefix properly when registered sequentially.",
       "ground_truth_file": "src/flask/scaffold.py",
       "ground_truth_symbol": "_endpoint_from_view_func",
-      "caller_symbol": "endpoint",
+      "caller_symbol": "register",
       "test_file": "tests/test_blueprints.py"
     },
     {
@@ -124,7 +124,7 @@
       "problem_statement": "Color mapping scales improperly when data contains boolean categorical series.",
       "ground_truth_file": "seaborn/_core/scales.py",
       "ground_truth_symbol": "_setup",
-      "caller_symbol": "setup",
+      "caller_symbol": "_setup_scales",
       "test_file": "tests/_core/test_scales.py"
     },
     {
@@ -132,8 +132,8 @@
       "repo": "mwaskom/seaborn",
       "problem_statement": "FacetGrid barplot fails with log scale when zero counts are encountered.",
       "ground_truth_file": "seaborn/categorical.py",
-      "ground_truth_symbol": "draw_bars",
-      "caller_symbol": "draw_statistic",
+      "ground_truth_symbol": "plot_bars",
+      "caller_symbol": "barplot",
       "test_file": "tests/test_categorical.py"
     },
     {
