@@ -1,0 +1,54 @@
+{
+ "checkpoint": "f024-offline-prep",
+ "counts_dev_inscope_30": {
+  "P1_turn1_cap1024_envelope3539": {
+   "issue": 16,
+   "oracle": 28,
+   "total_max": 87,
+   "turn2_max": 43
+  },
+  "P2_turn1_cap512_envelope3539": {
+   "expected_total_estimate": 83,
+   "issue": 28,
+   "oracle": 29,
+   "total_max": 100,
+   "turn2_max": 43
+  },
+  "issue_max_prompt": 3060,
+  "issue_turn1_buildable": 30,
+  "oracle_buildable": 29,
+  "oracle_excluded": 1,
+  "oracle_max_prompt": 2670
+ },
+ "files": {
+  "source/f024.py": "5e5fce8587820d1be8f7c03dfe432992d75c9f3657ccb03b2538a5d425992931",
+  "source/feedback_turn021.py": "7d8f15ab60a1d14b5864a8bfbf9e8e8a2b23a99e63d2b1dbaa4d0b8a1aae194e",
+  "source/oracle_context024.py": "bfec5c249bd286e3f75608d55bd519e67d35757cfdbbad0846355087fabb2485",
+  "source/ranked_workspace024.py": "ff306eae00bc8df96a51516331b57ef1fe7fd3a90839a62ec42c5334af144144",
+  "source/test_f024.py": "22d46330e1310e836be263d6f39ae74523309b9f76ff51efff2892dfaa7a8fab",
+  "source/test_feedback_turn021.py": "26b7178be7f59598dfc87bd2b4ceacbb5a2ed46c6fc16f5ba5a862020f72eddc",
+  "source/test_oracle_context024.py": "5439b332b7d0f4950a72769c0dfad081b850af61c3cad9a681dd5c5639123423",
+  "source/test_ranked_workspace024.py": "b94b2f0edf43e1566d8d86d3bcc79fbbaed70f83221445ceb368b87ee54f3b93",
+  "source/test_worker_localization024.py": "dfa4377b0ca830d0e6c3abbb7cb990a4c14af67c407ae6db3bbbe26a4518b584",
+  "source/worker.diff": "b1ba8ddb5dceb8c9449b5e3c2580f6d6e992565561854b95a5536a48a63fe4bc",
+  "tests.log": "18f5d9538e019698b283eacce1213073749f75237acf5efc4621cfe2fde9b3fe"
+ },
+ "issue_arm": "frozen023 (H3 not validated: validation containment 3/32 vs 6/32)",
+ "memory": {
+  "envelope_tokens": 3539,
+  "oom_policy": "captured generation_error halts arm; never retried",
+  "t4_peak_gib": 14.42,
+  "t4_total_gib": 14.6
+ },
+ "pending": [
+  "Colab runner accepting F024 package with per-job max_new_tokens",
+  "notebook binding prompts by hash"
+ ],
+ "scope": "mocked generations only; 0 model calls; nothing enabled",
+ "tests": {
+  "docker_pg_integration_9": "passed before worker review fix; after fix unverified (Docker Desktop API 500/timeout, environment failure)",
+  "full_offline_with_postgres": "1365 passed, 23 skipped",
+  "new_suites": "see tests.log"
+ },
+ "worker_fix": "partial localization capture: count/index requests, prefix+count verified reselection, conflicting counts and shorter reselection fail closed, legacy pending steps keep legacy shape"
+}

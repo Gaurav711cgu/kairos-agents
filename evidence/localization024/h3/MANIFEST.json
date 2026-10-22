@@ -1,0 +1,41 @@
+{
+ "budget": {
+  "limit": 3072,
+  "max_prompt_tokens_observed": 3057,
+  "max_regions_observed": 4
+ },
+ "checkpoint": "localization024-h3",
+ "decision": "keep: hunk containment 5->8/36 vs H2 (3 gains, 0 losses, p=0.25); recall@1, recall@4, final-context 0/0; mean tokens 2194->1999",
+ "exposure_sha256_in_scope": "356fbe62bf017039cc62f7bbd6a56a1c404d824d862516369428157d639c4648",
+ "files": {
+  "dev-sanity-candidate-equals-h2.json": "cd2d2b1c8faa42d84978a7121e10d23510f83d1363b1ed00a567c806aab30522",
+  "dev-sanity.log": "159514e2ee04049dd25d8f23e01153867811f93b448cda329017614fe234892b",
+  "dev-superseded-file-score-bug.json": "b9c38fa74e959c6ddf7b3c413a86255471e09c549031a6b1d26ae425cffb75ce",
+  "dev-superseded-file-score-bug.log": "90ebecf94116b2e7100039eb0523895b30fbf71570bfd5bdd36044255e2f1e2e",
+  "dev-superseded-generic-method.json": "1bb1491f6ca5ed7c40de28450d0ced7ef5696ee5dc91db9422acff2b39511ed4",
+  "dev-superseded-generic-method.log": "560376ce18987d1c6b5f9d8ae87df729be2dd416538ea64940553204950b2eef",
+  "dev.json": "0ffa02d38581d1b7930259e3da9691fe94000f2b6a746bced3eb3e2916fbb52d",
+  "dev.log": "a672d5a6ed644e3782dc30e538b976392051c2dcfac3e7a36183d7cd11bdc9d7",
+  "source/coding_context_v6_024.py": "005cd690fb4f7d2cabac1ddd1cdfce35f54178983d790b0743d5bbf02ebce012",
+  "source/localization_dev024.py": "11584f36469efd29c0f5e1dafc0dfb5b4f858f3dd1b228ee2d282386e20a6e1f",
+  "source/patch_roundtrip024.py": "401849015ac9ee798b2824959a52d7394f36e230f0520bc2003a82465a6c51df",
+  "source/test_coding_context_v6_024.py": "3c3788c466f6c2dc8aeee63a3c92bc052bc2bf0a9507b31b7c9ae94275ea895b",
+  "source/test_localization_dev024.py": "e75189bb2b655fab733c6ead263c02a3e301808c98d6c00d0c7b12aee98b6577"
+ },
+ "hypothesis": "Named method at least as rare as its named class replaces the class; top-ranked file gets a second definition slot; file ranking unchanged",
+ "iterations_on_dev": [
+  "dev-superseded-file-score-bug.json: class drop altered file ranking (recall@1 17->14)",
+  "dev-superseded-generic-method.json: generic method displaced distinctive class (2 containment losses)",
+  "dev.json: final"
+ ],
+ "overfitting_note": "Three sub-iterations on the same 36 development cases; not validated; validation frozen",
+ "resource_use": {
+  "archives_downloaded": 0,
+  "docker_runs": 0,
+  "holdout_fetched": false,
+  "model_calls": 0,
+  "training_runs": 0,
+  "validation_rerun": false
+ },
+ "validated": false
+}

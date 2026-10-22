@@ -1,0 +1,21 @@
+# Harness² project settings. See docs/configuration.md for every key;
+# `harness2 config show --origin` prints the resolved values and where each comes from.
+
+[executor]
+# The agent CLI that runs your tasks, and the model it runs on (provider/model).
+name = "claude"
+model = "claude-login/claude-sonnet-5-5"
+
+[improver]
+# The agent that studies the runs and edits the harness.
+channel = "claude"
+model = "claude-login/claude-opus-5-5"
+
+# The selector picks the final harness when several candidates compete, and the judge
+# grades tasks that have a rubric.md. Both use the improver's settings unless set here.
+# [selector]
+# model = "claude-login/claude-opus-5-5"
+
+[paths]
+# Where the harness lives, relative to the project root.
+harness = "."

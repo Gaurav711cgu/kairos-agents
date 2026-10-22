@@ -1,0 +1,36 @@
+{
+ "checkpoint": "localization024-h3-postreview",
+ "decision": "keep H3: containment 5->8/36 vs H2 (3/0, p=0.25), other metrics 0/0; exploratory, unvalidated, three dev sub-iterations",
+ "files": {
+  "dev.json": "8f3389e2f56d0630fb7e193b2d1508e67ac48bc28d6c6c5bbbd2415718c03fd6",
+  "dev.log": "34af46aab0568ba2b1815a82d71a19272695b8cdef5c264fce7859513ac0d94d",
+  "source/coding_context_v6_024.py": "3fbe54ba0256979dc39a97cf88630f0337ceafc4f275e795004331f1ae692c72",
+  "source/localization_dev024.py": "3ad594980be849056483672905eda81f0d22d46225cbed407ec0d39a881fdb69",
+  "source/patch_roundtrip024.py": "401849015ac9ee798b2824959a52d7394f36e230f0520bc2003a82465a6c51df",
+  "source/test_coding_context_v6_024.py": "6505bfe8b2b8a58e142530ba9054a16921632f88c47f27b48bc1d0af99a834e3",
+  "source/test_localization_dev024.py": "e75189bb2b655fab733c6ead263c02a3e301808c98d6c00d0c7b12aee98b6577"
+ },
+ "resource_use": {
+  "archives_downloaded": 0,
+  "docker_runs": 0,
+  "holdout_fetched": false,
+  "model_calls": 0,
+  "training_runs": 0,
+  "validation_rerun": false
+ },
+ "review_documented_not_fixed": [
+  "splitlines vs AST line numbering inherited from v3/sandbox.read_original",
+  "file-order tie-break may shift non-top files",
+  "exposure scan does not decompress gzip/tar/parquet; prose IDs not matched",
+  "classify uses substring matches",
+  "candidate code uncommitted (git_dirty true)",
+  "3072-token pack is benchmark-only; v6 not wired into production prepare"
+ ],
+ "review_fixes": [
+  "class displaced only by its direct method (nested classes/closures excluded)",
+  "displaced class excluded from constructor-dependency re-entry",
+  "all containment classes counted in summary",
+  "archive digest covers trailing drained bytes (future fetches only)"
+ ],
+ "supersedes": "../h3 (pre-review code; identical per-case dev outputs)"
+}
