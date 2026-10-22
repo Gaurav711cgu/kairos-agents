@@ -3,8 +3,8 @@
 Updated: 22 October 2026. Read this, then `docs/PRODUCTION_READINESS.md`, then `BRAIN.md`.
 
 ## State
-- Branch `Gaurav711cgu/feat/measurement014`; last commit `c357e1b` (pushed). Later work is
-  uncommitted: the F024 qualify/score/GPU-mock/e2e/verifier files and these docs.
+- Branch `Gaurav711cgu/feat/measurement014`. Pushed: `c357e1b`. Local, not pushed: `eda2565`
+  (pilot qualification/scoring/tests/docs) and `15d48b9` (fullstack acceptance receipts).
 - 65 pre-existing user paths are uncommitted and must never be touched (list kept in the lead's
   scratch board; recreate with `git status --short`, excluding f024/F024/e2e/verify/STATUS/
   READINESS/HANDOFF files).
@@ -30,3 +30,14 @@ measurement014 seal failure (see PRODUCTION_READINESS row 10). No open permitted
 Development cases only; validation is frozen (one H3 run recorded); holdout never fetched;
 exposure scan 398 identifiers locally. No commits, pushes, Colab, downloads or Docker workloads
 without approval. Repair success unverified.
+
+## Latest results (cycle 2)
+- Fresh-clone fullstack acceptance passed (`evidence/acceptance024`) once the user's uncommitted e2e
+  and codesage fixes were applied in a scratch clone. The user must commit those fixes for HEAD
+  alone to pass.
+- The measurement014 CI seal fails since pre-session commits. The reseal needs a workflow change,
+  which the auto-mode classifier blocks; the user must allow `.github/workflows` edits or apply
+  the change.
+- The Colab pilot turn one needs the user's browser (steps in the lead's last message and in
+  `docs/F024_PILOT_MANIFEST.md`). Results go to
+  `~/Desktop/resume/kairos-closeout020/f024-pilot/turn1-results.zip`.
