@@ -1,14 +1,14 @@
 # Kairos production readiness tracker
 
-Updated: 22 October 2026 (cycle 1 complete). Status values: VERIFIED (executed evidence this session),
+Updated: 22 October 2026 (cycle 2: fullstack acceptance). Status values: VERIFIED (executed evidence this session),
 HISTORICAL (receipt from an earlier session, not rerun), MOCK-VERIFIED (exercised with stubs only),
 OPEN (permitted work remaining), BLOCKED (approval or infrastructure required).
 
 | # | Requirement | Owner | Status | Evidence | Remaining work | Blocker | Next action |
 |---|---|---|---|---|---|---|---|
-| 1 | Clean installation and reproducible deployment | C | HISTORICAL | `evidence/closeout023/final-acceptance.json` (fresh clone, fresh locked deps, API/website HTTP 200) | Rerun `python3 -m scripts.reviewer fullstack` on the current commit | Docker workload + locked dependency downloads need approval | Approve a fullstack rerun |
-| 2 | Authentication, authorization, tenant isolation | A | VERIFIED (database level) / HISTORICAL (real OIDC) | Full suite with local PostgreSQL: 1405 passed, 23 skipped (includes PostgreSQL identity and tenant tests); real OIDC 4/4 historical | Real Keycloak provider tests | Needs Keycloak via Docker | Part of the fullstack rerun |
-| 3 | Complete frontend/backend user journey | C | HISTORICAL + VERIFIED (offline) | Dashboard node tests 29/29, `tsc` clean, eslint clean; browser journeys historical (build007) | Browser journeys on current commit | Fullstack services (Docker) | Part of the fullstack rerun |
+| 1 | Clean installation and reproducible deployment | C | VERIFIED (with user fixes) | `evidence/acceptance024`: fresh clone of eda2565, fresh reviewer venv/node_modules from locks, `reviewer check --fullstack` passed | Commit the user's uncommitted e2e JSON-import and codesage fixes; committed HEAD alone fails recorded-browser (Node 24) and 5 codesage tests | User owns those changes | User commits their fixes |
+| 2 | Authentication, authorization, tenant isolation | A | VERIFIED | acceptance024: real Keycloak OIDC browser 4/4; backend 1257 passed, 29 skipped on real PostgreSQL | none | none | none |
+| 3 | Complete frontend/backend user journey | C | VERIFIED | acceptance024: recorded 16/16, fixture 11/11, live OIDC 4/4; lint, types, build pass | none (pending the user-fix commit above) | none | none |
 | 4 | Real supported inference backend integrated | B | MOCK-VERIFIED | `scripts/f024_colab.py` + `tests/test_f024_gpu_mock.py` (14), `tests/test_f024_colab.py`; worker path serves Qwen3-1.7B via llama.cpp (historical) | Execute the 14B runner on a GPU | Colab GPU needs approval | Approve pilot turn one |
 | 5 | Model-generated patch flows through source-bound editing, sandbox validation, independent scoring | B/C | MOCK-VERIFIED | Two-turn mock dry run on the real pilot package; `tests/test_f024_score.py`; pilot cases qualified (`evidence/localization024/f024-pilot/qualification-v4.json`) | Real captures, then Docker scoring | Pilot turn one | Approve pilot turn one |
 | 6 | At least one genuine model-generated repair passes independent regression without leakage | B/C | BLOCKED | Historical 0/20 (unseen023) | Pilot, then a larger F024 if the pilot works | GPU approval | Approve pilot turn one |

@@ -46,6 +46,7 @@ def test_benchmark_worker_and_021_prompt_see_identical_regions(study, registered
     from pathlib import Path
     from kairos_api.investigations.context_v7 import source_block
     from scripts.coding_context_v6_024 import select
+    pytest.importorskip('tokenizers', reason='tokenizers is research tooling, not in the committed reviewer lock')
     from scripts.localization_dev024 import ChatTokenizer, load_module
     frozen = Path('~/Desktop/resume/kairos-closeout020/unseen023-full').expanduser()
     if not (frozen / 'context.py').is_file():

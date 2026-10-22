@@ -1,0 +1,46 @@
+{
+ "checkpoint": "fullstack-acceptance024",
+ "command": "python -m scripts.reviewer check --fullstack (launcher: project .venv Python 3.12; fresh reviewer venv and node_modules from locks)",
+ "docker": "pinned local images; services stopped; volumes preserved; Docker Desktop stopped after run",
+ "files": {
+  "acceptance.json": "397fd135aeb35960ab057192b664d48793d9f9869336e33c542974f39afc6529",
+  "checks/backend.receipt.json": "f3cd55f6087394207da255dde2b8a4f03cec5c3caa0de841de15ed9aa5beb02a",
+  "checks/browser-install.receipt.json": "b1957f09cb8dacc4027fc5b3700f584b0376acc867d7c7a6248d81b9b9de603b",
+  "checks/fixture-browser.json": "612c3e421b4a4c2d22c3dbcfa3a1d896d232ba4997f01746fa47c60e71fb9d34",
+  "checks/fixture-browser.receipt.json": "0ba2cc24f5e96c9504f9392ed0f9a87f627d256bc3852261c09d12db4b82b856",
+  "checks/frontend-boundary.receipt.json": "bba937be8dac031fb50bfa3907e0ffcc9c8e969595c7298dc413caf43d8abc95",
+  "checks/frontend-client.receipt.json": "629a57946fc7d3be8a678c30c58366c844033d4f88cd3ab90db480c3be60b467",
+  "checks/frontend-lint.receipt.json": "fe3bac3489cef2aaf7bee633098978b88f8ccf39678c6e7791c321e0a4b27898",
+  "checks/frontend-types.receipt.json": "dd9579822ea344ae3d418a83f3d2f866ef6cf7919c1d2059dc5294f14e05d625",
+  "checks/fullstack-browser.json": "f89149c46ff8a2d7e4e5930eb45892ac582a433fe228a10a779a9e0218074adc",
+  "checks/fullstack-provision.receipt.json": "bc00af97d834f3e4a602d89dd52a1db8ddd55947873a6f05d824fc69a6ab2437",
+  "checks/live-browser.receipt.json": "94ef21778a9e43da33707aaf645a9d376fc8fcdb085cb523cc1e914fa8238c39",
+  "checks/node-install.receipt.json": "6f71b24c9646f459d74af2f293a15b2a2f18b028460410807d39dbefcc1bb2de",
+  "checks/private-state.receipt.json": "f854cdfc32872d6c87ef95ab7e038b33bf4a27e6f4ab551468081ed8d685985d",
+  "checks/python-install.receipt.json": "dd5a6f3179ee54e9480f1a863917bfc29b3998a7c0fad0e28c573c7ce3c33a0b",
+  "checks/recorded-browser.json": "f21d757f5fd2b891f01a89b94892794f03fb4aa916b535036c41379ba79c335f",
+  "checks/recorded-browser.receipt.json": "d246197f963944b86499ca106e7f6f76f7a418237ba95240a9dcbc58db71dd2f",
+  "checks/recorded-package.receipt.json": "f0b0e32ab955608447e1b8b9c7d9341534f06e34f925ddd90603f64c24deb5b9",
+  "checks/website-build-live.receipt.json": "a68091dc9e94c9e2f9f55a4337d4ab1fb29d142ceb8d5fc68ce263bd2da6acba",
+  "checks/website-build-recorded.receipt.json": "77f67dc59d057915768d7f3a237a41e1d7bf48804bffd2ccb3f61046c1bb4880"
+ },
+ "results": {
+  "backend": "1257 passed, 29 skipped (real PostgreSQL)",
+  "fixture_browser": "11/11",
+  "fullstack_oidc_browser": "4/4",
+  "inference_calls": 0,
+  "recorded_browser": "16/16"
+ },
+ "tree": {
+  "applied_to_scratch_clone_only": {
+   "tests/test_f024_score.py + tests/test_ranked_workspace024.py": "explicit skips for research-only pyarrow/tokenizers (committed with this evidence)",
+   "user uncommitted codesage diffs": "a2bb6ddc81eb540149a90d975b24cd6a88d356ce33e3ff61e334ebf036c69c40",
+   "user uncommitted dashboard/e2e diffs (JSON import attributes for Node 24)": "690f1ad331743b34c97a0018a388e20f36125710be61477c315bde36234297c8"
+  },
+  "base_commit": "eda2565"
+ },
+ "without_user_fixes": [
+  "recorded-browser fails on committed HEAD: Node 24 requires with {type: json} for JSON imports in 3 e2e specs",
+  "backend: 5 test_codesage_bridge failures at committed HEAD (also at 85525fe)"
+ ]
+}

@@ -42,7 +42,8 @@ class FakeRegistry:
 
 def setup_main(tmp_path, monkeypatch, texts, bad_case=False, mutate=False, qualified=True):
     """texts: job_id -> capture dict. Returns (argv-run callable, state)."""
-    import pyarrow.parquet as pq
+    # Research-only dependency (SWE-bench parquet); absent from the locked reviewer environment.
+    pq = pytest.importorskip('pyarrow.parquet', reason='pyarrow is research tooling, not in requirements-reviewer.lock')
     row = {'instance_id': CASE_ID, 'repo': 'r/r', 'patch': 'P', 'test_patch': 'T', 'base_commit': 'c',
            'FAIL_TO_PASS': ['x'], 'PASS_TO_PASS': []}
     state = {'pinned': 0, 'mutate': mutate}
