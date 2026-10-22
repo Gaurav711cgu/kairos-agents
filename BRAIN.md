@@ -1,5 +1,17 @@
 # Kairos brain — current checkpoint
 
+## Team integration and pilot readiness — 22 October 2026
+
+Three Sonnet teammates (repair-engine, inference-bridge, verification-qa) worked from a shared board, owning separate files.
+- New tests: `tests/test_e2e_worker024.py` (8: step order, budgets, recovery, unknown dispatch), `tests/test_f024_gpu_mock.py` (14: Colab runner refusals, OOM, hard deadline, runtime record, with stubbed torch/transformers), and 5 scorer execute-path tests.
+- New verifier: `scripts/verify_evidence024.py` (117 evidence files, 0 problems).
+- The runner gained `token_ids()` (accepts a list or BatchEncoding) and `turn2_notebook()`. Its hash is now `9b244ef5…`, so staging was rebuilt as `upload-v2` and the old `upload/` is stale.
+- Step 0 qualification: both pilot cases qualify (qualification-v4). The fixes needed on the way: a one-run 8 GiB storage cap, a pinned-image readiness gate, and normalizing parquet test-id fields.
+- Use `docker desktop start/stop`, not osascript quit.
+- Full suite with local PostgreSQL: 1405 passed, 23 skipped. Dashboard: 29/29 node tests, tsc clean.
+- Status matrix: `docs/KAIROS_STATUS_024.md`.
+- Repair success is still unverified. The next step is the approval-gated Colab turn one (8 generations).
+
 ## F024 pilot prepared (not executed) — 22 October 2026
 
 The Colab runner `scripts/f024_colab.py` is self-contained and hash-bound. It enforces the frozen journal semantics: intent and capture bound to package and job, stop on uncertain dispatch, halt on generation error or out-of-memory, a 180 s hard deadline with `os._exit(124)`, `runtime.json`, pinned adapter-binding and model-manifest hashes, and a check that the downloaded file set equals the manifest. Pilot: 2 development cases x {issue-only frozen023, diagnostic oracle} x {base, adapter} = 8 turn-one generations, at most 8 turn-two, cap 16. The prompts (at most 1359 tokens) fit the observed T4 envelope (3539). A complete two-turn mock dry run journaled 8+5 jobs, with handles verified byte-equal to cached sources. An independent review found 15 issues (0 critical), all fixed with tests. Docker 500s were diagnosed as a startup race (tests started on the first `docker info` success after reopen); after a sustained health gate, 9/9 Docker+PostgreSQL integration tests pass after the worker fix. Full offline suite: 1251 passed, 146 skipped. Plan, ledger and stop conditions: `docs/F024_PILOT_PLAN.md`. Receipts: `evidence/localization024/f024-pilot/MANIFEST.json`. Executing it requires approval for upload and Colab GPU; no model call has happened.

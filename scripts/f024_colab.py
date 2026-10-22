@@ -114,6 +114,21 @@ def run_jobs(package, output, generate, publish):
     return {'status': 'complete', 'captures': len(jobs), 'binding': binding, 'training_runs': 0}
 
 
+def token_ids(rendered):
+    """transformers 4.57.6 may return a list or a BatchEncoding/dict with input_ids; accept both, refuse nesting."""
+    if hasattr(rendered, 'keys') and 'input_ids' in rendered:
+        rendered = rendered['input_ids']
+    ids = list(rendered)
+    if not ids or not all(type(i) is int for i in ids):
+        raise ValueError('Chat template did not return one flat list of token ids')
+    return ids
+
+
+def turn2_notebook(package_sha256, runner_sha256, adapter_binding_sha256, model_manifest_sha256):
+    """Step 3 notebook: bound to the turn-two package hash, at most 8 generations."""
+    return notebook(package_sha256, runner_sha256, adapter_binding_sha256, model_manifest_sha256, max_generations=8)
+
+
 def notebook(package_sha256, runner_sha256, adapter_binding_sha256, model_manifest_sha256, *, max_generations):
     """Notebook cells: pinned profile, hash checks, one bounded run. No credentials."""
     pins = ' '.join(f'{name}=={version}' for name, version in PROFILE.items() if name != 'torch')
@@ -187,7 +202,7 @@ def run_gpu(args):  # pragma: no cover - executes only on an approved Colab GPU
     tokenizer = AutoTokenizer.from_pretrained(str(path), local_files_only=True, trust_remote_code=False)
     ids = {}
     for j in package['jobs']:  # every prompt is re-rendered and checked before the model loads
-        rendered = list(tokenizer.apply_chat_template(j['messages'], tokenize=True, add_generation_prompt=True))
+        rendered = token_ids(tokenizer.apply_chat_template(j['messages'], tokenize=True, add_generation_prompt=True))
         if hashlib.sha256(json.dumps(rendered, separators=(',', ':')).encode()).hexdigest() != j['prompt_token_ids_sha256'] \
                 or len(rendered) + j['max_new_tokens'] > ENVELOPE_TOKENS:
             raise ValueError('Prompt rendering or memory envelope differs before dispatch: ' + j['job_id'])

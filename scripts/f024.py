@@ -103,3 +103,56 @@ def build_pilot(receipt, rows, cache, pack, tokenizer, per_repository=1):
         for context, p in packed.items():
             jobs += [make_job(identifier, context, arm, 1, p['messages'], tokenizer) for arm in ('base', 'adapter')]
     return jobs
+
+
+def main():  # pragma: no cover - thin CLI over turn2; exercised by the mock dry run
+    """Build the turn-two package from downloaded turn-one captures (local; no model)."""
+    import argparse
+    import types
+    from pathlib import Path
+    from kairos_api.investigations.sandbox import Workspace
+    from kairos_api.investigations.context_v7 import source_block
+    from scripts.f024_colab import validate_package
+    from scripts.localization_dev024 import PREFIXES, ChatTokenizer
+    parser = argparse.ArgumentParser()
+    for name in ['package', 'results', 'cache', 'tokenizer', 'output']:
+        parser.add_argument('--' + name, type=Path, required=True)
+    args = parser.parse_args()
+    if args.output.exists():
+        raise ValueError('Turn-two package is immutable; choose a new output path')
+    package = json.loads(args.package.read_text())
+    validate_package(package)
+    captures = {}
+    for path in (args.results / 'captures').rglob('*.json'):
+        record = json.loads(path.read_text())
+        captures[record['job_id']] = record
+    workspaces = []
+
+    def context_for(job):
+        repository = 'django/django' if job['instance_id'].startswith('django') else 'pytest-dev/pytest'
+        directory = args.cache / job['instance_id']
+        workspace = Workspace(types.SimpleNamespace(verify=lambda _: None, directory=lambda _: directory),
+                              {'id': job['instance_id'], 'issue': '', 'approved_prefix': PREFIXES[repository], 'entry_files': [], 'entry_lines': {}})
+        workspaces.append(workspace)
+        blocks = json.loads(job['messages'][1]['content'])['original_source']
+        regions = [workspace.read_original(b['path'], b['start_line'], b['end_line']) for b in blocks]
+        if [source_block(r)['source_id'] for r in regions] != [b['source_id'] for b in blocks]:
+            raise ValueError('Captured source handles differ from the cached source: ' + job['job_id'])
+        return workspace, regions
+
+    try:
+        planned, ledger = turn2([j for j in package['jobs'] if j['turn'] == 1], captures, context_for, ChatTokenizer(args.tokenizer / 'tokenizer.json'))
+    finally:
+        for workspace in workspaces:
+            workspace.close()
+    second = {**package, 'jobs': planned, 'scope': package.get('scope', '') + '; turn two after local validation'}
+    if planned:
+        validate_package(second)
+    args.output.mkdir(parents=True)
+    (args.output / 'turn2-package.json').write_text(json.dumps(second, sort_keys=True, indent=1))
+    (args.output / 'turn1-ledger.json').write_text(json.dumps(ledger, sort_keys=True, indent=1))
+    print(json.dumps({'turn2_jobs': len(planned), 'ledger': ledger}, indent=1))
+
+
+if __name__ == '__main__':
+    main()
