@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-10-18T06:04:14Z",
+  "protocol": "Model Context Protocol (MCP) stdio JSON-RPC",
+  "client": "Kairos SWE Agent (scripts/codesage_mcp_client.py)",
+  "server": "CodeSage Graph-RAG (/Users/gauravkumarnayak/Desktop/Codesage/bin/run-mcp)",
+  "tools_discovered": [
+    "retrieve_code_context",
+    "get_call_graph",
+    "export_kairos_context"
+  ],
+  "sample_query": "circuit breaker state transitions open half open recovery timeout",
+  "repo_id": "eval_repo",
+  "symbol_name": "CircuitBreaker",
+  "latency_ms": 504.64,
+  "word_count": 320,
+  "estimated_tokens": 416.0,
+  "status": "PASS",
+  "gravitas_invariants_satisfied": [
+    "INV-1: Grounded in live CodeSage subprocess call",
+    "INV-2: Zero code mutation outside declared task scope",
+    "INV-3: Fresh execution proof required post-edit"
+  ]
+}

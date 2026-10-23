@@ -1,0 +1,109 @@
+{
+  "attempts": 2,
+  "model_calls": 0,
+  "results": [
+    {
+      "chain_id": "dev/django__django-11772/oracle",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_long_vary_on (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_proper_escaping (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_with_ints_vary_on (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_with_many_vary_on (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_with_one_vary_on (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_with_unicode_vary_on (cache.tests.TestMakeTemplateFragmentKey)"
+          ],
+          "regression_passed": [],
+          "tests_run": 412
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_long_vary_on (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_proper_escaping (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_with_ints_vary_on (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_with_many_vary_on (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_with_one_vary_on (cache.tests.TestMakeTemplateFragmentKey)",
+            "test_with_unicode_vary_on (cache.tests.TestMakeTemplateFragmentKey)"
+          ],
+          "regression_passed": [],
+          "tests_run": 412
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/pytest-dev__pytest-8124/oracle",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "collected": 85,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace",
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace_ValueError",
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace_multiple",
+            "testing/test_skipping.py::TestXFail::test_xfail_markeval_namespace"
+          ],
+          "regression_failed": [
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace",
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace_ValueError",
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace_multiple",
+            "testing/test_skipping.py::TestXFail::test_xfail_markeval_namespace"
+          ],
+          "regression_passed": false,
+          "tests_run": 85
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "collected": 85,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace",
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace_ValueError",
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace_multiple",
+            "testing/test_skipping.py::TestXFail::test_xfail_markeval_namespace"
+          ],
+          "regression_failed": [
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace",
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace_ValueError",
+            "testing/test_skipping.py::TestEvaluation::test_skipif_markeval_namespace_multiple",
+            "testing/test_skipping.py::TestXFail::test_xfail_markeval_namespace"
+          ],
+          "regression_passed": false,
+          "tests_run": 85
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    }
+  ],
+  "skipped_synthetic": [
+    "synthetic/p4-constant",
+    "synthetic/p5-insert-import",
+    "synthetic/p6-delete-line",
+    "synthetic/r4-parity",
+    "synthetic/r5-clamp",
+    "synthetic/r6-split"
+  ],
+  "verified_repairs": 0
+}

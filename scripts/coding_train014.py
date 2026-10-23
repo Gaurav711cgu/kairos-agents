@@ -95,8 +95,13 @@ def admit_corpus(data):
     return data
 
 
-def tokenize_example(tokenizer,row,maximum=2048):
-    """Mask the exact user/system prefix; reject truncation or template drift."""
+def tokenize_example(tokenizer,row,maximum=2048,*,source_protocol='legacy014'):
+    """Mask the exact prefix; preserve legacy behavior unless explicitly versioned."""
+    if source_protocol == 'shared021':
+        from scripts.source_edit_protocol021 import tokenize_training
+        return tokenize_training(tokenizer, row, maximum=maximum)
+    if source_protocol != 'legacy014':
+        raise ValueError('Unknown source-edit protocol')
     messages=[{'role':'system','content':'Repair Python source using captured original-source handles. Return one JSON edit action.'},
               {'role':'user','content':encoded(row['input']).decode()}]
     prefix=tokenizer.apply_chat_template(messages,tokenize=True,add_generation_prompt=True)
@@ -197,8 +202,30 @@ def admitted_inputs(args):
     return corpus,admission
 
 
+def planned_steps(args, training_rows):
+    """Keep historical budgets; longer runs require an explicit sanity-only choice."""
+    sanity_steps = getattr(args, 'sanity_steps', 20)
+    if sanity_steps not in {20, 80}:
+        raise ValueError('Sanity steps must be 20 or 80')
+    if sanity_steps != 20 and (args.action != 'fit' or getattr(args, 'study', '') != 'resource2'
+                              or getattr(args, 'source_protocol', '') != 'shared021'):
+        raise ValueError('Extended sanity is limited to shared021 resource2 fitting')
+    if args.action == 'fit':
+        return sanity_steps
+    return 40 if getattr(args, 'study', 'independent200') == 'public100' else min(500, training_rows // 8)
+
+
 def run(args):
     # Admission and all byte checks precede CUDA allocation or model loading.
+    if getattr(args, 'sanity_steps', 20) != 20:
+        planned_steps(args, 0)
+    protocol = getattr(args, 'source_protocol', 'legacy014')
+    if protocol not in {'legacy014', 'shared021'}:
+        raise ValueError('Unknown source-edit protocol')
+    if protocol == 'shared021' and getattr(args, 'study', 'independent200') != 'resource2':
+        raise ValueError('Shared021 is limited to the independently verified resource2 sanity pilot')
+    if protocol == 'shared021':
+        from scripts.source_edit_protocol021 import VERSION as protocol_version
     corpus,admission=admitted_inputs(args)
     model_manifest=read_bound(args.model_manifest,args.model_manifest_sha256)
     if (model_manifest.get('model'),model_manifest.get('revision'))!=MODELS[args.profile]:raise ValueError('Pinned model identity differs')
@@ -216,7 +243,9 @@ def run(args):
         if owned>args.scratch_bytes or shutil.disk_usage(args.scratch_root).free<4*1024**3:raise ValueError('Cloud scratch limit or free-space reserve failed')
     scratch_guard()
     args.output.mkdir(parents=True,mode=0o700);args._owned_output_created=True
-    (args.output/'intent.json').write_bytes(encoded({'version':'coding-training-intent014-v1','action':args.action,'profile':args.profile,'corpus_sha256':args.corpus_sha256,'model_manifest_sha256':args.model_manifest_sha256,'admission':admission}))
+    intent={'version':'coding-training-intent014-v1','action':args.action,'profile':args.profile,'corpus_sha256':args.corpus_sha256,'model_manifest_sha256':args.model_manifest_sha256,'admission':admission}
+    if protocol == 'shared021':intent['source_protocol']=protocol_version
+    (args.output/'intent.json').write_bytes(encoded(intent))
     os.environ.update(HF_HUB_OFFLINE='1',HF_HUB_DISABLE_IMPLICIT_TOKEN='1',WANDB_DISABLED='true',CUBLAS_WORKSPACE_CONFIG=':4096:8',
                       PYTORCH_CUDA_ALLOC_CONF='expandable_segments:True',
                       HF_HOME=str(args.scratch_root/'hf-cache'),TORCH_HOME=str(args.scratch_root/'torch-cache'),
@@ -229,13 +258,15 @@ def run(args):
     if runtime!=model_manifest['training_environment']:raise ValueError('Frozen training environment differs')
     # Every admitted row must tokenize intact later; derive the preflight budget
     # from admitted rows before any tokenizer or model allocation occurs.
-    steps=20 if args.action=='fit' else (40 if getattr(args,'study','independent200')=='public100' else min(500,len(corpus['train'])//8))
+    steps=planned_steps(args, len(corpus['train']))
     tokenized=None
     if getattr(args,'study','independent200') in {'resource2','public100'}:
         tokenizer=AutoTokenizer.from_pretrained(str(args.model_directory),local_files_only=True,trust_remote_code=False)
         if tokenizer.pad_token_id is None:tokenizer.pad_token=tokenizer.eos_token
-        tokenized=[tokenize_example(tokenizer,row) for row in corpus['train']]
+        tokenized=[tokenize_example(tokenizer,row,source_protocol=protocol) for row in corpus['train']]
     binding={'admission_index_sha256':args.admission_index_sha256,'corpus_sha256':args.corpus_sha256,'model_manifest_sha256':args.model_manifest_sha256,'profile':args.profile,'runtime':runtime,'runner_sha256':sha_file(Path(__file__)),'learning_rate':args.learning_rate,'planned_steps':steps,'seed':42,'max_sequence':2048,'gradient_accumulation':8,'gpu':torch.cuda.get_device_name(0),'cuda_runtime':torch.version.cuda,'compute_capability':list(torch.cuda.get_device_capability(0))}
+    if protocol == 'shared021':
+        binding.update(source_protocol=protocol_version, source_protocol_sha256=sha_file(Path(__file__).with_name('source_edit_protocol021.py')))
     if getattr(args,'study','independent200')!='independent200':
         binding['study']=args.study
         binding['resource_proof_source_sha256']=sha_file(Path(__file__).with_name('coding_resource014.py'))
@@ -255,7 +286,7 @@ def run(args):
     if tokenized is None:
         tokenizer=AutoTokenizer.from_pretrained(str(args.model_directory),local_files_only=True,trust_remote_code=False)
         if tokenizer.pad_token_id is None:tokenizer.pad_token=tokenizer.eos_token
-        tokenized=[tokenize_example(tokenizer,row) for row in corpus['train']]
+        tokenized=[tokenize_example(tokenizer,row,source_protocol=protocol) for row in corpus['train']]
     # Load the already reviewed quantized artifact, without quantizing another base.
     model=AutoModelForCausalLM.from_pretrained(str(args.model_directory),local_files_only=True,trust_remote_code=False,use_safetensors=True,device_map={'':0},torch_dtype=torch.float16,attn_implementation='sdpa')
     validate_quantized_model(model)
@@ -326,16 +357,26 @@ def run(args):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['doctor','fit','train']);p.add_argument('--profile',choices=MODELS,default='14B')
     p.add_argument('--study',choices=['independent200','public100','resource2'],default='independent200')
+    p.add_argument('--source-protocol',choices=['legacy014','shared021'],default='legacy014')
+    p.add_argument('--sanity-steps',type=int,choices=[20,80],default=20)
     for name in ['corpus','model-manifest','model-directory','output','scratch-root','resume-checkpoint','pilot-evidence','admission-directory','supervision-dataset']:p.add_argument('--'+name,type=Path)
     for name in ['corpus-sha256','model-manifest-sha256','resume-receipt-sha256','pilot-evidence-sha256','admission-index-sha256']:p.add_argument('--'+name)
     p.add_argument('--scratch-bytes',type=int);p.add_argument('--learning-rate',type=float,choices=[0.0001,0.00005],default=0.0001);p.add_argument('--stop-after',type=int)
     a=p.parse_args()
+    if a.sanity_steps != 20:
+        try: planned_steps(a, 2)
+        except ValueError as error: p.error(str(error))
+    if a.source_protocol == 'shared021' and a.study != 'resource2':p.error('Shared021 is limited to the independently verified resource2 sanity pilot')
     if a.action=='doctor':
         ready=False;admission=None
         if a.corpus and a.corpus_sha256 and a.admission_directory and a.admission_index_sha256:
             corpus,admission=admitted_inputs(a)
             ready=True
-        print(json.dumps({'version':'coding-training-doctor014-v2','profile':a.profile,'model':MODELS[a.profile],'training_started':False,'ready':ready,'admission':admission,'scope':'Read-only corpus evidence admission; GPU fit and resume acceptance remain separate.'}));return
+        report={'version':'coding-training-doctor014-v2','profile':a.profile,'model':MODELS[a.profile],'training_started':False,'ready':ready,'admission':admission,'scope':'Read-only corpus evidence admission; GPU fit and resume acceptance remain separate.'}
+        if a.source_protocol == 'shared021':
+            from scripts.source_edit_protocol021 import VERSION as protocol_version
+            report.update(source_protocol=protocol_version,source_protocol_sha256=sha_file(Path(__file__).with_name('source_edit_protocol021.py')))
+        print(json.dumps(report));return
     if not all(getattr(a,n) for n in ['corpus','corpus_sha256','admission_directory','admission_index_sha256','model_manifest','model_manifest_sha256','model_directory','output','scratch_root','scratch_bytes']):p.error('Fitting requires reviewed corpus/model hashes and explicit counted scratch admission')
     if not 0<a.scratch_bytes<=20*1024**3:p.error('Temporary cloud scratch ceiling is 20GiB')
     if a.stop_after is not None and not 1<=a.stop_after<=20:p.error('Interruption pilot must stop after one to twenty steps')

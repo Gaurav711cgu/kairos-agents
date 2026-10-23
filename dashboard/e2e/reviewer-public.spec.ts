@@ -1,10 +1,10 @@
-import currentCohort from "../lib/study007-cohort.json";
+import currentCohort from "../lib/study007-cohort.json" with { type: "json" };
 import { test, expect, type Page } from '@playwright/test';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import cohort from '../lib/study004-cohort.json';
-import followup from '../lib/followup006-cohort.json';
-import followupResults from '../lib/followup006-results.json';
+import cohort from '../lib/study004-cohort.json' with { type: "json" };
+import followup from '../lib/followup006-cohort.json' with { type: "json" };
+import followupResults from '../lib/followup006-results.json' with { type: "json" };
 const repair = '8b03a42f-149e-4d44-937f-0d61636f6042';
 const runtime = process.env.KAIROS_REVIEWER_RUNTIME || path.resolve('..', '.runtime/reviewer005');
 async function capture(page: Page, name: string) {

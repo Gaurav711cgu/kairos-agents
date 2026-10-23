@@ -56,7 +56,17 @@ class InvestigationWorker:
     def _state(self,job,workspace):
         record=self.repository.read(str(job['id']),job['tenant_id'])
         if not record['integrity']['verified']: raise ValueError('Captured step integrity mismatch')
-        if job['configuration'].endswith(('-v5','-v6','-v7','-v8')) and not any(
+        localization=[step for step in record['steps'] if step['kind']=='tool' and step['name']=='initial_source']
+        captured=[step for step in localization if step['state']=='captured']
+        counts={step['request']['body'].get('count') for step in localization}-{None}
+        if len(counts)>1: raise ValueError('Partial localization declares conflicting region counts')
+        declared=next(iter(counts),None)
+        # Records begun before counts existed keep the legacy request shape, so a pending legacy step still resumes.
+        legacy=bool(localization) and not counts
+        # A crash between captures leaves fewer regions than declared. After any read_file the model has
+        # already been dispatched, so the captured context is history and is never reselected.
+        partial=declared is not None and len(captured)<declared and not any(step['name']=='read_file' for step in record['steps'])
+        if partial or job['configuration'].endswith(('-v5','-v6','-v7','-v8')) and not any(
                 step['kind']=='tool' and step['name'] in {'initial_source','read_file'} and
                 step['state']=='captured' and step['result']['body'].get('reference')
                 for step in record['steps']):
@@ -68,8 +78,11 @@ class InvestigationWorker:
             # captured source rather than selecting new, unrecorded case hints.
             sources = (workspace.initial_sources012() if job['configuration'].endswith('-v8')
                        and hasattr(workspace, 'initial_sources012') else initial_sources(workspace))
-            for result in sources:
-                self._record(job,'tool','initial_source',{'origin':'public-issue-symbol-ast-v1'},result)
+            if [step['result']['body'] for step in captured]!=sources[:len(captured)] or declared not in (None,len(sources)):
+                raise ValueError('Partial localization differs from deterministic reselection')
+            for index,result in enumerate(sources[len(captured):],len(captured)):
+                self._record(job,'tool','initial_source',{'origin':'public-issue-symbol-ast-v1'} if legacy else
+                             {'origin':'public-issue-symbol-ast-v1','index':index,'count':len(sources)},result)
             record=self.repository.read(str(job['id']),job['tenant_id'])
         observations=[];patch='';verification=None;invalid=False
         for step in record['steps']:

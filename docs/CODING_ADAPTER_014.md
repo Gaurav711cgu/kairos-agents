@@ -1,3 +1,11 @@
+> Current result: training completed (100 supervision examples, 40 optimizer updates). The separate completed same-base repair comparison found 0/9 repairs in each arm, with three cases unavailable. No improvement is claimed. [Final evaluation](research/ADAPTER_EVALUATION_020.md). Earlier unstarted/pending notes below are preserved historical planning checkpoints.
+
+# Current status correction — 20 October 2026
+
+Real 14B adapter training has completed: 100 public supervision rows and 40 optimizer updates, with 58 result-manifest files verified. Independent repair-effectiveness evaluation remains open; only two qualification captures were admitted. See [the closeout report](CLOSEOUT_020.md) for distinctions between training, development generation, retrieval diagnostics and repair success. The historical plan below is retained, including its original constraints.
+
+---
+
 # Coding-model adapter: bounded improvement plan
 
 Status: next backend/training priority after real-service verification. Coding-model fitting and training-data upload have not started. One explicitly approved read-only Colab inventory used an available T4, then deleted the owned runtime and signed out. The completed 24,576-parameter retrieval-head experiment remains separate. The old three-family repair-data audit predates the current fresh study; refresh the inventory after that study finishes, but reserve every current evaluation case from future training.

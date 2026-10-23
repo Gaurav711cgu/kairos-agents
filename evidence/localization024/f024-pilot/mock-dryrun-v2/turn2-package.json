@@ -1,0 +1,122 @@
+{
+ "base_model": "unsloth/Qwen2.5-Coder-14B-Instruct-bnb-4bit",
+ "base_revision": "ecfc63c083900ce4f19daad695e711f38ab98fcf",
+ "bindings": {
+  "adapter_binding": "945e6b22b906690582785c06bdad751a58ea88c1dbe7baba660bdc2e0320afd9",
+  "model_manifest": "62ea7dacec966b6fe172ba32d1429347a66a66c1a3970d4bcbebcf4a841599e6"
+ },
+ "jobs": [
+  {
+   "arm": "base",
+   "context": "oracle",
+   "instance_id": "django__django-11772",
+   "job_id": "django__django-11772/oracle/base/t2",
+   "max_new_tokens": 512,
+   "messages": [
+    {
+     "content": "Repair Python source using only captured source handles. Return one JSON object with action=\"propose_patch\" and edits containing source_id, start_line, end_line, and new. Replace inclusive numbered original lines. Preserve indentation. Do not edit tests. Do not include unchanged edits.",
+     "role": "system"
+    },
+    {
+     "content": "{\"issue\":\"Template Cache \\\"make_template_fragment_key\\\" function speed up + simplify (also discussing switch to alternate hashes)\\nDescription\\n\\t \\n\\t\\t(last modified by Daniel)\\n\\t \\nThe make_template_fragment_key function in django.core.cache.utils has the following (minor) issues:\\nUsing urllib.quote for vary_on args, is not needed any more - it was originally added to make the unhashed strings safe to send to memcached and similar restricted systems. But since the value is hashed, this is now adding nothing. (See \u200bhttps://github.com/django/django/commit/ebc1325721e43808cef4334edaffc23a43f86614#diff-702b69be0100a594fd6fea1e4ab2feb1).\\nUse of the MD5 hashing function is disallowed on certain (odd) systems, not being FIPS compliant. See (\u200bhttps://github.com/django/django/pull/10605).\\nCreates a string of all joined vary_on args to send to the hashing function, rather than using the hashlib .update() method.\\nHere is a version solving these, switching to SHA256, and speeding up the function quite a bit:\\n\u200bhttps://github.com/danthedeckie/django/tree/simplified_make_template_fragment_key\\nAnd PR: \u200bhttps://github.com/django/django/pull/11772\\nAnd here's the repo showing performance improvement:\\n\u200bhttps://github.com/danthedeckie/make_template_fragment_key_test\\nWhich seems to be faster in every case.\\nThe downside of this is that the cache key is now different from before. The tests have been updated to the new values.\\nThere are other cache key generating functions used in other places which use MD5 still - if switching to SHA256 it would make sense to me to change those at the same time, meaning only one time invalidating keys on upgrade.\\nThoughts?\\n\",\"original_source\":[{\"end_line\":12,\"numbered_original_source\":\"1: import hashlib\\n2: from urllib.parse import quote\\n3: \\n4: TEMPLATE_FRAGMENT_KEY_TEMPLATE = 'template.cache.%s.%s'\\n5: \\n6: \\n7: def make_template_fragment_key(fragment_name, vary_on=None):\\n8:     if vary_on is None:\\n9:         vary_on = ()\\n10:     key = ':'.join(quote(str(var)) for var in vary_on)\\n11:     args = hashlib.md5(key.encode())\\n12:     return TEMPLATE_FRAGMENT_KEY_TEMPLATE % (fragment_name, args.hexdigest())\\n\",\"path\":\"django/core/cache/utils.py\",\"source_id\":\"S2b631a577bc6\",\"start_line\":1}],\"protocol\":\"source-edit-protocol021-v1\",\"rejected_attempt\":{\"feedback\":{\"edits\":[],\"omissions\":[],\"rejection_reason\":\"Unknown source handle\",\"request_unavailable\":true,\"scope\":\"Exact rejected model replacement and captured original coordinates; no correction performed\",\"tool_sequence\":1,\"version\":\"captured-rejection-feedback-experimental010-v1\"},\"instruction\":\"Your previous action was rejected by the source validator. Return one corrected JSON propose_patch action using only the captured source handles.\",\"protocol\":\"validator-feedback-turn021-v1\"}}",
+     "role": "user"
+    }
+   ],
+   "parent_capture_sha256": "2a7491a02329662f81b9b1c8879dbe351e22841f0dd1484f8b0ea8f52a206a79",
+   "parent_job_id": "django__django-11772/oracle/base/t1",
+   "prompt_token_ids_sha256": "af11b858b160041ef8ab36b575739060b9c003776f29c2ee1a1571bc1e85771b",
+   "prompt_tokens": 792,
+   "turn": 2
+  },
+  {
+   "arm": "adapter",
+   "context": "oracle",
+   "instance_id": "django__django-11772",
+   "job_id": "django__django-11772/oracle/adapter/t2",
+   "max_new_tokens": 512,
+   "messages": [
+    {
+     "content": "Repair Python source using only captured source handles. Return one JSON object with action=\"propose_patch\" and edits containing source_id, start_line, end_line, and new. Replace inclusive numbered original lines. Preserve indentation. Do not edit tests. Do not include unchanged edits.",
+     "role": "system"
+    },
+    {
+     "content": "{\"issue\":\"Template Cache \\\"make_template_fragment_key\\\" function speed up + simplify (also discussing switch to alternate hashes)\\nDescription\\n\\t \\n\\t\\t(last modified by Daniel)\\n\\t \\nThe make_template_fragment_key function in django.core.cache.utils has the following (minor) issues:\\nUsing urllib.quote for vary_on args, is not needed any more - it was originally added to make the unhashed strings safe to send to memcached and similar restricted systems. But since the value is hashed, this is now adding nothing. (See \u200bhttps://github.com/django/django/commit/ebc1325721e43808cef4334edaffc23a43f86614#diff-702b69be0100a594fd6fea1e4ab2feb1).\\nUse of the MD5 hashing function is disallowed on certain (odd) systems, not being FIPS compliant. See (\u200bhttps://github.com/django/django/pull/10605).\\nCreates a string of all joined vary_on args to send to the hashing function, rather than using the hashlib .update() method.\\nHere is a version solving these, switching to SHA256, and speeding up the function quite a bit:\\n\u200bhttps://github.com/danthedeckie/django/tree/simplified_make_template_fragment_key\\nAnd PR: \u200bhttps://github.com/django/django/pull/11772\\nAnd here's the repo showing performance improvement:\\n\u200bhttps://github.com/danthedeckie/make_template_fragment_key_test\\nWhich seems to be faster in every case.\\nThe downside of this is that the cache key is now different from before. The tests have been updated to the new values.\\nThere are other cache key generating functions used in other places which use MD5 still - if switching to SHA256 it would make sense to me to change those at the same time, meaning only one time invalidating keys on upgrade.\\nThoughts?\\n\",\"original_source\":[{\"end_line\":12,\"numbered_original_source\":\"1: import hashlib\\n2: from urllib.parse import quote\\n3: \\n4: TEMPLATE_FRAGMENT_KEY_TEMPLATE = 'template.cache.%s.%s'\\n5: \\n6: \\n7: def make_template_fragment_key(fragment_name, vary_on=None):\\n8:     if vary_on is None:\\n9:         vary_on = ()\\n10:     key = ':'.join(quote(str(var)) for var in vary_on)\\n11:     args = hashlib.md5(key.encode())\\n12:     return TEMPLATE_FRAGMENT_KEY_TEMPLATE % (fragment_name, args.hexdigest())\\n\",\"path\":\"django/core/cache/utils.py\",\"source_id\":\"S2b631a577bc6\",\"start_line\":1}],\"protocol\":\"source-edit-protocol021-v1\",\"rejected_attempt\":{\"feedback\":{\"edits\":[],\"omissions\":[],\"rejection_reason\":\"Expecting value: line 1 column 1 (char 0)\",\"request_unavailable\":true,\"scope\":\"Exact rejected model replacement and captured original coordinates; no correction performed\",\"tool_sequence\":1,\"version\":\"captured-rejection-feedback-experimental010-v1\"},\"instruction\":\"Your previous action was rejected by the source validator. Return one corrected JSON propose_patch action using only the captured source handles.\",\"protocol\":\"validator-feedback-turn021-v1\"}}",
+     "role": "user"
+    }
+   ],
+   "parent_capture_sha256": "09e916e8b76632ab0d7a937a74ac5f3bbdad93b398facc3ed81c79a5c6f9468a",
+   "parent_job_id": "django__django-11772/oracle/adapter/t1",
+   "prompt_token_ids_sha256": "4c191044a9229e29b316b79f28b621995920fb37ba535f77101564e9c88951f8",
+   "prompt_tokens": 803,
+   "turn": 2
+  },
+  {
+   "arm": "base",
+   "context": "issue",
+   "instance_id": "pytest-dev__pytest-8124",
+   "job_id": "pytest-dev__pytest-8124/issue/base/t2",
+   "max_new_tokens": 512,
+   "messages": [
+    {
+     "content": "Repair Python source using only captured source handles. Return one JSON object with action=\"propose_patch\" and edits containing source_id, start_line, end_line, and new. Replace inclusive numbered original lines. Preserve indentation. Do not edit tests. Do not include unchanged edits.",
+     "role": "system"
+    },
+    {
+     "content": "{\"issue\":\"Allow contibuting additional global variables for skipif/xfail\\n- [ ] Include documentation when adding new features.\\r\\n- [x] Include new tests or update existing tests when applicable.\\r\\n- [X] Allow maintainers to push and squash when merging my commits. Please uncheck this if you prefer to squash the commits yourself.\\r\\n- [x] Create a new changelog file in the `changelog` folder, with a name like `<ISSUE NUMBER>.<TYPE>.rst`. See [changelog/README.rst](https://github.com/pytest-dev/pytest/blob/master/changelog/README.rst) for details.\\r\\n\\n\",\"original_source\":[{\"end_line\":82,\"numbered_original_source\":\"72:     @property\\n73:     def firstlineno(self) -> int:\\n74:         return self.raw.co_firstlineno - 1\\n75: \\n76:     @property\\n77:     def name(self) -> str:\\n78:         return self.raw.co_name\\n79: \\n80:     @property\\n81:     def path(self) -> Union[py.path.local, str]:\\n82:         \\\"\\\"\\\"Return a path object pointing to source code, or an ``str`` in\\n\",\"path\":\"src/_pytest/_code/code.py\",\"source_id\":\"S2206deae2abf\",\"start_line\":72},{\"end_line\":316,\"numbered_original_source\":\"305:             name,\\n306:             line,\\n307:         )\\n308: \\n309:     @property\\n310:     def name(self) -> str:\\n311:         \\\"\\\"\\\"co_name of underlying code.\\\"\\\"\\\"\\n312:         return self.frame.code.raw.co_name\\n313: \\n314: \\n315: class Traceback(List[TracebackEntry]):\\n316:     \\\"\\\"\\\"Traceback objects encapsulate and offer higher level access to Traceback entries.\\\"\\\"\\\"\\n\",\"path\":\"src/_pytest/_code/code.py\",\"source_id\":\"Saccc112c2324\",\"start_line\":305},{\"end_line\":189,\"numbered_original_source\":\"177: \\n178: class EncodedFile(io.TextIOWrapper):\\n179:     __slots__ = ()\\n180: \\n181:     @property\\n182:     def name(self) -> str:\\n183:         # Ensure that file.name is a string. Workaround for a Python bug\\n184:         # fixed in >=3.7.4: https://bugs.python.org/issue36015\\n185:         return repr(self.buffer)\\n186: \\n187:     @property\\n188:     def mode(self) -> str:\\n189:         # TextIOWrapper doesn't expose a mode, but at least some of our\\n\",\"path\":\"src/_pytest/capture.py\",\"source_id\":\"Sba5ff5e45eea\",\"start_line\":177},{\"end_line\":300,\"numbered_original_source\":\"289:     \\\"\\\"\\\"\\n290: \\n291:     mark = attr.ib(type=Mark, validator=attr.validators.instance_of(Mark))\\n292: \\n293:     @property\\n294:     def name(self) -> str:\\n295:         \\\"\\\"\\\"Alias for mark.name.\\\"\\\"\\\"\\n296:         return self.mark.name\\n297: \\n298:     @property\\n299:     def args(self) -> Tuple[Any, ...]:\\n300:         \\\"\\\"\\\"Alias for mark.args.\\\"\\\"\\\"\\n\",\"path\":\"src/_pytest/mark/structures.py\",\"source_id\":\"S3b9545a12dc8\",\"start_line\":289}],\"protocol\":\"source-edit-protocol021-v1\",\"rejected_attempt\":{\"feedback\":{\"context_sequence\":0,\"edits\":[{\"captured_bounds\":[72,82],\"coordinate_valid\":true,\"end_line\":73,\"index\":0,\"original_indentation\":[{\"line\":73,\"whitespace\":\"    \"}],\"path\":\"src/_pytest/_code/code.py\",\"replacement\":\"def firstlineno(self) -> int:\\n\",\"replacement_diagnostics\":{\"description\":\"Whitespace is shown exactly; indentation differences are not proof of an error\",\"indentation\":[{\"line\":1,\"whitespace\":\"\"}],\"line_count\":1,\"numbered_line_prefixes\":[]},\"source_id\":\"S2206deae2abf\",\"start_line\":73}],\"model_sequence\":1,\"omissions\":[],\"rejection_reason\":\"ValueError: Candidate Python syntax rejected at line 73: unexpected unindent\",\"request_sha256\":\"79148060660d8d67866e82d970f7bce8c4caa4721ff974e3623fefa4a8685b1c\",\"scope\":\"Exact rejected model replacement and captured original coordinates; no correction performed\",\"tool_sequence\":1,\"version\":\"captured-rejection-feedback-experimental010-v1\"},\"instruction\":\"Your previous action was rejected by the source validator. Return one corrected JSON propose_patch action using only the captured source handles.\",\"protocol\":\"validator-feedback-turn021-v1\"}}",
+     "role": "user"
+    }
+   ],
+   "parent_capture_sha256": "c389f054f9f7b6ff1715a60f5f5c7e5ec8c96993f629810894c6c0965a1f8367",
+   "parent_job_id": "pytest-dev__pytest-8124/issue/base/t1",
+   "prompt_token_ids_sha256": "5d586fd589165c8ab5797c7e6a92e1ab344f19f649149947d8062a11deb43dd3",
+   "prompt_tokens": 1273,
+   "turn": 2
+  },
+  {
+   "arm": "base",
+   "context": "oracle",
+   "instance_id": "pytest-dev__pytest-8124",
+   "job_id": "pytest-dev__pytest-8124/oracle/base/t2",
+   "max_new_tokens": 512,
+   "messages": [
+    {
+     "content": "Repair Python source using only captured source handles. Return one JSON object with action=\"propose_patch\" and edits containing source_id, start_line, end_line, and new. Replace inclusive numbered original lines. Preserve indentation. Do not edit tests. Do not include unchanged edits.",
+     "role": "system"
+    },
+    {
+     "content": "{\"issue\":\"Allow contibuting additional global variables for skipif/xfail\\n- [ ] Include documentation when adding new features.\\r\\n- [x] Include new tests or update existing tests when applicable.\\r\\n- [X] Allow maintainers to push and squash when merging my commits. Please uncheck this if you prefer to squash the commits yourself.\\r\\n- [x] Create a new changelog file in the `changelog` folder, with a name like `<ISSUE NUMBER>.<TYPE>.rst`. See [changelog/README.rst](https://github.com/pytest-dev/pytest/blob/master/changelog/README.rst) for details.\\r\\n\\n\",\"original_source\":[{\"end_line\":817,\"numbered_original_source\":\"804:         warning (filename, linenumber, function). ``function`` evaluates to <module>\\n805:         when the execution context is at the module level.\\n806: \\n807:     .. versionadded:: 6.0\\n808:     \\\"\\\"\\\"\\n809: \\n810: \\n811: # -------------------------------------------------------------------------\\n812: # error handling and internal debugging hooks\\n813: # -------------------------------------------------------------------------\\n814: \\n815: \\n816: def pytest_internalerror(\\n817:     excrepr: \\\"ExceptionRepr\\\", excinfo: \\\"ExceptionInfo[BaseException]\\\",\\n\",\"path\":\"src/_pytest/hookspec.py\",\"source_id\":\"S107d5ce84600\",\"start_line\":804},{\"end_line\":12,\"numbered_original_source\":\"1: \\\"\\\"\\\"Support for skip/xfail functions and markers.\\\"\\\"\\\"\\n2: import os\\n3: import platform\\n4: import sys\\n5: import traceback\\n6: from typing import Generator\\n7: from typing import Optional\\n8: from typing import Tuple\\n9: from typing import Type\\n10: \\n11: import attr\\n12: \\n\",\"path\":\"src/_pytest/skipping.py\",\"source_id\":\"S5d47cfc5ea79\",\"start_line\":1},{\"end_line\":107,\"numbered_original_source\":\"94:     if isinstance(condition, str):\\n95:         globals_ = {\\n96:             \\\"os\\\": os,\\n97:             \\\"sys\\\": sys,\\n98:             \\\"platform\\\": platform,\\n99:             \\\"config\\\": item.config,\\n100:         }\\n101:         if hasattr(item, \\\"obj\\\"):\\n102:             globals_.update(item.obj.__globals__)  # type: ignore[attr-defined]\\n103:         try:\\n104:             filename = f\\\"<{mark.name} condition>\\\"\\n105:             condition_code = compile(condition, filename, \\\"eval\\\")\\n106:             result = eval(condition_code, globals_)\\n107:         except SyntaxError as exc:\\n\",\"path\":\"src/_pytest/skipping.py\",\"source_id\":\"Sd6d550d782e8\",\"start_line\":94}],\"protocol\":\"source-edit-protocol021-v1\",\"rejected_attempt\":{\"feedback\":{\"edits\":[],\"omissions\":[],\"rejection_reason\":\"Unknown source handle\",\"request_unavailable\":true,\"scope\":\"Exact rejected model replacement and captured original coordinates; no correction performed\",\"tool_sequence\":1,\"version\":\"captured-rejection-feedback-experimental010-v1\"},\"instruction\":\"Your previous action was rejected by the source validator. Return one corrected JSON propose_patch action using only the captured source handles.\",\"protocol\":\"validator-feedback-turn021-v1\"}}",
+     "role": "user"
+    }
+   ],
+   "parent_capture_sha256": "37b177b955493b1fcc2533cfc816334a3cbe65f3e2f7d23638d54859cad5168e",
+   "parent_job_id": "pytest-dev__pytest-8124/oracle/base/t1",
+   "prompt_token_ids_sha256": "0f7d9524b3c6158aabe368ee4fa7b3b83000915fb4914373451669671d249122",
+   "prompt_tokens": 871,
+   "turn": 2
+  },
+  {
+   "arm": "adapter",
+   "context": "oracle",
+   "instance_id": "pytest-dev__pytest-8124",
+   "job_id": "pytest-dev__pytest-8124/oracle/adapter/t2",
+   "max_new_tokens": 512,
+   "messages": [
+    {
+     "content": "Repair Python source using only captured source handles. Return one JSON object with action=\"propose_patch\" and edits containing source_id, start_line, end_line, and new. Replace inclusive numbered original lines. Preserve indentation. Do not edit tests. Do not include unchanged edits.",
+     "role": "system"
+    },
+    {
+     "content": "{\"issue\":\"Allow contibuting additional global variables for skipif/xfail\\n- [ ] Include documentation when adding new features.\\r\\n- [x] Include new tests or update existing tests when applicable.\\r\\n- [X] Allow maintainers to push and squash when merging my commits. Please uncheck this if you prefer to squash the commits yourself.\\r\\n- [x] Create a new changelog file in the `changelog` folder, with a name like `<ISSUE NUMBER>.<TYPE>.rst`. See [changelog/README.rst](https://github.com/pytest-dev/pytest/blob/master/changelog/README.rst) for details.\\r\\n\\n\",\"original_source\":[{\"end_line\":817,\"numbered_original_source\":\"804:         warning (filename, linenumber, function). ``function`` evaluates to <module>\\n805:         when the execution context is at the module level.\\n806: \\n807:     .. versionadded:: 6.0\\n808:     \\\"\\\"\\\"\\n809: \\n810: \\n811: # -------------------------------------------------------------------------\\n812: # error handling and internal debugging hooks\\n813: # -------------------------------------------------------------------------\\n814: \\n815: \\n816: def pytest_internalerror(\\n817:     excrepr: \\\"ExceptionRepr\\\", excinfo: \\\"ExceptionInfo[BaseException]\\\",\\n\",\"path\":\"src/_pytest/hookspec.py\",\"source_id\":\"S107d5ce84600\",\"start_line\":804},{\"end_line\":12,\"numbered_original_source\":\"1: \\\"\\\"\\\"Support for skip/xfail functions and markers.\\\"\\\"\\\"\\n2: import os\\n3: import platform\\n4: import sys\\n5: import traceback\\n6: from typing import Generator\\n7: from typing import Optional\\n8: from typing import Tuple\\n9: from typing import Type\\n10: \\n11: import attr\\n12: \\n\",\"path\":\"src/_pytest/skipping.py\",\"source_id\":\"S5d47cfc5ea79\",\"start_line\":1},{\"end_line\":107,\"numbered_original_source\":\"94:     if isinstance(condition, str):\\n95:         globals_ = {\\n96:             \\\"os\\\": os,\\n97:             \\\"sys\\\": sys,\\n98:             \\\"platform\\\": platform,\\n99:             \\\"config\\\": item.config,\\n100:         }\\n101:         if hasattr(item, \\\"obj\\\"):\\n102:             globals_.update(item.obj.__globals__)  # type: ignore[attr-defined]\\n103:         try:\\n104:             filename = f\\\"<{mark.name} condition>\\\"\\n105:             condition_code = compile(condition, filename, \\\"eval\\\")\\n106:             result = eval(condition_code, globals_)\\n107:         except SyntaxError as exc:\\n\",\"path\":\"src/_pytest/skipping.py\",\"source_id\":\"Sd6d550d782e8\",\"start_line\":94}],\"protocol\":\"source-edit-protocol021-v1\",\"rejected_attempt\":{\"feedback\":{\"edits\":[],\"omissions\":[],\"rejection_reason\":\"Expecting value: line 1 column 1 (char 0)\",\"request_unavailable\":true,\"scope\":\"Exact rejected model replacement and captured original coordinates; no correction performed\",\"tool_sequence\":1,\"version\":\"captured-rejection-feedback-experimental010-v1\"},\"instruction\":\"Your previous action was rejected by the source validator. Return one corrected JSON propose_patch action using only the captured source handles.\",\"protocol\":\"validator-feedback-turn021-v1\"}}",
+     "role": "user"
+    }
+   ],
+   "parent_capture_sha256": "a08c1eb17e693d9aa3649c6caeeda798d23f74b49bb3ca26745e1da046211542",
+   "parent_job_id": "pytest-dev__pytest-8124/oracle/adapter/t1",
+   "prompt_token_ids_sha256": "5e0c481eec89f696fce5e44b3873ffdc3868f7240fb432dfc611307d2c66b411",
+   "prompt_tokens": 882,
+   "turn": 2
+  }
+ ],
+ "scope": "F024 pilot; development cases only; selection = first in-scope, envelope-fitting case per repository in salted split order (pipeline check, not representative); oracle context is a gold-derived diagnostic upper bound; turn two after local validation",
+ "version": "f024-pilot-v1"
+}

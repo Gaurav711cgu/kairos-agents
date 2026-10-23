@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   },
   description:
     "Inspect captured context, investigate agent failures, and test repairs against an independent grader. A full-stack engineering project with inspectable evidence.",
+  openGraph: {
+    title: "Kairos — Autonomous Code-Repair & Graph-RAG Verification Dashboard",
+    description:
+      "Inspect Kairos investigation records, 14B QLoRA training artifacts and repository-context experiments with their observed checks and scope.",
+    type: "website",
+    siteName: "Kairos",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kairos — Autonomous Code-Repair & Graph-RAG Verification Dashboard",
+    description:
+      "Inspect Kairos investigation records, 14B QLoRA training artifacts and repository-context experiments with their observed checks and scope.",
+  },
 };
 export default function RootLayout({
   children,
@@ -38,6 +51,7 @@ export default function RootLayout({
           </Link>
           <nav aria-label="Main navigation">
             <Link href="/how-it-works">Start here</Link>
+            <Link href="/benchmark">Benchmark</Link>
             <Link href="/investigations">Investigations</Link>
             <Link href="/repair-comparison">Comparison</Link>
             <Link href="/engineering">Engineering</Link>

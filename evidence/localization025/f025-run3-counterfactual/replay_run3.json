@@ -1,0 +1,141 @@
+{
+ "dev/django__django-12193/oracle-s0": [
+  {
+   "call": "c0",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -524,6 +524,7 @@\n         if self.check_test(value):\n             if attrs is None:\n                 attrs = {}\n+            attrs = attrs.copy()\n             attrs['checked'] = True\n         return super().get_context(name, value, attrs)\n \n"
+  }
+ ],
+ "dev/django__django-12193/oracle-s1": [
+  {
+   "call": "c0",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -521,11 +521,10 @@\n         return str(value)\n \n     def get_context(self, name, value, attrs):\n+        context = super().get_context(name, value, attrs)\n         if self.check_test(value):\n-            if attrs is None:\n-                attrs = {}\n-            attrs['checked'] = True\n-        return super().get_context(name, value, attrs)\n+            context['attrs']['checked'] = True\n+        return context\n \n     def value_from_datadict(self, data, files, name):\n         if name not in data:\n"
+  },
+  {
+   "call": "c1",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -521,11 +521,10 @@\n         return str(value)\n \n     def get_context(self, name, value, attrs):\n+        context = super().get_context(name, value, attrs)\n         if self.check_test(value):\n-            if attrs is None:\n-                attrs = {}\n-            attrs['checked'] = True\n-        return super().get_context(name, value, attrs)\n+            context['attrs']['checked'] = True\n+        return context\n \n     def value_from_datadict(self, data, files, name):\n         if name not in data:\n"
+  },
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -521,11 +521,10 @@\n         return str(value)\n \n     def get_context(self, name, value, attrs):\n+        context = super().get_context(name, value, attrs)\n         if self.check_test(value):\n-            if attrs is None:\n-                attrs = {}\n-            attrs['checked'] = True\n-        return super().get_context(name, value, attrs)\n+            context['attrs']['checked'] = True\n+        return context\n \n     def value_from_datadict(self, data, files, name):\n         if name not in data:\n"
+  },
+  {
+   "call": "c3",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -521,11 +521,10 @@\n         return str(value)\n \n     def get_context(self, name, value, attrs):\n+        context = super().get_context(name, value, attrs)\n         if self.check_test(value):\n-            if attrs is None:\n-                attrs = {}\n-            attrs['checked'] = True\n-        return super().get_context(name, value, attrs)\n+            context['attrs']['checked'] = True\n+        return context\n \n     def value_from_datadict(self, data, files, name):\n         if name not in data:\n"
+  }
+ ],
+ "dev/django__django-12276/oracle-s0": [
+  {
+   "call": "c3",
+   "accepted": false,
+   "reason": "ValueError: Path is outside approved source files",
+   "patch": null
+  },
+  {
+   "call": "c4",
+   "accepted": false,
+   "reason": "ValueError: Path is outside approved source files",
+   "patch": null
+  },
+  {
+   "call": "c5",
+   "accepted": false,
+   "reason": "ValueError: Path is outside approved source files",
+   "patch": null
+  }
+ ],
+ "dev/django__django-12276/oracle-s1": [
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -452,7 +452,9 @@\n         return upload\n \n     def use_required_attribute(self, initial):\n-        return super().use_required_attribute(initial) and not initial\n+        if initial:\n+            return False\n+        return super().use_required_attribute(initial)\n \n     def value_omitted_from_data(self, data, files, name):\n         return (\n"
+  }
+ ],
+ "dev/django__django-12304/oracle-s0": [
+  {
+   "call": "c5",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -31,6 +31,7 @@\n         # that is passed in as \"self\" as the value to use when looking up the\n         # label in the choices.\n         cls.label = property(lambda self: cls._value2label_map_.get(self.value))\n+        cls.do_not_call_in_templates = True\n         return enum.unique(cls)\n \n     def __contains__(cls, member):\n"
+  }
+ ],
+ "dev/django__django-12304/oracle-s1": [
+  {
+   "call": "c1",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -31,6 +31,7 @@\n         # that is passed in as \"self\" as the value to use when looking up the\n         # label in the choices.\n         cls.label = property(lambda self: cls._value2label_map_.get(self.value))\n+        cls.do_not_call_in_templates = True\n         return enum.unique(cls)\n \n     def __contains__(cls, member):\n"
+  },
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -39,6 +39,13 @@\n             return any(x.value == member for x in cls)\n         return super().__contains__(member)\n \n+    # Add do_not_call_in_templates attribute to the EnumMeta class\n+    class EnumMeta(enum.EnumMeta):\n+        def __new__(metacls, classname, bases, classdict, **kwargs):\n+            cls = super().__new__(metacls, classname, bases, classdict, **kwargs)\n+            cls.do_not_call_in_templates = True\n+            return cls\n+\n     @property\n     def names(cls):\n         empty = ['__empty__'] if hasattr(cls, '__empty__') else []\n"
+  },
+  {
+   "call": "c3",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -31,6 +31,7 @@\n         # that is passed in as \"self\" as the value to use when looking up the\n         # label in the choices.\n         cls.label = property(lambda self: cls._value2label_map_.get(self.value))\n+        cls.do_not_call_in_templates = True\n         return enum.unique(cls)\n \n     def __contains__(cls, member):\n"
+  },
+  {
+   "call": "c4",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -31,6 +31,7 @@\n         # that is passed in as \"self\" as the value to use when looking up the\n         # label in the choices.\n         cls.label = property(lambda self: cls._value2label_map_.get(self.value))\n+        cls.do_not_call_in_templates = True\n         return enum.unique(cls)\n \n     def __contains__(cls, member):\n"
+  }
+ ],
+ "dev/django__django-12325/oracle-s0": [
+  {
+   "call": "c0",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/base.py\n+++ b/django/db/models/base.py\n@@ -204,7 +204,10 @@\n             for field in base._meta.local_fields:\n                 if isinstance(field, OneToOneField):\n                     related = resolve_relation(new_class, field.remote_field.model)\n-                    parent_links[make_model_tuple(related)] = field\n+                    if field.remote_field.parent_link:\n+                        parent_links[make_model_tuple(related)] = field\n+                    else:\n+                        non_parent_links[make_model_tuple(related)] = field\n \n         # Track fields inherited from base models.\n         inherited_attributes = set()\n"
+  }
+ ],
+ "dev/django__django-12325/oracle-s1": [
+  {
+   "call": "c4",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/base.py\n+++ b/django/db/models/base.py\n@@ -201,10 +201,26 @@\n             if base != new_class and not base._meta.abstract:\n                 continue\n             # Locate OneToOneField instances.\n+            # Ensure parent_link fields are processed first\n+            parent_link_fields = []\n+            non_parent_link_fields = []\n+\n             for field in base._meta.local_fields:\n                 if isinstance(field, OneToOneField):\n-                    related = resolve_relation(new_class, field.remote_field.model)\n-                    parent_links[make_model_tuple(related)] = field\n+                    if field.remote_field.parent_link:\n+                        parent_link_fields.append(field)\n+                    else:\n+                        non_parent_link_fields.append(field)\n+\n+            # Process parent_link fields first\n+            for field in parent_link_fields:\n+                related = resolve_relation(new_class, field.remote_field.model)\n+                parent_links[make_model_tuple(related)] = field\n+\n+            # Process non-parent_link fields next\n+            for field in non_parent_link_fields:\n+                related = resolve_relation(new_class, field.remote_field.model)\n+                parent_links[make_model_tuple(related)] = field\n \n         # Track fields inherited from base models.\n         inherited_attributes = set()\n"
+  },
+  {
+   "call": "c5",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/options.py\n+++ b/django/db/models/options.py\n@@ -251,7 +251,11 @@\n                     field = already_created[0]\n                 field.primary_key = True\n                 self.setup_pk(field)\n-                if not field.remote_field.parent_link:\n+                # Check if the field is a parent_link field\n+                if field.remote_field.parent_link:\n+                    # If it is a parent_link field, do not raise an exception\n+                    pass\n+                else:\n                     raise ImproperlyConfigured(\n                         'Add parent_link=True to %s.' % field,\n                     )\n"
+  }
+ ],
+ "dev/django__django-12774/oracle-s0": [],
+ "dev/django__django-12774/oracle-s1": [
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,7 +689,18 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n+        from django.db.models import UniqueConstraint\n+\n+        def is_unique_field(model, field_name):\n+            field = model._meta.get_field(field_name)\n+            if field.unique:\n+                return True\n+            for constraint in model._meta.constraints:\n+                if isinstance(constraint, UniqueConstraint) and field_name in constraint.fields:\n+                    return True\n+            return False\n+\n+        if field_name != 'pk' and not is_unique_field(self.model, field_name):\n             raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n"
+  },
+  {
+   "call": "c3",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,7 +689,18 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n+        from django.db.models import UniqueConstraint\n+\n+        def is_unique_field(model, field_name):\n+            field = model._meta.get_field(field_name)\n+            if field.unique:\n+                return True\n+            for constraint in model._meta.constraints:\n+                if isinstance(constraint, UniqueConstraint) and field_name in constraint.fields:\n+                    return True\n+            return False\n+\n+        if field_name != 'pk' and not is_unique_field(self.model, field_name):\n             raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n"
+  },
+  {
+   "call": "c4",
+   "accepted": true,
+   "reason": "",
+   "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,7 +689,18 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n+        from django.db.models import UniqueConstraint\n+\n+        def is_unique_field(model, field_name):\n+            field = model._meta.get_field(field_name)\n+            if field.unique:\n+                return True\n+            for constraint in model._meta.constraints:\n+                if isinstance(constraint, UniqueConstraint) and field_name in constraint.fields:\n+                    return True\n+            return False\n+\n+        if field_name != 'pk' and not is_unique_field(self.model, field_name):\n             raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n"
+  }
+ ]
+}

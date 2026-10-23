@@ -1,0 +1,40 @@
+{
+  "binding": "0980c35017a2afddf793bdde9caf696d16aead3ac7cacea17eb5267372167dd2",
+  "result": {
+    "environment_error": false,
+    "output_limit_bytes": 24000,
+    "output_limit_exceeded": false,
+    "output_truncated": false,
+    "passed": false,
+    "raw_output": {
+      "complete": true,
+      "encoding": "base64",
+      "maximum_bytes": 1048576,
+      "observed_bytes": 898,
+      "scope": "Exact captured stream bytes; a quota failure retains bounded prefixes",
+      "stderr": {
+        "bytes": 898,
+        "data": "VHJhY2ViYWNrIChtb3N0IHJlY2VudCBjYWxsIGxhc3QpOgogIEZpbGUgIi92ZXJpZmljYXRpb24vdmVyaWZ5LnB5IiwgbGluZSAxNiwgaW4gPG1vZHVsZT4KICAgIGNvZGU9cHl0ZXN0Lm1haW4oWyctcScsICctcCcsICdubzpjYWNoZXByb3ZpZGVyJywgJ3Rlc3RpbmcvdGVzdF9za2lwcGluZy5weSddLHBsdWdpbnM9W3BdKQogIEZpbGUgIi93b3Jrc3BhY2Uvc3JjL19weXRlc3QvY29uZmlnL19faW5pdF9fLnB5IiwgbGluZSAxNDMsIGluIG1haW4KICAgIGNvbmZpZyA9IF9wcmVwYXJlY29uZmlnKGFyZ3MsIHBsdWdpbnMpCiAgRmlsZSAiL3dvcmtzcGFjZS9zcmMvX3B5dGVzdC9jb25maWcvX19pbml0X18ucHkiLCBsaW5lIDMwOSwgaW4gX3ByZXBhcmVjb25maWcKICAgIGNvbmZpZyA9IGdldF9jb25maWcoYXJncywgcGx1Z2lucykKICBGaWxlICIvd29ya3NwYWNlL3NyYy9fcHl0ZXN0L2NvbmZpZy9fX2luaXRfXy5weSIsIGxpbmUgMjgxLCBpbiBnZXRfY29uZmlnCiAgICBwbHVnaW5tYW5hZ2VyLmltcG9ydF9wbHVnaW4oc3BlYykKICBGaWxlICIvd29ya3NwYWNlL3NyYy9fcHl0ZXN0L2NvbmZpZy9fX2luaXRfXy5weSIsIGxpbmUgNzAzLCBpbiBpbXBvcnRfcGx1Z2luCiAgICBfX2ltcG9ydF9fKGltcG9ydHNwZWMpCiAgRmlsZSAiL3dvcmtzcGFjZS9zcmMvX3B5dGVzdC91bml0dGVzdC5weSIsIGxpbmUgMzIsIGluIDxtb2R1bGU+CiAgICBmcm9tIF9weXRlc3Quc2tpcHBpbmcgaW1wb3J0IHNraXBwZWRfYnlfbWFya19rZXkKICBGaWxlICIvd29ya3NwYWNlL3NyYy9fcHl0ZXN0L3NraXBwaW5nLnB5IiwgbGluZSAxNTMsIGluIDxtb2R1bGU+CiAgICBAYXR0ci5zKHNsb3RzPVRydWUsIGZyb3plbj1UcnVlKQpOYW1lRXJyb3I6IG5hbWUgJ2F0dHInIGlzIG5vdCBkZWZpbmVkCg==",
+        "observed_bytes": 898,
+        "sha256": "584e7c7404451e99e052408c7d3470ee2e5d54150326aed6810fbd24a582bd41",
+        "truncated": false
+      },
+      "stdout": {
+        "bytes": 0,
+        "data": "",
+        "observed_bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "truncated": false
+      }
+    },
+    "returncode": 1,
+    "seconds": 0.817,
+    "stderr": "Traceback (most recent call last):\n  File \"/verification/verify.py\", line 16, in <module>\n    code=pytest.main(['-q', '-p', 'no:cacheprovider', 'testing/test_skipping.py'],plugins=[p])\n  File \"/workspace/src/_pytest/config/__init__.py\", line 143, in main\n    config = _prepareconfig(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 309, in _prepareconfig\n    config = get_config(args, plugins)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 281, in get_config\n    pluginmanager.import_plugin(spec)\n  File \"/workspace/src/_pytest/config/__init__.py\", line 703, in import_plugin\n    __import__(importspec)\n  File \"/workspace/src/_pytest/unittest.py\", line 32, in <module>\n    from _pytest.skipping import skipped_by_mark_key\n  File \"/workspace/src/_pytest/skipping.py\", line 153, in <module>\n    @attr.s(slots=True, frozen=True)\nNameError: name 'attr' is not defined\n",
+    "stdout": "",
+    "stop_reason": "check_completed",
+    "tests_run": null,
+    "verification_complete": null,
+    "verification_incomplete": false
+  },
+  "stage": "candidate"
+}

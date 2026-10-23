@@ -1,0 +1,190 @@
+.bench-lead {
+  max-width: 900px;
+  border-top: 1px solid var(--line);
+  padding-top: 36px;
+}
+.bench-lead h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 30ch;
+}
+.bench-lead > p,
+.bench-intro {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 64ch;
+  margin-top: 16px;
+}
+.bench-section {
+  max-width: 900px;
+  margin-top: 72px;
+  border-top: 1px solid var(--line);
+  padding-top: 36px;
+}
+.bench-section h2 {
+  font-size: 22px;
+  font-weight: 500;
+}
+.bench-fresh {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+  border-top: 1px solid var(--line);
+}
+.bench-fresh > li {
+  border-bottom: 1px solid var(--line);
+}
+.bench-detail > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 4px;
+  cursor: pointer;
+  list-style: none;
+}
+.bench-detail > summary::-webkit-details-marker {
+  display: none;
+}
+.bench-detail > summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.bench-case::after {
+  content: "Show patches";
+  font-family: var(--body);
+  color: var(--muted);
+  font-size: 12px;
+  margin-left: 14px;
+}
+.bench-detail[open] > summary .bench-case::after {
+  content: "Hide patches";
+}
+.bench-detail > summary:hover .bench-case::after {
+  color: var(--ink);
+}
+.bench-case {
+  font-family: var(--mono);
+  font-size: 14px;
+}
+.bench-marks {
+  display: inline-flex;
+  gap: 6px;
+}
+.bench-mark {
+  font-size: 12px;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+}
+.bench-mark.is-pass {
+  color: var(--paper);
+  background: var(--forest);
+  border-color: var(--forest);
+  font-weight: 500;
+}
+.bench-mark.is-fail {
+  color: var(--crimson);
+}
+.bench-sample {
+  padding: 0 4px 18px;
+}
+.bench-sample > p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 6px 0 8px;
+}
+.bench-patch {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.55;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 14px 16px;
+  overflow-x: auto;
+  max-height: 420px;
+  white-space: pre;
+}
+.bench-subhead {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 40px;
+}
+.bench-subhead + .bench-fresh {
+  margin-top: 12px;
+}
+.bench-empty {
+  font-size: 13px;
+  color: var(--muted);
+}
+.bench-table-wrap {
+  overflow-x: auto;
+  margin-top: 24px;
+}
+.bench-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 520px;
+  font-size: 14px;
+}
+.bench-table th,
+.bench-table td {
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 400;
+}
+.bench-table thead th {
+  color: var(--muted);
+  font-size: 13px;
+}
+.bench-table tbody th {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.bench-table tfoot th,
+.bench-table tfoot td {
+  font-weight: 500;
+  border-bottom: none;
+}
+.bench-limits {
+  display: grid;
+  grid-template-columns: minmax(150px, 220px) 1fr;
+  gap: 14px 28px;
+  margin-top: 22px;
+  font-size: 15px;
+}
+.bench-limits dt {
+  font-weight: 500;
+}
+.bench-limits dd {
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+.bench-reproduce {
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.bench-reproduce code {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+}
+@media (max-width: 640px) {
+  .bench-limits {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .bench-limits dd {
+    margin-bottom: 12px;
+  }
+  .bench-detail > summary {
+    flex-wrap: wrap;
+  }
+}

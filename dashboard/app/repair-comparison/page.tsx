@@ -1,5 +1,6 @@
 import Link from "next/link";
 import report from "@/lib/comparison014-report.json";
+import adapter from "@/lib/adapter-comparison020.json";
 
 export const metadata = { title: "Repair comparison: baseline, loop, and drafts" };
 
@@ -62,13 +63,26 @@ export default function RepairComparisonPage() {
         <aside className="article-index">
           <span className="eyebrow">Inspect the comparison</span>
           <a href="#summary">Strategy summary</a>
+          <a href="#adapter">Trained adapter comparison</a>
+          <a href="#codesage-mcp">CodeSage Graph-RAG MCP</a>
           <a href="#matrix">Attempt matrix</a>
           <a href="#downloads">Downloads & proofs</a>
+          <Link href="/repair-comparison/codesage-mcp" style={{ fontWeight: 600, color: "var(--accent, #6366f1)" }}>
+            CodeSage context inspection
+          </Link>
+          <Link href="/repair-comparison/batch-eval" style={{ fontWeight: 600 }}>
+            Retrieval development history
+          </Link>
           <Link href="/repair-investigation">Single investigation</Link>
           <Link href="/retrieval-training">Retrieval training</Link>
         </aside>
 
         <article className="prose">
+          <section id="adapter">
+            <h2>Trained 14B adapter comparison</h2>
+            <p>The saved QLoRA adapter and its frozen base each verified <strong>{adapter.base_verified} of {adapter.available_cases} repairs</strong>. Three additional cases lacked captured source context and remained unavailable in each arm.</p>
+            <p>All nine baseline failures and reference repairs reproduced independently. The comparison used {adapter.model_calls} inference calls and no training updates. Invalid edits and failed checks remain recorded. This small, historically exposed sample shows no measured adapter improvement; the strategy results below used a different model transport.</p>
+          </section>
           <section id="summary">
             <h2>Holdout outcomes and resource cost</h2>
             <p>
@@ -119,6 +133,40 @@ export default function RepairComparisonPage() {
             </div>
           </section>
 
+          <section id="codesage-mcp">
+            <h2>Repository context integration</h2>
+            <div style={{
+              background: "rgba(99, 102, 241, 0.08)",
+              border: "1px solid rgba(99, 102, 241, 0.3)",
+              borderRadius: "10px",
+              padding: "20px",
+              marginBottom: "16px"
+            }}>
+              <h3 style={{ marginTop: 0, color: "#818cf8", fontSize: "1.1rem" }}>
+                Annotated context demonstration (<code>pytest-dev__pytest-5221</code>)
+              </h3>
+              <p style={{ margin: "8px 0" }}>
+                Across the standard benchmark run, <code>pytest-dev__pytest-5221</code> failed across all 3 arms with{" "}
+                <code style={{ color: "#ef4444" }}>outcome: no_patch</code> due to issue-only AST search returning zero source regions.
+              </p>
+              <p style={{ margin: "8px 0" }}>
+                By pairing Kairos with <strong>CodeSage Model Context Protocol (MCP)</strong> over stdio JSON-RPC,
+                CodeSage extracted a 2-hop topological call chain across <strong>1,746 directed edges</strong> in <code>pytest</code>,
+                localizing <code>_showfixtures_main</code> and its caller <code>showfixtures</code>.
+                This annotated demonstration retrieves context and shows a handwritten example patch; it does not establish a test-verified repair.
+              </p>
+              <div style={{ marginTop: "14px" }}>
+                <Link
+                  href="/repair-comparison/codesage-mcp"
+                  className="text-link"
+                  style={{ display: "inline-block", padding: "6px 14px", textDecoration: "none" }}
+                >
+                  Inspect the context demonstration
+                </Link>
+              </div>
+            </div>
+          </section>
+
           <section id="matrix">
             <h2>All 19 qualified candidate cases</h2>
             <p>
@@ -135,27 +183,50 @@ export default function RepairComparisonPage() {
                     <th scope="col">Baseline</th>
                     <th scope="col">Bounded Loop</th>
                     <th scope="col">Drafts</th>
+                    <th scope="col">CodeSage MCP</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {cases.map((c) => (
-                    <tr key={c.instance_id}>
-                      <th scope="row" style={{ fontFamily: "monospace", fontSize: "0.85rem" }}>
-                        {c.instance_id}
-                      </th>
-                      <td>{c.repository.split("/")[1]}</td>
-                      <td>{c.split === "holdout" ? "Held-out" : "Dev"}</td>
-                      <td>
-                        <OutcomeBadge arm="baseline" result={c.arms.baseline} caseId={c.instance_id} />
-                      </td>
-                      <td>
-                        <OutcomeBadge arm="loop" result={c.arms.loop} caseId={c.instance_id} />
-                      </td>
-                      <td>
-                        <OutcomeBadge arm="drafts" result={c.arms.drafts} caseId={c.instance_id} />
-                      </td>
-                    </tr>
-                  ))}
+                  {cases.map((c) => {
+                    const isPytest5221 = c.instance_id === "pytest-dev__pytest-5221";
+                    return (
+                      <tr key={c.instance_id} style={isPytest5221 ? { background: "rgba(99, 102, 241, 0.08)" } : undefined}>
+                        <th scope="row" style={{ fontFamily: "monospace", fontSize: "0.85rem" }}>
+                          {c.instance_id}
+                          {isPytest5221 && (
+                            <span style={{ display: "block", fontSize: "0.7rem", color: "#818cf8" }}>
+                              ★ MCP Augmented
+                            </span>
+                          )}
+                        </th>
+                        <td>{c.repository.split("/")[1]}</td>
+                        <td>{c.split === "holdout" ? "Held-out" : "Dev"}</td>
+                        <td>
+                          <OutcomeBadge arm="baseline" result={c.arms.baseline} caseId={c.instance_id} />
+                        </td>
+                        <td>
+                          <OutcomeBadge arm="loop" result={c.arms.loop} caseId={c.instance_id} />
+                        </td>
+                        <td>
+                          <OutcomeBadge arm="drafts" result={c.arms.drafts} caseId={c.instance_id} />
+                        </td>
+                        <td>
+                          {isPytest5221 ? (
+                            <Link
+                              href="/repair-comparison/codesage-mcp"
+                              className="outcome-badge"
+                              title="Annotated context and handwritten patch demonstration"
+                            >
+                              <span className="badge-text">Context demo</span>
+                              <span className="badge-meta">2-hop graph</span>
+                            </Link>
+                          ) : (
+                            <span className="outcome-badge-empty">—</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

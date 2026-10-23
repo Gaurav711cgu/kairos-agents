@@ -15,6 +15,7 @@ import os
 from pathlib import Path, PurePosixPath
 import re
 import shutil
+import time
 import subprocess
 import sys
 import tarfile
@@ -391,13 +392,21 @@ def captured_check(path, stage, run, binding, roots, source_copy_bytes=0):
     return result
 
 
-def inspect_images(repositories):
+def inspect_images(repositories, wait_seconds=180, sleep=time.sleep, now=time.monotonic):
+    """Docker Desktop can list a local image yet fail to resolve its tag for minutes after waking (Resource
+    Saver), so an unresolved tag is polled until ``wait_seconds``. A resolved tag with another ID fails at once."""
     results = {}
     for repo in sorted(set(repositories)):
-        expected = IMAGES[repo]
-        actual = subprocess.run(["docker", "image", "inspect", expected["tag"], "--format", "{{.Id}}"], capture_output=True, text=True, timeout=10)
-        if actual.returncode or actual.stdout.strip() != expected["id"]:
-            raise RuntimeError("Reviewed local image is unavailable or its ID changed: " + expected["tag"])
+        expected, deadline = IMAGES[repo], now() + wait_seconds
+        while True:
+            actual = subprocess.run(["docker", "image", "inspect", expected["tag"], "--format", "{{.Id}}"], capture_output=True, text=True, timeout=10)
+            if not actual.returncode:
+                break
+            if now() >= deadline:
+                raise RuntimeError("Reviewed local image is unavailable: " + expected["tag"])
+            sleep(3)
+        if actual.stdout.strip() != expected["id"]:
+            raise RuntimeError("Reviewed local image ID changed: " + expected["tag"])
         results[repo] = expected
     return {"images": results, "runtime_network": "none", "memory": "1g", "cpus": 2, "user": "10001:10001", "timeout_seconds": 120, "pull": "never"}
 
@@ -472,7 +481,7 @@ def execute_case(entry, row, out, roots, binding, allow_download, deps):
                 "command": ["python", "/verification/verify.py"], "source_digest": tree_hash(source),
                 "reference_digest": sha(directory / "reference.patch"),
                 "verification_digest": hashlib.sha256((row["test_patch"] + script).encode()).hexdigest(),
-                "provenance": "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints."}
+                "provenance": entry.get("provenance", "Frozen013 fresh metadata candidate. Public pretraining exposure is unknown. Reference-derived entry files must not become inference localization hints.")}
             immutable(evidence / "case-definition.json", case)
             registry_path = work / "registry.json"
             immutable(registry_path, {"version": "repository-cases-v1", "cases": [case]})

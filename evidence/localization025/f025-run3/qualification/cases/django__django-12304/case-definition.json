@@ -1,0 +1,24 @@
+{
+  "approved_prefix": "django/",
+  "command": [
+    "python",
+    "/verification/verify.py"
+  ],
+  "entry_files": [
+    "django/db/models/enums.py"
+  ],
+  "id": "django__django-12304",
+  "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+  "issue": "Enumeration Types are not usable in templates.\nDescription\n\t \n\t\t(last modified by Mariusz Felisiak)\n\t \nThe new ​enumeration types are great but can't be used in Django templates due to their being callable. For example this doesn't work:\n{% if student.year_in_school == YearInSchool.FRESHMAN %}\nThis is because YearInSchool, being a class, is callable, and Django Templates always call callables with no arguments. The call fails because the required value argument is missing.\nThe easy solution would be to declare do_not_call_in_templates = True on the various Choices classes.\n",
+  "provenance": "F024 pilot development case. Reference-derived entry files are registry metadata for qualification only and never reach inference.",
+  "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+  "qualified": false,
+  "reference_digest": "d0de5e22f6c38c314279df50abe9c37ce6901ded00e7155d7958e753d4d624f9",
+  "repository": "django/django",
+  "revision": "4c1b401e8250f9f520b3c7dc369554477ce8b15a",
+  "source_digest": "d884940e56d35c6516945175743511ebb72a5d30b9f186885b7e42519836acc7",
+  "source_url": "https://codeload.github.com/django/django/tar.gz/4c1b401e8250f9f520b3c7dc369554477ce8b15a",
+  "split": "development",
+  "title": "Enumeration Types are not usable in templates.",
+  "verification_digest": "e786a09e3aa625e250b5e4de1c48ed2feec029c098af70023dcbf056869bc719"
+}

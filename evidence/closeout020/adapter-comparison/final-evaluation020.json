@@ -1,0 +1,52 @@
+{
+  "version": "paired-adapter-evaluation020-final-v1",
+  "date": "2026-10-20",
+  "model": "Qwen2.5-Coder-14B-Instruct frozen quantized base with full100 QLoRA adapter",
+  "training_runs_this_evaluation": 0,
+  "model_calls": 18,
+  "cohort_cases": 12,
+  "available_cases": 9,
+  "unavailable_cases": 3,
+  "base_verified": 0,
+  "adapter_verified": 0,
+  "adapter_improvement_established": false,
+  "all_nine_baselines_and_reference_repairs_reproduced": true,
+  "reference_tests_by_case": {
+    "pytest-dev__pytest-11148": 133,
+    "django__django-14752": 19,
+    "django__django-16255": 40,
+    "django__django-17051": 52,
+    "django__django-13158": 32,
+    "pytest-dev__pytest-5413": 95,
+    "pytest-dev__pytest-5692": 72,
+    "django__django-12983": 16,
+    "django__django-13658": 196
+  },
+  "outcomes": {
+    "base": {
+      "invalid_patch": 5,
+      "checks_failed": 4,
+      "unavailable": 3
+    },
+    "adapter": {
+      "invalid_patch": 4,
+      "checks_failed": 4,
+      "invalid_action": 1,
+      "unavailable": 3
+    }
+  },
+  "report_sha256": "81444e2178d89358f11cfc4a35078dd1f06b5e63a55ab13a54f9041dc04bfca2",
+  "export_sha256": "c90842a2cbfcceb4dba3053244a72d38b48437979b31a2e770645bc95c7b8c98",
+  "export_manifest_members_verified": 44,
+  "source_isolation_verified": true,
+  "limitations": [
+    "Previously exposed curated cases, not fresh holdout or official SWE-bench score",
+    "Three original contexts missing; not counted as executed repair failures",
+    "One issue historically fully redacted",
+    "Single-call comparison, not bounded-loop evaluation",
+    "Only two independent qualification captures in full100 training admission; 100 supervision rows are not 100 verified training repairs"
+  ],
+  "previous_lost_attempt": "Preserved unknown, excluded from this completed attempt",
+  "cloud_runtime": "Approved delete action completed; reconnect control observed",
+  "google_signout": "Not yet verified"
+}

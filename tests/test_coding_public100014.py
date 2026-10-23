@@ -74,7 +74,7 @@ def bundle(root, monkeypatch, mutate=None):
     for row in data['train'] + data['development']:
         raw = {'instance_id': row['instance_id'], 'repo': row['repository'], 'base_commit': row['source_commit'],
                'problem_statement': row['input']['issue'],
-               'patch': 'diff --git a/package/value.py b/package/value.py\n--- a/package/value.py\n+++ b/package/value.py\n@@ -1 +1 @@\n-value = 0\n+value = 1\n'}
+               'patch': 'diff --git a/package/value.py b/package/value.py\n--- a/package/value.py\n+++ b/package/value.py\n@@ -1 +1 @@\n-value = 0\n+' + row['assistant_target']['edits'][0]['new']}
         dataset[row['instance_id']] = raw
         identity = {key: row[key] for key in ('instance_id', 'repository', 'source_commit', 'source_digest')}
         reviews = {name: {'version': 'coding-' + name + '-review014-v1', **identity,
@@ -239,7 +239,7 @@ def test_build_bundle_produces_fully_verified_admission_bundle(tmp_path, monkeyp
     for row in data['train'] + data['development']:
         raw = {'instance_id': row['instance_id'], 'repo': row['repository'], 'base_commit': row['source_commit'],
                'problem_statement': row['input']['issue'],
-               'patch': 'diff --git a/package/value.py b/package/value.py\n--- a/package/value.py\n+++ b/package/value.py\n@@ -1 +1 @@\n-value = 0\n+value = 1\n'}
+               'patch': 'diff --git a/package/value.py b/package/value.py\n--- a/package/value.py\n+++ b/package/value.py\n@@ -1 +1 @@\n-value = 0\n+' + row['assistant_target']['edits'][0]['new']}
         dataset[row['instance_id']] = raw
         identity = {key: row[key] for key in ('instance_id', 'repository', 'source_commit', 'source_digest')}
         rights = {'version': 'coding-rights-review014-v1', **identity,
@@ -294,7 +294,7 @@ def test_protocol_v2_bundle_with_shortfall(tmp_path, monkeypatch):
     for row in data['train'] + data['development']:
         raw = {'instance_id': row['instance_id'], 'repo': row['repository'], 'base_commit': row['source_commit'],
                'problem_statement': row['input']['issue'],
-               'patch': 'diff --git a/package/value.py b/package/value.py\n--- a/package/value.py\n+++ b/package/value.py\n@@ -1 +1 @@\n-value = 0\n+value = 1\n'}
+               'patch': 'diff --git a/package/value.py b/package/value.py\n--- a/package/value.py\n+++ b/package/value.py\n@@ -1 +1 @@\n-value = 0\n+' + row['assistant_target']['edits'][0]['new']}
         dataset[row['instance_id']] = raw
         identity = {key: row[key] for key in ('instance_id', 'repository', 'source_commit', 'source_digest')}
         rights = {'version': 'coding-rights-review014-v1', **identity,
@@ -336,3 +336,17 @@ def test_protocol_v2_bundle_with_shortfall(tmp_path, monkeypatch):
     assert verification['independently_verified_training_rows'] == 2
 
 
+
+
+def test_incomplete_target_rejected_before_independent_verification(tmp_path, monkeypatch):
+    def partial(row, reviews, exposure):
+        if row['instance_id'] != 'fixture-0':
+            return
+        row['assistant_target']['edits'][0]['new'] = 'value = 0\n'
+        reviews['example']['assistant_target'] = deepcopy(row['assistant_target'])
+        reviews['preparation']['example_sha256'] = study.digest(reviews['example'])
+        reviews['preparation']['target_sha256'] = study.digest(row['assistant_target'])
+    data, sha, calls = bundle(tmp_path, monkeypatch, mutate=partial)
+    with pytest.raises(ValueError, match='complete reference transformation'):
+        study.verify_bundle(data, tmp_path, sha, tmp_path / 'fixture-dataset')
+    assert calls == []

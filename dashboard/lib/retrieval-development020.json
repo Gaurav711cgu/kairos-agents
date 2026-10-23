@@ -1,0 +1,2416 @@
+{
+  "version": "issue-only-retrieval020-v1",
+  "scope": "Exposed development-cohort retrieval diagnostic on existing index snapshots; not a SWE-bench repair score",
+  "token_budget_per_arm": 1024,
+  "tokenizer_sha256": "29503e9663ee5b7f65e04bb44f7225f2607fcd7995d7803632f42156db47ecfe",
+  "candidate_limit_including_seeds": 20,
+  "hidden_annotations_used_in_retrieval": false,
+  "model_calls": 0,
+  "verification_runs": 0,
+  "mcp_latency_measured": false,
+  "source_revisions_bound_to_cases": false,
+  "benchmark_eligible": false,
+  "eligibility_reason": "Index snapshots are not bound to each historical case base revision; symbol matches are diagnostics, not benchmark recall",
+  "timing_scope": "In-process ranking and token packing; excludes index loading and MCP transport",
+  "summary": {
+    "lexical": {
+      "benchmark_recall": null,
+      "benchmark_mrr": null,
+      "diagnostic_symbol_matches": 0,
+      "cases": 15
+    },
+    "graph": {
+      "benchmark_recall": null,
+      "benchmark_mrr": null,
+      "diagnostic_symbol_matches": 0,
+      "cases": 15
+    }
+  },
+  "indexes": [
+    {
+      "repository": "mwaskom/seaborn",
+      "manifest_sha256": "c0ce05d1bfc547ec64b03e5a85f9da347627d8494fa4433c5969173313ad8a3d",
+      "nodes": 772,
+      "edges": 1968,
+      "source_kind": "installed_python_package",
+      "case_revision_bound": false
+    },
+    {
+      "repository": "pallets/flask",
+      "manifest_sha256": "9bb1d359eab937b099e8e9ca300cc4ccf5e8ce0689e9946c1e0f77d97512b085",
+      "nodes": 319,
+      "edges": 496,
+      "source_kind": "installed_python_package",
+      "case_revision_bound": false
+    },
+    {
+      "repository": "psf/requests",
+      "manifest_sha256": "4693eb3d44c2093d32abd2a6a171d48b649157a26fa8fcafbfa077af15112e56",
+      "nodes": 269,
+      "edges": 471,
+      "source_kind": "installed_python_package",
+      "case_revision_bound": false
+    },
+    {
+      "repository": "pytest-dev/pytest",
+      "manifest_sha256": "ec938ccbf6582528d35bb80cb650952df91752ce261599301fba49090544d061",
+      "nodes": 1329,
+      "edges": 4088,
+      "source_kind": "installed_python_package",
+      "case_revision_bound": false
+    }
+  ],
+  "cases": [
+    {
+      "instance_id": "pytest-dev__pytest-5221",
+      "issue_sha256": "59b323c3d45e753482cf378e7f6a9473559d516f000ae66c4d319bcbd8ae9f57",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::register_fixture::2337",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_fixture_post_finalizer::862",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureRequest.getfixturevalue::604",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.__repr__::1244"
+          ],
+          "context_sha256": "1b7bc1e533152c6012d59c7c3825e76f8582e78ae33b509c1af78a5a3c3fa66e",
+          "context_tokens": 983,
+          "omissions": [
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager._register_fixture::1949",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::fixture::1458",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager.parsefactories::2056",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::legacypath.py::LegacyTmpdirPlugin::296",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureRequest._get_active_fixturedef::647::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureRequest._get_active_fixturedef::647::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::capture.py::CaptureFixture::916",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.__init__::1057::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.__init__::1057::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::get_scope_node::163",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::reorder_items::255",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::reorder_items_atscope::276",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::get_param_argkeys::225",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager.getfixturedefs::2135",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::_get_first_non_fixture_func::735",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::_find_parametrized_scope::1529",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 49.12458399985553
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::register_fixture::2337",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_fixture_post_finalizer::862",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureRequest._get_active_fixturedef::647::part_2",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.__init__::1057::part_2",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.__repr__::1244"
+          ],
+          "context_sha256": "d4afa0447935430cedd363f0e8a1ee534bbbae98dc1ee6f5efeb5ada61dcff5f",
+          "context_tokens": 1002,
+          "omissions": [
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager._register_fixture::1949",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager.parsefactories::2056",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureRequest._get_active_fixturedef::647::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.__init__::1057::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager.getfixturedefs::2135",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::_get_first_non_fixture_func::735",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager.sort_by_scope::1881",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef::1050",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager::1683",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::Class._register_setup_class_fixture::788",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::Class._register_setup_method_fixture::819",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::Module._register_setup_module_fixture::569",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager.__init__::1714",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.execute::1171",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager._flush_pending_conftests_to_session::1805",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 46.282250000103886
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-5495",
+      "issue_sha256": "1b892fa6eb7fef26db1287e836d22c2c8d74bda23e6f48009188f5c5cb7f7dbe",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/compare_text.py::_diff_text::41",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::_format_assertmsg::446",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::compat.py::ascii_escaped::196",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/_compare_set.py::_set_one_sided_diff::12"
+          ],
+          "context_sha256": "5bb4364dd9c18825839dce7d9052af718ffa6d84267f4e11c951a1abae1b627c",
+          "context_tokens": 987,
+          "omissions": [
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/_compare_any.py::_compare_eq_any::25",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_assertrepr_compare::934",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/truncate.py::_truncate_explanation::52",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/truncate.py::truncate_if_required::19",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/highlight.py::dummy_highlighter::6",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/util.py::assertrepr_compare::135",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::_format_boolop::479",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::AssertionRewriter.visit_Assert::845::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/util.py::format_explanation::68",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python_api.py::ApproxScalar.__repr__::402",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::AssertionRewriter.push_format_context::806",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::_code/code.py::_byte_offset_to_character_offset::1576",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/_typing.py::_HighlightFunc::10",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::AssertionRewriter::606",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/_typing.py::_HighlightFunc.__call__::11",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::_check_if_assertion_pass_impl::509",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 44.8989999999867
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/compare_text.py::_diff_text::41",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::_format_assertmsg::446",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/_compare_set.py::_set_one_sided_diff::12",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/highlight.py::dummy_highlighter::6",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::_format_boolop::479",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::AssertionRewriter.push_format_context::806"
+          ],
+          "context_sha256": "c2798c9c1ac802cd78dc202e7d16d3adbf11b6b71d76d4e8d6e2f5b21ac77c1a",
+          "context_tokens": 1020,
+          "omissions": [
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/_compare_any.py::_compare_eq_any::25",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/util.py::assertrepr_compare::135",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::AssertionRewriter.visit_Assert::845::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/util.py::format_explanation::68",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python_api.py::ApproxScalar.__repr__::402",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/util.py::_split_explanation::83",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/_compare_sequence.py::_compare_eq_iterable::13",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/compare_text.py::_notin_text::89",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::_io/saferepr.py::SafeRepr.repr::58",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python_api.py::ApproxBase._repr_compare::72",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::AssertionRewriter.visit_Assert::845::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/rewrite.py::_saferepr::413",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/__init__.py::_iter_rewritable_modules::951",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::threadexception.py::thread_exception_hook::92",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 40.11291699998765
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-6116",
+      "issue_sha256": "3279c4a78e99ef0742a0512495ef055c21a7c1c4b649d3c5d1df545d21a1463d",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/__init__.py::pytest_collection::145",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::config/findpaths.py::locate_config::158",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_collectreport::421",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_generate_tests::552",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_collect_file::365",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::warning_types.py::PytestRemovedIn10Warning::53"
+          ],
+          "context_sha256": "eea99221e35e80bed147261bb7986bce7037a3c1a9f6b8d64f724bd629d9f453",
+          "context_tokens": 1006,
+          "omissions": [
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/__init__.py::console_main::264",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python_api.py::ApproxSequenceLike._check_type::386",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python_api.py::ApproxMapping._check_type::313",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_runtest_logreport::777",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::helpconfig.py::show_version_verbose::155",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_sessionstart::888",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_assertion_pass::957",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python_api.py::ApproxTimedelta.__init__::574",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::nodes.py::Directory::629",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_unconfigure::917",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_collection_finish::290",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::outcomes.py::_Exit::80",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_report_header::1005",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/__init__.py::get_plugin_manager::376",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 36.35208400010015
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::assertion/__init__.py::pytest_collection::145",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::config/findpaths.py::locate_config::158",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_collectreport::421",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager.pytest_plugin_registered::1776",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::doctest.py::_check_all_skipped::451"
+          ],
+          "context_sha256": "62edcb0a94149048ee985ea645486aede9dddea6bebc4b45aa03b9c48a51ed4d",
+          "context_tokens": 971,
+          "omissions": [
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/findpaths.py::load_config_dict_from_file::58::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/findpaths.py::determine_setup::278",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/__init__.py::filter_traceback_for_conftest_import_failure::141",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::_get_direct_parametrize_args::1653",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::PyCollector.collect::400",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/__init__.py::_main::204",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::cacheprovider.py::cacheshow::591",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase.collect::92",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::terminal.py::_plugin_nameversions::1633",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/findpaths.py::parse_override_ini::253",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.__init__::1057::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureDef.__init__::1057::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::_code/code.py::TracebackEntry.__str__::339",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::helpconfig.py::pytest_report_header::275",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::skipping.py::evaluate_condition::89",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 38.91604199998255
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-7432",
+      "issue_sha256": "a44fdb055c01cb5b123b049a6360e1fed7b89c8dc84a5488cf7e1af8c4c4b1d6",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_collection_modifyitems::268",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase._register_unittest_skip_fixture::183",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::outcomes.py::_Skip::105",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_deselected::436",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_exception_interact::1228"
+          ],
+          "context_sha256": "60b38de577d5fff83802090f72dcaaa14271836472c0a86e1f912a5d296b41e3",
+          "context_tokens": 1014,
+          "omissions": [
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::skipping.py::evaluate_skip_marks::169",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::helpconfig.py::HelpAction::21",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::stepwise.py::StepwisePlugin.pytest_runtest_logreport::174",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::nodes.py::get_fslocation_from_item::472",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_leave_pdb::1276",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_runtest_logfinish::678",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_runtest_logstart::660",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::nodes.py::File::622",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::doctest.py::_check_all_skipped::451",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::warnings.py::pytest_configure::132",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::pathlib.py::insert_missing_modules::792",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::nodes.py::Item.reportinfo::740",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::main.py::_main::380",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::config/exceptions.py::PrintHelp::13",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::nodes.py::Node.addfinalizer::376",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 37.02620800004297
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::hookspec.py::pytest_collection_modifyitems::268",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase._register_unittest_skip_fixture::183",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::outcomes.py::_Skip::105",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::_is_skipped::527",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase.unittest_skip_fixture::187",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase.unittest_setup_method_fixture::207",
+            "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase.unittest_setup_class_fixture::150"
+          ],
+          "context_sha256": "7d832551d666f4e1cfa499da294c302315f74687c2d85b7595d56e271877c9cb",
+          "context_tokens": 987,
+          "omissions": [
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager._register_fixture::1949",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase.newinstance::84",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::TestCaseFunction.runtest::381",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase.collect::92",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::FixtureManager.parsefactories::2056",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::Module._register_setup_function_fixture::603",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::Class._register_setup_class_fixture::788",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::Class._register_setup_method_fixture::819",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::python.py::Module._register_setup_module_fixture::569",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::fixtures.py::register_fixture::2337",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::outcomes.py::_Skip.__call__::136",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::unittest.py::UnitTestCase::79",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "13f45074-dd7f-435e-a7b7-a49e102299fb::outcomes.py::Skipped::39",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 38.98683399984293
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "psf__requests-2148",
+      "issue_sha256": "77c154131539b7eb01a1c9eb4c0ed2e59d3cc8a98ab2e4f92b79baa9c974e545",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::HTTPError::66",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::UnrewindableBodyError::146",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::Timeout::82",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::ConnectTimeout::91",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::ConnectionError::70",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidJSONError::38",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::ProxyError::74",
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::is_ipv4_address::752",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::SSLError::78",
+            "47f23611-92ad-4fce-973c-220302662b97::cookies.py::extract_cookies_to_jar::135",
+            "47f23611-92ad-4fce-973c-220302662b97::models.py::Response.__nonzero__::845",
+            "47f23611-92ad-4fce-973c-220302662b97::models.py::Response.__bool__::835",
+            "47f23611-92ad-4fce-973c-220302662b97::auth.py::HTTPDigestAuth.build_digest_header::157::part_2"
+          ],
+          "context_sha256": "a63763c31c9252b3b530f8739c3bccb8fdea30ab19c3e58da71d12f0362cb3fe",
+          "context_tokens": 949,
+          "omissions": [
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter::158",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.send::634::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::auth.py::HTTPDigestAuth.build_digest_header::157::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::dotted_netmask::741",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar::191",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session.request::557::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::MockRequest::31",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 24.90937499987922
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::HTTPError::66",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::UnrewindableBodyError::146",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::Timeout::82",
+            "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.resolve_redirects::186::part_1"
+          ],
+          "context_sha256": "e431803744b1eb285a9ddfd6b44269e90fc9913f3c2d129fd9dbf66ff7050742",
+          "context_tokens": 938,
+          "omissions": [
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::Response::730",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.resolve_redirects::186::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::Response.raise_for_status::1140",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::rewind_body::1139",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 13.493458000084502
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "psf__requests-2679",
+      "issue_sha256": "7ada4e5ccef38052c36b93f9643215c11d2531a5788aff84df2ccd26119b3e2c",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidProxyURL::126",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidSchema::114",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidURL::118",
+            "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.request_url::565",
+            "47f23611-92ad-4fce-973c-220302662b97::sessions.py::merge_hooks::108",
+            "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.rebuild_proxies::334",
+            "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.proxy_headers::613",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidHeader::122"
+          ],
+          "context_sha256": "22877451229321a8c0750c93b36db80e393564420b48a1164858cd2d737ea3a8",
+          "context_tokens": 1024,
+          "omissions": [
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.proxy_manager_for::269",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::ChunkedEncodingError::130",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::ProxyError::74",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::URLRequired::102",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::MissingSchema::110",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::select_proxy::885",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::RequestHooksMixin.register_hook::258",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::dotted_netmask::741",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.cert_verify::307",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::UnrewindableBodyError::146",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest.prepare_url::481",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::requote_uri::704",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 21.635415999980978
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidProxyURL::126",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidSchema::114",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidURL::118",
+            "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.request_url::565",
+            "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.proxy_manager_for::269",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidHeader::122",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::ProxyError::74",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::MissingSchema::110",
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::select_proxy::885",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::ReadTimeout::98",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::ConnectionError::70",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::RetryError::142"
+          ],
+          "context_sha256": "f9a6a4e299747c1ced28e4fafa0cafda7987589d4643ac6d38e10211bd90db27",
+          "context_tokens": 1010,
+          "omissions": [
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.cert_verify::307",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest.prepare_url::481",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::requote_uri::704",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.get_connection::512",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.build_response::365",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::prepend_scheme_if_needed::1040",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.add_headers::599",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::SSLError::78",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 21.168291999856592
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "psf__requests-3179",
+      "issue_sha256": "650ede2902f202a970558127016ee04e98c8b9c030b7963725762cce1c72c989",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::unquote_unreserved::680",
+            "47f23611-92ad-4fce-973c-220302662b97::_internal_utils.py::unicode_is_ascii::39",
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::check_header_validity::1087",
+            "47f23611-92ad-4fce-973c-220302662b97::models.py::Response.iter_content::912",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidHeader::122"
+          ],
+          "context_sha256": "e5da653e2b897fe3a3e8fb0df00e5159e38fcc6421853bd13bedcc4e6513760b",
+          "context_tokens": 953,
+          "omissions": [
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::parse_list_header::408",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::guess_json_utf::1008",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::parse_dict_header::440",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::Response.iter_lines::990",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::structures.py::CaseInsensitiveDict::20",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::unquote_header_value::475",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.should_strip_auth::154",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::Response.generate::933",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::_internal_utils.py::to_native_string::26",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::_parse_content_type_header::547",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::get_unicode_from_response::633",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest.prepare_headers::563",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::BaseAdapter::122",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.get_connection_with_tls_context::455",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.init_poolmanager::239",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 24.988207999967926
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::unquote_unreserved::680",
+            "47f23611-92ad-4fce-973c-220302662b97::_internal_utils.py::unicode_is_ascii::39",
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::check_header_validity::1087",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidHeader::122",
+            "47f23611-92ad-4fce-973c-220302662b97::_internal_utils.py::to_native_string::26",
+            "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest.prepare_headers::563",
+            "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.items::293",
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::_validate_header_part::1098",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::InvalidURL::118",
+            "47f23611-92ad-4fce-973c-220302662b97::exceptions.py::MissingSchema::110"
+          ],
+          "context_sha256": "51228ed9a2c105067df0aa23cdb13d2f826452415613770aa7e2bb6519b08dc1",
+          "context_tokens": 1013,
+          "omissions": [
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::structures.py::CaseInsensitiveDict::20",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.get_connection_with_tls_context::455",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.send::634::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::utils.py::requote_uri::704",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest::376",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.resolve_redirects::186::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.resolve_redirects::186::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::adapters.py::HTTPAdapter.send::634::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest.prepare_url::481",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest.prepare::422",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 26.282291999905283
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "psf__requests-1963",
+      "issue_sha256": "5124d0dbc619b900fac06b2e1b855185f1b4182006ad107e545be6ced93437ec",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::rewind_body::1139",
+            "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.__getitem__::358",
+            "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session.request::557::part_2",
+            "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.get_redirect_target::134",
+            "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest.prepare_content_length::652"
+          ],
+          "context_sha256": "6c70b025da39445cbda9362f9d5f487e5a1d6b2279a9116c3037baac0a3dffab",
+          "context_tokens": 983,
+          "omissions": [
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session::395",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.rebuild_method::370",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session.__init__::442",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::Request::283",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar._find::401",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::session::908",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.get::211",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest::376",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::Response.iter_lines::990",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session.request::557::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.list_domains::302",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.list_paths::310",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::api.py::request::24",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.rebuild_proxies::334",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::CookieConflictError::185",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 31.953749999956926
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "47f23611-92ad-4fce-973c-220302662b97::utils.py::rewind_body::1139",
+            "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.__getitem__::358",
+            "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session.request::557::part_2",
+            "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.get_redirect_target::134",
+            "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar._find::401"
+          ],
+          "context_sha256": "22f243d407171f8aa6fc8d116807ef9b26150cc97af96f7f3e8dd4268ad512a1",
+          "context_tokens": 1020,
+          "omissions": [
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session::395",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.rebuild_method::370",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session.__init__::442",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::Request::283",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::session::908",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.get::211",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::models.py::PreparedRequest::376",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::Session.request::557::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.list_domains::302",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::RequestsCookieJar.list_paths::310",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::api.py::request::24",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin.rebuild_proxies::334",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::CookieConflictError::185",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::sessions.py::SessionRedirectMixin::127",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "47f23611-92ad-4fce-973c-220302662b97::cookies.py::cookiejar_from_dict::579",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 36.483291999957146
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "pallets__flask-4045",
+      "issue_sha256": "826a4979a8494d652a0a6a38d042262e9a55c7af06035e2433150eec48c04bf2",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::BlueprintSetupState.add_url_rule::87",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App.handle_url_build_error::932",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::helpers.py::url_for::195"
+          ],
+          "context_sha256": "52970ebd133d9f15faa56ceacb30cbb1ef18085e0fc13c54c3b01cf7546f3278",
+          "context_tokens": 1006,
+          "omissions": [
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.register::273::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.url_for::1003::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::debughelpers.py::DebugFilesKeyError::23",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/scaffold.py::_endpoint_from_view_func::701",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint._check_setup_finished::213",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint::119",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.handle_http_exception::744",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.extend::380",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App._find_error_handler::823",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::debughelpers.py::attach_enctype_error_multidict::81",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.raise_routing_exception::478",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint._merge_blueprint_funcs::379",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::_AppCtxGlobals.__delattr__::61",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::_AppCtxGlobals.__getattr__::52",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_envvar::102",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::templating.py::render_template::139",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.handle_exception::811",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 37.986457999977574
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::BlueprintSetupState.add_url_rule::87",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App.handle_url_build_error::932",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/scaffold.py::_endpoint_from_view_func::701",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint._check_setup_finished::213",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.extend::380",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App.inject_url_defaults::911"
+          ],
+          "context_sha256": "db50dd35f5edb45f9e0ce56cf75e4bdac0b31d663af7a856aa76febf6f7f5c8f",
+          "context_tokens": 1015,
+          "omissions": [
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.register::273::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.url_for::1003::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint::119",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App._find_error_handler::823",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint._merge_blueprint_funcs::379",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_envvar::102",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::_AppCtxGlobals::29",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.wsgi_app::1479",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.__init__::174",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::json/tag.py::TaggedJSONSerializer.register::256",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App.iter_blueprints::597",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::BlueprintSetupState::34",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.run::546::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::helpers.py::generator::114",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 35.79966600000262
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "pallets__flask-4992",
+      "issue_sha256": "7f48519311b47c4aa292f9daa391945ff2c4462aaeb17830f54113fbafb5c704",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.open_resource::104",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.open_resource::330",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_file::256",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::debughelpers.py::UnexpectedUnicodeError::17"
+          ],
+          "context_sha256": "6ef8dc2f942ebdb0b724c2429ab4368b13d22a6457d2ef943406462f3aadd85f",
+          "context_tokens": 1020,
+          "omissions": [
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.open_instance_resource::363",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_envvar::102",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_object::218",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::json/__init__.py::load::108",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.get_namespace::323",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config::50",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.run::546::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.get_send_file_max_age::281",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_prefixed_env::126",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.get_send_file_max_age::55",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.raise_routing_exception::478",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.url_for::1003::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::wrappers.py::Request._load_form_data::197",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_mapping::304",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_pyfile::187",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask::81",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 47.92841700009376
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.open_resource::104",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.open_resource::330",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_file::256"
+          ],
+          "context_sha256": "56beee5f1f4f43174403a23f5c640a5b5251040e268264af36b3db1a533091f9",
+          "context_tokens": 972,
+          "omissions": [
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.open_instance_resource::363",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_envvar::102",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_object::218",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::json/__init__.py::load::108",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.get_namespace::323",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config::50",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.run::546::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.get_send_file_max_age::281",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_prefixed_env::126",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.get_send_file_max_age::55",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.raise_routing_exception::478",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.url_for::1003::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_mapping::304",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::config.py::Config.from_pyfile::187",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask::81",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.update_template_context::506",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.create_jinja_environment::385",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 46.92449999993187
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "pallets__flask-5063",
+      "issue_sha256": "623a8f6480cb3c0bc0c3d239ca4022ef5e9f85ed0c0559134bbb9e8f7d27f682",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.create_url_adapter::425",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::debughelpers.py::FormDataRoutingRedirect::50",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sessions.py::SessionInterface.get_cookie_domain::175"
+          ],
+          "context_sha256": "5279e629dd7828cff9717c14c335c2c3229e6dbfcab4ec51736b0e493fceaed0",
+          "context_tokens": 885,
+          "omissions": [
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::testing.py::EnvironBuilder::27",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.run::546::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.test_request_context::1423",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.raise_routing_exception::478",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.url_for::1003::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::cli.py::FlaskGroup.get_command::617",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::testing.py::EnvironBuilder.__init__::49",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::debughelpers.py::FormDataRoutingRedirect.__init__::57",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App.handle_url_build_error::932",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask::81",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App::59",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.__init__::19",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.__init__::174",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::testing.py::FlaskClient::109",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::copy_current_request_context::155",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.handle_http_exception::744",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::cli.py::_validate_key::836",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 53.58537500001148
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.create_url_adapter::425",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::debughelpers.py::FormDataRoutingRedirect::50",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.raise_routing_exception::478"
+          ],
+          "context_sha256": "50d8f375e03f576fcc0139004b99da28b641dd52498130121534aac9671e15cd",
+          "context_tokens": 961,
+          "omissions": [
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::testing.py::EnvironBuilder::27",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.run::546::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.test_request_context::1423",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.url_for::1003::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::testing.py::EnvironBuilder.__init__::49",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::debughelpers.py::FormDataRoutingRedirect.__init__::57",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App.handle_url_build_error::932",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask::81",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::testing.py::FlaskClient::109",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.handle_http_exception::744",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::AppContext::238",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.do_teardown_appcontext::1360",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.app_context::1386",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.open_instance_resource::363",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.open_resource::104",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.open_resource::330",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::RequestContext::287",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 47.721208999973896
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "pallets__flask-4642",
+      "issue_sha256": "e26a1002c46df3645902898902b4c11936a5a5ce1c694c4173ecd9785a1b7bba",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App.iter_blueprints::597",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint::18"
+          ],
+          "context_sha256": "1cb2af4618d9b723d4ec8ebd60ac656d11a1356ad6f26f5cdc25e91f22097543",
+          "context_tokens": 996,
+          "omissions": [
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.register::273::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint::119",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.__init__::19",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.__init__::174",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::RequestContext::287",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App._find_error_handler::823",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.register::273::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::json/tag.py::TagDict::93",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::has_app_context::228",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint._check_setup_finished::213",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.send_static_file::82",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::copy_current_request_context::155",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.wsgi_app::1479",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::debughelpers.py::FormDataRoutingRedirect::50",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::json/tag.py::TaggedJSONSerializer.register::256",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.open_resource::104",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::AppContext::238",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::helpers.py::make_response::146",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 34.33225000003404
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App.iter_blueprints::597",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::blueprints.py::Blueprint.__init__::19",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.__init__::174",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App._find_error_handler::823",
+            "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::has_app_context::228"
+          ],
+          "context_sha256": "66a58da8037996aef546c1d43d7defc30c8b9ec8c7fa9dd2077a8fe5730904f7",
+          "context_tokens": 939,
+          "omissions": [
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.register::273::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint::119",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::RequestContext::287",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.register::273::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint._check_setup_finished::213",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::copy_current_request_context::155",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::app.py::Flask.wsgi_app::1479",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::json/tag.py::TaggedJSONSerializer.register::256",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.make_setup_state::246",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::ctx.py::RequestContext.pop::406",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::BlueprintSetupState.__init__::41",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint._merge_blueprint_funcs::379",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/app.py::App::59",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::sansio/blueprints.py::Blueprint.extend::380",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "dfa6d778-ab20-4f4f-8208-e5b4df98b25b::cli.py::_validate_key::836",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 39.27920800015272
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "mwaskom__seaborn-3190",
+      "issue_sha256": "f16af952f145dd2898ce47ccdbc061bfdf33092b9ec12008722d56fc763c6c17",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color._get_boolean_mapping::682",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/rules.py::variable_type::38::part_1",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Fill.default_scale::737"
+          ],
+          "context_sha256": "664d7ac8a0182eab511b2fc096e6df25abaff9bbcc0f98f37d36a20f373622c4",
+          "context_tokens": 1012,
+          "omissions": [
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color.infer_scale::586",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::HueMapping.categorical_mapping::220",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::ObjectProperty.default_scale::346",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::IntervalProperty._get_boolean_mapping::232",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Fill.infer_scale::741",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::ObjectProperty.infer_scale::350",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::ObjectProperty.get_mapping::354",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color._get_nominal_mapping::668",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::IntervalProperty.get_mapping::190",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Property::44",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/data.py::PlotData._assign_variables::127::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Fill::732",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::variable_type::1472",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Fill.get_mapping::759",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color.get_mapping::627",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::Scale._spacing::98",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/data.py::PlotData::17",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 37.35537500006103
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color._get_boolean_mapping::682",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/rules.py::variable_type::38::part_1",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Fill.default_scale::737"
+          ],
+          "context_sha256": "664d7ac8a0182eab511b2fc096e6df25abaff9bbcc0f98f37d36a20f373622c4",
+          "context_tokens": 1012,
+          "omissions": [
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color.infer_scale::586",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::ObjectProperty.default_scale::346",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Fill.infer_scale::741",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::ObjectProperty.infer_scale::350",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color._get_nominal_mapping::668",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::IntervalProperty.get_mapping::190",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::variable_type::1472",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color.get_mapping::627",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/data.py::PlotData::17",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Property.default_scale::59",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::IntervalProperty.infer_scale::171",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/rules.py::categorical_order::145",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::VectorPlotter._assign_variables_wideform::695::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::categorical_order::1744",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::HueMapping.numeric_mapping::254",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color.mapping::686",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color.mapping::673",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 36.05804099993293
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "mwaskom__seaborn-3014",
+      "issue_sha256": "069ac9a23b53326508042928faf99093b178c6fcc17858182fee5929ceddb95f",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::PseudoAxis.get_scale::983",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::_make_logit_transforms::1007",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::logit::1011",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::log::1036",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::categorical.py::barplot::2325"
+          ],
+          "context_sha256": "d23e94d80443df8baf3f5ea31f2973e78fde2e8bf8d0e920cca72be002ee889f",
+          "context_tokens": 979,
+          "omissions": [
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::FacetGrid.set_titles::944::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::_make_symlog_transforms::1047",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::IntervalProperty.infer_scale::171",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::external/husl.py::xyz_to_luv::202",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/data.py::PlotData._assign_variables::127::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::symlog::1056",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::FacetGrid.refline::1035",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::SemanticMapping._check_list_length::52",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Property._check_list_length::110",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::VectorPlotter._attach::1028::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Property._check_dict_entries::102",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::regression.py::_RegressionPlotter.fit_logx::312",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::regression.py::residplot::854",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Color.infer_scale::586",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::FacetGrid.__init__::371::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 31.912124999962543
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::PseudoAxis.get_scale::983",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::_make_logit_transforms::1007",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::logit::1011",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::log::1036",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::_make_symlog_transforms::1047",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::symlog::1056",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::regression.py::_RegressionPlotter.fit_logx::312",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::regression.py::_RegressionPlotter.reg_func::317",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::PseudoAxis.__init__::901",
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::expit::1015"
+          ],
+          "context_sha256": "6b4273ba3cabd233b9ee4fb8d8f37c317161df9a8a70dfb22113fb8ebb6b7202",
+          "context_tokens": 1015,
+          "omissions": [
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::_make_log_transforms::1022",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::PseudoAxis::889",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::VectorPlotter._get_scale_transforms::1167",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::exp::1040",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::symexp::1060",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::VectorPlotter::616",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::PseudoAxis.convert_units::975",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::PseudoAxis.get_data_interval::930",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::PseudoAxis.get_majorticklocs::991",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/scales.py::PseudoAxis.get_tick_space::933",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 34.8570829999062
+        }
+      },
+      "repair_outcome": "not_executed"
+    },
+    {
+      "instance_id": "mwaskom__seaborn-2848",
+      "issue_sha256": "ae46681d39747dd32bc66c7c1d9315871d7a37a42df348f4e96804aa148abc02",
+      "arms": {
+        "lexical": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::PairGrid.__init__::1191::part_1"
+          ],
+          "context_sha256": "db00bd73d408851814e563ca597e4e26fc94157e1b6ddb94b39466bb4c240b5a",
+          "context_tokens": 946,
+          "omissions": [
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::pairplot::2010::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::HueMapping.numeric_mapping::254",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::HueMapping.categorical_mapping::220",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Fill._default_values::748",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/data.py::PlotData._assign_variables::127::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/data.py::PlotData::17",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::JointGrid.__init__::1687",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::FacetGrid.facet_data::643",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::PairGrid::1177",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/data.py::PlotData._assign_variables::127::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::categorical.py::_CategoricalPlotter._palette_without_hue_backcompat::187",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::matrix.py::_matrix_mask::60",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::infer_orient::1564",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::categorical.py::_CategoricalPlotter._dodge::394",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Property._check_dict_entries::102",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::regression.py::residplot::854",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_core/properties.py::Property._check_list_length::110",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::categorical.py::_CategoricalPlotter._dodge_needed::385",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::SemanticMapping._check_list_length::52",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 43.63787499983118
+        },
+        "graph": {
+          "localized": false,
+          "rank": null,
+          "reciprocal_rank": 0.0,
+          "selected_ids": [
+            "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::PairGrid.__init__::1191::part_1"
+          ],
+          "context_sha256": "db00bd73d408851814e563ca597e4e26fc94157e1b6ddb94b39466bb4c240b5a",
+          "context_tokens": 946,
+          "omissions": [
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::pairplot::2010::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::HueMapping.numeric_mapping::254",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::HueMapping.categorical_mapping::220",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::JointGrid.__init__::1687",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::PairGrid::1177",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::Grid._get_palette::249",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::PairGrid.__init__::1191::part_2",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::HueMapping.__init__::99",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::regression.py::regplot::752",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::FacetGrid.set_titles::944::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::StyleMapping.__init__::525",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::Grid::103",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::VectorPlotter._attach::1028::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::FacetGrid.map_dataframe::765",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::utils.py::_default_color::69",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::Grid.__init__::108",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::_base.py::VectorPlotter.iter_data::849::part_1",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::PairGrid._plot_bivariate_iter_hue::1619",
+              "reason": "Complete chunk exceeds remaining token budget"
+            },
+            {
+              "id": "d0733592-e1d9-4b4c-87a8-41abad37f40e::axisgrid.py::PairGrid._add_axis_labels::1663",
+              "reason": "Complete chunk exceeds remaining token budget"
+            }
+          ],
+          "selection_and_packing_ms": 44.7057080000377
+        }
+      },
+      "repair_outcome": "not_executed"
+    }
+  ],
+  "cohort_sha256": "f2fd2416d0c76485ee97abf18145d3cba5d2f28d6acd4c0467a46cd3dc886890",
+  "runner_sha256": "2554547b4a7f6ad39a091be02e81ff72202593c11a9de9a8954b4826fa86dfc6"
+}

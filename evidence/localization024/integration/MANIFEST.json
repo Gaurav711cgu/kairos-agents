@@ -1,0 +1,37 @@
+{
+ "checkpoint": "integration024",
+ "components": {
+  "feedback_turn021": "one validator-feedback turn for the 14B 021 protocol: same validator as scorer, rejection_feedback010 folded into turn-one payload, turn limit derived from prompt, token/byte caps fail closed",
+  "ranked_workspace024": "v6 (H3) selector through existing -v8 worker hook initial_sources012; legacy configs untouched"
+ },
+ "files": {
+  "source/feedback_turn021.py": "99ea4c6b9c6b51ebd149dbd9f6d7509973c2b71c07933e31f90af9ab810b7f0f",
+  "source/ranked_workspace024.py": "ff306eae00bc8df96a51516331b57ef1fe7fd3a90839a62ec42c5334af144144",
+  "source/test_feedback_turn021.py": "fd245fe5357a17a095b37342e221039483d743ce75805ea034f22b3fd21c87aa",
+  "source/test_ranked_workspace024.py": "4609ad736c71b69d3ba38bbe68e90e15f9ba8ee261bfdaadeef62725543c60c1",
+  "tests.log": "82bc86ac28a5391c3013e272798fff16d47f218911ae17ecd2b0412493a70a97"
+ },
+ "memory_constraint": {
+  "historical_t4_peak_reserved_gib": 14.42,
+  "max_observed_input_plus_output_tokens": 3539,
+  "status": "estimate; real limit unmeasured",
+  "t4_total_gib": 14.6,
+  "turn2_eligible_at_1024_out_500_feedback_tokens": "16/30",
+  "turn2_eligible_dev_inscope_at_512_out_500_feedback_tokens": "21/30"
+ },
+ "review": {
+  "documented_preexisting": [
+   "worker partial localization capture on crash treated complete",
+   "-v8 hook gate endswith plus hasattr",
+   "hard-coded origin label",
+   "NoSourceEvidence outcome depends on worker class",
+   "frozen score.py also lacks RecursionError catch (historical, not edited)"
+  ],
+  "fixed": [
+   "RecursionError parse crash",
+   "caller-trusted turn count",
+   "verdict/text binding (echo removed)"
+  ]
+ },
+ "scope": "Offline, mocked-generation only; nothing enabled; 0 model calls; 0 Docker"
+}
