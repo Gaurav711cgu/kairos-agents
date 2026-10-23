@@ -1,0 +1,494 @@
+{
+ "benchmark": "SWE-bench Verified, Django development cases, oracle code regions, F025 repair loop",
+ "scoring": "hidden FAIL_TO_PASS and PASS_TO_PASS tests in the pinned Docker image",
+ "runs": [
+  {
+   "run": "nemotron-ultra-dev",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b (NVIDIA free API)",
+   "split": "development",
+   "cases_total": 5,
+   "cases_verified": 4,
+   "attempts_total": 10,
+   "attempts_verified": 7,
+   "model_calls": 10,
+   "cases": [
+    {
+     "instance_id": "django__django-12193",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -522,9 +522,7 @@\n \n     def get_context(self, name, value, attrs):\n         if self.check_test(value):\n-            if attrs is None:\n-                attrs = {}\n-            attrs['checked'] = True\n+            attrs = {**(attrs or {}), 'checked': True}\n         return super().get_context(name, value, attrs)\n \n     def value_from_datadict(self, data, files, name):\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -522,8 +522,7 @@\n \n     def get_context(self, name, value, attrs):\n         if self.check_test(value):\n-            if attrs is None:\n-                attrs = {}\n+            attrs = {**attrs} if attrs is not None else {}\n             attrs['checked'] = True\n         return super().get_context(name, value, attrs)\n \n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-12276",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -386,6 +386,9 @@\n \n     def value_omitted_from_data(self, data, files, name):\n         return name not in files\n+\n+    def use_required_attribute(self, initial):\n+        return super().use_required_attribute(initial) and not initial\n \n \n FILE_INPUT_CONTRADICTION = object()\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -386,6 +386,9 @@\n \n     def value_omitted_from_data(self, data, files, name):\n         return name not in files\n+\n+    def use_required_attribute(self, initial):\n+        return super().use_required_attribute(initial) and not initial\n \n \n FILE_INPUT_CONTRADICTION = object()\n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-12304",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -31,6 +31,8 @@\n         # that is passed in as \"self\" as the value to use when looking up the\n         # label in the choices.\n         cls.label = property(lambda self: cls._value2label_map_.get(self.value))\n+        # Prevent Django templates from trying to call the enum class.\n+        cls.do_not_call_in_templates = True\n         return enum.unique(cls)\n \n     def __contains__(cls, member):\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -31,6 +31,7 @@\n         # that is passed in as \"self\" as the value to use when looking up the\n         # label in the choices.\n         cls.label = property(lambda self: cls._value2label_map_.get(self.value))\n+        cls.do_not_call_in_templates = True\n         return enum.unique(cls)\n \n     def __contains__(cls, member):\n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-12325",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/db/models/base.py\n+++ b/django/db/models/base.py\n@@ -204,7 +204,9 @@\n             for field in base._meta.local_fields:\n                 if isinstance(field, OneToOneField):\n                     related = resolve_relation(new_class, field.remote_field.model)\n-                    parent_links[make_model_tuple(related)] = field\n+                    # Only consider fields with parent_link=True as parent links\n+                    if field.remote_field.parent_link:\n+                        parent_links[make_model_tuple(related)] = field\n \n         # Track fields inherited from base models.\n         inherited_attributes = set()\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/base.py\n+++ b/django/db/models/base.py\n@@ -204,7 +204,11 @@\n             for field in base._meta.local_fields:\n                 if isinstance(field, OneToOneField):\n                     related = resolve_relation(new_class, field.remote_field.model)\n-                    parent_links[make_model_tuple(related)] = field\n+                    # Only use fields with parent_link=True as parent links,\n+                    # or if there's no existing parent link for this model.\n+                    existing = parent_links.get(make_model_tuple(related))\n+                    if field.remote_field.parent_link or existing is None:\n+                        parent_links[make_model_tuple(related)] = field\n \n         # Track fields inherited from base models.\n         inherited_attributes = set()\n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-12774",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,8 +689,10 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n-            raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n+        if field_name != 'pk':\n+            field = self.model._meta.get_field(field_name)\n+            if not field.unique and not self._is_unique_field(field_name):\n+                raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n                 return {}\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,8 +689,10 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n-            raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n+        if field_name != 'pk':\n+            field = self.model._meta.get_field(field_name)\n+            if not (field.unique or self._is_unique_field(field_name)):\n+                raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n                 return {}\n"
+      }
+     ],
+     "fair_pick_verified": false
+    }
+   ]
+  },
+  {
+   "run": "nemotron-ultra-fresh",
+   "model": "nvidia/nemotron-3-ultra-550b-a55b (NVIDIA free API)",
+   "split": "fresh development (uninspected, one run)",
+   "cases_total": 7,
+   "cases_verified": 3,
+   "attempts_total": 14,
+   "attempts_verified": 4,
+   "model_calls": 24,
+   "cases": [
+    {
+     "instance_id": "django__django-12965",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/sql/compiler.py\n+++ b/django/db/models/sql/compiler.py\n@@ -1416,6 +1416,10 @@\n         where, params = self.compile(query.where)\n         if where:\n             result.append('WHERE %s' % where)\n+            return ' '.join(result), params\n+        return ' '.join(result), params\n+        if where:\n+            result.append('WHERE %s' % where)\n         return ' '.join(result), tuple(params)\n \n     def as_sql(self):\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/sql/compiler.py\n+++ b/django/db/models/sql/compiler.py\n@@ -1413,7 +1413,12 @@\n         result = [\n             'DELETE FROM %s' % self.quote_name_unless_alias(query.base_table)\n         ]\n+        # Only add WHERE clause if there are actual conditions\n         where, params = self.compile(query.where)\n+        if where:\n+            result.append('WHERE %s' % where)\n+            return result, params\n+        return result, params\n         if where:\n             result.append('WHERE %s' % where)\n         return ' '.join(result), tuple(params)\n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-13089",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "loop_call_cap",
+       "verified": false,
+       "calls": 8,
+       "patch": null
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/core/cache/backends/db.py\n+++ b/django/core/cache/backends/db.py\n@@ -267,9 +267,11 @@\n                 cursor.execute(\n                     connection.ops.cache_key_culling_sql() % table,\n                     [cull_num])\n-                cursor.execute(\"DELETE FROM %s \"\n-                               \"WHERE cache_key < %%s\" % table,\n-                               [cursor.fetchone()[0]])\n+                row = cursor.fetchone()\n+                if row is not None:\n+                    cursor.execute(\"DELETE FROM %s \"\n+                                   \"WHERE cache_key < %%s\" % table,\n+                                   [row[0]])\n \n     def clear(self):\n         db = router.db_for_write(self.cache_model_class)\n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-13128",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/expressions.py\n+++ b/django/db/models/expressions.py\n@@ -460,6 +460,14 @@\n         datetime_fields = {'DateField', 'DateTimeField', 'TimeField'}\n         if self.connector == self.SUB and lhs_type in datetime_fields and lhs_type == rhs_type:\n             return TemporalSubtraction(self.lhs, self.rhs).as_sql(compiler, connection)\n+        # If lhs is a TemporalSubtraction (which outputs DurationField) and rhs is DurationField,\n+        # or vice versa, allow the operation without requiring output_field.\n+        if (\n+            self.connector in {self.ADD, self.SUB} and\n+            lhs_type == 'DurationField' and\n+            rhs_type == 'DurationField'\n+        ):\n+            pass  # Allow DurationField + DurationField or DurationField - DurationField\n         expressions = []\n         expression_params = []\n         sql, params = compiler.compile(self.lhs)\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/expressions.py\n+++ b/django/db/models/expressions.py\n@@ -460,6 +460,18 @@\n         datetime_fields = {'DateField', 'DateTimeField', 'TimeField'}\n         if self.connector == self.SUB and lhs_type in datetime_fields and lhs_type == rhs_type:\n             return TemporalSubtraction(self.lhs, self.rhs).as_sql(compiler, connection)\n+        # Handle mixed datetime/duration arithmetic (e.g., datetime - datetime + duration)\n+        if self.connector in {self.ADD, self.SUB}:\n+            if lhs_type in datetime_fields and rhs_type == 'DurationField':\n+                # datetime + duration or datetime - duration\n+                return CombinedExpression(self.lhs, self.connector, self.rhs, output_field=self.lhs.output_field).as_sql(compiler, connection)\n+            if lhs_type == 'DurationField' and rhs_type in datetime_fields:\n+                # duration + datetime (only ADD makes sense)\n+                if self.connector == self.ADD:\n+                    return CombinedExpression(self.lhs, self.connector, self.rhs, output_field=self.rhs.output_field).as_sql(compiler, connection)\n+            if lhs_type == 'DurationField' and rhs_type == 'DurationField':\n+                # duration + duration or duration - duration\n+                return CombinedExpression(self.lhs, self.connector, self.rhs, output_field=DurationField()).as_sql(compiler, connection)\n         expressions = []\n         expression_params = []\n         sql, params = compiler.compile(self.lhs)\n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-13297",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 2,
+       "patch": "--- a/django/views/generic/base.py\n+++ b/django/views/generic/base.py\n@@ -11,7 +11,7 @@\n from django.urls import reverse\n from django.utils.decorators import classonlymethod\n from django.utils.deprecation import RemovedInDjango40Warning\n-from django.utils.functional import SimpleLazyObject\n+from django.utils.functional import Promise, SimpleLazyObject\n \n logger = logging.getLogger('django.request')\n \n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/views/generic/base.py\n+++ b/django/views/generic/base.py\n@@ -11,7 +11,7 @@\n from django.urls import reverse\n from django.utils.decorators import classonlymethod\n from django.utils.deprecation import RemovedInDjango40Warning\n-from django.utils.functional import SimpleLazyObject\n+from django.utils.functional import SimpleLazyObject, empty\n \n logger = logging.getLogger('django.request')\n \n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-13363",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/db/models/functions/datetime.py\n+++ b/django/db/models/functions/datetime.py\n@@ -292,7 +292,7 @@\n     def as_sql(self, compiler, connection):\n         # Cast to date rather than truncate to date.\n         lhs, lhs_params = compiler.compile(self.lhs)\n-        tzname = timezone.get_current_timezone_name() if settings.USE_TZ else None\n+        tzname = self.get_tzname()\n         sql = connection.ops.datetime_cast_date_sql(lhs, tzname)\n         return sql, lhs_params\n \n@@ -305,7 +305,7 @@\n     def as_sql(self, compiler, connection):\n         # Cast to time rather than truncate to time.\n         lhs, lhs_params = compiler.compile(self.lhs)\n-        tzname = timezone.get_current_timezone_name() if settings.USE_TZ else None\n+        tzname = self.get_tzname()\n         sql = connection.ops.datetime_cast_time_sql(lhs, tzname)\n         return sql, lhs_params\n \n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/functions/datetime.py\n+++ b/django/db/models/functions/datetime.py\n@@ -292,7 +292,7 @@\n     def as_sql(self, compiler, connection):\n         # Cast to date rather than truncate to date.\n         lhs, lhs_params = compiler.compile(self.lhs)\n-        tzname = timezone.get_current_timezone_name() if settings.USE_TZ else None\n+        tzname = self.get_tzname()\n         sql = connection.ops.datetime_cast_date_sql(lhs, tzname)\n         return sql, lhs_params\n \n@@ -305,8 +305,7 @@\n     def as_sql(self, compiler, connection):\n         # Cast to time rather than truncate to time.\n         lhs, lhs_params = compiler.compile(self.lhs)\n-        tzname = timezone.get_current_timezone_name() if settings.USE_TZ else None\n-        sql = connection.ops.datetime_cast_time_sql(lhs, tzname)\n+        tzname = self.get_tzname()\n         return sql, lhs_params\n \n \n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-13406",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "loop_repeated",
+       "verified": false,
+       "calls": 3,
+       "patch": null
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -211,6 +211,7 @@\n     @query.setter\n     def query(self, value):\n         self._query = value\n+        self._iterable_class = value.get_iterable_class()\n \n     def as_manager(cls):\n         # Address the circular dependency between `Queryset` and `Manager`.\n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-13516",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/core/management/base.py\n+++ b/django/core/management/base.py\n@@ -142,6 +142,10 @@\n \n     def isatty(self):\n         return hasattr(self._out, 'isatty') and self._out.isatty()\n+\n+    def flush(self):\n+        if hasattr(self._out, 'flush'):\n+            self._out.flush()\n \n     def write(self, msg='', style_func=None, ending=None):\n         ending = self.ending if ending is None else ending\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 1,
+       "patch": "--- a/django/core/management/base.py\n+++ b/django/core/management/base.py\n@@ -142,6 +142,10 @@\n \n     def isatty(self):\n         return hasattr(self._out, 'isatty') and self._out.isatty()\n+\n+    def flush(self):\n+        if hasattr(self._out, 'flush'):\n+            self._out.flush()\n \n     def write(self, msg='', style_func=None, ending=None):\n         ending = self.ending if ending is None else ending\n"
+      }
+     ],
+     "fair_pick_verified": true
+    }
+   ]
+  },
+  {
+   "run": "qwen14b-run4-dev",
+   "model": "Qwen2.5-Coder-14B-Instruct (4-bit, Colab T4)",
+   "split": "development",
+   "cases_total": 5,
+   "cases_verified": 2,
+   "attempts_total": 10,
+   "attempts_verified": 2,
+   "model_calls": 29,
+   "cases": [
+    {
+     "instance_id": "django__django-12193",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 2,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -524,7 +524,7 @@\n         if self.check_test(value):\n             if attrs is None:\n                 attrs = {}\n-            attrs['checked'] = True\n+            attrs.setdefault('checked', True)\n         return super().get_context(name, value, attrs)\n \n     def value_from_datadict(self, data, files, name):\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -524,7 +524,7 @@\n         if self.check_test(value):\n             if attrs is None:\n                 attrs = {}\n-            attrs['checked'] = True\n+            attrs['checked'] = bool(value)\n         return super().get_context(name, value, attrs)\n \n     def value_from_datadict(self, data, files, name):\n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-12276",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 4,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -452,7 +452,7 @@\n         return upload\n \n     def use_required_attribute(self, initial):\n-        return super().use_required_attribute(initial) and not initial\n+        return not initial\n \n     def value_omitted_from_data(self, data, files, name):\n         return (\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 4,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -452,7 +452,7 @@\n         return upload\n \n     def use_required_attribute(self, initial):\n-        return super().use_required_attribute(initial) and not initial\n+        return super().use_required_attribute(initial) and not (initial or self.is_initial)\n \n     def value_omitted_from_data(self, data, files, name):\n         return (\n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-12304",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "loop_call_cap",
+       "verified": false,
+       "calls": 6,
+       "patch": null
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 3,
+       "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -31,6 +31,7 @@\n         # that is passed in as \"self\" as the value to use when looking up the\n         # label in the choices.\n         cls.label = property(lambda self: cls._value2label_map_.get(self.value))\n+        cls.do_not_call_in_templates = True\n         return enum.unique(cls)\n \n     def __contains__(cls, member):\n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-12325",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 2,
+       "patch": "--- a/django/db/models/options.py\n+++ b/django/db/models/options.py\n@@ -249,12 +249,12 @@\n                 already_created = [fld for fld in self.local_fields if fld.name == field.name]\n                 if already_created:\n                     field = already_created[0]\n-                field.primary_key = True\n-                self.setup_pk(field)\n                 if not field.remote_field.parent_link:\n                     raise ImproperlyConfigured(\n                         'Add parent_link=True to %s.' % field,\n                     )\n+                field.primary_key = True\n+                self.setup_pk(field)\n             else:\n                 auto = AutoField(verbose_name='ID', primary_key=True, auto_created=True)\n                 model.add_to_class('id', auto)\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/base.py\n+++ b/django/db/models/base.py\n@@ -201,10 +201,16 @@\n             if base != new_class and not base._meta.abstract:\n                 continue\n             # Locate OneToOneField instances.\n+            # Collect all OneToOneField instances from the base class.\n+            one_to_one_fields = []\n             for field in base._meta.local_fields:\n                 if isinstance(field, OneToOneField):\n-                    related = resolve_relation(new_class, field.remote_field.model)\n-                    parent_links[make_model_tuple(related)] = field\n+                    one_to_one_fields.append(field)\n+\n+            # Process OneToOneFields after collecting all of them.\n+            for field in one_to_one_fields:\n+                related = resolve_relation(new_class, field.remote_field.model)\n+                parent_links[make_model_tuple(related)] = field\n \n         # Track fields inherited from base models.\n         inherited_attributes = set()\n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-12774",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 2,
+       "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,8 +689,10 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n-            raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n+        if field_name != 'pk':\n+            field = self.model._meta.get_field(field_name)\n+            if not field.unique and not any(isinstance(constraint, models.UniqueConstraint) and field in constraint.fields for constraint in self.model._meta.constraints):\n+                raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n                 return {}\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 4,
+       "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,7 +689,11 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n+        if field_name != 'pk':\n+            if not self.model._meta.get_field(field_name).unique and not any(\n+                constraint.fields == [field_name] for constraint in self.model._meta.constraints\n+            ):\n+                raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n             raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n"
+      }
+     ],
+     "fair_pick_verified": false
+    }
+   ]
+  },
+  {
+   "run": "qwen14b-run5-dev",
+   "model": "Qwen2.5-Coder-14B-Instruct (4-bit, Colab T4)",
+   "split": "development",
+   "cases_total": 5,
+   "cases_verified": 1,
+   "attempts_total": 10,
+   "attempts_verified": 1,
+   "model_calls": 18,
+   "cases": [
+    {
+     "instance_id": "django__django-12193",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -524,7 +524,7 @@\n         if self.check_test(value):\n             if attrs is None:\n                 attrs = {}\n-            attrs['checked'] = True\n+            attrs['checked'] = self.check_test(value)\n         return super().get_context(name, value, attrs)\n \n     def value_from_datadict(self, data, files, name):\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -524,7 +524,7 @@\n         if self.check_test(value):\n             if attrs is None:\n                 attrs = {}\n-            attrs['checked'] = True\n+            attrs['checked'] = bool(value)\n         return super().get_context(name, value, attrs)\n \n     def value_from_datadict(self, data, files, name):\n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-12276",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -452,7 +452,7 @@\n         return upload\n \n     def use_required_attribute(self, initial):\n-        return super().use_required_attribute(initial) and not initial\n+        return not initial\n \n     def value_omitted_from_data(self, data, files, name):\n         return (\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 2,
+       "patch": "--- a/django/forms/widgets.py\n+++ b/django/forms/widgets.py\n@@ -452,7 +452,7 @@\n         return upload\n \n     def use_required_attribute(self, initial):\n-        return super().use_required_attribute(initial) and not initial\n+        return not initial\n \n     def value_omitted_from_data(self, data, files, name):\n         return (\n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-12304",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "loop_repeated",
+       "verified": false,
+       "calls": 5,
+       "patch": null
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "verified_repair",
+       "verified": true,
+       "calls": 2,
+       "patch": "--- a/django/db/models/enums.py\n+++ b/django/db/models/enums.py\n@@ -31,6 +31,7 @@\n         # that is passed in as \"self\" as the value to use when looking up the\n         # label in the choices.\n         cls.label = property(lambda self: cls._value2label_map_.get(self.value))\n+        cls.do_not_call_in_templates = True\n         return enum.unique(cls)\n \n     def __contains__(cls, member):\n"
+      }
+     ],
+     "fair_pick_verified": true
+    },
+    {
+     "instance_id": "django__django-12325",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/options.py\n+++ b/django/db/models/options.py\n@@ -249,12 +249,12 @@\n                 already_created = [fld for fld in self.local_fields if fld.name == field.name]\n                 if already_created:\n                     field = already_created[0]\n-                field.primary_key = True\n-                self.setup_pk(field)\n                 if not field.remote_field.parent_link:\n                     raise ImproperlyConfigured(\n                         'Add parent_link=True to %s.' % field,\n                     )\n+                field.primary_key = True\n+                self.setup_pk(field)\n             else:\n                 auto = AutoField(verbose_name='ID', primary_key=True, auto_created=True)\n                 model.add_to_class('id', auto)\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 1,
+       "patch": "--- a/django/db/models/base.py\n+++ b/django/db/models/base.py\n@@ -205,6 +205,8 @@\n                 if isinstance(field, OneToOneField):\n                     related = resolve_relation(new_class, field.remote_field.model)\n                     parent_links[make_model_tuple(related)] = field\n+                    if field.remote_field.parent_link:\n+                        new_class._meta.setup_inheritance(field)\n \n         # Track fields inherited from base models.\n         inherited_attributes = set()\n--- a/django/db/models/options.py\n+++ b/django/db/models/options.py\n@@ -251,7 +251,7 @@\n                     field = already_created[0]\n                 field.primary_key = True\n                 self.setup_pk(field)\n-                if not field.remote_field.parent_link:\n+                if not field.remote_field.parent_link and field not in self.local_fields:\n                     raise ImproperlyConfigured(\n                         'Add parent_link=True to %s.' % field,\n                     )\n"
+      }
+     ],
+     "fair_pick_verified": false
+    },
+    {
+     "instance_id": "django__django-12774",
+     "samples": [
+      {
+       "sample": "oracle-s0",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 2,
+       "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,7 +689,10 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n+        if field_name != 'pk':\n+            field = self.model._meta.get_field(field_name)\n+            if not field.unique and not any(constraint.fields == [field_name] for constraint in self.model._meta.constraints if isinstance(constraint, models.UniqueConstraint)):\n+                raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n             raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n"
+      },
+      {
+       "sample": "oracle-s1",
+       "outcome": "behavioral_mismatch",
+       "verified": false,
+       "calls": 2,
+       "patch": "--- a/django/db/models/query.py\n+++ b/django/db/models/query.py\n@@ -689,7 +689,10 @@\n         \"\"\"\n         assert not self.query.is_sliced, \\\n             \"Cannot use 'limit' or 'offset' with in_bulk\"\n-        if field_name != 'pk' and not self.model._meta.get_field(field_name).unique:\n+        if field_name != 'pk':\n+            field = self.model._meta.get_field(field_name)\n+            if not field.unique and not any(constraint.fields == [field_name] for constraint in self.model._meta.constraints):\n+                raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n             raise ValueError(\"in_bulk()'s field_name must be a unique field but %r isn't.\" % field_name)\n         if id_list is not None:\n             if not id_list:\n"
+      }
+     ],
+     "fair_pick_verified": false
+    }
+   ]
+  }
+ ]
+}
