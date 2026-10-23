@@ -94,7 +94,7 @@ def test_f024_pilot_gold_hunks_are_expressible():
     package, parquet = root / 'f024-pilot/upload-v2/f024-package.json', root / 'unseen023-full/test.parquet'
     if not (package.is_file() and parquet.is_file()):
         pytest.skip('F024 pilot package or unseen023 parquet not present')
-    import pyarrow.parquet as pq
+    pq = pytest.importorskip('pyarrow.parquet', reason='pyarrow is research tooling, not in requirements-reviewer.lock')
     from scripts.search_replace_control025 import expressible, parse_hunks
     jobs = {j['job_id']: j for j in json.loads(package.read_text())['jobs']}
     gold = {r['instance_id']: r['patch'] for r in pq.read_table(parquet).to_pylist()}

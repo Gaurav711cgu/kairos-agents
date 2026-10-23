@@ -175,6 +175,7 @@ def test_source_mutation_during_scoring_raises(tmp_path, monkeypatch):
 
 
 def test_capacity_flag_sets_storage_cap(monkeypatch):
+    pytest.importorskip('pyarrow.parquet', reason='pyarrow is research tooling, not in requirements-reviewer.lock')
     seen = {}
     monkeypatch.setattr(score, 'final_attempts', lambda jobs, captures: seen.setdefault('cap', q.CAPACITY) and {})
     monkeypatch.setattr(sys, 'argv', ['f024_score', '--package', '/dev/null', '--results', '/nonexistent', '--qualification', '/q', '--parquet', '/p',
