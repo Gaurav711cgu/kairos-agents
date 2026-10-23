@@ -153,7 +153,7 @@ greedy, with no repetition penalty, and EOS is `<|im_end|>`.
 ### Corrected root-cause ranking (supersedes the Phase 2 order; Phase 2 is kept above)
 1. **Insufficient source (issue arm): High, new.** Issue-only context held 0 regions from any gold
    file in both cases, so 6 of 13 generations could not have succeeded under any edit protocol. This
-   corrects `docs/F024_PILOT_RESULTS.md` ("issue-only context for A included the right file").
+   corrects `docs/research/F024_PILOT_RESULTS.md` ("issue-only context for A included the right file").
 2. **Protocol traps (H3): High.** Of the 7 oracle generations, 5 failed from line-range semantics or
    numbered rendering: the swallowed `def` (x2), an overwrite instead of an insert (x1), and copied
    `11: ` prefixes (x2).

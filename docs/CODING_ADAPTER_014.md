@@ -1,4 +1,4 @@
-> Current result: training completed (100 supervision examples, 40 optimizer updates). The separate completed same-base repair comparison found 0/9 repairs in each arm, with three cases unavailable. No improvement is claimed. [Final evaluation](ADAPTER_EVALUATION_020.md). Earlier unstarted/pending notes below are preserved historical planning checkpoints.
+> Current result: training completed (100 supervision examples, 40 optimizer updates). The separate completed same-base repair comparison found 0/9 repairs in each arm, with three cases unavailable. No improvement is claimed. [Final evaluation](research/ADAPTER_EVALUATION_020.md). Earlier unstarted/pending notes below are preserved historical planning checkpoints.
 
 # Current status correction — 20 October 2026
 

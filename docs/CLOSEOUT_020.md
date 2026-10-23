@@ -1,4 +1,4 @@
-> Update: the separately approved inference-only comparison has now completed. Base and trained adapter each achieved 0/9 verified repairs; three other frozen cases remained unavailable per arm. All nine baseline/reference reproductions passed. See [the complete adapter report](ADAPTER_EVALUATION_020.md). This supersedes statements below that this phase had no uploads or inference; those describe the earlier closeout checkpoint.
+> Update: the separately approved inference-only comparison has now completed. Base and trained adapter each achieved 0/9 verified repairs; three other frozen cases remained unavailable per arm. All nine baseline/reference reproductions passed. See [the complete adapter report](research/ADAPTER_EVALUATION_020.md). This supersedes statements below that this phase had no uploads or inference; those describe the earlier closeout checkpoint.
 
 # Kairos integration closeout — 20 October 2026
 
