@@ -47,7 +47,7 @@ export default function RootLayout({
             <span className="brand-symbol" aria-hidden="true">
               κ
             </span>
-            Kairos<span className="edition">Build 007</span>
+            Kairos<span className="edition">Build 025</span>
           </Link>
           <nav aria-label="Main navigation">
             <Link href="/how-it-works">Start here</Link>

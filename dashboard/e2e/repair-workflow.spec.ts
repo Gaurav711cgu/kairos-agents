@@ -61,7 +61,7 @@ test("390px follow-up contains its evidence and explains the optional local task
   await page.goto("/repair-workflow");
   await expect(page.getByRole("heading", { name: "Investigate another reviewed Python defect.", exact: true })).toBeVisible();
   await expect(page.getByText(/does not require a maintainer repair/)).toBeVisible();
-  await expect(page.getByText(/frozen local-model v7 study, completed on 13 October 2026, remains 0\/10/i)).toBeVisible();
+  await expect(page.getByText(/frozen local-model v7 study, completed on 13 October 2026, was 0\/10/i)).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   const commands = page.locator("summary").filter({ hasText: "Show the local commands" });
   await commands.focus();

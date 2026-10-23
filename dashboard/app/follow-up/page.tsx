@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import Link from 'next/link';
 import results from '@/lib/followup006-results.json';
 import { configurationLabel, outcomeLabel } from '@/lib/investigations';
@@ -7,6 +8,7 @@ const developmentLabel = (name: string) => ({'pilot-coder-r1': 'Qwen2.5-Coder ·
 
 export default function FollowUp(){return <div className="page-shell reading-page">
   <header className="page-heading"><span className="eyebrow">Build 006 / Repair follow-up</span><h1>Trace the failure.<br/><em>Fix the execution path.</em></h1><p>A source-context defect disabled patch proposals in most loop calls. This follow-up separates that engineering fix from the model results it earned.</p></header>
+      <CurrentResult historical />
   <section className="prose"><h2>What failed in the harness</h2><p>After the first search, the loop removed original source from context. Without source references, the action schema removed patch proposals. This affected 55 of 66 model dispatches. All 60 searches returned no matches; 36 repeated an earlier query.</p><p>The new version saves original source independently from tool history. Compact handles bind exact replacements to the source hash and excerpt. Accepted patches receive checks immediately. No maintainer repair is shown to the agent.</p></section>
   <section className="prose"><h2>Fresh validation</h2><p>Five independently qualified cases ran once with each frozen v5 strategy. The six-case qualification target was missed: the remaining Requests defect required Python 2. Every qualified case was attempted; failed cases were not replaced.</p></section>
   <div className="capacity-stages">{Object.entries(results.validation).map(([strategy,row])=><article key={strategy}><span className="eyebrow">{configurationLabel(strategy)} · Version 5</span><h2>{row.verified} / {row.attempts} verified</h2><dl><div><dt>Calls</dt><dd>{row.calls}</dd></div><div><dt>Captured tokens</dt><dd>{row.tokens.toLocaleString('en-US')}</dd></div><div><dt>Elapsed</dt><dd>{Math.round(row.elapsed_seconds)}s</dd></div></dl>{Object.entries(row.outcomes).map(([outcome,count])=><p key={outcome}>{outcomeLabel(outcome,'completed')}: {count}</p>)}</article>)}</div>

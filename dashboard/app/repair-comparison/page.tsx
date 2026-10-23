@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import Link from "next/link";
 import report from "@/lib/comparison014-report.json";
 import adapter from "@/lib/adapter-comparison020.json";
@@ -58,6 +59,7 @@ export default function RepairComparisonPage() {
           in Django and pytest under identical context and verifier budgets.
         </p>
       </header>
+      <CurrentResult historical />
 
       <div className="article-layout">
         <aside className="article-index">

@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import Link from "next/link";
 
 export const metadata = { title: "Run and review Kairos" };
@@ -5,6 +6,7 @@ export const metadata = { title: "Run and review Kairos" };
 export default function Docs() {
   return <div className="page-shell reading-page">
     <header className="page-heading"><span className="eyebrow">Documentation / Reviewer guide</span><h1>Run the project.<br /><em>Inspect the evidence.</em></h1><p>Start with recorded investigations. Add the authenticated stack or reproduce a saved repair when you need those checks.</p></header>
+      <CurrentResult />
     <div className="article-layout">
       <aside className="article-index"><span className="eyebrow">Contents</span><a href="#recorded">Evidence viewer</a><a href="#fullstack">Authenticated stack</a><a href="#repair">Repair reproduction</a><a href="#api">API contracts</a><a href="#checks">Checks and shutdown</a><a href="#limits">Evidence limits</a></aside>
       <article className="prose">
@@ -20,7 +22,7 @@ export default function Docs() {
           <code>GET /api/investigations/:id/replay · POST /api/investigations/:id/publish</code><p>Replay executes neither inference nor tools. Publication requires an administrator; new records default to private.</p>
         </div></section>
         <section id="checks"><h2>Run acceptance and stop owned services.</h2><pre>{"python3 -m scripts.reviewer stop\npython3 -m scripts.reviewer check --recorded-only\npython3 -m scripts.reviewer check --fullstack\npython3 -m scripts.reviewer stop"}</pre><p>Recorded-only checks keep Docker off. Full-stack checks use real PostgreSQL and OIDC; isolated test providers do not count as model repairs. The command records outcomes and explicit skips. Stop the current reviewer mode before starting another.</p><p>Shutdown matches process identity and container ownership. It preserves volumes and historical images. On the existing Mac, run heavy phases sequentially and stop Docker Desktop after required container work.</p></section>
-        <section id="limits"><h2>Read the results with their scope.</h2><p>Frozen local-model v7 validation remains 0/10 across five qualified Python cases. Earlier v5 validation remains 0/10; the preserved older study remains 0/36. Development repairs cover an issue-hinted, human-localized Django case. Captured tokens exclude unavailable unknown-dispatch consumption.</p><p>Reference repairs and verification files stay outside source tools. Check diagnostics are feedback-visible. Candidate Python shares the verifier environment, so these containers do not establish adversarial test-forgery resistance.</p><p>Local capacity and restoration are measured separately from inference quality. Hashes prove consistency against the trusted manifest. Public hosting, customer adoption and production scale remain unmeasured.</p><Link className="text-link" href="/engineering">Read the engineering decisions</Link></section>
+        <section id="limits"><h2>Read the results with their scope.</h2><p>Earlier frozen local-model studies were 0/10 (v7, five qualified Python cases), 0/10 (v5) and 0/36 (the preserved older study); those describe that local model, not the current hosted-model pipeline. Development repairs cover an issue-hinted, human-localized Django case. Captured tokens exclude unavailable unknown-dispatch consumption.</p><p>Reference repairs and verification files stay outside source tools. Check diagnostics are feedback-visible. Candidate Python shares the verifier environment, so these containers do not establish adversarial test-forgery resistance.</p><p>Local capacity and restoration are measured separately from inference quality. Hashes prove consistency against the trusted manifest. Public hosting, customer adoption and production scale remain unmeasured.</p><Link className="text-link" href="/engineering">Read the engineering decisions</Link></section>
       </article>
     </div>
   </div>;
