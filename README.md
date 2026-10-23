@@ -6,6 +6,8 @@ Kairos takes a real bug from an open-source project, reproduces it in a sandbox,
 investigate and propose a patch, and accepts the patch only when the project's own hidden tests pass in a
 pinned Docker image. Every model call, tool step and verdict is saved and inspectable.
 
+**Live site: [kairos-agents.vercel.app](https://kairos-agents.vercel.app)** (recorded results, read-only)
+
 [Results](#results) · [Try it](#try-it) · [How it works](#how-it-works) · [Engineering](#engineering) ·
 [Resume claims](docs/RESUME_CLAIMS.md) · [Docs](#documentation)
 
@@ -30,6 +32,8 @@ scores, hash manifest). Browse it on the website at `/benchmark`.
 ## Try it
 
 ### Browse every result (no account, no model, no Docker)
+
+Open [kairos-agents.vercel.app/benchmark](https://kairos-agents.vercel.app/benchmark), or run it locally:
 
 ```bash
 python3 -m scripts.reviewer demo          # Python 3.12 and Node 24; opens http://127.0.0.1:3310
