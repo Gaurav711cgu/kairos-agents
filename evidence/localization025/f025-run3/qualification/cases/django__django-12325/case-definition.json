@@ -1,0 +1,25 @@
+{
+  "approved_prefix": "django/",
+  "command": [
+    "python",
+    "/verification/verify.py"
+  ],
+  "entry_files": [
+    "django/db/models/base.py",
+    "django/db/models/options.py"
+  ],
+  "id": "django__django-12325",
+  "image": "sha256:df8f0ef9be4fb1f710c20ba9738a4ec6fa68d2a1d6422fce277cbfc4b69ed73e",
+  "issue": "pk setup for MTI to parent get confused by multiple OneToOne references.\nDescription\n\t\nclass Document(models.Model):\n\tpass\nclass Picking(Document):\n\tdocument_ptr = models.OneToOneField(Document, on_delete=models.CASCADE, parent_link=True, related_name='+')\n\torigin = models.OneToOneField(Document, related_name='picking', on_delete=models.PROTECT)\nproduces django.core.exceptions.ImproperlyConfigured: Add parent_link=True to appname.Picking.origin.\nclass Picking(Document):\n\torigin = models.OneToOneField(Document, related_name='picking', on_delete=models.PROTECT)\n\tdocument_ptr = models.OneToOneField(Document, on_delete=models.CASCADE, parent_link=True, related_name='+')\nWorks\nFirst issue is that order seems to matter?\nEven if ordering is required \"by design\"(It shouldn't be we have explicit parent_link marker) shouldn't it look from top to bottom like it does with managers and other things?\n",
+  "provenance": "F024 pilot development case. Reference-derived entry files are registry metadata for qualification only and never reach inference.",
+  "qualification_registration": "Internal preflight only; final independent receipt controls qualification",
+  "qualified": false,
+  "reference_digest": "88a576600f625378c478021c4415421bda24b1146750e27616b7f4b47d855384",
+  "repository": "django/django",
+  "revision": "29c126bb349526b5f1cd78facbe9f25906f18563",
+  "source_digest": "e03bb1770da4b76397bc58a6a626d6298e76eabf441b2dc05e4ab397191a5a09",
+  "source_url": "https://codeload.github.com/django/django/tar.gz/29c126bb349526b5f1cd78facbe9f25906f18563",
+  "split": "development",
+  "title": "pk setup for MTI to parent get confused by multiple OneToOne references.",
+  "verification_digest": "e2d163fc0682ffb4c2d792034b6500272a8db75f620ab6cdafb7f2f2e1076e48"
+}

@@ -172,6 +172,9 @@ def verify_bundle(corpus, directory, expected_index_sha256, dataset_path):
                 'reference_patch_sha256': hashlib.sha256(original['patch'].encode()).hexdigest(),
                 'verification_basis': 'dataset_authors; not locally reproduced'}, 'Public verification provenance differs')
         patch_scope(original['patch'])
+        from scripts.coding_target_completeness021 import audit_row
+        require(audit_row(row, original['patch'])['complete_reference_equivalence'],
+                'Training target differs from complete reference transformation')
         identity = {key: row[key] for key in ('instance_id', 'repository', 'source_commit', 'source_digest')}
         for name in ('rights', 'family'):
             review = receipts[name]
@@ -357,6 +360,9 @@ def build_bundle(corpus, output_dir, dataset_path, reviews_by_id, independent_sp
         iid = row['instance_id']
         raw = public.get(iid)
         require(raw is not None, f'Missing raw public dataset row for {iid}')
+        from scripts.coding_target_completeness021 import audit_row
+        require(audit_row(row, raw['patch'])['complete_reference_equivalence'],
+                'Training target differs from complete reference transformation')
         patch_sha = hashlib.sha256(raw['patch'].encode()).hexdigest()
         supervision = {
             'version': 'coding-public-supervision014-v1', 'dataset': DATASET,

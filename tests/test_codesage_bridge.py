@@ -3,19 +3,23 @@ Integration validator: Kairos SWE Agent <-> CodeSage Graph-RAG MCP Bridge.
 
 Executes live subprocess call to CodeSage's official Model Context Protocol (MCP) server
 via stdio JSON-RPC, testing tools/list and tools/call (export_kairos_context).
-Produces an immutable execution receipt in evidence/retrieval011/.
+Historical receipts in evidence/retrieval011 are preserved. New diagnostics use unique private runtime paths.
 """
 from __future__ import annotations
 
 import json
+import os
 import time
+from uuid import uuid4
 from pathlib import Path
 import pytest
 
 from scripts.codesage_mcp_client import CodeSageMCPClient, DEFAULT_CODESAGE_ROOT
 
+pytestmark = pytest.mark.skipif(os.environ.get("KAIROS_CODESAGE_INTEGRATION") != "1", reason="Explicit local CodeSage integration opt-in required; tests capture new diagnostics only")
+
 KAIROS_ROOT = Path(__file__).resolve().parents[1]
-RECEIPT_PATH = KAIROS_ROOT / "evidence" / "retrieval011" / "codesage_mcp_integration_receipt.json"
+RECEIPT_PATH = KAIROS_ROOT / ".runtime" / "diagnostics020" / ("codesage_mcp_integration_" + uuid4().hex + ".json")
 
 
 @pytest.fixture(scope="module")
@@ -59,8 +63,9 @@ def test_codesage_mcp_export_kairos_context(mcp_client: CodeSageMCPClient):
 
     # Token budgeting assertion: ensure context stays safely under Kairos 14B limit (2048 tokens)
     word_count = len(context_payload.split())
-    approx_tokens = word_count * 1.3
-    assert approx_tokens < 2048, f"Context payload too large: {approx_tokens} tokens"
+    # The historical word multiplier is not a tokenizer measurement. Assert only
+    # the actual byte bound here; the token-budget diagnostic is separate.
+    assert len(context_payload.encode()) <= 4 * 1024 * 1024
 
     # Write immutable Gravitas verification receipt
     RECEIPT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -75,15 +80,16 @@ def test_codesage_mcp_export_kairos_context(mcp_client: CodeSageMCPClient):
         "symbol_name": symbol_name,
         "latency_ms": round(latency_ms, 2),
         "word_count": word_count,
-        "estimated_tokens": round(approx_tokens, 1),
-        "status": "PASS",
+        "estimated_tokens": None,
+        "token_budget_verified": False,
+        "status": "CAPTURED",
         "gravitas_invariants_satisfied": [
             "INV-1: Grounded in live CodeSage subprocess call",
             "INV-2: Zero code mutation outside declared task scope",
             "INV-3: Fresh execution proof required post-edit",
         ],
     }
-    with open(RECEIPT_PATH, "w", encoding="utf-8") as f:
+    with open(RECEIPT_PATH, "x", encoding="utf-8") as f:
         json.dump(receipt_data, f, indent=2)
 
     assert RECEIPT_PATH.exists()
@@ -102,11 +108,12 @@ def test_fde_iterative_repair_loop():
     harness = FDERepairHarness(codesage_root=DEFAULT_CODESAGE_ROOT)
     receipt = harness.execute_loop(sample_traceback)
 
-    assert receipt["status"] == "PASS"
+    assert receipt["status"] == "CAPTURED"
+    assert receipt["repair_verified"] is False
     assert receipt["chunks_retrieved"] > 0
     assert receipt["target_symbol"] == "CircuitBreaker"
     assert receipt["context_word_count"] > 20
-    assert (KAIROS_ROOT / "evidence" / "retrieval011" / "fde_iterative_loop_receipt.json").exists()
+    assert Path(receipt["receipt_path"]).exists()
 
 
 def test_codesage_mcp_get_call_graph(mcp_client: CodeSageMCPClient):
@@ -129,12 +136,14 @@ def test_swebench_pytest5221_repair():
     harness = FDERepairHarness(codesage_root=DEFAULT_CODESAGE_ROOT)
     receipt = harness.execute_swebench_case("pytest-dev__pytest-5221")
 
-    assert receipt["status"] == "PASS"
+    assert receipt["status"] == "CAPTURED"
+    assert receipt["repair_verified"] is False
     assert receipt["task_id"] == "pytest-dev__pytest-5221"
     assert receipt["baseline"]["outcome"] == "no_patch"
-    assert receipt["codesage_augmented"]["outcome"] == "localized_and_repaired"
+    assert receipt["codesage_augmented"]["outcome"] == "annotated_context_and_handwritten_patch_demo"
     assert receipt["codesage_augmented"]["target_symbol"] == "_showfixtures_main"
-    assert receipt["codesage_augmented"]["patch_syntax_verified"] is True
-    assert (KAIROS_ROOT / "evidence" / "retrieval011" / "swebench_pytest5221_mcp_receipt.json").exists()
+    assert receipt["codesage_augmented"]["patch_syntax_verified"] is False
+    assert receipt["codesage_augmented"]["example_function_syntax_valid"] is True
+    assert Path(receipt["receipt_path"]).exists()
 
 

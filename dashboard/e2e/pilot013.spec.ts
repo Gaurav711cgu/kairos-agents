@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs/promises";
 import path from "node:path";
-import summary from "../lib/pilot013-summary.json";
+import summary from "../lib/pilot013-summary.json" with { type: "json" };
 
 const runtime = process.env.KAIROS_REVIEWER_RUNTIME || path.resolve("..", ".runtime/reviewer005");
 

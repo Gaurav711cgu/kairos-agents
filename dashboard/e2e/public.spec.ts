@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import cohort from '../lib/study004-cohort.json';
+import cohort from '../lib/study004-cohort.json' with { type: "json" };
 const repair='8b03a42f-149e-4d44-937f-0d61636f6042';
 test('recorded public evidence, comparison, diff and downloads need no login',async({page})=>{
   await page.goto('/investigations/'+repair);

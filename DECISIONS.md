@@ -483,7 +483,7 @@ A read-only export initially rejected upstream issue descriptions that contained
 
 ### D118 — Verify real services before further training-data intake
 
-Run the authoritative backend inventory against a fresh loopback-only native PostgreSQL instance, the existing owned Keycloak realm and the exact reviewed fixture image. Preserve private identity bytes and stop only services started for the run. The invocation passed1014 tests and16 subtests; four explicit opt-in/ML skips remain in its receipt. Run the optional CPU ML suite separately with actual dependencies:39 tests and six subtests passed with no skips. Do not add overlapping test counts. Independently reconstruct Django14752 source and verify baseline failure plus reference/candidate success across19 tests; perform no model execution. Preserve receipts before losslessly archiving the stopped acceptance database, then stop Docker.
+Run the authoritative backend inventory against a fresh loopback-only native PostgreSQL instance, the existing owned Keycloak realm and the exact reviewed fixture image. Preserve private identity bytes and stop only services started for the run. The invocation passed1014 tests and 16 subtests; four explicit opt-in/ML skips remain in its receipt. Run the optional CPU ML suite separately with actual dependencies:39 tests and six subtests passed with no skips. Do not add overlapping test counts. Independently reconstruct Django14752 source and verify baseline failure plus reference/candidate success across19 tests; perform no model execution. Preserve receipts before losslessly archiving the stopped acceptance database, then stop Docker.
 
 ### D119 — Refresh evidence without turning evaluation cases into training labels
 
@@ -598,7 +598,7 @@ Frozen context v4 omits required Moto edit lines. The converter correctly reject
 
 **Decision.** Keep structural corpus validation, then require an explicitly hash-bound receipt-only package before model-manifest reads, output creation or GPU imports. Validate exact row membership, safe paths, bounded file sizes, original qualification bindings, actual decoded/hash-checked test streams, selected-suite outcomes, frozen exposure contents and exact converted example identity. Require attributable task-bound material-rights and family/near-duplicate reviews. Bind the package index to intent and checkpoint identity. Doctor readiness requires the same package. This avoids expensive allocation for data that cannot establish its provenance.
 
-**Evidence.** Ninety focused tests passed. Four real previously captured reference qualifications passed offline raw-stream validation. Broad backend execution passed967 tests and16 subtests with141 skips; three socket-binding failures were caused by the sandbox and passed in a separate permission-corrected focused rerun. The failed first run remains recorded. No fresh PostgreSQL/OIDC acceptance, inference, Docker execution or final training-data admission is claimed. The previous runner bytes are preserved in a compressed immutable snapshot; evidence and checksums are in `evidence/measurement014/coding-data/admission-hardening-v1`.
+**Evidence.** Ninety focused tests passed. Four real previously captured reference qualifications passed offline raw-stream validation. Broad backend execution passed967 tests and 16 subtests with141 skips; three socket-binding failures were caused by the sandbox and passed in a separate permission-corrected focused rerun. The failed first run remains recorded. No fresh PostgreSQL/OIDC acceptance, inference, Docker execution or final training-data admission is claimed. The previous runner bytes are preserved in a compressed immutable snapshot; evidence and checksums are in `evidence/measurement014/coding-data/admission-hardening-v1`.
 
 **Limits and next action.** Hashes establish identity, not legal permission or honest authorship. Rights and family decisions still need real case-specific review. Current real-data count remains four qualified references across two repositories, one complete converted example and zero final admitted rows. Continue fixed-cohort qualification and review without lowering the200-row/five-repository gate. Before another separately approved GPU fit, align the measured resource recipe and prove durable artifact export. Historical pilot loss of the raw archive remains explicit.
 
@@ -793,3 +793,214 @@ Verification results:
 4. Working Tree Hygiene: All temporary pilot/scratch outputs moved to `.runtime/` (gitignored, private directory); working tree sealed cleanly under declared scope.
 
 ADR-014-10 (Measurement Release Integrity): Mandates that all additive measurement evidence must be bound to immutable file fingerprints and verified against preceding publication manifests without mutation of historical artifacts or test assertions.
+
+
+## 20 October 2026: close integration defects before making new model claims
+
+**Decision.** Separate system repair effectiveness, adapter training completion and adapter repair improvement. The existing curated study has seven of twelve loop repairs versus one of twelve for each comparison strategy; its 57 record hashes and 1,290 capture bodies were re-audited. Full100 training is independently real, but its ten development snippets do not establish adapter repair improvement. We will not rerun training merely because an evaluation result is missing.
+
+**Reason.** Treating all AI evidence as one score hid both earned results and missing measurements. Historical failures and the newly audited successful study remain separate. No cases were replaced and no new model dispatch occurred.
+
+**Implementation.** Replaced the uninitialized, indefinitely blocking MCP client with bounded negotiated transport. Removed ambiguous repository fallback. Disabled the annotated evaluator and labeled unbound installed-package indexes ineligible for benchmark scoring. Handwritten context demonstrations no longer claim a verified repair. Adapter export now verifies the actual archive and emits an allowlisted, hash-bound package with a factual model card. Recorded mode is explicit on every host, preventing an unavailable live system from being silently replaced by captures.
+
+**Validation.** Final no-service backend: 1,103 passed, 146 explicit skips, 16 subtests. Separate real PostgreSQL/Keycloak backend: 1,212 passed, 23 explicit skips, 16 subtests. CodeSage backend: 127 passed. Thirty-five browser journeys passed across recorded, isolated fault and actual OIDC configurations. Final frontend unit checks, lint, types and production build passed. All 34 API/reviewer dependency pins matched the reused Python environment; we do not claim a fresh dependency installation or hosted CI. Receipts and screenshots are in `evidence/closeout020`.
+
+**Resources and preservation.** Heavy services ran sequentially; owned containers were stopped and volumes preserved, then Docker Desktop stopped. Dormant qualification preparation sources were moved into a fully verified lossless archive with a per-case restoration helper. Original tar bytes were preserved, including proof of exact prior gzip reconstruction. Only a hash-verified restored duplicate and rebuildable package installer cache were reclaimed. Base weights, trained checkpoints and historical records were not removed.
+
+**Remaining model gate.** Use the existing trained adapter for a separately frozen inference-and-verification comparison; do not call a preparation manifest an executed study. The prepared twelve-case diagnostic preserves four original qualification exclusions and three missing-context outcomes. Those cases are previously exposed, so no new holdout claim applies. The originally reserved twenty-case model evaluation still needs independent qualification and execution. No new Colab runtime, upload, training or paid service was started.
+
+
+## 20 October 2026: evaluate the existing adapter instead of retraining
+
+**Decision.** Reuse the completed full100 14B QLoRA artifact and measure base-versus-adapter generation on the same already qualified research cases. Keep adapter training completion and repair effectiveness separate. Do not collect another training corpus or restart training merely to obtain an evaluation score.
+
+**Mechanism.** The inference-only runner fixes the model revision and prompt identities, validates adapter bytes before execution, preserves complete raw outputs, counterbalances arm order and refuses retries after an interrupted dispatch. Cases without captured source and original qualification exclusions remain visible. Inputs fit the exact local tokenizer budget; the runtime checks template equality again before inference. Captured outputs require independent local patch validation and sandboxed behavioral checks before any repair claim. A successful generation, parsed JSON or source handle is not a verified repair.
+
+**Privacy and resources.** The concrete notebook requires new upload authorization because previous approvals covered training files. Upload only public prompts, existing trained adapter files and a public transfer probe; exclude credentials, browser state, reference fixes and private bindings. Verify evidence transfer before downloading public base weights into Colab. Never download the 14B base onto the Mac or purchase GPU access. Keep Docker off until independent verification needs it.
+
+**Evidence status.** Thirteen inference/recovery/export tests and fourteen parser/comparison tests pass. GPU inference remains pending sign-in and upload approval; no new model score or repair outcome is reported. Exact upload hashes and prepared artifacts are saved under the local closeout020 evaluation directory.
+
+## 20 October 2026 — preserve an uncertain evaluation after Colab session loss
+
+The approved inference-only 14B comparison passed upload hashes and dependency checks, then started once. Colab later showed no active sessions before a generation archive could be retrieved. We preserve the attempt as infrastructure loss with unknown dispatch/outcomes, rather than replaying model calls or inventing failures or repairs. Existing trained weights and previous studies are unchanged. A future separately identified run should retrieve each completed capture durably before continuing; the current notebook exported only at the end, leaving a session-loss exposure. No cause beyond the observed session disappearance is established.
+
+The independent verifier must reconstruct the historical structured-unittest protocol when a case declares it, rather than replacing it with the default text parser. Offline regeneration matched all twelve qualified material identities. One historically published case has a fully redacted issue: its frozen prompt stays unchanged and the limitation is reported. The local archive importer has six passing integrity tests; actual generated-patch verification remains pending because this attempt produced no locally retrieved generations.
+
+## 20 October 2026 — retain the negative adapter comparison
+
+The complete same-base comparison yielded zero verified repairs in both arms across nine available cases, with three missing-context cases preserved as unavailable. Independent baseline/reference reproductions succeeded for all nine, so these observed candidate failures cannot be attributed to missing verification environments. We retain all outputs and invalid proposals; do not repair generated code by hand, replace cases or infer improvement from training loss. Keep the trained adapter as an experimental artifact rather than promote it based on parameter count. A future training/alignment experiment must be separately versioned and use development data before untouched evaluation. This result is separate from the prior Codex CLI system study.
+
+The approved new parent supervisor emitted each complete generation for immediate hash-checked local retrieval. This recovered all outputs and the final export successfully after the earlier session-loss exposure. The runner and inference settings were unchanged. All nine original-source tree identities were independently reconstructed and checked, then only newly generated temporary copies were removed. Docker was stopped after verification.
+
+## 021 — correct supervision before more GPU work
+
+A complete offline transformation audit found 34/100 training targets and 3/10 development targets differed from the original reference changes. This is a confirmed admission defect. Reference/preparation hash checks were insufficient because they did not prove transformation equivalence. Packaging and pre-GPU verification now reject incomplete targets through the new sparse-original replay gate. Historical corpus, weights and evaluation remain unchanged. Sixty-six training and seven development candidates are quarantined separately with training_ready=false until independent test reproduction.
+
+A new shared versioned serializer preserves numbered original-source lines identically for training and inference. It requires exact assistant-suffix masking and refuses truncation. It is development-only; earlier study prompts are not rewritten. All eighteen evaluation generations ended with EOS, so output truncation is not the observed explanation. Increasing model size before fixing these defects would spend resources without addressing established causes.
+
+## 2026-10-21 — Development qualification uses explicit broader parameter coverage
+
+Some public PASS_TO_PASS IDs are truncated at spaces inside pytest parameter IDs. Sending those strings directly to pytest does not collect the registered suite. The new development-only v021 verifier expands an incomplete parameter ID to its parent function and executes every parametrization. This adds coverage instead of guessing an ID or dropping a test. Complete collection, completion, no skips and passing existing tests remain mandatory. The historical v014 verifier and completed study receipts remain unchanged. The candidate runner fingerprints both verifier modules.
+
+The Moto4 development candidate requires a separately reviewed dependency recipe rather than relabeling the Moto3 recipe. Reuse the exact inherited image and add only the reviewed missing SSM/EC2 dependencies with wheel hashes and offline installation. Repository setup is not executed. Image preparation does not admit any training row; independent baseline, reference and candidate checks remain required.
+
+The candidate verifier now enters the authoritative acceptance inventory. Full backend acceptance passed 1,154 tests with 146 optional/service skips and 16 subtests; these skips are not evidence of live PostgreSQL/OIDC execution in this run.
+
+### Independently rebind historical supervision to pinned original source
+
+The first development qualification failed closed before Docker dispatch because the historical row tree digest differed from freshly acquired pinned source. Its numbered excerpt text matched exactly, but the historical source handle also differed. Do not relax either check. Preserve the original attempt and corpus; emit a separate source-bound candidate with a receipt mapping old and new identities. The issue, captured excerpt text, edit ranges and replacement text must remain unchanged. The source-bound Moto5752 candidate reproduced its intended baseline regression and then passed all 80 tests under both reference and supervision edits. This validates that one development target only; it is not a generated repair or evidence that all 66 filtered training targets are ready.
+
+## 2026-10-21 — Repeatable source rebinding and second independent target
+
+Use one tested provenance-rebinding helper instead of manual per-case substitutions. The helper rejects changed pinned identities, altered source trees, mismatched excerpt bytes, unsafe paths and target handles outside captured authority. It returns a copy and a mapping receipt; it never alters issue text, line ranges or replacement content, and never admits a training row. Six focused regressions pass.
+
+The Moto5809 selected test module imports freezegun. Create a separately reviewed offline image extension with the official hash-verified freezegun 1.2.2 wheel; its python-dateutil>=2.7 requirement is satisfied by inherited 2.8.2. Its upstream setup.py exactly matches the already reviewed Moto4 revision. Baseline reproduces exactly three regressions among 90 completed tests, and both reference and supervision transformations pass 90/90. This establishes a second valid development target, not trained-model improvement. Keep all remaining development candidates pending and retain every original failure.
+
+## 2026-10-21 — Complete development qualification before corrected training
+
+All seven fixed development supervision targets reproduced their intended baseline failures and passed complete registered selected suites under reference and unchanged supervision edits. This qualifies development data only; it does not establish generated repair effectiveness or independently admit the filtered training corpus. Keep development exposure separate from any future untouched evaluation.
+
+Pydantic qualification uses a development-only policy module so historical qualification policy remains unchanged. Source authority is restricted to pydantic/ and the image must have a Pydantic2.0 review; a Moto review is rejected before Docker access. Core0.7.1 and 0.8.2 were selected from the pinned source requirements, and official target-platform wheel hashes plus active dependency closure were checked. Images install dependencies offline without source installation or upstream setup. All three Pydantic baseline/reference/target checks passed under the original resource limits.
+
+Final backend acceptance passed 1,163 tests with 146 skips and 16 subtests in 30.44 seconds. The skipped service tests are not counted as live service acceptance. Existing failed attempts remain preserved, and exact runner source bytes are archived by their captured SHA. No model dispatch or training was started.
+
+
+## Corrected protocol pilot approved — 21 October 2026
+
+Backend acceptance after shared-protocol and snapshot checks: 1,183 passed, 146 skipped, 16 subtests (30.16 seconds), recorded in `resume/kairos-closeout020/evaluation/backend021-protocol-sanity.log`. Seven development targets remain independently qualified. Two original resource2 training examples have independently admitted raw checks; Moto4809 additionally passes full-snapshot reference/target equivalence despite legitimate shifted patch coordinates. New catalog has 67 training candidates, only two independently admitted; expanded training is not ready. All nine train/development tokenizer preflights preserve exact prefixes and labels without truncation. Historical base/adapter 0/9 remains unchanged.
+
+User approved exact `protocol-sanity021-v1` notebook (SHA-256 0a97be3fc8fd30c288f643634c598dc4d032609adb66d1e52e06f1c1abf9417d) and input ZIP (47ffe6e8c90036036d4c0d5ff43170af551eab5bcd3a0bd381576e051b9a780e). Signed in to Colab; notebook upload dispatched. No training started at this checkpoint. Owned cloud root `/content/kairos14-protocol021-v1`. Scope: 20 full + 10 interrupted + 10 resumed updates, then at most four known-training-example inference calls. Prove local probe retrieval before weights. Never interpret this sanity as held-out effectiveness. Exact handoff: `resume/kairos-closeout020/protocol-sanity021-v1/HANDOFF.json`.
+
+Export once only; result ZIP limit 92 MiB plus 1 MiB receipt reservation, streaming verification, no duplicate extraction or local weights. Docker remains off. Cleanup owned cloud runtime only after verified retrieval; final irreversible deletion requires action-time confirmation. Expanded corrected corpus admission, held-out comparison and full release acceptance remain subsequent phases.
+
+
+
+## Protocol021 pilot evidence safely retrieved — 21 October 2026
+
+Completed40 actual14B optimizer updates across full20/interrupted10/resumed10. Resource fit passed with15.4009%VRAM reserve. Adapter,optimizer,scheduler,RNG final hashes match exactly after resume. Known-training inference attempted4calls, allRuntimeError; no repair output or improvement established. Captured errors omit exception details, so the underlying inference cause remains unknown; do not attribute it to model capability or memory without evidence. No calls retried.
+
+Existing cloud export retrieved through90approved1MiBUI chunks into one local archive. Archive93,736,227bytes SHA-256`e24aa561a640b718c29f66cced2df6cf90fe23dd6ff905b0df71a38c97c4c0ee`; all55members stream-verified with no extraction or checkpoint deserialization. Verifier's narrow allowlist corrected for actual resource-acceptance,scope,and scaler artifacts;12tests pass. Evidence:`resume/kairos-closeout020/protocol-sanity021-v1/verified-export.json`. Full local handoff adjacent. Cloud runtime cleanup pending action-time deletion confirmation; never rerun training/inference/export. Expanded corpus admission and repaired inference instrumentation remain next, not completed efficacy.
+
+
+
+## Inference diagnostics fix — 21 October 2026
+
+Confirmed recorder defect: four RuntimeErrors retain only class, so their exact underlying cause cannot be reconstructed from historical logs. Added opt-in bounded private diagnostics (4,096-character message,12stack frames, file basenames, no locals/source lines, environment-secret values redacted). Smoke explicitly opts in and records diagnostic protocol identity. Existing default capture schemas and all old results remain unchanged; captured/uncertain dispatches still never retry. No speculative model, dtype or hardware fix is claimed.
+
+Focused28tests pass. Full backend1,185passed,146skipped,16subtests in26.06seconds with local socket access. Initial sandbox-only run's socket permission failures preserved, then resolved by rerunning with required loopback permissions. Receipt:`resume/kairos-closeout020/evaluation/inference-diagnostics021-acceptance.json`. NoGPU/model calls or training in this code phase. Next: prepare a separately approved inference-only diagnostic pilot using saved trained adapter; collect actual exception detail before choosing a numerical/runtime fix. A saved inference adapter must be verified as an inference artifact against its checkpoint receipt; do not pretend the export includes complete resumed optimizer state. Historical source archives remain frozen.
+
+
+
+## Inference-only recovery prepared — pending exact upload approval
+
+Added explicit inference-artifact verification against the original checkpoint receipt. Requires exact adapter_config/model/receipt membership, digest/size/binding checks, no symlinks; full optimizer-resume validation remains unchanged. Six new regressions pass. Full backend1,191passed,146skipped,16subtests in31.27seconds. New notebook dry-runs original archive validation and source/adapter restoration in memory;2tests pass, no local model or large extraction.
+
+Prepared `resume/kairos-closeout020/inference-diagnostic021-v1/coding-14b-inference-diagnostic021.ipynb`,42,568bytes SHA-256a88ddd6a736b214fadd827ee958ba4d6eb37abde6c57d0944f02dd28611a82b2. Uses existing verified93,736,227-byte pilot export, restores only inference adapter, preserves frozen trainer source, adds bounded diagnostics. At most4NEWknown-training inference calls, zero optimizer updates; same pinned model/runtime identity must match. Requires exact user upload/run approval and Google sign-in; neither upload nor run occurred. Preparation manifest and local acceptance adjacent. Download probe before weights, fresh output guard, no dispatch replay; final diagnostic ZIP bounded512KiB, original large archive reused without copying. Historical failures unchanged.
+
+
+
+## Actual inference cause found — precision validation pending
+
+Approved inference-only diagnostic ran4calls,0training on original14Bmodel/runtime and saved adapter. All4captured `expected scalar type Float but found Half` at Qwen2 forward line463 and torch linear forward. Diagnostic archive13,857bytes SHA-256d1076257be21a426f55c90ebedc2a964411bbb2de42240150b6af480acb0f181 safely local;15members verified. Earlier download cancellation and separate successful pinned-weight recovery preserved.
+
+Inference keeps FP32norm parameters but did not use training's autocast; FP32hidden states reached FP16outputlinear. Added CUDAFP16autocast only during generation and versioned precision identity;34focusedtests pass. GPUvalidation remains pending; do not claim fixed on hardware yet. Prepared exact `resume/kairos-closeout020/inference-diagnostic021-v1/autocast-v2-cell.py` SHA-256bbb51e0df5cd6a6145433c7c7ec71addbd11318b6a6e7d98b7acf43504dacf21. Requested explicit approval for atmost4NEWcalls, separate output, no new download/training or overwrite. Keep existing runtime until v2evidence safely saved; never rerun previouscalls/export. Handoff adjacent.
+
+
+
+## Precision fix verified on GPU — v2 captures saved
+
+Explicitly approved v2completed4/4generations onTeslaT4,allEOS,noRuntimeErrors,noadditionaltraining/downloads. CUDAFP16autocast fixed the captured output-linear Float/Half mismatch. Token counts433,543,160,160. Completestdout saved as`resume/kairos-closeout020/inference-diagnostic021-v1/autocast-v2-output.txt`;all4capture hashes and binding hashes independently verified before saving parsedgenerations. New output remains separate from previous4dtypeerrors.
+
+Strictactioncheck:3/4parse and remain within suppliedsourcebounds; MONAIadapter emits9edits, exceeds8editcontractandisrejected. None equals supervisedtarget; no behavioralchecks yet, no repair-success claim. Next: retrieveoriginalv2artifactset (read-onlyexportapprovalpending), then independentproductionrenderer/checks. No more modeldispatch authorized. Keep runtime untilv2evidence safely retrieved. Savedadapter/trainingpilot archiveanddiagnosticfailureZIP alreadyverified.
+
+
+## Independent Moto behavior check after GPU precision recovery
+
+The original v2 archive is safely local (16,230 bytes; SHA-256 a9039a7773f13e46b102a593ad90bf3ee331a36fdb406b9e42a59606e9e4512c); all 13 manifest files and four capture hashes passed verification. CUDA FP16 autocast produced four EOS generations without runtime errors, but this is an inference-mechanics result.
+
+The two Moto captures produce the same candidate. The production source-handle renderer accepted it against complete affected-file bytes. The complete original tree digest, hidden verifier digest and pinned image identity were revalidated. Baseline: five regression failures and six existing passes. Reference: eleven passes. Candidate: five regression failures and six existing passes. Every stage completed eleven tests, with no skips. The candidate uses int() on fractional vCPU value "0.25", causing ValueError; neither arm earns a verified repair. The identical candidate was checked once and attributed to both arms, not counted as two independent executions.
+
+Decision: stream the complete pinned source into a 192 MiB container tmpfs instead of expanding it on the Mac. The aggregate persistent-storage guard left approximately 4.3 MB while source expansion requires 18.3 MB. The same pinned image, verifier, two-CPU/1-GB limits, non-root user and network isolation were retained; the changed filesystem delivery is explicitly recorded. No inference, image pull or model download occurred. Docker was stopped after the checks. This bounded runner is evaluation tooling, not a replacement for the production worker.
+
+Evidence and raw outputs: Desktop/resume/kairos-closeout020/inference-diagnostic021-v1/moto-behavior021.json, behavior-closeout021.json and behavior-manifest021.json. MONAI adapter exceeds the eight-edit contract; MONAI base still requires complete-source behavioral verification. Google/runtime cleanup remains unverified. Historical scores and original captures remain unchanged. No further GPU dispatch is authorized.
+
+
+## Corrected-precision sanity captures fully adjudicated
+
+The explicitly approved two-file public MONAI download used frozen revision 06fb95585a87332a5232c17ac9214d0d690978d9. Production source-handle validation matched complete original-file bytes; the base candidate was rejected for invalid Python syntax at line 288. The adapter candidate was already rejected because nine edits exceed the eight-edit contract. Neither invalid candidate was executed as a passing or failing behavioral test.
+
+All four captures now have terminal assessments: base 0/2, adapter 0/2 on known training cases. The Moto candidates share identical bytes and failed five regression tests while passing six existing tests; the reference passed all eleven. These two training cases are not an untouched evaluation. The successful inference-precision fix and completed checkpoint/resume training remain valid engineering results, but no repair improvement was demonstrated.
+
+Final verdict: Desktop/resume/kairos-closeout020/inference-diagnostic021-v1/final-sanity-verdict021.json. The adjacent behavior-manifest021.json binds nine evidence files; all were rehashed. No additional model calls were made. Next experimental gate: require valid and independently correct outputs on known training sanity before another frozen generalization comparison. Do not silently retune existing evaluations or hand-repair model outputs. Docker is stopped; Google/runtime cleanup remains unverified.
+
+
+## Training recovery audit: no speculative GPU rerun
+
+Seventy focused resource, shared-protocol, inference-capture and smoke tests passed. The sandbox prevented pytest cache writes only; test execution passed. An offline edge-compaction candidate passed five tests but reduced the Moto supervised target from 1,385 to 1,383 bytes and left MONAI at 738 bytes. Decision: do not integrate this candidate or spend GPU time on its negligible reduction. Candidate files remain separate experimental evidence, not the active trainer.
+
+The saved run is exactly twenty optimizer updates on two admitted examples, learning rate 0.0001, rank-eight LoRA on q_proj/v_proj. Logged loss decreased from 0.2948 to 0.1931. The audit establishes no new prefix or causal-label defect and does not identify a proven cause of failed generation. More updates or changed adapters are hypotheses requiring one bounded training correction, not promised fixes. Preserve the measured failures and do not launch repeated held-out evaluations. Evidence: Desktop/resume/kairos-closeout020/inference-diagnostic021-v1/target-compaction-audit022.json. Zero GPU calls were made in this audit.
+
+
+## Correction: completed full100 training is distinct from the later two-case pilot
+
+The user's three Colab notebooks were inspected read-only. The v5 resource notebook records full20/interrupted10/resumed20 cumulative updates on two examples. The full100 notebook describes the separate forty-update training run; its saved training output cells are currently empty. The existing local full100 result archive was independently rehashed against SHA-256 55bd86a58ac1a15eff2c135a8a9c2beb687b70530e2f47479999e024cc67b71b and all 58 manifest files passed size/hash verification. Its manifest has 100 training rows and its public100 receipt confirms 40 completed optimizer updates, an updated 6,291,456-parameter adapter and run_complete=true. Earlier resource notebook retains a failed v2 stage and later v4 recovery.
+
+Recent continuation messages improperly generalized the later two-example pilot to the whole training history. Correct record: full100 training DID complete; the later corrected shared-protocol sanity adapter is a separate two-example experiment. Do not describe all training as unfinished or reuse the sanity score as the full100 adapter's score. Full100's historical repair comparison remains separate; no repair improvement is demonstrated. The 100 rows are public supervision, not 100 independently verified repairs: earlier qualification audit records two independent captures. Preserve that methodological limitation.
+
+Evidence: Desktop/resume/kairos-closeout020/inference-diagnostic021-v1/notebook-reconciliation022.json and the existing full100 archive/verification receipt. No cells, training, inference or setup were run. Next work must reconcile these adapter identities and existing comparisons before proposing any retraining.
+
+
+## Explicit bounded training correction prepared in code
+
+Added --sanity-steps with registered values 20 and 80. Default fitting remains 20 updates; historical public100 training remains 40 updates. Eighty updates are accepted only for explicit fit + resource2 + shared021 and rejected before admission or GPU allocation in all other scopes. Four regressions cover unchanged budgets, allowed scope, invalid values and early refusal. The focused trainer/resource/smoke suite passes 62 tests.
+
+This is preparation, not another completed training run or a demonstrated fix. The next proposed correction is one eighty-update fit on the two already admitted training examples followed by at most four known-training generation calls. Do not repeat full/interrupted/resumed resource runs or touch old evaluation cases. The hypothesis is whether a longer fixed fit can learn the shared interface; success must be independently checked. Exact cloud artifacts and adequate local export reserve still need preparation before upload/run approval. No new GPU dispatch was performed. Historical full100 training remains separate and preserved.
+
+Receipt: Desktop/resume/kairos-closeout020/inference-diagnostic021-v1/bounded-training-preparation022.json. The broader corrected candidate pool has 67 training candidates, not 67 independently verified training repairs; development cases remain separate. No model-quality improvement claim is supported yet.
+
+
+## Scored correction 022 decisions and reasons
+
+The current package is Desktop/resume/kairos-closeout020/scored-correction022-v1. Read HANDOFF.md, state.json and preparation.json first. Fourteen local scorer/controller tests pass; original source/reference/verifier fingerprints and every input member hash match. The user approved exact upload/run artifacts on 2026-10-22. Notebook upload is in progress; no new training dispatch has been confirmed. Do not repeat older studies.
+
+The bounded cloud workflow requalifies two known training cases before loading the pinned 14B model, permits at most two fresh eighty-update fits at fixed learning rates 0.0001 and 0.00005, scores at most eight generations, and stops on 2/2 verified known-training repairs, two rounds, infrastructure failure or six hours. This is not untouched evaluation. The Colab CPU verifier platform differs from historical ARM64 Docker and has no kernel network namespace or adversarial test-forgery guarantee. Final adapters and checkpoint receipts are exported, not full optimizer checkpoints.
+
+Approved cache cleanup for historical Django source copies 10097/10554/10880 completed after full archive verification. Archives and restoration receipts remain under Desktop/resume/kairos-ai014/.runtime/cold020; SOURCE-ARCHIVED022.md points to them. Byte-identical expanded full100 package and adapter duplicates were separately removed only after preserved ZIP verification. Restore these cached paths before old commands requiring them. Historical evidence remains unchanged. Storage check reserves 97 MiB: a capped 96 MiB result ZIP plus 1 MiB for transport probe/receipts, inside the aggregate 6 GiB ceiling; more than 4 GiB disk remains free. Docker and local inference remain off.
+
+
+## Training5 continuation active: 2026-10-22
+
+Read Desktop/resume/kairos-closeout020/scored-correction022-v2/HANDOFF.md and state.json. Both CPU qualifications now pass: Moto baseline five regression failures plus six existing passes/reference11of11; MONAI baseline four failures/reference4of4. No skips/collectionerrors. ITK umbrella metadata and missing-import corrections plus interruption cleanup pass19localtests; actual packaged imports pass. Recovery3 was interrupted, preserved, never rerun.
+
+User approved exact training5-cell.py SHA38663b5d85ca5eca024637c23336b7c3098f909f97a6e13daf7608efd25cc792. It was dispatched ONCE in existing freeT4 notebook https://colab.research.google.com/drive/1Edxk696pTEtF6uzipV7fr3mtnW4YPvOL#scrollTo=RspF-F1NfMPZ and remains executing beyond3minutes. Optimizer steps not yet observed; do not claim trainingcomplete or repairs. No redispatch, setup repeats, newmodel calls, Drive or paidservices. Max2rounds80updates,8generations,5h; known-training scope only. Existing final output will be /content/kairos14-scored022-v2/kairos14-scored-result022-training5.zip. Retrieve that archive and verify hashes before cleanup. Active screenshot saved locally. Docker/localinference off.
+
+
+## Training5 completed and downloaded evidence verified
+
+The bounded correction experiment is complete. Original ZIP safely local at Desktop/resume/kairos-closeout020/scored-correction022-v2/kairos14-scored-result022-training5.zip (48,549,411 bytes, SHA25689b75305f4e68dce0c5ea7e0123f8c9f2e4788ffb1a36135e2e67fba18eb8516). All155manifestmembers,4canonicalcapturehashes,check-outputhashes and score arithmetic verified locally. See RESULTS.md, training5-local-verification.json and closeout-manifest.json in that folder. Do not rerun training or regenerate export.
+
+Earned result: adapter2/2 versusbase0/2 on TWO KNOWN TRAINING CASES. MONAIadapter4regressionspass;Motoadapter5regressions+6existingpass. No skips/collectionerrors.80updates,6,291,456trainableparams,freeTeslaT4,training1974.4333s,completecontinuation2727.5897s,finalLoss0.0012,resourcefittrue. Round2skipped because predeclaredtargetmet. This establishes training-case learning/interface sanity, NOT held-outgeneralization. Historicalfailures remainunchanged. Localbehavioralreexecution wasnotperformed; localverification covers archive,capture,stdout/stderrhashes and arithmetic.
+
+Cloudruntimecleanup ispending exactaction-timeapproval. Originalnewerresultfullypreserved; earlierpartialfailurearchive remainspartial. No new model experiment authorized by this closeout. Wider releaseacceptance remains separately required. Decisions and limitations are in the result report.
+
+
+## Closeout023: fresh dependencies and an expanded candidate pool
+
+A fresh Git clone and new reviewer virtualenv exposed a missing `tokenizers` dependency. Add its exact pinned dependency closure to the reviewer lock, rather than skipping the required retrieval-boundary test or reusing the working virtualenv. The corrected local release commit is cc4d10a69e261b6c5d31fd9847faa62dad5303e2; no push occurred. Real-service acceptance passed, while exact fresh full-stack CLI launch and restoration remain separately unverified.
+
+The cached SWE-Gym dataset has no Django/pytest rows. All 19 pytest cases in the older cached Verified split were excluded by prior exposure. Use a separately pinned full SWE-bench test split (revision c6fe717fd7a4c3ac1daa4055a4fd082c6a1d28a2, SHA-256 d4f5a245c75319fa8240c540674958c4d491e82edf274b144d43836bdcbc4567) to expand the candidate pool before inference. Preserve both screenings. Test-ID arrays are converted to JSON text for the existing verifier without changing identifiers. After identity, related-issue and target screening, 20 Django and 22 pytest source-eligible candidates remain; none is an earned model result. Qualification proceeds in fixed order and accepts at most ten per repository. Do not tune on candidate model outputs or substitute after inference.
+
+
+## Unseen023 inference launch boundary
+
+Freeze the20 independently qualified cases and exact input bytes before any inference. Upload only public issue/source contexts and the saved training5 adapter; reference repairs and verification fixtures stay local. Alternate base/adapter order, journal every intent/capture, and stop on uncertain dispatch. Use an automatic result export plus a built-in read-only chunk fallback because previous native Colab downloads were unreliable. A local transfer probe must pass before downloading weights. Chat quota reset does not itself stop a running Colab process; free runtime availability remains external. No retraining or paid services are authorized in this comparison.
+
+
+## Frozen unseen023 result and failure classification
+
+Complete all40 saved attempts without retuning or repeated inference. Report0/20 for each arm. Reject malformed actions and source-invalid edits before container execution; run independent regression/relevant tests for accepted patches. Preserve the two conservative incomplete-check classifications, while explaining that their raw traces show candidate-induced pytest import failures rather than an unqualified dependency environment. No repair is credited for incomplete checks. Source snapshots were verified unchanged before deleting only newly owned reconstructed workspaces. Training-case learning and unseen effectiveness remain distinct claims. Stop Docker when checks finish. Do not initiate another model experiment as an automatic response to a failed quality target.
+
+
+## Final exact CLI and restoration closeout023
+
+Use a fresh clone of the verified local bundle and the exact reviewer entry point rather than treating component checks as sufficient. Reuse installed system interpreters and pinned Docker images, while installing project Python/npm dependencies freshly. Rehearse consistent database and referenced-object restore into a new target, compare all counts and integrity checks, then delete only the newly created restoration target. Preserve original installation and volumes. The dependency/build footprint exceeded its initial install-size estimate; disposable checkout and dependencies were removed immediately after verified receipts. No weights were stored locally and no historical evidence was deleted. Future acceptance runs should reserve build output as well as installed dependency size before admission.

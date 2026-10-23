@@ -1,5 +1,6 @@
 import Link from "next/link";
 import report from "@/lib/comparison014-report.json";
+import adapter from "@/lib/adapter-comparison020.json";
 
 export const metadata = { title: "Repair comparison: baseline, loop, and drafts" };
 
@@ -62,20 +63,26 @@ export default function RepairComparisonPage() {
         <aside className="article-index">
           <span className="eyebrow">Inspect the comparison</span>
           <a href="#summary">Strategy summary</a>
+          <a href="#adapter">Trained adapter comparison</a>
           <a href="#codesage-mcp">CodeSage Graph-RAG MCP</a>
           <a href="#matrix">Attempt matrix</a>
           <a href="#downloads">Downloads & proofs</a>
           <Link href="/repair-comparison/codesage-mcp" style={{ fontWeight: 600, color: "var(--accent, #6366f1)" }}>
-            ★ CodeSage MCP (pytest-5221)
+            CodeSage context inspection
           </Link>
-          <Link href="/repair-comparison/batch-eval" style={{ fontWeight: 600, color: "#10b981" }}>
-            ★ SWE-bench 15-Case Batch Eval
+          <Link href="/repair-comparison/batch-eval" style={{ fontWeight: 600 }}>
+            Retrieval development history
           </Link>
           <Link href="/repair-investigation">Single investigation</Link>
           <Link href="/retrieval-training">Retrieval training</Link>
         </aside>
 
         <article className="prose">
+          <section id="adapter">
+            <h2>Trained 14B adapter comparison</h2>
+            <p>The saved QLoRA adapter and its frozen base each verified <strong>{adapter.base_verified} of {adapter.available_cases} repairs</strong>. Three additional cases lacked captured source context and remained unavailable in each arm.</p>
+            <p>All nine baseline failures and reference repairs reproduced independently. The comparison used {adapter.model_calls} inference calls and no training updates. Invalid edits and failed checks remain recorded. This small, historically exposed sample shows no measured adapter improvement; the strategy results below used a different model transport.</p>
+          </section>
           <section id="summary">
             <h2>Holdout outcomes and resource cost</h2>
             <p>
@@ -127,7 +134,7 @@ export default function RepairComparisonPage() {
           </section>
 
           <section id="codesage-mcp">
-            <h2>★ CodeSage Graph-RAG MCP Integration</h2>
+            <h2>Repository context integration</h2>
             <div style={{
               background: "rgba(99, 102, 241, 0.08)",
               border: "1px solid rgba(99, 102, 241, 0.3)",
@@ -136,7 +143,7 @@ export default function RepairComparisonPage() {
               marginBottom: "16px"
             }}>
               <h3 style={{ marginTop: 0, color: "#818cf8", fontSize: "1.1rem" }}>
-                Resolving Baseline Localization Starvation (<code>pytest-dev__pytest-5221</code>)
+                Annotated context demonstration (<code>pytest-dev__pytest-5221</code>)
               </h3>
               <p style={{ margin: "8px 0" }}>
                 Across the standard benchmark run, <code>pytest-dev__pytest-5221</code> failed across all 3 arms with{" "}
@@ -146,15 +153,15 @@ export default function RepairComparisonPage() {
                 By pairing Kairos with <strong>CodeSage Model Context Protocol (MCP)</strong> over stdio JSON-RPC,
                 CodeSage extracted a 2-hop topological call chain across <strong>1,746 directed edges</strong> in <code>pytest</code>,
                 localizing <code>_showfixtures_main</code> and its caller <code>showfixtures</code>.
-                Kairos synthesized a verified patch resolving the defect.
+                This annotated demonstration retrieves context and shows a handwritten example patch; it does not establish a test-verified repair.
               </p>
               <div style={{ marginTop: "14px" }}>
                 <Link
                   href="/repair-comparison/codesage-mcp"
-                  className="outcome-badge badge-pass"
+                  className="text-link"
                   style={{ display: "inline-block", padding: "6px 14px", textDecoration: "none" }}
                 >
-                  Inspect Live CodeSage 2-Hop Graph & Receipt →
+                  Inspect the context demonstration
                 </Link>
               </div>
             </div>
@@ -207,10 +214,10 @@ export default function RepairComparisonPage() {
                           {isPytest5221 ? (
                             <Link
                               href="/repair-comparison/codesage-mcp"
-                              className="outcome-badge badge-pass"
-                              title="CodeSage 2-hop Graph-RAG MCP Verified"
+                              className="outcome-badge"
+                              title="Annotated context and handwritten patch demonstration"
                             >
-                              <span className="badge-text">Repaired</span>
+                              <span className="badge-text">Context demo</span>
                               <span className="badge-meta">2-hop graph</span>
                             </Link>
                           ) : (

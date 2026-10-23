@@ -1,74 +1,37 @@
-"""
-Upload Kairos 14B QLoRA adapter to Hugging Face Hub.
+"""Explicitly publish a verified adapter bundle as one Hugging Face commit.
 
-Usage:
-    python scripts/upload_to_hf.py --repo-id <username>/kairos-14b-qlora [--token <HF_TOKEN>]
+No upload occurs without --publish. Credentials are read from the environment or
+normal Hub authentication, never accepted as a command-line token argument.
 """
 from __future__ import annotations
-
 import argparse
 import os
 from pathlib import Path
-import sys
 
-try:
-    from huggingface_hub import HfApi, create_repo
-except ImportError:
-    print("[!] huggingface_hub not installed. Install with: pip install huggingface_hub")
-    sys.exit(1)
-
-ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MODEL_DIR = ROOT / "dist" / "kairos-14b-qlora"
-
-FILES_TO_UPLOAD = [
-    "adapter_model.safetensors",
-    "adapter_config.json",
-    "README.md",
-    "trainer_state.json",
-    "resource-proof.json",
-]
+from scripts.prepare_hf_model import DEFAULT_OUT, verify_bundle
 
 
 def upload_adapter(repo_id: str, model_dir: Path, token: str | None = None) -> None:
-    token = token or os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN")
-    api = HfApi(token=token)
-
-    print(f"[*] Ensuring Hugging Face repository exists: {repo_id}...")
-    try:
-        create_repo(repo_id=repo_id, repo_type="model", exist_ok=True, token=token)
-        print(f"[✓] Repository ready: https://huggingface.co/{repo_id}")
-    except Exception as e:
-        print(f"[!] Note on repo creation: {e}")
-
-    print(f"[*] Uploading Kairos adapter files from {model_dir}...")
-    for fname in FILES_TO_UPLOAD:
-        fpath = model_dir / fname
-        if not fpath.exists():
-            print(f"[!] Skipping missing file: {fname}")
-            continue
-
-        print(f"    Uploading {fname} ({fpath.stat().st_size:,} bytes)...")
-        api.upload_file(
-            path_or_fileobj=str(fpath),
-            path_in_repo=fname,
-            repo_id=repo_id,
-            repo_type="model",
-            token=token,
-        )
-
-    print(f"\n[✓] Successfully published Kairos 14B QLoRA adapter to:")
-    print(f"    https://huggingface.co/{repo_id}")
+    manifest=verify_bundle(model_dir)
+    # Import after integrity checks; merely importing this script has no network effects.
+    from huggingface_hub import HfApi, CommitOperationAdd
+    api=HfApi(token=token or os.environ.get('HF_TOKEN'))
+    api.create_repo(repo_id=repo_id,repo_type='model',exist_ok=True,private=True)
+    operations=[CommitOperationAdd(path_in_repo=name,path_or_fileobj=str(Path(model_dir)/name))
+        for name in sorted(set(manifest['files'])|{'release-manifest.json'})]
+    return api.create_commit(repo_id=repo_id,repo_type='model',operations=operations,
+        commit_message='Publish verified experimental Kairos adapter artifacts')
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Upload Kairos adapter to Hugging Face Hub")
-    parser.add_argument("--repo-id", type=str, required=True, help="Target HF repo ID (e.g. yourname/kairos-14b-qlora)")
-    parser.add_argument("--model-dir", type=Path, default=DEFAULT_MODEL_DIR, help="Directory containing adapter files")
-    parser.add_argument("--token", type=str, default=None, help="Hugging Face User Access Token (or set HF_TOKEN env var)")
-    args = parser.parse_args()
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--repo-id',required=True)
+    parser.add_argument('--model-dir',type=Path,default=DEFAULT_OUT)
+    parser.add_argument('--publish',action='store_true')
+    args=parser.parse_args()
+    if not args.publish:parser.error('Use --publish only after reviewing the verified bundle and authorizing publication')
+    upload_adapter(args.repo_id,args.model_dir)
+    print('Verified adapter files uploaded in one commit; inspect the Hub repository for visibility and access.')
 
-    upload_adapter(args.repo_id, args.model_dir, args.token)
 
-
-if __name__ == "__main__":
-    main()
+if __name__=='__main__':main()

@@ -77,3 +77,34 @@ def test_jobs_carry_exact_prompt_identity_and_pair(tmp_path):
         assert planned[0]['job_id'] == 'django__django-1/issue/adapter/t2' and planned[0]['turn'] == 2
     finally:
         w.close()
+
+
+def test_turn2_gates_on_token_envelope_not_a_tight_byte_budget(tmp_path):
+    # Real pilot data: required rejection metadata exceeded 1500 bytes while the prompt was ~1500 tokens.
+    w = make_workspace(tmp_path, TEXT, 'total() is wrong')
+    regions = [w.read_original('package/value.py', 1, 5)]
+    h = source_block(regions[0])['source_id']
+    first = messages('total() is wrong', [source_block(r) for r in regions])
+    long_edit = json.dumps({'action': 'propose_patch', 'edits': [{'source_id': h, 'start_line': i, 'end_line': i, 'new': 'x' * 300 + '(\n'} for i in range(1, 6)]})
+    jobs = [{'job_id': 'a/issue/base/t1', 'instance_id': 'a', 'context': 'issue', 'arm': 'base', 'messages': first}]
+    captures = {'a/issue/base/t1': {'status': 'captured', 'result': {'text': long_edit}, 'capture_sha256': 'f' * 64}}
+    try:
+        planned, ledger = turn2(jobs, captures, lambda job: (w, regions), Counter())
+        assert [j['job_id'] for j in planned] == ['a/issue/base/t2'], ledger
+    finally:
+        w.close()
+
+
+def test_turn2_ledger_names_the_token_cap_refusal(tmp_path):
+    w = make_workspace(tmp_path, TEXT, 'total() is wrong')
+    regions = [w.read_original('package/value.py', 1, 5)]
+    h = source_block(regions[0])['source_id']
+    first = messages('total() is wrong', [source_block(r) for r in regions])
+    huge = [first[0], {'role': 'user', 'content': first[1]['content'][:-1] + ',"pad":"' + 'y' * 20000 + '"}'}]
+    jobs = [{'job_id': 'b/issue/base/t1', 'instance_id': 'b', 'context': 'issue', 'arm': 'base', 'messages': huge}]
+    captures = {'b/issue/base/t1': {'status': 'captured', 'result': {'text': edit(h, 'result += value\n')}, 'capture_sha256': 'f' * 64}}
+    try:
+        planned, ledger = turn2(jobs, captures, lambda job: (w, regions), Counter())
+        assert planned == [] and ledger['b/issue/base/t1'] == 'syntax_indentation+turn2_over_token_envelope'
+    finally:
+        w.close()

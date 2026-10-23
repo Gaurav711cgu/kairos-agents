@@ -172,3 +172,36 @@ def test_source_mutation_during_scoring_raises(tmp_path, monkeypatch):
     with pytest.raises(ValueError, match='Original source changed'):
         score.main()
     assert not (out / 'scores.json').exists()
+
+
+def test_capacity_flag_sets_storage_cap(monkeypatch):
+    seen = {}
+    monkeypatch.setattr(score, 'final_attempts', lambda jobs, captures: seen.setdefault('cap', q.CAPACITY) and {})
+    monkeypatch.setattr(sys, 'argv', ['f024_score', '--package', '/dev/null', '--results', '/nonexistent', '--qualification', '/q', '--parquet', '/p',
+                                      '--storage-roots', '/s', '--output', '/o', '--admission-module', '/a', '--capacity-gib', '8'])
+    monkeypatch.setattr(score.Path, 'read_text', lambda self: '{"jobs": []}')
+    monkeypatch.setattr(q, 'CAPACITY', q.CAPACITY)
+    score.main()
+    assert seen['cap'] == 8 * 1024 ** 3
+
+
+def test_work_root_keeps_disposable_trees_out_of_the_output_folder(tmp_path, monkeypatch):
+    # Finder wrote .DS_Store into a Desktop-hosted work tree and broke the registry hash.
+    out, state = setup_main(tmp_path, monkeypatch, {'d-1/issue/base/t1': cap('ok')})
+    work_root = tmp_path / 'outside-finder'
+    monkeypatch.setattr(sys, 'argv', sys.argv + ['--work-root', str(work_root)])
+    score.main()
+    assert (work_root / CASE_ID).exists() and not (out / 'work').exists()
+
+
+@pytest.mark.parametrize('environment_error,expected', [(False, 'candidate_execution_failure'), (True, 'environment_failure')])
+def test_incomplete_execution_is_blamed_on_the_candidate_only_when_the_sandbox_ran(tmp_path, monkeypatch, environment_error, expected):
+    # Pilot: accepted edits broke imports (ImportError/NameError, 0 tests) yet were labelled environment_failure.
+    out, _ = setup_main(tmp_path, monkeypatch, {'d-1/oracle/base/t1': cap('ok')})
+    monkeypatch.setattr(q, 'captured_check', lambda *a: {'environment_error': environment_error, 'returncode': 126,
+                                                         'stderr': 'ImportError: cannot import name X'})
+    monkeypatch.setattr(q, 'check_qualified', lambda b, c, qual: {'qualified': False, 'status': 'environment_failure'})
+    score.main()
+    result = {r['job_id']: r for r in json.loads((out / 'scores.json').read_text())['results']}['d-1/oracle/base/t1']
+    assert result['outcome'] == expected and not result['verified_repair']
+    assert ('ImportError' in result.get('candidate_stderr_tail', '')) == (expected == 'candidate_execution_failure')

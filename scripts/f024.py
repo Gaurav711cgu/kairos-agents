@@ -54,10 +54,11 @@ def turn2(jobs, captures, context_for, tokenizer):
         verdict = validate021(workspace, capture['result']['text'], regions)
         ledger[job['job_id']] = classify(verdict)
         try:
-            second = next_turn021(job['messages'], regions, verdict, maximum_bytes=1500, tokenizer=tokenizer,
+            # The memory envelope (tokens) is the binding gate; the byte budget stays at the module default.
+            second = next_turn021(job['messages'], regions, verdict, tokenizer=tokenizer,
                                   maximum_prompt_tokens=ENVELOPE_TOKENS - TURN2_MAX_NEW)
-        except FeedbackContextOverflow010:
-            ledger[job['job_id']] += '+turn2_over_envelope'
+        except FeedbackContextOverflow010 as error:
+            ledger[job['job_id']] += '+turn2_over_token_envelope' if 'token cap' in str(error) else '+turn2_over_feedback_bytes'
             continue
         if second is not None:
             planned.append({**make_job(job['instance_id'], job['context'], job['arm'], 2, second, tokenizer, TURN2_MAX_NEW),

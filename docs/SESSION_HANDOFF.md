@@ -41,3 +41,25 @@ without approval. Repair success unverified.
 - The Colab pilot turn one needs the user's browser (steps in the lead's last message and in
   `docs/F024_PILOT_MANIFEST.md`). Results go to
   `~/Desktop/resume/kairos-closeout020/f024-pilot/turn1-results.zip`.
+
+## Pilot turn one (actual results, cycle 3)
+- `turn1-results.zip` verified: 8/8 generations captured on a Colab T4; journal and hashes valid; peak 10.76 GiB.
+- Local validation: 3 accepted, 3 syntax, 1 parse (truncated at 512 tokens), 1 no-op.
+- Independent Docker scoring: 0 verified repairs. All 3 accepted edits broke module import, so 0 tests ran.
+  These are now classified `candidate_execution_failure` instead of `environment_failure`.
+- Fixes made: turn-two planner gates on the token envelope (a 1500-byte budget wrongly refused 2 jobs);
+  scorer gained `--work-root` (Finder `.DS_Store` broke the Desktop-hosted registry hash) and
+  `--capacity-gib`.
+- Turn two is staged: `~/Desktop/resume/kairos-closeout020/f024-pilot/upload-turn2/` (5 jobs, notebook
+  `f024-pilot-turn2.ipynb`). The user runs it in Colab and saves `turn2-results.zip` beside the turn-one zip.
+- Evidence: `evidence/localization024/f024-pilot/turn1/`. These changes are uncommitted.
+
+## Pilot final (cycle 4)
+- Turn 2 came from `~/Downloads/f024-results.zip`, copied unchanged to `f024-pilot/turn2-results.zip`.
+  5/5 journals verified; 13 generations in total.
+- Final independent scoring: 0/8 verified repairs; 1 executable but behaviourally wrong; 3/5
+  turn-two outputs identical to turn one.
+- New opt-in `scripts/edit_preflight024.py` (`dangling_removals`) catches all 3 import-breakers
+  retrospectively, with 0 false positives.
+- Analysis: `docs/F024_PILOT_RESULTS.md`; evidence: `evidence/localization024/f024-pilot/turn2`.
+  Uncommitted.

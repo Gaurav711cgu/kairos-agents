@@ -28,10 +28,14 @@ def main():  # pragma: no cover - Docker execution is approval-gated
     for name in ['package', 'results', 'qualification', 'parquet', 'storage-roots', 'output', 'admission-module']:
         parser.add_argument('--' + name, type=Path, required=True, action='append' if name in {'package', 'results'} else None)
     parser.add_argument('--execute', action='store_true')
+    parser.add_argument('--work-root', type=Path, default=None, help='disposable work trees; keep outside Finder-visible folders')
+    parser.add_argument('--capacity-gib', type=int, default=None, help='approved aggregate storage cap for this run; reserve unchanged')
     args = parser.parse_args()
     sys.path.insert(0, str(PROJECT))
     import pyarrow.parquet as pq
     import scripts.qualify014 as q
+    if args.capacity_gib is not None:
+        q.CAPACITY = args.capacity_gib * 1024 ** 3
     from scripts.f024 import classify
     from scripts.feedback_turn021 import validate021
     from kairos_api.investigations.sandbox import Workspace
@@ -61,7 +65,7 @@ def main():  # pragma: no cover - Docker execution is approval-gated
         except ValueError as error:
             results += [{'job_id': job_id, 'model_calls': 0, 'verified_repair': False, 'outcome': 'case_not_qualified', 'reason': str(error)} for job_id, _ in attempts.values()]
             continue
-        work = args.output / 'work' / identifier  # one pinned download per case, shared by its attempts
+        work = (args.work_root or args.output / 'work') / identifier  # one pinned download per case, shared by its attempts
         work.mkdir(parents=True)
         row = rows[identifier]
         source, _ = q.pinned_source(row, work, roots, True, tree_hash)
@@ -94,8 +98,13 @@ def main():  # pragma: no cover - Docker execution is approval-gated
                 check = q.captured_check(args.output / 'checks' / (job_id.replace('/', '__') + '.json'), 'candidate',
                                          lambda: workspace.checks(timeout=120), binding, roots, q.tree_bytes(workspace.root))
                 judged = q.check_qualified(baseline, check, qualifier)
-                results.append({**result, 'outcome': 'verified_repair' if judged['qualified'] else judged['status'],
-                                'verified_repair': judged['qualified'], 'checks': judged})
+                outcome = 'verified_repair' if judged['qualified'] else judged['status']
+                extra = {}
+                # Baseline and reference already ran in this image; a sandbox that ran but executed no
+                # tests means the candidate itself broke import or collection, not the environment.
+                if outcome == 'environment_failure' and check.get('environment_error') is False:
+                    outcome, extra = 'candidate_execution_failure', {'candidate_stderr_tail': str(check.get('stderr', ''))[-800:]}
+                results.append({**result, 'outcome': outcome, 'verified_repair': judged['qualified'], 'checks': judged, **extra})
             finally:
                 workspace.close()
         if tree_hash(directory / 'source') != case['source_digest']:

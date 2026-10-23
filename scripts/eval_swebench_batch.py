@@ -1,4 +1,7 @@
 """
+SUPERSEDED ANNOTATED DIAGNOSTIC — PUBLIC EXECUTION IS DISABLED.
+The original description below is preserved as history, not a supported claim.
+
 Empirical, zero-mock batch evaluation harness for SWE-bench Lite 15-case cohort.
 Directly queries CodeSage SQLite database (3,942 edges) and on-disk Tree-sitter manifests.
 Evaluates Arm A (Empirical BM25 Lexical Retrieval) vs. Arm B (Empirical 2-Hop Graph-RAG).
@@ -24,7 +27,7 @@ if codesage_env:
 elif SIBLING_CODESAGE.exists():
     CODESAGE_ROOT = SIBLING_CODESAGE
 else:
-    CODESAGE_ROOT = Path("/Users/gauravkumarnayak/Desktop/Codesage")
+    CODESAGE_ROOT = SIBLING_CODESAGE
 
 DB_PATH = CODESAGE_ROOT / "app.db"
 MANIFESTS_DIR = CODESAGE_ROOT / ".chroma" / "manifests"
@@ -221,7 +224,7 @@ def expand_two_hop(
     return combined
 
 
-def run_empirical_batch_evaluation() -> dict[str, Any]:
+def _run_archived_annotated_evaluation() -> dict[str, Any]:
     with open(COHORT_PATH, "r") as f:
         cohort = json.load(f)
 
@@ -406,6 +409,11 @@ def run_empirical_batch_evaluation() -> dict[str, Any]:
     print(f"    Mean Context Tokens: Arm A={arm_a_mean_tokens} -> Arm B={arm_b_mean_tokens} ({token_reduction}% reduction)")
     print(f"    Mean Graph Traversal Latency: {arm_b_mean_lat} ms")
     return receipt
+
+
+def run_empirical_batch_evaluation() -> dict[str, Any]:
+    """Refuse legacy writes; use the issue-only, provenance-scoped v020 runner."""
+    raise RuntimeError("Annotated-caller evaluator is retired; use python -m scripts.retrieval_eval020. Historical receipts are preserved.")
 
 
 if __name__ == "__main__":

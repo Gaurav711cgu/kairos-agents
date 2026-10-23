@@ -15,6 +15,7 @@ import logging
 import re
 import sys
 import time
+import uuid
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Optional
@@ -74,7 +75,7 @@ def parse_traceback(traceback_text: str) -> FailureTrace:
         err_msg = traceback_text.strip().splitlines()[-1] if traceback_text.strip() else "Unknown failure"
 
     # Extract target symbol from error message first, then code lines
-    target_symbol = "CircuitBreaker"
+    target_symbol = "unknown"
     err_symbol_match = re.search(r'in\s+([A-Z][A-Za-z0-9_]+)', err_msg)
     if err_symbol_match:
         target_symbol = err_symbol_match.group(1)
@@ -82,6 +83,7 @@ def parse_traceback(traceback_text: str) -> FailureTrace:
         pascal_matches = [
             m for m in re.findall(r'\b[A-Z][a-zA-Z0-9_]+\b', traceback_text)
             if m not in ("File", "Traceback", "AssertionError", "Error", "Exception", "CircuitState")
+            and not m.endswith(("Error", "Exception"))
         ]
         if pascal_matches:
             target_symbol = pascal_matches[-1]
@@ -106,9 +108,10 @@ def parse_traceback(traceback_text: str) -> FailureTrace:
 class FDERepairHarness:
     """Harness that connects test failures to CodeSage Graph-RAG MCP server."""
 
-    def __init__(self, codesage_root: Optional[Path] = None) -> None:
+    def __init__(self, codesage_root: Optional[Path] = None, receipt_directory: Optional[Path] = None) -> None:
         self.codesage_root = codesage_root or DEFAULT_CODESAGE_ROOT
         self.mcp_client = CodeSageMCPClient(codesage_root=self.codesage_root)
+        self.receipt_directory = receipt_directory or KAIROS_ROOT / ".runtime" / "diagnostics020"
 
     def execute_loop(
         self,
@@ -116,7 +119,7 @@ class FDERepairHarness:
         repo_id: str = "eval_repo",
         max_iterations: int = 3,
     ) -> dict[str, Any]:
-        """Execute the multi-turn FDE loop on a failing traceback."""
+        """Capture a single retrieval diagnostic; this method executes no repair."""
         t_start = time.perf_counter()
         trace = parse_traceback(failing_traceback)
 
@@ -156,7 +159,7 @@ class FDERepairHarness:
             callers=callers,
             callees=callees,
             chunks_count=len(raw_chunks),
-            status="RESOLVED",
+            status="CONTEXT_CAPTURED",
             latency_ms=round(lat_context, 2),
         )
 
@@ -173,27 +176,32 @@ class FDERepairHarness:
             "total_repair_ms": round(total_latency, 2),
             "chunks_retrieved": len(raw_chunks),
             "context_word_count": len(context_bundle.split()),
-            "status": "PASS",
+            "status": "CAPTURED",
+            "repair_verified": False,
+            "model_calls": 0,
+            "verification_runs": 0,
             "gravitas_invariants_satisfied": [
                 "INV-1: Target callers and callees read before patch generation",
                 "INV-2: Writes stay strictly inside declared task scope",
-                "INV-3: Fresh test execution verified after AST resolution",
+                "INV-3: Context retrieval only; no patch or test execution",
                 "INV-4: Non-identical iterative diagnostic strategy",
             ],
         }
 
         # Seal receipt in evidence/retrieval011/
-        receipt_path = KAIROS_ROOT / "evidence" / "retrieval011" / "fde_iterative_loop_receipt.json"
+        # Historical destination is now preserved; write only a new diagnostic capture.
+        receipt_path = self.receipt_directory / ("context-" + uuid.uuid4().hex + ".json")
         receipt_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(receipt_path, "w", encoding="utf-8") as f:
+        receipt_data["receipt_path"] = str(receipt_path)
+        with open(receipt_path, "x", encoding="utf-8") as f:
             json.dump(receipt_data, f, indent=2)
 
         return receipt_data
 
     def execute_swebench_case(self, task_id: str = "pytest-dev__pytest-5221") -> dict[str, Any]:
         """
-        Execute real SWE-bench defect repair using CodeSage 2-hop Graph-RAG MCP.
-        Overcomes previous baseline failure ('Issue-only AST localization returned no source regions; outcome: no_patch').
+        Capture an explicitly annotated retrieval and handwritten-patch demonstration.
+        This legacy example is not model-generated or test-verified repair evidence.
         """
         import ast
         t_start = time.perf_counter()
@@ -265,7 +273,10 @@ class FDERepairHarness:
                 "ast_regions_localized": 0,
             },
             "codesage_augmented": {
-                "outcome": "localized_and_repaired",
+                "outcome": "annotated_context_and_handwritten_patch_demo",
+                "patch_origin": "handwritten_demo",
+                "target_annotation_supplied": True,
+                "tests_executed": False,
                 "target_symbol": target_symbol,
                 "target_file": target_file,
                 "context_retrieval_ms": round(lat_context, 2),
@@ -273,21 +284,26 @@ class FDERepairHarness:
                 "context_word_count": len(context_bundle.split()),
                 "callers": call_graph.get("callers", []),
                 "callees": call_graph.get("callees", []),
-                "patch_syntax_verified": True,
+                "patch_syntax_verified": False,
+                "example_function_syntax_valid": True,
                 "patch_diff": candidate_patch,
             },
-            "status": "PASS",
+            "status": "CAPTURED",
+            "repair_verified": False,
+            "model_calls": 0,
+            "verification_runs": 0,
             "gravitas_invariants_satisfied": [
                 "INV-1: Grounded in real SWE-bench defect measurement record",
                 "INV-2: 2-hop topological callers and callees localized before patching",
-                "INV-3: Fresh AST parse verification executed post-patch",
-                "INV-4: Replaces baseline failure ('no_patch') with verified deterministic repair",
+                "INV-3: AST parse covers a handwritten example function, not an applied repository patch",
+                "INV-4: No repair outcome is inferred from context retrieval or example syntax",
             ],
         }
 
-        receipt_path = KAIROS_ROOT / "evidence" / "retrieval011" / "swebench_pytest5221_mcp_receipt.json"
+        receipt_path = self.receipt_directory / ("handwritten-demo-" + uuid.uuid4().hex + ".json")
         receipt_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(receipt_path, "w", encoding="utf-8") as f:
+        receipt_data["receipt_path"] = str(receipt_path)
+        with open(receipt_path, "x", encoding="utf-8") as f:
             json.dump(receipt_data, f, indent=2)
 
         return receipt_data

@@ -1,0 +1,947 @@
+{
+  "scope": "Twenty project-excluded public Django/pytest cases; public pretraining exposure unknown. No leaderboard or broad competence claim.",
+  "cases": 20,
+  "model_calls": 40,
+  "training_runs": 0,
+  "candidate_test_runs": 13,
+  "source_snapshots_preserved": 20,
+  "arms": {
+    "base": {
+      "verified_repairs": 0,
+      "attempts": 20,
+      "outcomes": {
+        "invalid_patch": 12,
+        "behavioral_mismatch": 7,
+        "candidate_execution_failure": 1
+      }
+    },
+    "adapter": {
+      "verified_repairs": 0,
+      "attempts": 20,
+      "outcomes": {
+        "invalid_patch": 15,
+        "behavioral_mismatch": 4,
+        "candidate_execution_failure": 1
+      }
+    }
+  },
+  "paired": {
+    "both": 0,
+    "base_only": 0,
+    "adapter_only": 0,
+    "neither_verified": 20
+  },
+  "paired_difference_percentage_points": 0,
+  "uncertainty": "Zero discordant observed repair outcomes; this small curated study does not establish equivalence or improvement. Each arm has a one-sided 95% binomial upper bound of 13.91% under an iid assumption, which this curated cohort does not guarantee.",
+  "adapter_improvement_demonstrated": false,
+  "inference_costs": {
+    "base": {
+      "calls": 20,
+      "output_tokens": 3224,
+      "generation_seconds": 611.07
+    },
+    "adapter": {
+      "calls": 20,
+      "output_tokens": 3839,
+      "generation_seconds": 741.17
+    }
+  },
+  "results": [
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10213",
+      "reason": "Invalid patch action",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "7a06e302e0155f6e7daf214264918564eefa27d6e723d057ab303159399563bc",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10213",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 205: closing parenthesis '}' does not match opening parenthesis '(' on line 202",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "3a73a9900819caa3940a58a5db496b95622e1aa03305d7d0aa97648f7f4fbf88",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10287",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 66: unexpected indent",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "38346ae7b475d6d8e809477ef7c7958c6d2a8965d1463d4ca2d90c701542f046",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10287",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 65: unexpected indent",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "26cc4015426394db8b85051126b0c7d3376a698f5ddde32488923b82a658ac43",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10316",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 167: unterminated triple-quoted string literal (detected at line 205)",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "75a8537a3365b65aabb9b5067c8e426ce8c144b45e4ff0ac3d927586ce94ff76",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10316",
+      "reason": "Invalid patch action",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "a82f190c4d3a0f8ad0277163bc50042adc5eebf753153ad32453a1ddef7758b8",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10390",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 225: unexpected indent",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "9be0cc24f6e19c77c7b6904eb2dc16cd716fdb1f0cf3f033a19ae7a26108252f",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10390",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 225: unexpected indent",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "f634d0fc0950f13e3dbda6cf1a9123115978d1360ee006e4cad4528111d4c610",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "738f6273749954d11a1c0207f24b4eff927313990c25b62eebb0d3f0e731d7c0",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_get_choices_reverse_related_field (model_fields.tests.GetChoicesLimitChoicesToTests)",
+            "test_relatedonlyfieldlistfilter_foreignkey_reverse_relationships (admin_filters.tests.ListFiltersTests)",
+            "test_relatedonlyfieldlistfilter_manytomany_reverse_relationships (admin_filters.tests.ListFiltersTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 68
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_get_choices_reverse_related_field (model_fields.tests.GetChoicesLimitChoicesToTests)",
+            "test_relatedonlyfieldlistfilter_foreignkey_reverse_relationships (admin_filters.tests.ListFiltersTests)",
+            "test_relatedonlyfieldlistfilter_manytomany_reverse_relationships (admin_filters.tests.ListFiltersTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 68
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "django__django-10606",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "ac9c0326b7545f568842c27d04e47b7d0fd75280d998ff2c64c5ad083338bcbb",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "8bad6cb42e5fae7bec5a702649b720b62c2a17f4a2d2286866959623409b877c",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_get_choices_reverse_related_field (model_fields.tests.GetChoicesLimitChoicesToTests)",
+            "test_relatedonlyfieldlistfilter_foreignkey_reverse_relationships (admin_filters.tests.ListFiltersTests)",
+            "test_relatedonlyfieldlistfilter_manytomany_reverse_relationships (admin_filters.tests.ListFiltersTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 68
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_get_choices_reverse_related_field (model_fields.tests.GetChoicesLimitChoicesToTests)",
+            "test_relatedonlyfieldlistfilter_foreignkey_reverse_relationships (admin_filters.tests.ListFiltersTests)",
+            "test_relatedonlyfieldlistfilter_manytomany_reverse_relationships (admin_filters.tests.ListFiltersTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 68
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "django__django-10606",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "627ddfe82a5e79783ea322b3a50bebecf7b84316bd647b48dce6b71128882bb3",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10730",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 395: unindent does not match any outer indentation level",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "e2ab66eb9eb383f27a6c0186f702c72a6eb66af7642e45e4de41113fc79b9ee7",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-10730",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 397: unindent does not match any outer indentation level",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "bc8d2b894174d2557ff939d6ef333cd62e33b8814c3e437a8e79d76176ca93f7",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "23da7a39977235527a9673d6463bf91300fd62d11426385b57f45749fda78660",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_clean_model_instance (model_forms.test_modelchoicefield.ModelChoiceFieldTests)",
+            "test_clean_to_field_name (model_forms.test_modelchoicefield.ModelChoiceFieldTests)",
+            "test_disabled_modelchoicefield_initial_model_instance (model_forms.test_modelchoicefield.ModelChoiceFieldTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 21
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_clean_model_instance (model_forms.test_modelchoicefield.ModelChoiceFieldTests)",
+            "test_clean_to_field_name (model_forms.test_modelchoicefield.ModelChoiceFieldTests)",
+            "test_disabled_modelchoicefield_initial_model_instance (model_forms.test_modelchoicefield.ModelChoiceFieldTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 21
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "django__django-11003",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "dad4d973969a0abd465b507393097a14eac226270bf8085ebbe7c667e1963351",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "17f6cb3b541f4300db885b3706165140a5e3ced7e98dc97b3686c908b72793b8",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_clean_model_instance (model_forms.test_modelchoicefield.ModelChoiceFieldTests)",
+            "test_clean_to_field_name (model_forms.test_modelchoicefield.ModelChoiceFieldTests)",
+            "test_disabled_modelchoicefield_initial_model_instance (model_forms.test_modelchoicefield.ModelChoiceFieldTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 21
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_clean_model_instance (model_forms.test_modelchoicefield.ModelChoiceFieldTests)",
+            "test_clean_to_field_name (model_forms.test_modelchoicefield.ModelChoiceFieldTests)",
+            "test_disabled_modelchoicefield_initial_model_instance (model_forms.test_modelchoicefield.ModelChoiceFieldTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 21
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "django__django-11003",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "133a5ec2165e99ad39d80b72cd91e0729bc104af69f877c801f6ac9940c086e1",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "1e57ecc295fa37a26a715825a1acf1f466105b77e1260d2eaf7d107ae1013d3a",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_file_from_buffer_unnamed_attachment (responses.test_fileresponse.FileResponseTests)",
+            "test_file_from_disk_response (responses.test_fileresponse.FileResponseTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 7
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_file_from_buffer_unnamed_attachment (responses.test_fileresponse.FileResponseTests)",
+            "test_file_from_disk_response (responses.test_fileresponse.FileResponseTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 7
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "django__django-11011",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "b3c5f2959decaf890a0f65c57fc3e9d0a59b8fa8fa4746dda3edd8298dd40cb9",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "7b5f2db891784d1cd11fe0a2bde567e5b1947022255a4dd3e2f6e8bce1a8e922",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_file_from_buffer_unnamed_attachment (responses.test_fileresponse.FileResponseTests)",
+            "test_file_from_disk_response (responses.test_fileresponse.FileResponseTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 7
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_file_from_buffer_unnamed_attachment (responses.test_fileresponse.FileResponseTests)",
+            "test_file_from_disk_response (responses.test_fileresponse.FileResponseTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 7
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "django__django-11011",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "1a19edbe62c1bcefd263d88e3b01cc9777ecc27af41c64ae317d71f5b351f927",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-11034",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 190: unexpected indent",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "ea8d3a67a3ac36280bf7e888586f8259e05edd74f398bc6e9f51d4a9ff189313",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "835ed59f636ded0f64c41d720b4ab7cc1ba7d02c2a2d17126423aecda5b016bb",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_label_suffix_translated (admin_views.tests.ReadonlyTest)"
+          ],
+          "regression_passed": [],
+          "tests_run": 301
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_label_suffix_translated (admin_views.tests.ReadonlyTest)"
+          ],
+          "regression_passed": [],
+          "tests_run": 301
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "django__django-11034",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "d7563a6ad596354f2b86520467464019e331237c4b978e22891901d7e5552fb2",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-11044",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 491: expected an indented block after 'if' statement on line 489",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "bd89323ce7e91bc88ac911e195037c3a2869cf450c5c02a5a8bd8c2de9c4b4bd",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "django__django-11044",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 499: unexpected indent",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "366dca315faa876172b4820d870ab460c256a4f209bcabc7bebafb375f411463",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "767f0f05b5b68f2a2f23eafedb61bfb85fd171af7b1c4e2ffd9b19f5cba7d952",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "collected": 15,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/test_warning_types.py::test_warn_explicit_for_annotates_errors_with_location"
+          ],
+          "regression_failed": [
+            "testing/test_warning_types.py::test_warn_explicit_for_annotates_errors_with_location"
+          ],
+          "regression_passed": false,
+          "tests_run": 15
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {},
+        "status": "environment_failure"
+      },
+      "instance_id": "pytest-dev__pytest-10343",
+      "normalization_applied": false,
+      "status": "environment_failure",
+      "verification_complete": false,
+      "verified_repair": false,
+      "reported_status": "candidate_execution_failure",
+      "classification_note": "Test harness could not import the candidate-modified pytest source; qualified baseline/reference environment had passed. Original conservative incomplete-verification classification retained.",
+      "receipt_sha256": "bbe250e87d046533d5e4fad976788d9e44b9aceab7e1b19a82cda1f6083708fb"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-10343",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 509: unexpected indent",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "31dc4effd6843360ec6706998111e5dd4f9d584d93aab8a643aac3200e9062df",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-10371",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 1274: unterminated triple-quoted string literal (detected at line 1293)",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "db63e572f5fae4b9f2200054ae69a3a7fbdd296048e29d2665ef4abf5384997b",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "3f145733c14b61a51187c0a88485364f0ef6e00a7d253c34e06446626163a46a",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "collected": 43,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/logging/test_reporting.py::test_disable_loggers",
+            "testing/logging/test_reporting.py::test_disable_loggers_does_not_propagate",
+            "testing/logging/test_reporting.py::test_log_disabling_works_with_log_cli"
+          ],
+          "regression_failed": [
+            "testing/logging/test_reporting.py::test_disable_loggers",
+            "testing/logging/test_reporting.py::test_disable_loggers_does_not_propagate",
+            "testing/logging/test_reporting.py::test_log_disabling_works_with_log_cli"
+          ],
+          "regression_passed": false,
+          "tests_run": 43
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "collected": 43,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/logging/test_reporting.py::test_disable_loggers",
+            "testing/logging/test_reporting.py::test_disable_loggers_does_not_propagate",
+            "testing/logging/test_reporting.py::test_log_disabling_works_with_log_cli"
+          ],
+          "regression_failed": [
+            "testing/logging/test_reporting.py::test_disable_loggers",
+            "testing/logging/test_reporting.py::test_disable_loggers_does_not_propagate",
+            "testing/logging/test_reporting.py::test_log_disabling_works_with_log_cli"
+          ],
+          "regression_passed": false,
+          "tests_run": 43
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "pytest-dev__pytest-10371",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "f480cc8155e6c85ad7830a49e9d5d75c71adcef742717b7ab5b318943244fdad",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-10482",
+      "normalization_applied": false,
+      "reason": "ValueError: Edit range escapes captured excerpt",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "538eaeb615a07f195026ea21985c36fa6ca2fb3e18293a8eea50c3f90aa82031",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-10482",
+      "reason": "Expecting value: line 8 column 14 (char 145)",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "1c075c830bcff0a09fdd9c89610c4b62163d6397d4bff12aaf49d4e01666121d",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-10552",
+      "reason": "Invalid inclusive bounds",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "e73e7bf4d9f81c8fa259341462c415129b3cfd484bdf2118df2a41eba3fc0540",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "36f8c2e9bd6b09059ad321ba26b6002d502c3168efbffc39dbb15f2a45993d0a",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "collected": 105,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/python/integration.py::test_function_instance",
+            "testing/test_collection.py::Test_genitems::test_classmethod_is_discovered"
+          ],
+          "regression_failed": [
+            "testing/test_collection.py::Test_genitems::test_classmethod_is_discovered"
+          ],
+          "regression_passed": false,
+          "tests_run": 105
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "collected": 105,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/python/integration.py::test_function_instance",
+            "testing/test_collection.py::TestCustomConftests::test_pytest_collect_file_from_sister_dir",
+            "testing/test_collection.py::TestImportModeImportlib::test_using_python_path",
+            "testing/test_collection.py::TestSession::test_collect_subdir_event_ordering",
+            "testing/test_collection.py::TestSession::test_collect_two_commandline_args",
+            "testing/test_collection.py::Test_genitems::test_classmethod_is_discovered",
+            "testing/test_collection.py::Test_getinitialnodes::test_pkgfile",
+            "testing/test_collection.py::test_collect_init_tests",
+            "testing/test_collection.py::test_collect_pkg_init_and_file_in_args",
+            "testing/test_collection.py::test_collect_sub_with_symlinks[True]",
+            "testing/test_collection.py::test_collectignore_via_conftest",
+            "testing/test_collection.py::test_fixture_scope_sibling_conftests"
+          ],
+          "regression_failed": [
+            "testing/test_collection.py::Test_genitems::test_classmethod_is_discovered"
+          ],
+          "regression_passed": false,
+          "tests_run": 105
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "pytest-dev__pytest-10552",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "48a69d1720872d5d9071e825c215e50d90299aa7abeb59b1f9aac260d39a8353",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "93b0b7dfbfa9fbfe9f412b0fb5762be544321e702de98c0461a26213307bbf12",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "collected": 39,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/test_tmpdir.py::TestRmRf::test_on_rm_rf_error"
+          ],
+          "regression_failed": [
+            "testing/test_tmpdir.py::TestRmRf::test_on_rm_rf_error"
+          ],
+          "regression_passed": false,
+          "tests_run": 39
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "collected": 39,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/test_tmpdir.py::TestConfigTmpPath::test_getbasetemp_custom_removes_old",
+            "testing/test_tmpdir.py::TestNumberedDir::test_cleanup_ignores_symlink",
+            "testing/test_tmpdir.py::TestNumberedDir::test_cleanup_keep",
+            "testing/test_tmpdir.py::TestNumberedDir::test_cleanup_keep_0",
+            "testing/test_tmpdir.py::TestRmRf::test_on_rm_rf_error",
+            "testing/test_tmpdir.py::TestRmRf::test_rm_rf",
+            "testing/test_tmpdir.py::TestRmRf::test_rm_rf_with_read_only_directory",
+            "testing/test_tmpdir.py::TestRmRf::test_rm_rf_with_read_only_file",
+            "testing/test_tmpdir.py::TestTmpPathHandler::test_mktemp",
+            "testing/test_tmpdir.py::test_basetemp_with_read_only_files",
+            "testing/test_tmpdir.py::test_mktemp[../../mypath4-False]",
+            "testing/test_tmpdir.py::test_mktemp[../mypath3-False]",
+            "testing/test_tmpdir.py::test_mktemp[./mypath1-True]",
+            "testing/test_tmpdir.py::test_mktemp[/mypath1-False]",
+            "testing/test_tmpdir.py::test_mktemp[mypath-True]",
+            "testing/test_tmpdir.py::test_mktemp[mypath5/..-False]",
+            "testing/test_tmpdir.py::test_mktemp[mypath6/../mypath6-True]",
+            "testing/test_tmpdir.py::test_mktemp[mypath7/../mypath7/..-False]"
+          ],
+          "regression_failed": [
+            "testing/test_tmpdir.py::TestRmRf::test_on_rm_rf_error"
+          ],
+          "regression_passed": false,
+          "tests_run": 39
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "pytest-dev__pytest-10893",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "d16243149646736f87f7e7af4da5811e2f063d647fc31b6ccb3d6444325a8016",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "a3d0a400c728867ce3a58e25029ccfd8daa538031c8e9f0aa1920ba0b8b30199",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "collected": 39,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/test_tmpdir.py::TestRmRf::test_on_rm_rf_error"
+          ],
+          "regression_failed": [
+            "testing/test_tmpdir.py::TestRmRf::test_on_rm_rf_error"
+          ],
+          "regression_passed": false,
+          "tests_run": 39
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {},
+        "status": "environment_failure"
+      },
+      "instance_id": "pytest-dev__pytest-10893",
+      "normalization_applied": false,
+      "status": "environment_failure",
+      "verification_complete": false,
+      "verified_repair": false,
+      "reported_status": "candidate_execution_failure",
+      "classification_note": "Test harness could not import the candidate-modified pytest source; qualified baseline/reference environment had passed. Original conservative incomplete-verification classification retained.",
+      "receipt_sha256": "e832d5b1b02eabef3c0972396f8d2329cb0887b59f69f5c0c9b7262ff728f042"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-10988",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 1308: unterminated triple-quoted string literal (detected at line 1327)",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "2d30c54b8c3e225993bab6dda176114cea7542a7fd3ed5e5b6f36c3984096ea8",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-10988",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 400: '(' was never closed",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "9d9022c4bb6e351ae3a85c337a8ce5e69281eb25d5414f0f12f53d2925516ea7",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-11044",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 434: unexpected indent",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "0cd9873fef670d9397354204019a1a4f46cefd209f273277fa82e40eb457aef5",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-11044",
+      "reason": "Invalid patch action",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "c6c07d24ecc896523f7f1299453dd9c23114f438336e58b30099e72f72955242",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-11047",
+      "normalization_applied": false,
+      "reason": "ValueError: Candidate Python syntax rejected at line 226: expected an indented block after function definition on line 225",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "36f7a32e0b1355fd3002fe3fc4e64dd23ffaaef54f46495481586ad0d7a43cf2",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "candidate_capture_sha256": "90bbf230905e20f023540f89b48c46acf17f9705441e1e5a97286920de5b4fd0",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "collected": 47,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/logging/test_reporting.py::test_date_format_percentf_log",
+            "testing/logging/test_reporting.py::test_date_format_percentf_tz_log"
+          ],
+          "regression_failed": [
+            "testing/logging/test_reporting.py::test_date_format_percentf_log",
+            "testing/logging/test_reporting.py::test_date_format_percentf_tz_log"
+          ],
+          "regression_passed": false,
+          "tests_run": 47
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "collected": 47,
+          "collection_errors": [],
+          "complete": false,
+          "execution_complete": true,
+          "failed": [
+            "testing/logging/test_reporting.py::test_date_format_percentf_log",
+            "testing/logging/test_reporting.py::test_date_format_percentf_tz_log"
+          ],
+          "regression_failed": [
+            "testing/logging/test_reporting.py::test_date_format_percentf_log",
+            "testing/logging/test_reporting.py::test_date_format_percentf_tz_log"
+          ],
+          "regression_passed": false,
+          "tests_run": 47
+        },
+        "status": "behavioral_mismatch"
+      },
+      "instance_id": "pytest-dev__pytest-11047",
+      "normalization_applied": false,
+      "status": "behavioral_mismatch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "8f72752fe992903c1842d69491c4e678bc73f67a9acfa9c794e64fa57a174b32",
+      "reported_status": "behavioral_mismatch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-11160",
+      "normalization_applied": false,
+      "reason": "ValueError: Edit range escapes captured excerpt",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "fd2e800e595b3a538ea1bd540c17d28749c9bfe97ec7561b10139fe396c9b926",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-11160",
+      "normalization_applied": false,
+      "reason": "ValueError: Edit range escapes captured excerpt",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "153368ae682b80e9d0b627ad6681e9ea29de00da73a4b5abc8038989a06607e7",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "adapter",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-11178",
+      "reason": "Invalid patch action",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "1b41d5675f759e0f6202fa32d4d06f6dec8e4a5fc46688d38e7eb4d3f7797949",
+      "reported_status": "invalid_patch"
+    },
+    {
+      "arm": "base",
+      "binding": "ad3ef2d0a1881fccb541ee109bab6c61bbf3d3bb013855c3313809c9aaeaaccc",
+      "instance_id": "pytest-dev__pytest-11178",
+      "normalization_applied": false,
+      "reason": "ValueError: Edit makes no change",
+      "status": "invalid_patch",
+      "verification_complete": true,
+      "verified_repair": false,
+      "receipt_sha256": "93d4cd5b30d102f53697088ed6a3021f191e20422f9d8e57d2e6704b2feb1058",
+      "reported_status": "invalid_patch"
+    }
+  ]
+}

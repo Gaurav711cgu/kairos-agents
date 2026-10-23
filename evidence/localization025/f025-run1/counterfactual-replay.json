@@ -1,0 +1,128 @@
+{
+ "synthetic/p1-constant": [
+  {
+   "call": "c0",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/units.py\n+++ b/pkg/units.py\n@@ -1,4 +1,4 @@\n-KB = 1000\n+KB = 1024\n \n \n def kb_to_bytes(value):\n",
+   "visible_check": true,
+   "check_tail": ""
+  }
+ ],
+ "synthetic/p2-insert-import": [
+  {
+   "call": "c0",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/geo.py\n+++ b/pkg/geo.py\n@@ -1,4 +1,6 @@\n \"\"\"Shapes.\"\"\"\n+\n+import math\n \n \n def area(radius):\n",
+   "visible_check": true,
+   "check_tail": ""
+  }
+ ],
+ "synthetic/p3-delete-line": [
+  {
+   "call": "c0",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/cart.py\n+++ b/pkg/cart.py\n@@ -1,3 +1,2 @@\n def total(items):\n-    print(\"debug\", items)\n     return sum(items)\n",
+   "visible_check": true,
+   "check_tail": ""
+  },
+  {
+   "call": "c1",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/cart.py\n+++ b/pkg/cart.py\n@@ -1,3 +1,2 @@\n def total(items):\n-    print(\"debug\", items)\n     return sum(items)\n",
+   "visible_check": true,
+   "check_tail": ""
+  }
+ ],
+ "synthetic/r1-slice": [
+  {
+   "call": "c1",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/seq.py\n+++ b/pkg/seq.py\n@@ -1,3 +1,3 @@\n def last_n(items, n):\n     \"\"\"Return the last n items.\"\"\"\n-    return items[-n - 1:]\n+    return items[-n:]\n",
+   "visible_check": true,
+   "check_tail": ""
+  },
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/seq.py\n+++ b/pkg/seq.py\n@@ -1,3 +1,3 @@\n def last_n(items, n):\n     \"\"\"Return the last n items.\"\"\"\n-    return items[-n - 1:]\n+    return items[-n:]\n",
+   "visible_check": true,
+   "check_tail": ""
+  }
+ ],
+ "synthetic/r2-default": [
+  {
+   "call": "c1",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/tags.py\n+++ b/pkg/tags.py\n@@ -1,3 +1,5 @@\n-def append_tag(tag, tags=[]):\n+def append_tag(tag, tags=None):\n+    if tags is None:\n+        tags = []\n     tags.append(tag)\n     return tags\n",
+   "visible_check": true,
+   "check_tail": ""
+  },
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/tags.py\n+++ b/pkg/tags.py\n@@ -1,3 +1,5 @@\n-def append_tag(tag, tags=[]):\n+def append_tag(tag, tags=None):\n+    if tags is None:\n+        tags = []\n     tags.append(tag)\n     return tags\n",
+   "visible_check": true,
+   "check_tail": ""
+  }
+ ],
+ "synthetic/r3-order": [
+  {
+   "call": "c1",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/words.py\n+++ b/pkg/words.py\n@@ -1,3 +1,10 @@\n def unique_words(text):\n     \"\"\"Lowercased words, first occurrence kept, in original order.\"\"\"\n-    return sorted(set(text.lower().split()))\n+    words = text.lower().split()\n+    seen = set()\n+    unique = []\n+    for word in words:\n+        if word not in seen:\n+            unique.append(word)\n+            seen.add(word)\n+    return unique\n",
+   "visible_check": true,
+   "check_tail": ""
+  },
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/pkg/words.py\n+++ b/pkg/words.py\n@@ -1,3 +1,10 @@\n def unique_words(text):\n     \"\"\"Lowercased words, first occurrence kept, in original order.\"\"\"\n-    return sorted(set(text.lower().split()))\n+    words = text.lower().split()\n+    seen = set()\n+    unique = []\n+    for word in words:\n+        if word not in seen:\n+            unique.append(word)\n+            seen.add(word)\n+    return unique\n",
+   "visible_check": true,
+   "check_tail": ""
+  }
+ ],
+ "dev/django__django-11772/oracle": [
+  {
+   "call": "c1",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/django/core/cache/utils.py\n+++ b/django/core/cache/utils.py\n@@ -1,5 +1,4 @@\n import hashlib\n-from urllib.parse import quote\n \n TEMPLATE_FRAGMENT_KEY_TEMPLATE = 'template.cache.%s.%s'\n \n@@ -7,6 +6,7 @@\n def make_template_fragment_key(fragment_name, vary_on=None):\n     if vary_on is None:\n         vary_on = ()\n-    key = ':'.join(quote(str(var)) for var in vary_on)\n-    args = hashlib.md5(key.encode())\n-    return TEMPLATE_FRAGMENT_KEY_TEMPLATE % (fragment_name, args.hexdigest())\n+    hash_obj = hashlib.sha256()\n+    for var in vary_on:\n+        hash_obj.update(str(var).encode())\n+    return TEMPLATE_FRAGMENT_KEY_TEMPLATE % (fragment_name, hash_obj.hexdigest())\n"
+  },
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/django/core/cache/utils.py\n+++ b/django/core/cache/utils.py\n@@ -1,5 +1,4 @@\n import hashlib\n-from urllib.parse import quote\n \n TEMPLATE_FRAGMENT_KEY_TEMPLATE = 'template.cache.%s.%s'\n \n@@ -7,6 +6,7 @@\n def make_template_fragment_key(fragment_name, vary_on=None):\n     if vary_on is None:\n         vary_on = ()\n-    key = ':'.join(quote(str(var)) for var in vary_on)\n-    args = hashlib.md5(key.encode())\n-    return TEMPLATE_FRAGMENT_KEY_TEMPLATE % (fragment_name, args.hexdigest())\n+    hash_obj = hashlib.sha256()\n+    for var in vary_on:\n+        hash_obj.update(str(var).encode())\n+    return TEMPLATE_FRAGMENT_KEY_TEMPLATE % (fragment_name, hash_obj.hexdigest())\n"
+  }
+ ],
+ "dev/pytest-dev__pytest-8124/oracle": [
+  {
+   "call": "c1",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/src/_pytest/skipping.py\n+++ b/src/_pytest/skipping.py\n@@ -97,6 +97,7 @@\n             \"sys\": sys,\n             \"platform\": platform,\n             \"config\": item.config,\n+            \"globals\": globals(),  # Allow contributing additional global variables\n         }\n         if hasattr(item, \"obj\"):\n             globals_.update(item.obj.__globals__)  # type: ignore[attr-defined]\n"
+  },
+  {
+   "call": "c2",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/src/_pytest/skipping.py\n+++ b/src/_pytest/skipping.py\n@@ -97,6 +97,7 @@\n             \"sys\": sys,\n             \"platform\": platform,\n             \"config\": item.config,\n+            \"additional_globals\": globals(),  # Allow contributing additional global variables\n         }\n         if hasattr(item, \"obj\"):\n             globals_.update(item.obj.__globals__)  # type: ignore[attr-defined]\n"
+  },
+  {
+   "call": "c4",
+   "accepted": true,
+   "reason": null,
+   "patch": "--- a/src/_pytest/skipping.py\n+++ b/src/_pytest/skipping.py\n@@ -97,6 +97,7 @@\n             \"sys\": sys,\n             \"platform\": platform,\n             \"config\": item.config,\n+            \"additional_globals\": globals(),  # Allow contributing additional global variables\n         }\n         if hasattr(item, \"obj\"):\n             globals_.update(item.obj.__globals__)  # type: ignore[attr-defined]\n"
+  }
+ ]
+}
