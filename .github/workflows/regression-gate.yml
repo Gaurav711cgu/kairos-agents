@@ -65,8 +65,11 @@ jobs:
           mkdir -p "$RUNNER_TEMP/kairos-evaluation013"
           git archive 32c21a9c189b46d755cf4cc9d8149a2ee41371fc | tar -xf - -C "$RUNNER_TEMP/kairos-evaluation013"
           .venv/bin/python -m scripts.verify_evaluation013 --root "$RUNNER_TEMP/kairos-evaluation013"
-      - name: Verify measured training and fresh comparison source
-        run: .venv/bin/python -m scripts.verify_measurement014
+      - name: Verify preserved measurement014 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-measurement014"
+          git archive 3c91e87364703da71e5db13437f86a36f7a045f4 | tar -xf - -C "$RUNNER_TEMP/kairos-measurement014"
+          .venv/bin/python -m scripts.verify_measurement014 --root "$RUNNER_TEMP/kairos-measurement014"
       - name: Prepare isolated test database configuration
         run: |
           .venv/bin/python - <<'PYTHON'
@@ -168,8 +171,11 @@ jobs:
           mkdir -p "$RUNNER_TEMP/kairos-evaluation013"
           git archive 32c21a9c189b46d755cf4cc9d8149a2ee41371fc | tar -xf - -C "$RUNNER_TEMP/kairos-evaluation013"
           .venv/bin/python -m scripts.verify_evaluation013 --root "$RUNNER_TEMP/kairos-evaluation013"
-      - name: Verify measured training and fresh comparison source
-        run: .venv/bin/python -m scripts.verify_measurement014
+      - name: Verify preserved measurement014 snapshot with its original verifier
+        run: |
+          mkdir -p "$RUNNER_TEMP/kairos-measurement014"
+          git archive 3c91e87364703da71e5db13437f86a36f7a045f4 | tar -xf - -C "$RUNNER_TEMP/kairos-measurement014"
+          .venv/bin/python -m scripts.verify_measurement014 --root "$RUNNER_TEMP/kairos-measurement014"
       - run: npx playwright install --with-deps chromium
         working-directory: dashboard
       - run: npm run test:browser
