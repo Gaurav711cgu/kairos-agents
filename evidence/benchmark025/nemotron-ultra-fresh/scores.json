@@ -1,0 +1,457 @@
+{
+  "attempts": 14,
+  "fair_pick": {
+    "django__django-12965": {
+      "sample": 0,
+      "verified": false
+    },
+    "django__django-13089": {
+      "sample": 1,
+      "verified": true
+    },
+    "django__django-13128": {
+      "sample": 0,
+      "verified": false
+    },
+    "django__django-13297": {
+      "sample": 0,
+      "verified": false
+    },
+    "django__django-13363": {
+      "sample": 0,
+      "verified": true
+    },
+    "django__django-13406": {
+      "sample": 1,
+      "verified": false
+    },
+    "django__django-13516": {
+      "sample": 0,
+      "verified": true
+    }
+  },
+  "fair_pick_verified": 3,
+  "model_calls": 0,
+  "pass_at_2": 3,
+  "pass_at_2_label": "oracle_selection",
+  "results": [
+    {
+      "chain_id": "dev/django__django-12965/oracle-s0",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_fast_delete_all (delete.tests.FastDeleteTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 54
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_fast_delete_all (delete.tests.FastDeleteTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 54
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-12965/oracle-s1",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_fast_delete_all (delete.tests.FastDeleteTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 54
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_fast_delete_all (delete.tests.FastDeleteTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 54
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13089/oracle-s0",
+      "model_calls": 0,
+      "outcome": "loop_call_cap",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13089/oracle-s1",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_cull_delete_when_store_empty (cache.tests.DBCacheTests)",
+            "test_cull_delete_when_store_empty (cache.tests.DBCacheWithTimeZoneTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 483
+        },
+        "qualified": true,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": true,
+        "reference_summary": {
+          "complete": true,
+          "execution_complete": true,
+          "regression_failed": [],
+          "regression_passed": [
+            "test_cull_delete_when_store_empty (cache.tests.DBCacheTests)",
+            "test_cull_delete_when_store_empty (cache.tests.DBCacheWithTimeZoneTests)"
+          ],
+          "tests_run": 483
+        },
+        "status": "qualified"
+      },
+      "model_calls": 0,
+      "outcome": "verified_repair",
+      "verified_repair": true
+    },
+    {
+      "chain_id": "dev/django__django-13128/oracle-s0",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_date_case_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_date_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_date_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_datetime_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_datetime_subtraction_microseconds (expressions.tests.FTimeDeltaTests)",
+            "test_time_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_time_subtraction (expressions.tests.FTimeDeltaTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 143
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_date_case_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_date_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_date_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_datetime_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_datetime_subtraction_microseconds (expressions.tests.FTimeDeltaTests)",
+            "test_time_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_time_subtraction (expressions.tests.FTimeDeltaTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 143
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13128/oracle-s1",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_date_case_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_date_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_date_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_datetime_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_datetime_subtraction_microseconds (expressions.tests.FTimeDeltaTests)",
+            "test_time_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_time_subtraction (expressions.tests.FTimeDeltaTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 143
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_date_case_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_date_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_date_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_datetime_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_datetime_subtraction_microseconds (expressions.tests.FTimeDeltaTests)",
+            "test_time_subquery_subtraction (expressions.tests.FTimeDeltaTests)",
+            "test_time_subtraction (expressions.tests.FTimeDeltaTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 143
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13297/oracle-s0",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_template_params_filtering (generic_views.test_base.DeprecationTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 59
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_template_params_filtering (generic_views.test_base.DeprecationTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 59
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13297/oracle-s1",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_template_params_filtering (generic_views.test_base.DeprecationTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 59
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_template_params_filtering (generic_views.test_base.DeprecationTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 59
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13363/oracle-s0",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_trunc_timezone_applied_before_truncation (db_functions.datetime.test_extract_trunc.DateFunctionWithTimeZoneTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 79
+        },
+        "qualified": true,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": true,
+        "reference_summary": {
+          "complete": true,
+          "execution_complete": true,
+          "regression_failed": [],
+          "regression_passed": [
+            "test_trunc_timezone_applied_before_truncation (db_functions.datetime.test_extract_trunc.DateFunctionWithTimeZoneTests)"
+          ],
+          "tests_run": 79
+        },
+        "status": "qualified"
+      },
+      "model_calls": 0,
+      "outcome": "verified_repair",
+      "verified_repair": true
+    },
+    {
+      "chain_id": "dev/django__django-13363/oracle-s1",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_trunc_timezone_applied_before_truncation (db_functions.datetime.test_extract_trunc.DateFunctionWithTimeZoneTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 79
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_trunc_timezone_applied_before_truncation (db_functions.datetime.test_extract_trunc.DateFunctionWithTimeZoneTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 79
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13406/oracle-s0",
+      "model_calls": 0,
+      "outcome": "loop_repeated",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13406/oracle-s1",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_annotation_values (queryset_pickle.tests.PickleabilityTestCase)"
+          ],
+          "regression_passed": [
+            "test_annotation_values_list (queryset_pickle.tests.PickleabilityTestCase)",
+            "test_annotation_with_callable_default (queryset_pickle.tests.PickleabilityTestCase)"
+          ],
+          "tests_run": 35
+        },
+        "qualified": false,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": false,
+        "reference_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_annotation_values (queryset_pickle.tests.PickleabilityTestCase)"
+          ],
+          "regression_passed": [
+            "test_annotation_values_list (queryset_pickle.tests.PickleabilityTestCase)",
+            "test_annotation_with_callable_default (queryset_pickle.tests.PickleabilityTestCase)"
+          ],
+          "tests_run": 35
+        },
+        "status": "behavioral_mismatch"
+      },
+      "model_calls": 0,
+      "outcome": "behavioral_mismatch",
+      "verified_repair": false
+    },
+    {
+      "chain_id": "dev/django__django-13516/oracle-s0",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_outputwrapper_flush (user_commands.tests.CommandTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 44
+        },
+        "qualified": true,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": true,
+        "reference_summary": {
+          "complete": true,
+          "execution_complete": true,
+          "regression_failed": [],
+          "regression_passed": [
+            "test_outputwrapper_flush (user_commands.tests.CommandTests)"
+          ],
+          "tests_run": 44
+        },
+        "status": "qualified"
+      },
+      "model_calls": 0,
+      "outcome": "verified_repair",
+      "verified_repair": true
+    },
+    {
+      "chain_id": "dev/django__django-13516/oracle-s1",
+      "checks": {
+        "baseline_regression_reproduced": true,
+        "baseline_summary": {
+          "complete": false,
+          "execution_complete": true,
+          "regression_failed": [
+            "test_outputwrapper_flush (user_commands.tests.CommandTests)"
+          ],
+          "regression_passed": [],
+          "tests_run": 44
+        },
+        "qualified": true,
+        "raw_outputs_complete": true,
+        "reference_complete_pass": true,
+        "reference_summary": {
+          "complete": true,
+          "execution_complete": true,
+          "regression_failed": [],
+          "regression_passed": [
+            "test_outputwrapper_flush (user_commands.tests.CommandTests)"
+          ],
+          "tests_run": 44
+        },
+        "status": "qualified"
+      },
+      "model_calls": 0,
+      "outcome": "verified_repair",
+      "verified_repair": true
+    }
+  ],
+  "skipped_synthetic": [],
+  "verified_repairs": 4
+}
