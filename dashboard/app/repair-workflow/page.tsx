@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import Link from "next/link";
 import captures from "@/lib/repair010-results.json";
 import { CheckEvidence, PatchEvidence } from "@/components/InvestigationEvidence";
@@ -27,6 +28,7 @@ export default function RepairWorkflow() {
       <h1>A captured patch.<br /><em>Checked independently.</em></h1>
       <p>Two model-generated development candidates passed subsequent independent checks. Inspect the actual changes, test output and original attempt outcomes.</p>
     </header>
+      <CurrentResult historical />
     <p className="evidence-explainer">A later investigation completed end to end with 22 passing tests. <Link href="/repair-investigation">Inspect the new repair investigation</Link>.</p>
     <div className="article-layout">
       <aside className="article-index">
@@ -55,7 +57,7 @@ export default function RepairWorkflow() {
         </section>
         <section id="attempts">
           <h2>Keep the original outcomes visible.</h2>
-          <p>Version 3 corrected the adapter issue, then stopped at the subscription usage limit. Its dispatch outcome remains unknown and was not resent. This follow-up has no completed end-to-end repair success to report.</p><p>Next step: run a newly reviewed task with GPT-6.1-Sol after normal quota returns, then freeze the next evaluation. This path uses the existing laptop and subscription; no new hardware or API billing is required.</p>
+          <p>Version 3 corrected the adapter issue, then stopped at the subscription usage limit. Its dispatch outcome remains unknown and was not resent. This follow-up has no completed end-to-end repair success to report.</p><p>Later work moved repair runs to free hosted models; the Benchmark page has the current, independently scored results. Originally planned next step: run a newly reviewed task with GPT-6.1-Sol after normal quota returns, then freeze the next evaluation. This path uses the existing laptop and subscription; no new hardware or API billing is required.</p>
           <details className="raw-record">
             <summary>Inspect every captured attempt</summary>
             {/* The horizontally scrollable ledger needs keyboard focus. */}
@@ -97,7 +99,7 @@ export default function RepairWorkflow() {
         <section id="scope">
           <h2>A stronger mechanism needs fresh evidence.</h2>
           <p>Exact rejected edits now survive context reconstruction. Source-bound replacements and independent checks apply to registered tasks rather than a list of case-specific fixes. That removes observed workflow waste; it does not make every future defect repairable.</p>
-          <p>The frozen local-model v7 study, completed on 13 October 2026, remains 0/10 across five qualified cases. It describes that model and configuration, not an overall score for these later candidates. Public historical source may have appeared in training data, and benchmark setup supplied entry files from known repair paths. A new held-out study is needed to measure the optional workflow.</p>
+          <p>The frozen local-model v7 study, completed on 13 October 2026, was 0/10 across five qualified cases. It describes that model and configuration, not an overall score for these later candidates. Public historical source may have appeared in training data, and benchmark setup supplied entry files from known repair paths. A new held-out study is needed to measure the optional workflow.</p>
           <p>Candidate code shares the reviewed test environment. These checks do not establish adversarial test-forgery resistance, broad repository support or autonomous repair reliability.</p>
           <p>Evidence captured: <time dateTime={evidence.recorded_at}>{evidence.recorded_at}</time>.</p>
           <div className="investigation-actions"><Link className="text-link" href="/advancement">Inspect the frozen local-model study</Link><Link className="text-link" href="/engineering">Read the engineering decisions</Link></div>

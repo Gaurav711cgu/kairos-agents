@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import currentCohort from "@/lib/study007-cohort.json";
 import Link from "next/link";
 import { activeStudyComplete, outcomeLabel, caseTitle, configurationLabel } from "@/lib/investigations";
@@ -22,6 +23,7 @@ export default async function Home() {
   const repaired = latest.filter(item=>item.outcome==="verified_repair").length;
   return <>
     <div className="site-meta"><span>Real repository investigations</span><span>{result.error ? "Records unavailable" : `${records.length} recorded attempts`}</span></div>
+    <CurrentResult home />
     <div className="investigation-actions"><Link className="text-link" href="/how-it-works">Follow your first investigation</Link><Link className="text-link" href="/repair-comparison">Inspect the 57-attempt repair comparison</Link><Link className="text-link" href="/advancement">Read the frozen local-model study</Link><Link className="text-link" href="/repair-workflow">Read the repair workflow follow-up</Link><Link className="text-link" href="/repair-investigation">Inspect the completed repair investigation</Link></div>
     <section className="hero investigation-hero">
       <div className="hero-copy"><span className="eyebrow opening-label">Kairos / Repository investigation</span>

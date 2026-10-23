@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import Link from "next/link";
 import currentCohort from "@/lib/study007-cohort.json";
 
@@ -20,6 +21,7 @@ const execution = [
 export default function HowItWorks() {
   return <div className="page-shell reading-page">
     <header className="page-heading"><span className="eyebrow">Start here</span><h1>From a defect<br /><em>to an inspectable result.</em></h1><p>What you do, what Kairos runs and what you receive. Begin with a saved investigation; use the private workbench for a new attempt.</p></header>
+      <CurrentResult />
     <div className="article-layout">
       <aside className="article-index"><span className="eyebrow">Your path</span><a href="#inspect">Inspect a saved result</a><a href="#run">Run a new attempt</a><a href="#controls">Other actions</a><a href="#outcomes">Did it work?</a></aside>
       <article className="prose">
@@ -39,7 +41,7 @@ export default function HowItWorks() {
           <p><strong>Publish:</strong> an administrator makes a private record publicly inspectable. Other roles cannot publish.</p>
           <p><strong>Retry:</strong> reuse the same command identity after an uncertain submission. An unknown model dispatch is preserved without being sent again.</p>
         </section>
-        <section id="outcomes"><h2>What you receive.</h2><p>An inspection gives you the original source, proposed change, check results and downloadable evidence. A new investigation returns its observed outcome. Kairos marks a repair verified after the registered regression and relevant existing tests pass.</p><p>The recorded Django repair passed its declared checks. Frozen local-model v7 validation remains 0/10 across five qualified Django and pytest cases. The earlier v5 validation remains 0/10, and the older study remains 0/36. Both unsuccessful comparisons remain available beside the earned demonstrations.</p><p>Browser journeys exercise the user actions, roles, errors, downloads, keyboard controls and mobile layout. Their receipts record the actual interaction results. The separate repair study reports each model attempt and its verification outcome.</p><div className="investigation-actions"><Link className="text-link" href="/follow-up">Read every follow-up outcome</Link><Link className="text-link" href="/docs">Run the checks yourself</Link><Link className="text-link" href="/repair-workflow">Inspect the repair workflow follow-up</Link><Link className="text-link" href="/repair-investigation">Follow the completed pytest investigation</Link></div></section>
+        <section id="outcomes"><h2>What you receive.</h2><p>An inspection gives you the original source, proposed change, check results and downloadable evidence. A new investigation returns its observed outcome. Kairos marks a repair verified after the registered regression and relevant existing tests pass.</p><p>The recorded Django repair passed its declared checks. Earlier frozen local-model studies were 0/10 (v7, five qualified Django and pytest cases), 0/10 (v5) and 0/36 (older study); the current hosted-model results are on the Benchmark page. Both unsuccessful comparisons remain available beside the earned demonstrations.</p><p>Browser journeys exercise the user actions, roles, errors, downloads, keyboard controls and mobile layout. Their receipts record the actual interaction results. The separate repair study reports each model attempt and its verification outcome.</p><div className="investigation-actions"><Link className="text-link" href="/follow-up">Read every follow-up outcome</Link><Link className="text-link" href="/docs">Run the checks yourself</Link><Link className="text-link" href="/repair-workflow">Inspect the repair workflow follow-up</Link><Link className="text-link" href="/repair-investigation">Follow the completed pytest investigation</Link></div></section>
       </article>
     </div>
   </div>;

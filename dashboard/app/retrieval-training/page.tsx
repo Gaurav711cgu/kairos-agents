@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import Link from "next/link";
 import evidence from "@/lib/training014-summary.json";
 
@@ -13,6 +14,7 @@ export default function RetrievalTraining() {
       <h1>Train a smaller head.<br /><em>Measure what changed.</em></h1>
       <p>A frozen code encoder, 24,576 learned parameters and 113 held-out functions. Inspect the data, checkpoint selection and measured results.</p>
     </header>
+      <CurrentResult historical />
     <div className="article-layout">
       <aside className="article-index"><span className="eyebrow">Inspect the experiment</span>
         <a href="#task">The retrieval task</a><a href="#training">Training and selection</a>

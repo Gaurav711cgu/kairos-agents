@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import Link from "next/link";
 import summary from "@/lib/pilot013-summary.json";
 import bundle from "@/lib/pilot013-bundle.json";
@@ -23,6 +24,7 @@ export default function PilotInvestigation() {
       <h1>From selected source<br /><em>to a checked repair.</em></h1>
       <p>A real pytest defect, a model-generated change and 22 passing tests. Follow the captured investigation in the order it happened.</p>
     </header>
+      <CurrentResult historical />
     <div className="article-layout">
       <aside className="article-index">
         <span className="eyebrow">Inspect the work</span>

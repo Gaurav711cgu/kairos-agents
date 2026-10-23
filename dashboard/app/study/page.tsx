@@ -1,3 +1,4 @@
+import { CurrentResult } from "@/components/CurrentResult";
 import Link from 'next/link';
 import data from '@/lib/study004-results.json';
 type Result={complete:boolean;selected_profile:string;strategies:Record<string,{attempts:number;verified:number;calls:number;tokens:number;elapsed_seconds:number;outcomes:Record<string,number>;repositories:Record<string,{attempts:number;verified:number;tokens:number;elapsed_seconds:number}>}>;paired_differences:{left:string;right:string;difference:number;interval_95:number[];discordant_pairs:number;uncertainty_note:string}[];declared_quality_target:{actual_cases:number;actual_repositories:number;met:boolean}};
@@ -5,6 +6,7 @@ const study=data as Result;
 const label=(value:string)=>({'baseline-v4':'Single call','loop-v4':'Bounded loop','drafts-v4':'Independent drafts'}[value]||value);
 export const metadata={title:'Frozen repair study'};
 export default function Study(){return <div className="page-shell reading-page"><header className="page-heading"><span className="eyebrow">Build 004 / Repair study</span><h1>Three approaches.<br/><em>The same cases.</em></h1><p>Eighteen qualified historical defects. Six development cases, twelve locked evaluation cases. Results include failures and inference cost.</p></header>
+      <CurrentResult historical />
   <section className="scope-note"><h2>A harness defect was found afterward</h2><p>The v4 loop lost original source after its first tool result, disabling patch proposals in 55 of 66 model calls. The original outcomes remain unchanged. <Link href="/follow-up">Inspect the correction and separately recorded follow-up.</Link></p></section>
   {!study.complete?<section className="scope-note"><h2>Evaluation is not complete</h2><p>No partial comparison or successful-repair total is presented as the final study.</p></section>:<>
   <p className="investigation-scope">Selected local profile: {study.selected_profile}. Each evaluation case ran once per strategy after configuration freeze. $0 API spend.</p>
